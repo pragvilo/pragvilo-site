@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%273%27 fill=%27%230E3B2C%27/%3E%3Cpath d=%27M11 24V8h6.2c3.5 0 5.8 2 5.8 5s-2.3 5-5.8 5H11%27 fill=%27none%27 stroke=%27%23F6F8F6%27 stroke-width=%272.2%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<title>Pragvilo</title>
+<meta name="description" content="Pragvilo imagine, développe et exploite ses propres services numériques pour répondre à des besoins concrets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Public+Sans:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  /* Layout: one quiet column, left-aligned, wordmark on top, footer pinned to the bottom of the screen. */
+  :root {
+    --bg: #F6F8F6;
+    --surface: #FFFFFF;
+    --fg: #14231D;
+    --muted: #5B6B64;
+    --rule: #D7E0DB;
+    --accent: #0E3B2C;
+    --accent-ink: #F6F8F6;
+    --todo: #E3EDE7;
+    --display: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --body: "Public Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B1F18; --surface: #10291F; --fg: #E7EEEA; --muted: #9DB0A7;
+      --rule: #1F3D31; --accent: #8FC7AC; --accent-ink: #0B1F18; --todo: #1C3A2E;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B1F18; --surface: #10291F; --fg: #E7EEEA; --muted: #9DB0A7;
+    --rule: #1F3D31; --accent: #8FC7AC; --accent-ink: #0B1F18; --todo: #1C3A2E;
+    color-scheme: dark;
+  }
+
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    max-width: 68rem;
+    margin: 0 auto;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    padding-block: clamp(1.5rem, 4vw, 3rem);
+    box-sizing: border-box;
+  }
+
+  /* Wordmark */
+  .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--fg); width: fit-content; }
+  .brand svg { width: 2rem; height: 2rem; flex: none; }
+  .brand span {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Main statement */
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.75rem;
+    padding-block: clamp(3rem, 10vh, 7rem);
+    max-width: 44rem;
+  }
+  .eyebrow {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--accent); }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(2.4rem, 6.2vw, 4.25rem);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    color: var(--fg);
+  }
+  h1 span { display: block; }
+  h1 span + span { color: var(--accent); font-style: italic; }
+  .approach { display: grid; gap: 0.4rem; max-width: 34rem; }
+  .approach p { margin: 0; color: var(--fg); }
+  .approach .label, .contact .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .lede {
+    margin: 0;
+    max-width: 34rem;
+    font-size: 1.125rem;
+    color: var(--muted);
+  }
+  .contact {
+    margin-top: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+  }
+  .contact .label {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .contact a {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  .contact a:hover { border-bottom-width: 2px; }
+
+  /* Footer */
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+  }
+  .linklike {
+    font: inherit;
+    color: var(--fg);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--rule);
+  }
+  .linklike:hover { text-decoration-color: currentColor; }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  /* Mentions légales */
+  dialog {
+    width: min(40rem, calc(100% - 2rem));
+    max-height: calc(100% - 3rem);
+    padding: 0;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--fg);
+    box-sizing: border-box;
+  }
+  dialog::backdrop { background: rgba(6, 20, 15, 0.55); }
+  .legal { padding: clamp(1.25rem, 4vw, 2.25rem); display: grid; gap: 1.5rem; }
+  .legal header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .legal h2 { margin: 0; font-family: var(--display); font-weight: 600; font-size: 1.9rem; line-height: 1.1; }
+  .legal h3 {
+    margin: 0 0 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .legal section p { margin: 0; font-size: 0.9375rem; color: var(--fg); }
+  .legal section p + p { margin-top: 0.35rem; }
+  .legal .muted { color: var(--muted); }
+  .todo { background: var(--todo); padding: 0 0.3em; border-radius: 3px; }
+  .close {
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--accent);
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    cursor: pointer;
+    flex: none;
+  }
+  .close:hover { border-color: var(--accent); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    main > * { animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both; }
+    main > *:nth-child(2) { animation-delay: 0.06s; }
+    main > *:nth-child(3) { animation-delay: 0.12s; }
+    main > *:nth-child(4) { animation-delay: 0.18s; }
+    main > *:nth-child(5) { animation-delay: 0.24s; }
+    @keyframes rise { from { transform: translateY(6px); opacity: 0.001; } to { transform: none; opacity: 1; } }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <a class="brand" href="#" aria-label="Pragvilo">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="3" fill="var(--accent)"/>
+      <path d="M11 24V8h6.2c3.5 0 5.8 2 5.8 5s-2.3 5-5.8 5H11" fill="none" stroke="var(--accent-ink)" stroke-width="2.2" stroke-linejoin="round"/>
+    </svg>
+    <span>Pragvilo</span>
+  </a>
+
+  <main>
+    <p class="eyebrow">Création de services numériques</p>
+    <h1><span>Des idées bien pensées.</span> <span>Des services qui marchent.</span></h1>
+    <p class="lede">Pragvilo imagine, développe et exploite ses propres services numériques pour répondre à des besoins concrets.</p>
+    <div class="approach">
+      <span class="label">Notre approche</span>
+      <p>Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer — avec l’utilité comme point de départ et le résultat comme repère.</p>
+    </div>
+    <div class="contact">
+      <span class="label">Contact</span>
+      <a class="em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 Pragvilo <span aria-hidden="true">·</span> <button class="linklike" type="button" id="open-legal">Mentions légales</button></span>
+  </footer>
+</div>
+
+<dialog id="legal" aria-labelledby="legal-title">
+  <div class="legal">
+    <header>
+      <h2 id="legal-title">Mentions légales</h2>
+      <button class="close" type="button" id="close-legal">Fermer</button>
+    </header>
+
+    <section>
+      <h3>Éditeur du site</h3>
+      <p><span class="todo">[Prénom Nom]</span>, entrepreneur individuel (EI), exerçant sous le nom commercial Pragvilo.</p>
+      <p>Adresse : <span class="todo">[adresse de l’établissement]</span></p>
+      <p>SIRET : <span class="todo">[numéro SIRET]</span> — immatriculé au Registre national des entreprises</p>
+      <p>TVA : <span class="todo">[n° de TVA intracommunautaire, ou « TVA non applicable, art. 293 B du CGI »]</span></p>
+      <p>Email : <span class="em" data-u="tcatnoc" data-d="moc.olivgarp">contact [at] pragvilo [point] com</span></p>
+    </section>
+
+    <section>
+      <h3>Directeur de la publication</h3>
+      <p><span class="todo">[Prénom Nom]</span></p>
+    </section>
+
+    <section>
+      <h3>Hébergement</h3>
+      <p><span class="todo">[Nom de l’hébergeur]</span></p>
+      <p><span class="todo">[Adresse et téléphone de l’hébergeur]</span></p>
+    </section>
+
+    <section>
+      <h3>Données personnelles</h3>
+      <p>Ce site ne dépose aucun cookie et ne collecte aucune donnée personnelle. Les messages reçus par email servent uniquement à y répondre et ne sont pas transmis à des tiers.</p>
+      <p>Conformément au RGPD, vous pouvez demander l’accès, la rectification ou la suppression de vos données en écrivant à <span class="em" data-u="tcatnoc" data-d="moc.olivgarp">contact [at] pragvilo [point] com</span>.</p>
+    </section>
+
+    <section>
+      <h3>Propriété intellectuelle</h3>
+      <p>Le nom Pragvilo, le logo et les contenus de ce site sont la propriété de leur éditeur. Toute reproduction sans autorisation est interdite.</p>
+    </section>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    var rev = function (s) { return s.split('').reverse().join(''); };
+    document.querySelectorAll('.em').forEach(function (el) {
+      var addr = rev(el.dataset.u) + String.fromCharCode(64) + rev(el.dataset.d);
+      el.textContent = addr;
+      if (el.tagName === 'A') { el.href = 'mai' + 'lto:' + addr; }
+    });
+  })();
+  (function () {
+    var dlg = document.getElementById('legal');
+    var openBtn = document.getElementById('open-legal');
+    var closeBtn = document.getElementById('close-legal');
+    function open() {
+      if (dlg.showModal) { dlg.showModal(); } else { dlg.setAttribute('open', ''); }
+      try { history.replaceState(null, '', '#mentions-legales'); } catch (e) {}
+    }
+    function close() {
+      if (dlg.close) { dlg.close(); } else { dlg.removeAttribute('open'); }
+    }
+    openBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+    dlg.addEventListener('close', function () {
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    });
+    if (location.hash === '#mentions-legales') open();
+  })();
+</script>
+</body>
+</html>
