@@ -8,7 +8,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,400..700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Schibsted+Grotesk:ital,wght@0,400..800;1,400..800&amp;family=Martian+Mono:wdth,wght@75..112.5,400..700&amp;display=swap">
 <style>
 /* Concept : une page = un tour de circuit. Paddock (hero) → piste (formats) → grille (événements) → drapeau à damier (contact).
    Un seul vrai « moment » : la procédure de départ des feux dans le hero. Le reste reste sobre et précis. */
@@ -23,7 +23,7 @@
   --mute:#8E8C86;         /* légendes sur noir */
   --line:#D3D3CF;
   --display:'Archivo', 'Arial Black', system-ui, sans-serif;
-  --body:'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --body:'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono:'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --gutter:clamp(20px, 5vw, 64px);
   --ease:cubic-bezier(.2,.8,.1,1);
@@ -32,7 +32,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{margin:0;background:var(--paper);color:var(--carbon);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--carbon);font-family:var(--body);font-size:17px;line-height:1.6;letter-spacing:-.005em;font-feature-settings:'ss01';-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
@@ -120,28 +120,30 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 /* ---------- Club ---------- */
 .club{padding-block:clamp(80px, 10vw, 140px)}
-.club .wrap{display:flex;flex-direction:column;gap:clamp(44px, 5vw, 72px)}
-.gears{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--carbon)}
-.gear{display:flex;flex-direction:column;gap:18px;padding:22px clamp(16px, 2vw, 28px) 0 0;min-width:0}
-.gear+.gear{padding-left:clamp(16px, 2vw, 28px);border-left:1px solid var(--line)}
-.gear .eyebrow{display:flex;justify-content:space-between;color:var(--steel)}
-.gear .eyebrow b{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:15px;letter-spacing:0;color:var(--carbon)}
-.gear h2{font-size:clamp(26px, 3.1vw, 46px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.club .wrap{display:flex;flex-direction:column;gap:clamp(36px, 4vw, 56px)}
+.gears{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px, 2.4vw, 36px);margin:0;padding:0;list-style:none}
+.gear{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:10px 12px;min-width:0}
+.gear .eyebrow{font-size:10px;color:var(--steel);order:2}
+.gear h2{font-size:clamp(18px, 2vw, 28px);line-height:1;letter-spacing:-.015em;white-space:nowrap;order:1}
 .gear:nth-child(3) h2{color:var(--orange-ink)}
-.rev{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
-.rev i{height:10px;border-radius:1px;background:var(--seg);transform-origin:bottom}
+.rev{grid-column:1 / -1;order:3;display:grid;grid-template-columns:repeat(12,1fr);gap:2px}
+.rev i{height:4px;background:var(--seg);transform-origin:left}
 .rev i{--seg:var(--line)}
 .rev i:nth-child(-n+4){--seg:var(--carbon)}
 .gear:nth-child(n+2) .rev i:nth-child(n+5):nth-child(-n+8){--seg:var(--orange)}
 .gear:nth-child(3) .rev i:nth-child(n+9){--seg:var(--signal)}
-.reveal-armed .gears:not(.in) .rev i{background:var(--line);transform:scaleY(.35)}
-.gears.in .rev i{transition:background .12s,transform .35s var(--ease);transition-delay:calc(var(--k) * 32ms + 150ms)}
-.gears.in .gear:nth-child(3) .rev i:nth-child(n+9){animation:shift .5s steps(2) calc(var(--k) * 32ms + 600ms) 3}
+.reveal-armed .gears:not(.in) .rev i{background:var(--line)}
+.gears.in .rev i{transition:background .12s;transition-delay:calc(var(--k) * 28ms + 150ms)}
+.gears.in .gear:nth-child(3) .rev i:nth-child(n+9){animation:shift .5s steps(2) calc(var(--k) * 28ms + 500ms) 3}
 @keyframes shift{50%{opacity:.25}}
-@media (max-width:760px){.gears{grid-template-columns:1fr}.gear,.gear+.gear{padding:20px 0;border-left:0;border-bottom:1px solid var(--line)}.gear h2{font-size:clamp(30px, 9vw, 44px)}}
+@media (max-width:760px){.gears{grid-template-columns:1fr;gap:18px}.gear h2{font-size:24px}}
 .club-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:32px clamp(40px, 6vw, 96px);align-items:start}
-.club-body .quote{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:clamp(28px, 3.2vw, 46px);line-height:1.08;color:var(--orange-ink);text-wrap:balance;position:relative;padding-top:28px}
-.club-body .quote::before{content:"";position:absolute;top:0;left:0;width:64px;height:12px;background:conic-gradient(var(--carbon) 25%,transparent 0 50%,var(--carbon) 0 75%,transparent 0) 0 0/12px 12px}
+.club-body .quote{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:clamp(28px, 3.2vw, 46px);line-height:1.08;color:var(--orange-ink);text-wrap:balance}
+.flag-t{position:relative;padding-left:calc(12px + .4em)}
+.flag-t::before{content:"";position:absolute;left:0;top:.06em;bottom:.06em;width:12px;background:conic-gradient(var(--chk, currentColor) 25%,transparent 0 50%,var(--chk, currentColor) 0 75%,transparent 0) 0 0/12px 12px;transform-origin:top}
+.club-body .quote{--chk:var(--carbon)}
+.reveal-armed .rv.flag-t:not(.in)::before{transform:scaleY(0)}
+.rv.flag-t.in::before{transition:transform .8s .15s var(--ease)}
 .club-body .txt{display:flex;flex-direction:column;gap:22px;font-size:19px;line-height:1.65;color:var(--steel);max-width:62ch}
 .club-body .txt p{margin:0}
 @media (max-width:760px){.club-body{grid-template-columns:1fr}}
@@ -346,12 +348,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 <section id="club" class="club band">
   <div class="wrap">
     <ul class="gears rv" aria-label="Passion, Accélération, Succès">
-      <li class="gear"><span class="eyebrow">1er rapport <b>1</b></span><h2 class="display">Passion</h2><div class="rev" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i></div></li>
-      <li class="gear"><span class="eyebrow">2e rapport <b>2</b></span><h2 class="display">Accélération</h2><div class="rev" aria-hidden="true"><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i><i style="--k:20"></i><i style="--k:21"></i><i style="--k:22"></i><i style="--k:23"></i></div></li>
-      <li class="gear"><span class="eyebrow">3e rapport <b>3</b></span><h2 class="display">Succès</h2><div class="rev" aria-hidden="true"><i style="--k:24"></i><i style="--k:25"></i><i style="--k:26"></i><i style="--k:27"></i><i style="--k:28"></i><i style="--k:29"></i><i style="--k:30"></i><i style="--k:31"></i><i style="--k:32"></i><i style="--k:33"></i><i style="--k:34"></i><i style="--k:35"></i></div></li>
+      <li class="gear"><span class="eyebrow">R1</span><h2 class="display">Passion</h2><div class="rev" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i></div></li>
+      <li class="gear"><span class="eyebrow">R2</span><h2 class="display">Accélération</h2><div class="rev" aria-hidden="true"><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i><i style="--k:20"></i><i style="--k:21"></i><i style="--k:22"></i><i style="--k:23"></i></div></li>
+      <li class="gear"><span class="eyebrow">R3</span><h2 class="display">Succès</h2><div class="rev" aria-hidden="true"><i style="--k:24"></i><i style="--k:25"></i><i style="--k:26"></i><i style="--k:27"></i><i style="--k:28"></i><i style="--k:29"></i><i style="--k:30"></i><i style="--k:31"></i><i style="--k:32"></i><i style="--k:33"></i><i style="--k:34"></i><i style="--k:35"></i></div></li>
     </ul>
     <div class="club-body">
-      <p class="quote rv">Let's make motorsport networking fun and impactful!</p>
+      <p class="quote rv flag-t">Let's make motorsport networking fun and impactful!</p>
       <div class="txt rv">
         <p>Ensemble, notre objectif est de former un club d'affaires convivial et enthousiaste. Ceci vise à réinventer une passion discrète de notre sport dans un monde alliant technologie et vitesse.</p>
         <p>Dans l'univers professionnel, nous sommes convaincus que les connexions inspirantes sont la clé du succès. Des relations profondes, durables et authentiques qui apportent non seulement du soutien, des conseils, des idées et des opportunités d'affaires, mais aussi des connexions véritables.</p>
@@ -362,7 +364,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 <section class="formats band" aria-labelledby="formats-titre">
   <div class="wrap">
-    <h2 id="formats-titre" class="display rv">What's in it for you?</h2>
+    <h2 id="formats-titre" class="display rv flag-t">What's in it for you?</h2>
     <article class="lead-fmt">
       <div class="shot"><img src="img/diner-hd.jpg" alt="Dîner du club sur une terrasse face à la tour Eiffel" loading="lazy"></div>
       <div class="fmt-head rv">
@@ -401,7 +403,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 <section id="evenements" class="events band">
   <div class="wrap">
     <div class="events-head">
-      <h2 class="display rv">Nos événements</h2>
+      <h2 class="display rv flag-t">Nos événements</h2>
       <span class="eyebrow">Grille 2026 — 2027</span>
     </div>
     <ul class="grid">
@@ -417,7 +419,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 <section id="newsletter" class="news band">
   <div class="wrap">
     <div class="news-intro">
-      <h2 class="display rv">Une newsletter gratuite et exclusive</h2>
+      <h2 class="display rv flag-t">Une newsletter gratuite et exclusive</h2>
       <p>Des histoires de bolides, de pilotes pour les entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
       <p>Nos posts donnent un éclairage nouveau sur des profils inspirants, des événements emblématiques de notre sport.</p>
       <form class="nl-form" aria-label="Inscription à la newsletter" action="https://idsociety.substack.com/subscribe" method="get" target="_blank">
@@ -437,7 +439,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 <section id="faq" class="faq band">
   <div class="wrap">
-    <h2 class="display rv">Questions fréquentes</h2>
+    <h2 class="display rv flag-t">Questions fréquentes</h2>
     <div class="qa">
       <details><summary>Dois-je avoir une entreprise ?<i aria-hidden="true"></i></summary><p>Oui, c'est préférable, nous sommes un club d'affaires avant tout.</p></details>
       <details><summary>Je travaille beaucoup, je n'ai pas le temps. Est-ce pour moi ?<i aria-hidden="true"></i></summary><p>Nous nous adaptons aux emplois du temps chargés d'entrepreneurs et dirigeants passionnés et passionnants car ce club est géré par des entrepreneurs en activité.</p></details>
@@ -452,7 +454,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   <div class="flag" aria-hidden="true"></div>
   <div class="wrap">
     <div class="contact-intro">
-      <h2 class="display rv">Rejoindre le club</h2>
+      <h2 class="display rv flag-t">Rejoindre le club</h2>
       <p>Rencontrez de futurs associés ou partenaires d'affaires. Rejoignez des séjours passion avec vos clients ou collaborateurs.</p>
     </div>
     <form class="c-form" aria-label="Contact">
