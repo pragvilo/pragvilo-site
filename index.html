@@ -36,6 +36,7 @@
   .hero { display: grid; gap: 24px; max-width: 52rem; }
   .hero .label { color: var(--cobalt); }
   h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
+  @media (min-width: 900px) { h1 mark { white-space: nowrap; } }
   h1 mark { background: var(--point); color: var(--sur-point); padding: 0 .12em; border-radius: 4px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
   .lede { margin: 0; max-width: 34rem; font-size: 19px; line-height: 29px; color: var(--gris); }
 
@@ -95,7 +96,7 @@
   <main>
     <section class="hero">
       <p class="label">Création de services numériques</p>
-      <h1>Des idées bien pensées. <mark>Des services qui marchent.</mark></h1>
+      <h1>Des idées bien pensées.<br><mark>Des services qui marchent.</mark></h1>
       <p class="lede">Pragvilo imagine, développe et exploite ses propres services numériques pour répondre à des besoins concrets.</p>
     </section>
 
