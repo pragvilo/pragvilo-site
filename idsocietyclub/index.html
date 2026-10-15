@@ -112,17 +112,33 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 /* ---------- Vibreur animé ---------- */
-.kerb{height:18px;background:repeating-linear-gradient(-60deg,var(--orange) 0 18px,var(--paper) 18px 36px);background-size:83.1px 18px;border-block:2px solid var(--carbon);animation:kerb 3s linear infinite}
-.kerb.dark{border-color:var(--asphalt)}
-@keyframes kerb{to{background-position:-83.1px 0}}
+.sweep{position:relative;height:1px;background:var(--line);overflow:hidden}
+.sweep::after{content:"";position:absolute;top:0;left:0;height:1px;width:38%;background:linear-gradient(90deg,transparent,var(--orange) 60%,transparent);transform:translateX(-110%)}
+.sweep.in::after{animation:sweep 2.2s var(--ease) forwards}
+.sweep.on-dark{background:#232428}
+@keyframes sweep{to{transform:translateX(290%)}}
 
 /* ---------- Club ---------- */
 .club{padding-block:clamp(80px, 10vw, 140px)}
 .club .wrap{display:flex;flex-direction:column;gap:clamp(44px, 5vw, 72px)}
-.trio{display:flex;flex-wrap:wrap;align-items:center;gap:10px clamp(12px, 1.6vw, 24px);font-size:clamp(28px, 4vw, 58px)}
-.trio .w{flex:0 0 auto}
-.trio .w:nth-child(3){color:var(--orange-ink)}
-.trio .dash{flex:1 1 32px;min-width:24px;height:6px;background:repeating-linear-gradient(90deg,var(--orange) 0 18px,transparent 18px 30px);transform-origin:left}
+.gears{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none;border-top:1px solid var(--carbon)}
+.gear{display:flex;flex-direction:column;gap:18px;padding:22px clamp(16px, 2vw, 28px) 0 0;min-width:0}
+.gear+.gear{padding-left:clamp(16px, 2vw, 28px);border-left:1px solid var(--line)}
+.gear .eyebrow{display:flex;justify-content:space-between;color:var(--steel)}
+.gear .eyebrow b{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:15px;letter-spacing:0;color:var(--carbon)}
+.gear h2{font-size:clamp(26px, 3.1vw, 46px);line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.gear:nth-child(3) h2{color:var(--orange-ink)}
+.rev{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.rev i{height:10px;border-radius:1px;background:var(--seg);transform-origin:bottom}
+.rev i{--seg:var(--line)}
+.rev i:nth-child(-n+4){--seg:var(--carbon)}
+.gear:nth-child(n+2) .rev i:nth-child(n+5):nth-child(-n+8){--seg:var(--orange)}
+.gear:nth-child(3) .rev i:nth-child(n+9){--seg:var(--signal)}
+.reveal-armed .gears:not(.in) .rev i{background:var(--line);transform:scaleY(.35)}
+.gears.in .rev i{transition:background .12s,transform .35s var(--ease);transition-delay:calc(var(--k) * 32ms + 150ms)}
+.gears.in .gear:nth-child(3) .rev i:nth-child(n+9){animation:shift .5s steps(2) calc(var(--k) * 32ms + 600ms) 3}
+@keyframes shift{50%{opacity:.25}}
+@media (max-width:760px){.gears{grid-template-columns:1fr}.gear,.gear+.gear{padding:20px 0;border-left:0;border-bottom:1px solid var(--line)}.gear h2{font-size:clamp(30px, 9vw, 44px)}}
 .club-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:32px clamp(40px, 6vw, 96px);align-items:start}
 .club-body .quote{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:clamp(28px, 3.2vw, 46px);line-height:1.08;color:var(--orange-ink);text-wrap:balance;position:relative;padding-top:28px}
 .club-body .quote::before{content:"";position:absolute;top:0;left:0;width:64px;height:12px;background:conic-gradient(var(--carbon) 25%,transparent 0 50%,var(--carbon) 0 75%,transparent 0) 0 0/12px 12px}
@@ -263,9 +279,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* ---------- Révélations au scroll ---------- */
 .reveal-armed .rv:not(.in){opacity:0;transform:translateY(28px)}
 .rv.in{transition:opacity .8s var(--ease),transform .9s var(--ease)}
-.reveal-armed .trio:not(.in) .dash{transform:scaleX(0)}
-.trio.in .dash{transition:transform .9s .2s var(--ease)}
-.trio.in .dash:nth-of-type(4){transition-delay:.45s}
+
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
@@ -327,13 +341,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   </div>
 </section>
 
-<div class="kerb" aria-hidden="true"></div>
+<div class="sweep on-dark" aria-hidden="true" style="background-color:#1E1F22"></div>
 
 <section id="club" class="club band">
   <div class="wrap">
-    <h2 class="trio display rv">
-      <span class="w">Passion</span><span class="dash" aria-hidden="true"></span><span class="w">Accélération</span><span class="dash" aria-hidden="true"></span><span class="w">Succès</span>
-    </h2>
+    <ul class="gears rv" aria-label="Passion, Accélération, Succès">
+      <li class="gear"><span class="eyebrow">1er rapport <b>1</b></span><h2 class="display">Passion</h2><div class="rev" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i></div></li>
+      <li class="gear"><span class="eyebrow">2e rapport <b>2</b></span><h2 class="display">Accélération</h2><div class="rev" aria-hidden="true"><i style="--k:12"></i><i style="--k:13"></i><i style="--k:14"></i><i style="--k:15"></i><i style="--k:16"></i><i style="--k:17"></i><i style="--k:18"></i><i style="--k:19"></i><i style="--k:20"></i><i style="--k:21"></i><i style="--k:22"></i><i style="--k:23"></i></div></li>
+      <li class="gear"><span class="eyebrow">3e rapport <b>3</b></span><h2 class="display">Succès</h2><div class="rev" aria-hidden="true"><i style="--k:24"></i><i style="--k:25"></i><i style="--k:26"></i><i style="--k:27"></i><i style="--k:28"></i><i style="--k:29"></i><i style="--k:30"></i><i style="--k:31"></i><i style="--k:32"></i><i style="--k:33"></i><i style="--k:34"></i><i style="--k:35"></i></div></li>
+    </ul>
     <div class="club-body">
       <p class="quote rv">Let's make motorsport networking fun and impactful!</p>
       <div class="txt rv">
@@ -380,7 +396,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   </div>
 </section>
 
-<div class="kerb" aria-hidden="true"></div>
+<div class="band" aria-hidden="true"><div class="wrap"><div class="sweep"></div></div></div>
 
 <section id="evenements" class="events band">
   <div class="wrap">
@@ -548,7 +564,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   buildTrack();
 
   /* --- Révélations au scroll (vérifiées à chaque frame de scroll, sans dépendre d'un observer) --- */
-  var items = [].slice.call(document.querySelectorAll('.rv, .shot'));
+  var items = [].slice.call(document.querySelectorAll('.rv, .shot, .sweep'));
   function revealCheck(){
     var lim = innerHeight * 0.9;
     items = items.filter(function(el){ if (el.getBoundingClientRect().top < lim){ el.classList.add('in'); return false; } return true; });
