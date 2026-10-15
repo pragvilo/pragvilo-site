@@ -77,8 +77,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .hero figure::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,11,.9) 0%,transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);pointer-events:none}
 .speed{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .speed i{position:absolute;height:1px;width:28%;left:100%;background:linear-gradient(90deg,transparent,rgba(244,244,242,.55));opacity:0}
-.hero figcaption{position:absolute;right:max(var(--gutter), env(safe-area-inset-right, 0px));top:22px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(244,244,242,.75);text-transform:uppercase}
-.hero figcaption b{display:inline-grid;place-items:center;min-width:34px;height:24px;padding:0 6px;background:var(--paper);color:var(--carbon);font-weight:700;font-style:italic;font-family:var(--display);font-stretch:125%;font-size:14px;letter-spacing:0;transform:skewX(-10deg)}
+.hero figcaption{position:absolute;right:calc(10px + env(safe-area-inset-right, 0px));bottom:24px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(244,244,242,.6);white-space:nowrap}
 .hero-copy{position:relative;z-index:2;width:100%;padding-block:clamp(56px, 8vw, 112px)}
 .hero-copy .wrap{display:flex;flex-direction:column;gap:28px}
 .lights{display:flex;gap:10px;align-items:center}
@@ -108,7 +107,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   .hero figure{position:relative;inset:auto;height:62vw;min-height:260px}
   .hero figure img{-webkit-mask-image:linear-gradient(0deg,transparent 0%,#000 40%);mask-image:linear-gradient(0deg,transparent 0%,#000 40%)}
   .hero-copy{margin-top:-64px;padding-top:0}
-  .hero figcaption{top:auto;bottom:72px;left:max(var(--gutter), env(safe-area-inset-left, 0px));font-size:9px}
+  .hero figcaption{bottom:12px;right:6px}
 }
 
 /* ---------- Vibreur animé ---------- */
@@ -321,7 +320,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   <figure>
     <img src="img/hero-lamera-clean.jpg" alt="La Lamera n°32 en piste à Valencia" fetchpriority="high">
     <div class="speed" aria-hidden="true"><i style="top:22%"></i><i style="top:38%;animation-delay:.08s"></i><i style="top:51%;animation-delay:.03s"></i><i style="top:63%;animation-delay:.12s"></i><i style="top:77%;animation-delay:.05s"></i></div>
-    <figcaption><b>32</b>Lamera Cup, Valencia 2023. Photo © Stéphane Azemard</figcaption>
+    <figcaption>Photo © Stéphane Azemard</figcaption>
   </figure>
   <div class="hero-copy band">
     <div class="wrap">
