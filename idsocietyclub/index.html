@@ -2,295 +2,571 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>ID Society — maquette de la nouvelle home</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
+<title>ID Society Club</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,400..700&amp;display=swap">
 <style>
-body{margin:0;background:#F4F4F2}
-.track{display:block}
-@media (max-width: 760px){.track{display:none}.fmt{flex-direction:column !important;align-items:stretch !important;margin-top:48px !important}.fmt>*{flex:1 1 auto !important;width:100% !important;min-width:0 !important}}
+/* Concept : une page = un tour de circuit. Paddock (hero) → piste (formats) → grille (événements) → drapeau à damier (contact).
+   Un seul vrai « moment » : la procédure de départ des feux dans le hero. Le reste reste sobre et précis. */
+:root{
+  --asphalt:#0A0A0B;      /* fonds noirs */
+  --carbon:#16171A;       /* texte sur clair, surfaces sombres */
+  --paper:#F4F4F2;        /* fond clair */
+  --orange:#F26A1B;       /* accent marque (CTA, piste, détails) */
+  --orange-ink:#C4500F;   /* orange lisible sur fond clair */
+  --signal:#E3201B;       /* feux de départ uniquement */
+  --steel:#3B3D42;        /* texte courant */
+  --mute:#8E8C86;         /* légendes sur noir */
+  --line:#D3D3CF;
+  --display:'Archivo', 'Arial Black', system-ui, sans-serif;
+  --body:'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --gutter:clamp(20px, 5vw, 64px);
+  --ease:cubic-bezier(.2,.8,.1,1);
+  color-scheme:light;
+  interpolate-size:allow-keywords;
+}
 *{box-sizing:border-box}
-a{color:#16171A}a:hover{color:#000000}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #F26A1B;outline-offset:3px}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--carbon);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding-left:max(var(--gutter), env(safe-area-inset-left, 0px));padding-right:max(var(--gutter), env(safe-area-inset-right, 0px))}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase}
+.display{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;text-transform:uppercase;letter-spacing:-.01em;line-height:.95;text-wrap:balance;margin:0}
+
+/* ---------- Boutons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;min-height:54px;padding:0 26px;border-radius:2px;font-weight:750;font-size:16px;text-decoration:none;overflow:hidden;isolation:isolate;transition:transform .3s var(--ease);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.btn .arr{display:inline-block;transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(6px)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--orange);color:var(--carbon);clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%);padding-right:36px}
+.btn-primary::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s var(--ease)}
+.btn-primary:hover::after{transform:translateX(120%)}
+.btn-ghost{color:var(--paper);box-shadow:inset 0 0 0 1.5px rgba(244,244,242,.5);transition:box-shadow .3s,background .3s}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--paper);background:rgba(244,244,242,.06)}
+
+/* ---------- Header ---------- */
+.site-header{position:sticky;top:env(safe-area-inset-top, 0px);z-index:50;background:rgba(10,10,11,.72);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);color:var(--paper);border-bottom:1px solid rgba(244,244,242,.08);transition:background .3s}
+.site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 32px;padding-block:10px;transition:padding .3s var(--ease)}
+.is-scrolled .site-header .wrap{padding-block:4px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand svg{width:48px;height:48px;transition:width .3s var(--ease),height .3s var(--ease)}
+.is-scrolled .brand svg{width:40px;height:40px}
+.brand span{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:19px;letter-spacing:.03em;text-transform:uppercase}
+.tach{transform-origin:100px 100px;transform-box:view-box}
+.nav{display:flex;flex-wrap:wrap;align-items:center;gap:0 28px}
+.nav a:not(.btn){position:relative;display:inline-flex;align-items:center;min-height:44px;font-size:15px;text-decoration:none;color:rgba(244,244,242,.82);transition:color .2s}
+.nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav a:not(.btn):hover{color:var(--paper)}
+.nav a:not(.btn):hover::after,.nav a.is-active::after{transform:scaleX(1);transform-origin:left}
+.nav .btn{min-height:42px;font-size:15px;padding:0 30px 0 18px}
+.lap{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--orange);transform-origin:left;transform:scaleX(var(--p,0))}
+@media (max-width:640px){.nav a:not(.btn){display:none}.site-header .wrap{flex-wrap:nowrap}.brand span{font-size:16px}.nav .btn{padding:0 24px 0 14px;font-size:14px}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--asphalt);color:var(--paper);overflow:hidden;min-height:clamp(560px, 82vh, 860px);display:flex;align-items:flex-end}
+.hero figure{position:absolute;inset:0 0 0 30%;margin:0}
+.hero figure img{width:100%;height:100%;object-fit:cover;object-position:45% 50%;transform:scale(1.02);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 38%);mask-image:linear-gradient(90deg,transparent 0%,#000 38%)}
+.hero figure::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,10,11,.9) 0%,transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);pointer-events:none}
+.speed{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.speed i{position:absolute;height:1px;width:28%;left:100%;background:linear-gradient(90deg,transparent,rgba(244,244,242,.55));opacity:0}
+.hero figcaption{position:absolute;right:max(var(--gutter), env(safe-area-inset-right, 0px));top:22px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:rgba(244,244,242,.75);text-transform:uppercase}
+.hero figcaption b{display:inline-grid;place-items:center;min-width:34px;height:24px;padding:0 6px;background:var(--paper);color:var(--carbon);font-weight:700;font-style:italic;font-family:var(--display);font-stretch:125%;font-size:14px;letter-spacing:0;transform:skewX(-10deg)}
+.hero-copy{position:relative;z-index:2;width:100%;padding-block:clamp(56px, 8vw, 112px)}
+.hero-copy .wrap{display:flex;flex-direction:column;gap:28px}
+.lights{display:flex;gap:10px;align-items:center}
+.pod{display:flex;flex-direction:column;gap:5px;padding:6px;background:#050505;border-radius:4px;box-shadow:inset 0 0 0 1px #222}
+.pod span{width:14px;height:14px;border-radius:50%;background:#2a0d0c;transition:background .08s,box-shadow .08s}
+.lights.on1 .pod:nth-child(-n+1) span,.lights.on2 .pod:nth-child(-n+2) span,.lights.on3 .pod:nth-child(-n+3) span,.lights.on4 .pod:nth-child(-n+4) span,.lights.on5 .pod span{background:var(--signal);box-shadow:0 0 14px 2px rgba(227,32,27,.7)}
+.lights-label{margin-left:12px;color:var(--mute)}
+.hero h1{font-size:clamp(42px, 6.4vw, 96px);max-width:12ch}
+.hero h1 .ln{display:block;overflow:hidden;padding:.04em .08em .02em 0;margin-right:-.08em}
+.hero h1 .ln>span{display:inline-block}
+.hero h1 em{font-style:inherit;color:var(--orange)}
+.hero .lede{margin:0;max-width:36ch;font-size:clamp(18px, 1.6vw, 21px);line-height:1.5;color:#C4C2BC}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+/* Animation d'intro (seulement si JS actif et mouvement autorisé) */
+.intro .hero h1 .ln>span{transform:translateY(110%) skewX(-12deg)}
+.intro .hero .lede,.intro .hero .ctas{opacity:0;transform:translateY(16px)}
+.intro .hero figure img{transform:scale(1.18);filter:brightness(.35) blur(3px)}
+.go .hero h1 .ln>span{transform:none;transition:transform .9s var(--ease)}
+.go .hero h1 .ln:nth-child(2)>span{transition-delay:.07s}
+.go .hero h1 .ln:nth-child(3)>span{transition-delay:.14s}
+.go .hero .lede,.go .hero .ctas{opacity:1;transform:none;transition:opacity .6s .35s,transform .8s .35s var(--ease)}
+.go .hero figure img{transform:scale(1.02);filter:none;transition:transform 1.6s var(--ease),filter .5s}
+.go .speed i{animation:streak 1.1s var(--ease) forwards}
+@keyframes streak{0%{opacity:0;transform:translateX(0)}20%{opacity:1}100%{opacity:0;transform:translateX(-480%)}}
+@media (max-width:760px){
+  .hero{min-height:auto;flex-direction:column;align-items:stretch}
+  .hero figure{position:relative;inset:auto;height:62vw;min-height:260px}
+  .hero figure img{-webkit-mask-image:linear-gradient(0deg,transparent 0%,#000 40%);mask-image:linear-gradient(0deg,transparent 0%,#000 40%)}
+  .hero-copy{margin-top:-64px;padding-top:0}
+  .hero figcaption{top:auto;bottom:72px;left:max(var(--gutter), env(safe-area-inset-left, 0px));font-size:9px}
+}
+
+/* ---------- Vibreur animé ---------- */
+.kerb{height:18px;background:repeating-linear-gradient(-60deg,var(--orange) 0 18px,var(--paper) 18px 36px);background-size:83.1px 18px;border-block:2px solid var(--carbon);animation:kerb 3s linear infinite}
+.kerb.dark{border-color:var(--asphalt)}
+@keyframes kerb{to{background-position:-83.1px 0}}
+
+/* ---------- Club ---------- */
+.club{padding-block:clamp(80px, 10vw, 140px)}
+.club .wrap{display:flex;flex-direction:column;gap:clamp(44px, 5vw, 72px)}
+.trio{display:flex;flex-wrap:wrap;align-items:center;gap:10px clamp(12px, 1.6vw, 24px);font-size:clamp(28px, 4vw, 58px)}
+.trio .w{flex:0 0 auto}
+.trio .w:nth-child(3){color:var(--orange-ink)}
+.trio .dash{flex:1 1 32px;min-width:24px;height:6px;background:repeating-linear-gradient(90deg,var(--orange) 0 18px,transparent 18px 30px);transform-origin:left}
+.club-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:32px clamp(40px, 6vw, 96px);align-items:start}
+.club-body .quote{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:clamp(28px, 3.2vw, 46px);line-height:1.08;color:var(--orange-ink);text-wrap:balance;position:relative;padding-top:28px}
+.club-body .quote::before{content:"";position:absolute;top:0;left:0;width:64px;height:12px;background:conic-gradient(var(--carbon) 25%,transparent 0 50%,var(--carbon) 0 75%,transparent 0) 0 0/12px 12px}
+.club-body .txt{display:flex;flex-direction:column;gap:22px;font-size:19px;line-height:1.65;color:var(--steel);max-width:62ch}
+.club-body .txt p{margin:0}
+@media (max-width:760px){.club-body{grid-template-columns:1fr}}
+
+/* ---------- Formats / piste ---------- */
+.formats{padding-bottom:clamp(64px, 8vw, 112px)}
+.formats h2{font-size:clamp(34px, 4.6vw, 64px);margin-bottom:40px}
+.corner{display:inline-flex;align-items:center;gap:10px;color:var(--orange-ink)}
+.corner::before{content:"";width:22px;height:2px;background:currentColor}
+.shot{position:relative;overflow:hidden;border-radius:2px;background:var(--carbon)}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}
+.shot:hover img{transform:scale(1.05)}
+.shot::after{content:"";position:absolute;inset:0;background:var(--orange);transform-origin:right;transform:scaleX(0);pointer-events:none}
+.reveal-armed .shot:not(.in)::after{transform:scaleX(1);transform-origin:left}
+.reveal-armed .shot:not(.in) img{transform:scale(1.15)}
+.shot.in::after{transform:scaleX(0);transition:transform .9s var(--ease)}
+.shot.in img{transition:transform 1.4s var(--ease)}
+.lead-fmt{display:flex;flex-direction:column;gap:24px}
+.lead-fmt .shot{aspect-ratio:21/9}
+.lead-fmt .shot img{object-position:50% 62%}
+.fmt-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 64px}
+.fmt-head>div{flex:1 1 320px;display:flex;flex-direction:column;gap:10px}
+.fmt-head p{flex:1.6 1 420px;margin:0;max-width:60ch;font-size:18px;color:var(--steel)}
+.formats h3{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:clamp(26px, 2.6vw, 36px);line-height:1.08;text-wrap:balance}
+.circuit{position:relative;padding-bottom:6%}
+.track{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
+.car{position:absolute;left:0;top:0;width:34px;height:18px;margin:-9px 0 0 -17px;z-index:2;pointer-events:none;opacity:0;filter:drop-shadow(0 0 10px rgba(242,106,27,.8))}
+.fmt{position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 0;margin-top:10%}
+.fmt:first-of-type{margin-top:8%}
+.fmt.rev{flex-direction:row-reverse}
+.fmt .shot{flex:0 1 46%;min-width:300px;aspect-ratio:4/3}
+.fmt .copy{flex:0 1 42%;min-width:280px;display:flex;flex-direction:column;gap:12px;padding:20px 24px;background:var(--paper)}
+.fmt .copy p{margin:0;font-size:18px;line-height:1.6;color:var(--steel)}
+@media (max-width:760px){.track,.car{display:none}.fmt,.fmt.rev{flex-direction:column;align-items:stretch;margin-top:48px}.fmt>*{flex:1 1 auto !important;width:100%;min-width:0 !important}.fmt .copy{padding:0}}
+
+/* ---------- Événements : écran de chronométrage ---------- */
+.events{padding-bottom:clamp(80px, 10vw, 136px)}
+.events-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px;margin:clamp(56px, 6vw, 88px) 0 28px}
+.events h2{font-size:clamp(34px, 4.6vw, 64px)}
+.events-head .eyebrow{color:var(--steel)}
+.grid{list-style:none;margin:0;padding:0;border-top:2px solid var(--carbon);counter-reset:pos}
+.grid li{position:relative;display:grid;grid-template-columns:64px 150px minmax(0,1fr) minmax(0,220px) auto;align-items:center;gap:6px 24px;padding:20px 12px;border-bottom:1px solid var(--line);counter-increment:pos;isolation:isolate;transition:color .3s}
+.grid li::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--carbon);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.grid li:hover{color:var(--paper)}
+.grid li:hover::before{transform:scaleX(1)}
+.grid .pos{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:22px;color:var(--orange-ink);transition:color .3s}
+.grid .pos::before{content:"P" counter(pos)}
+.grid li:hover .pos{color:var(--orange)}
+.grid .date{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--steel);transition:color .3s}
+.grid li:hover .date,.grid li:hover .where{color:#C4C2BC}
+.grid .what{font-weight:800;font-size:clamp(19px, 1.8vw, 23px);line-height:1.2;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.grid .where{font-size:16px;color:var(--steel);transition:color .3s}
+.live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;background:var(--orange);color:var(--carbon)}
+.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--carbon);animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.grid a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;font-size:15px;font-weight:750;text-decoration:none;box-shadow:inset 0 0 0 1.5px currentColor;border-radius:2px;transition:background .25s,color .25s,box-shadow .25s}
+.grid li:hover a{background:var(--orange);color:var(--carbon);box-shadow:none}
+@media (max-width:760px){.grid li{grid-template-columns:48px minmax(0,1fr);padding:18px 4px}.grid .date,.grid .what,.grid .where,.grid a{grid-column:2}.grid .pos{grid-row:1 / span 4;align-self:start}.grid a{justify-self:start}}
+
+/* ---------- Newsletter ---------- */
+.news{background:var(--asphalt);color:var(--paper);padding-block:clamp(80px, 10vw, 136px);position:relative;overflow:hidden}
+.news .wrap{display:flex;flex-wrap:wrap;gap:56px 96px;position:relative}
+.news-intro{flex:1 1 380px;display:flex;flex-direction:column;gap:20px}
+.news h2{font-size:clamp(32px, 3.6vw, 52px)}
+.news-intro p{margin:0;font-size:18px;color:#C4C2BC}
+.nl-form{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.nl-form label{width:100%;font-size:14px;font-weight:600;color:#C4C2BC}
+.nl-form input{flex:1 1 240px;min-height:54px;padding:0 16px;border:0;border-bottom:2px solid #4A4C51;border-radius:0;background:#141416;color:var(--paper);font:inherit;font-size:16px;transition:border-color .25s,background .25s}
+.nl-form input:focus{outline:none;border-color:var(--orange);background:#1B1B1E}
+.nl-form button{border:0;cursor:pointer;font:inherit}
+.issues{flex:1.3 1 460px;display:flex;flex-direction:column;min-width:0}
+.issue{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 22px;padding:24px 0;border-top:1px solid #2A2B2F;text-decoration:none}
+.issue .num{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:clamp(34px, 3.6vw, 52px);line-height:1;color:transparent;-webkit-text-stroke:1.2px rgba(244,244,242,.45);transition:color .35s,-webkit-text-stroke-color .35s}
+.issue .meta{display:flex;flex-direction:column;gap:6px;min-width:0}
+.issue .meta small{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.issue .meta span{font-size:19px;font-weight:700;line-height:1.3}
+.issue .go-arr{font-size:22px;color:var(--orange);transform:translateX(-8px);opacity:0;transition:transform .35s var(--ease),opacity .35s}
+.issue:hover .num{color:var(--orange);-webkit-text-stroke-color:var(--orange)}
+.issue:hover .go-arr{transform:none;opacity:1}
+.archives{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-top:6px;padding-top:16px;border-top:1px solid #2A2B2F;font-weight:750;text-decoration:none;color:var(--paper)}
+.archives span{transition:transform .35s var(--ease)}
+.archives:hover span{transform:translateX(6px)}
+
+/* ---------- FAQ ---------- */
+.faq{padding-block:clamp(80px, 10vw, 136px)}
+.faq .wrap{display:flex;flex-wrap:wrap;gap:32px 96px}
+.faq h2{flex:1 1 320px;font-size:clamp(34px, 4.2vw, 58px)}
+.qa{flex:2 1 520px;min-width:0;border-bottom:1px solid var(--line)}
+.qa details{border-top:1px solid var(--line)}
+.qa details::details-content{height:0;overflow:clip;transition:height .45s var(--ease),content-visibility .45s allow-discrete}
+.qa details[open]::details-content{height:auto}
+.qa summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:68px;padding:14px 0;cursor:pointer;list-style:none;font-size:20px;font-weight:750;line-height:1.3;transition:color .2s}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover{color:var(--orange-ink)}
+.qa summary i{flex:0 0 auto;position:relative;width:32px;height:32px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--line);transition:transform .45s var(--ease),background .3s,box-shadow .3s}
+.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:currentColor}
+.qa summary i::after{transform:rotate(90deg)}
+.qa details[open] summary i{transform:rotate(135deg);background:var(--orange);box-shadow:none;color:var(--carbon)}
+.qa details p{margin:0;padding:0 0 24px;max-width:62ch;color:var(--steel)}
+
+/* ---------- Contact : drapeau à damier ---------- */
+.contact{position:relative;background:var(--orange);color:var(--carbon);padding-block:clamp(80px, 10vw, 136px);overflow:hidden;isolation:isolate}
+.flag{position:absolute;right:-6%;top:-10%;width:min(620px, 70vw);aspect-ratio:1;z-index:-1;opacity:.13;background:conic-gradient(var(--carbon) 25%,transparent 0 50%,var(--carbon) 0 75%,transparent 0) 0 0/48px 48px;-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent);mask-image:radial-gradient(closest-side,#000 40%,transparent);transform:rotate(-12deg);animation:wave 7s ease-in-out infinite alternate}
+@keyframes wave{to{transform:rotate(-6deg) skewY(4deg) scale(1.04)}}
+.contact .wrap{display:flex;flex-wrap:wrap;align-items:flex-start;gap:48px 96px}
+.contact-intro{flex:1 1 360px;display:flex;flex-direction:column;gap:22px}
+.contact h2{font-size:clamp(46px, 7vw, 110px);line-height:.9}
+.contact-intro p{margin:0;max-width:38ch;font-size:19px;line-height:1.5}
+.c-form{flex:1.2 1 420px;min-width:0;display:flex;flex-direction:column;gap:22px;padding:clamp(24px, 3vw, 40px);background:var(--asphalt);color:var(--paper);clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%)}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#C4C2BC}
+.field input,.field textarea{min-height:50px;padding:12px 0;border:0;border-bottom:2px solid #3A3B40;background:transparent;color:var(--paper);font:inherit;font-size:17px;transition:border-color .25s}
+.field textarea{resize:vertical;min-height:110px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--orange)}
+.c-form .btn{justify-content:center;border:0;cursor:pointer;font:inherit;font-weight:750;width:100%}
+
+/* ---------- Footer ---------- */
+.foot{background:var(--asphalt);color:var(--paper);padding-bottom:40px;overflow:hidden}
+.foot .wrap{display:flex;flex-direction:column;gap:40px;padding-top:56px}
+.foot-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px 48px}
+.foot-brand{flex:1 1 320px;display:flex;align-items:center;gap:16px}
+.foot-brand svg{width:64px;height:64px;flex:0 0 auto}
+.foot-brand:hover .tach{animation:spin 1.6s var(--ease)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.foot-brand p{margin:0;max-width:320px;font-size:15px;color:#C4C2BC}
+.foot nav{display:flex;flex-wrap:wrap;gap:0 28px;align-items:center}
+.foot nav a,.foot nav span{display:inline-flex;align-items:center;min-height:44px;font-size:15px;text-decoration:none;color:var(--paper)}
+.foot nav a:hover{color:var(--orange)}
+.foot nav span{color:var(--mute);font-family:var(--mono);font-size:12px}
+.wordmark{font-family:var(--display);font-weight:900;font-stretch:125%;font-style:italic;text-transform:uppercase;font-size:clamp(56px, 15.5vw, 230px);line-height:.82;letter-spacing:-.03em;color:transparent;-webkit-text-stroke:1px rgba(244,244,242,.18);white-space:nowrap;user-select:none}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-top:20px;border-top:1px solid #2A2B2F;font-size:13px;color:var(--mute)}
+.legal span{display:flex;flex-wrap:wrap;gap:0 20px}
+.legal a{color:var(--mute)}
+
+/* ---------- Révélations au scroll ---------- */
+.reveal-armed .rv:not(.in){opacity:0;transform:translateY(28px)}
+.rv.in{transition:opacity .8s var(--ease),transform .9s var(--ease)}
+.reveal-armed .trio:not(.in) .dash{transform:scaleX(0)}
+.trio.in .dash{transition:transform .9s .2s var(--ease)}
+.trio.in .dash:nth-of-type(4){transition-delay:.45s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+}
 </style>
-<style>img{max-width:100%}</style>
 </head>
 <body>
-<div style="width: 100%; background: #F4F4F2; color: #16171A; font-family: 'Archivo', system-ui, sans-serif; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased">
 
-<header style="background: #000000; color: #F4F4F2; padding: 14px clamp(20px, 5vw, 64px)">
-  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px">
-    <a href="#top" aria-label="ID Society, accueil" style="display: flex; align-items: center; gap: 14px; text-decoration: none; color: #F4F4F2">
-      <svg viewBox="0 0 200 200" width="52" height="52" role="img" aria-label="ID Society" style="display: block">
-  <circle cx="100" cy="100" r="100" fill="#000000"></circle>
-  <circle cx="100" cy="100" r="91.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
-  <circle cx="100" cy="100" r="83.5" fill="none" stroke="#F4F4F2" stroke-width="3.5" stroke-dasharray="6 4" pathLength="400" transform="rotate(-90 100 100)"></circle>
-  <circle cx="100" cy="100" r="75.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
-  <g transform="translate(100 100) scale(1.1) translate(-100 -100)">
-    <path d="M64 78 V136 H100 A36 36 0 0 0 100 64 H78" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
-    <path d="M84 116 V94 L94 84 H100 A16 16 0 0 1 100 116 Z" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
-    <rect x="58" y="58" width="12" height="12" fill="#F26A1B"></rect>
-  </g>
-</svg>
-      <span style="font-weight: 800; font-stretch: 125%; font-size: 19px; letter-spacing: 0.04em; text-transform: uppercase">ID Society</span>
+<header class="site-header band">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ID Society, accueil">
+      <svg viewBox="0 0 200 200" role="img" aria-label="ID Society">
+        <circle cx="100" cy="100" r="100" fill="#0A0A0B"></circle>
+        <circle cx="100" cy="100" r="91.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
+        <circle class="tach" cx="100" cy="100" r="83.5" fill="none" stroke="#F4F4F2" stroke-width="3.5" stroke-dasharray="6 4" pathLength="400"></circle>
+        <circle cx="100" cy="100" r="75.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
+        <g transform="translate(100 100) scale(1.1) translate(-100 -100)">
+          <path d="M64 78 V136 H100 A36 36 0 0 0 100 64 H78" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
+          <path d="M84 116 V94 L94 84 H100 A16 16 0 0 1 100 116 Z" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
+          <rect x="58" y="58" width="12" height="12" fill="#F26A1B"></rect>
+        </g>
+      </svg>
+      <span>ID Society</span>
     </a>
-    <nav aria-label="Navigation principale" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0 28px">
-      <a href="#club" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">À propos</a>
-      <a href="#evenements" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">Événements</a>
-      <a href="#newsletter" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">Newsletter</a>
-      <a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #F26A1B; color: #16171A; text-decoration: none; font-size: 15px; font-weight: 700; border-radius: 3px">Rejoindre le club</a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#club">À propos</a>
+      <a href="#evenements">Événements</a>
+      <a href="#newsletter">Newsletter</a>
+      <a class="btn btn-primary" href="#contact">Rejoindre le club</a>
     </nav>
   </div>
+  <div class="lap" aria-hidden="true"></div>
 </header>
 
-<section id="top" style="background: #000000; color: #F4F4F2; display: flex; flex-wrap: wrap">
-  <div style="flex: 1.25 1 520px; padding: clamp(48px, 7vw, 104px) clamp(20px, 5vw, 64px); display: flex; flex-direction: column; justify-content: center; gap: 28px">
-    <h1 style="margin: 0; max-width: 14ch; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(36px, 4.2vw, 62px); line-height: 0.98; letter-spacing: -0.015em">Ne vivez plus votre passion auto en solo.</h1>
-    <p style="margin: 0; max-width: 34ch; font-size: 20px; line-height: 1.5; color: #C4C2BC">Club d'entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
-    <div style="display: flex; flex-wrap: wrap; gap: 12px">
-      <a href="#contact" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: #F26A1B; color: #16171A; text-decoration: none; font-size: 16px; font-weight: 700; border-radius: 3px">Rejoindre le club</a>
-      <a href="#newsletter" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border: 1.5px solid #F4F4F2; color: #F4F4F2; text-decoration: none; font-size: 16px; font-weight: 700; border-radius: 3px">S'inscrire à la newsletter</a>
-    </div>
-  </div>
-  <figure style="flex: 1 1 460px; margin: 0; position: relative; min-height: clamp(300px, 46vw, 680px)">
-    <img src="img/hero-lamera-clean.jpg" alt="La Lamera n°32 en piste à Valencia" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: 45% 50%; display: block">
-    <figcaption style="position: absolute; right: 16px; bottom: 14px; font-size: 12px; color: #F4F4F2; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8)">Lamera Cup, Valencia 2023. Photo © Stéphane Azemard</figcaption>
+<section id="top" class="hero">
+  <figure>
+    <img src="img/hero-lamera-clean.jpg" alt="La Lamera n°32 en piste à Valencia" fetchpriority="high">
+    <div class="speed" aria-hidden="true"><i style="top:22%"></i><i style="top:38%;animation-delay:.08s"></i><i style="top:51%;animation-delay:.03s"></i><i style="top:63%;animation-delay:.12s"></i><i style="top:77%;animation-delay:.05s"></i></div>
+    <figcaption><b>32</b>Lamera Cup, Valencia 2023. Photo © Stéphane Azemard</figcaption>
   </figure>
-</section>
-
-<div aria-hidden="true" style="height: 14px; border-top: 2px solid #16171A; border-bottom: 2px solid #16171A; background-image: repeating-linear-gradient(90deg, #16171A 0 28px, transparent 28px 48px); background-size: 100% 2px; background-position: 0 50%; background-repeat: no-repeat; margin-top: 10px"></div>
-
-<section id="club" style="padding: clamp(72px, 9vw, 120px) clamp(20px, 5vw, 64px)">
-  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(40px, 5vw, 72px)">
-    <h2 style="margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px clamp(14px, 2vw, 28px)">
-      <span style="flex: 0 0 auto; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(20px, 2.6vw, 38px); line-height: 1.1; letter-spacing: -0.005em">Passion</span>
-      <span aria-hidden="true" style="flex: 1 1 32px; min-width: 24px; height: 14px; background-image: repeating-linear-gradient(90deg, #F26A1B 0 16px, transparent 16px 26px); background-size: 100% 4px; background-position: 0 50%; background-repeat: no-repeat"></span>
-      <span style="flex: 0 0 auto; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(20px, 2.6vw, 38px); line-height: 1.1; letter-spacing: -0.005em">Accélération</span>
-      <span aria-hidden="true" style="flex: 1 1 32px; min-width: 24px; height: 14px; background-image: repeating-linear-gradient(90deg, #F26A1B 0 16px, transparent 16px 26px); background-size: 100% 4px; background-position: 0 50%; background-repeat: no-repeat"></span>
-      <span style="flex: 0 0 auto; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(20px, 2.6vw, 38px); line-height: 1.1; letter-spacing: -0.005em">Succès</span>
-    </h2>
-    <div style="max-width: 68ch; display: flex; flex-direction: column; gap: 24px; font-size: 19px; line-height: 1.65; color: #3B3D42">
-      <p style="margin: 0">Ensemble, notre objectif est de former un club d'affaires convivial et enthousiaste. Ceci vise à réinventer une passion discrète de notre sport dans un monde alliant technologie et vitesse.</p>
-      <p style="margin: 0; color: #C4500F; font-weight: 700; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.25">Let's make motorsport networking fun and impactful!</p>
-      <p style="margin: 0">Dans l'univers professionnel, nous sommes convaincus que les connexions inspirantes sont la clé du succès. Des relations profondes, durables et authentiques qui apportent non seulement du soutien, des conseils, des idées et des opportunités d'affaires, mais aussi des connexions véritables.</p>
+  <div class="hero-copy band">
+    <div class="wrap">
+      <div class="lights" aria-hidden="true">
+        <div class="pod"><span></span><span></span></div>
+        <div class="pod"><span></span><span></span></div>
+        <div class="pod"><span></span><span></span></div>
+        <div class="pod"><span></span><span></span></div>
+        <div class="pod"><span></span><span></span></div>
+        <span class="eyebrow lights-label">Club d'affaires · Sport automobile</span>
+      </div>
+      <h1 class="display"><span class="ln"><span>Ne vivez plus</span></span> <span class="ln"><span>votre passion</span></span> <span class="ln"><span>auto <em>en solo.</em></span></span></h1>
+      <p class="lede">Club d'entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#contact">Rejoindre le club <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#newsletter">S'inscrire à la newsletter</a>
+      </div>
     </div>
   </div>
 </section>
 
-<section aria-labelledby="formats-titre" style="padding: 0 clamp(20px, 5vw, 64px) clamp(56px, 7vw, 96px)">
-  <div style="max-width: 1240px; margin: 0 auto">
-    <h2 id="formats-titre" style="margin: 0 0 36px; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05">What's in it for you?</h2>
-    <article style="display: flex; flex-direction: column; gap: 24px">
-      <img src="img/diner-hd.jpg" alt="Dîner du club sur une terrasse face à la tour Eiffel" style="width: 100%; aspect-ratio: 2 / 1; object-fit: cover; object-position: 50% 62%; display: block; border-radius: 3px">
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 64px">
-        <h3 style="flex: 1 1 320px; margin: 0; font-weight: 800; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; color: #C4500F">Des networking parisiens</h3>
-        <p style="flex: 1.6 1 420px; margin: 0; max-width: 62ch; font-size: 18px; color: #3B3D42">Rencontrez des leaders inspirants des affaires et des pilotes passionnés lors de dîners ou des soirées de privatisation simulateur au cœur de Paris.</p>
+<div class="kerb" aria-hidden="true"></div>
+
+<section id="club" class="club band">
+  <div class="wrap">
+    <h2 class="trio display rv">
+      <span class="w">Passion</span><span class="dash" aria-hidden="true"></span><span class="w">Accélération</span><span class="dash" aria-hidden="true"></span><span class="w">Succès</span>
+    </h2>
+    <div class="club-body">
+      <p class="quote rv">Let's make motorsport networking fun and impactful!</p>
+      <div class="txt rv">
+        <p>Ensemble, notre objectif est de former un club d'affaires convivial et enthousiaste. Ceci vise à réinventer une passion discrète de notre sport dans un monde alliant technologie et vitesse.</p>
+        <p>Dans l'univers professionnel, nous sommes convaincus que les connexions inspirantes sont la clé du succès. Des relations profondes, durables et authentiques qui apportent non seulement du soutien, des conseils, des idées et des opportunités d'affaires, mais aussi des connexions véritables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="formats band" aria-labelledby="formats-titre">
+  <div class="wrap">
+    <h2 id="formats-titre" class="display rv">What's in it for you?</h2>
+    <article class="lead-fmt">
+      <div class="shot"><img src="img/diner-hd.jpg" alt="Dîner du club sur une terrasse face à la tour Eiffel" loading="lazy"></div>
+      <div class="fmt-head rv">
+        <div><span class="eyebrow corner">Paddock · Paris</span><h3>Des networking parisiens</h3></div>
+        <p>Rencontrez des leaders inspirants des affaires et des pilotes passionnés lors de dîners ou des soirées de privatisation simulateur au cœur de Paris.</p>
       </div>
     </article>
-    <div style="position: relative; padding-bottom: 6%">
-      <svg class="track" aria-hidden="true" viewBox="0 0 1000 1375" preserveAspectRatio="none" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: visible">
-        <path d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#FFFFFF" stroke-width="40" vector-effect="non-scaling-stroke"></path>
-        <path d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F26A1B" stroke-width="40" stroke-dasharray="12 12" vector-effect="non-scaling-stroke"></path>
-        <path d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#2B2C30" stroke-width="32" vector-effect="non-scaling-stroke"></path>
-        <path d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F4F4F2" stroke-width="2" stroke-dasharray="14 12" vector-effect="non-scaling-stroke"></path>
+    <div class="circuit">
+      <svg class="track" aria-hidden="true" viewBox="0 0 1000 1375" preserveAspectRatio="none">
+        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#FFFFFF" stroke-width="40" vector-effect="non-scaling-stroke"></path>
+        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F26A1B" stroke-width="40" stroke-dasharray="12 12" vector-effect="non-scaling-stroke"></path>
+        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#1E1F22" stroke-width="32" vector-effect="non-scaling-stroke"></path>
+        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F4F4F2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="14 12" vector-effect="non-scaling-stroke"></path>
+        <path class="tp racing" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F26A1B" stroke-width="4" stroke-linecap="round" opacity="0"></path>
       </svg>
-      
-        <article class="fmt" style="position: relative; z-index: 1; display: flex; flex-wrap: wrap; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px 0; margin-top: 8%">
-          <img src="img/trackday.jpg" alt="Porsche 911 GT3 sur le circuit du Mans" style="flex: 0 1 46%; min-width: 300px; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 3px">
-          <div style="flex: 0 1 42%; min-width: 280px; display: flex; flex-direction: column; gap: 14px; padding: 8px 0; background: #F4F4F2">
-            <h3 style="margin: 0; font-weight: 800; font-size: clamp(24px, 2.3vw, 30px); line-height: 1.15; color: #C4500F">Des track days</h3>
-            <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3D42">Participez à des expériences en piste avec votre véhicule ou avec un véhicule de location mis à disposition par nos partenaires sur les plus beaux circuits de France.</p>
-          </div>
-        </article>
-      
-        <article class="fmt" style="position: relative; z-index: 1; display: flex; flex-wrap: wrap; flex-direction: row-reverse; align-items: center; justify-content: space-between; gap: 24px 0; margin-top: 10%">
-          <img src="img/roadtrip.jpg" alt="Porsche 911 GT3 sur une route de col dans les Alpes suisses" style="flex: 0 1 46%; min-width: 300px; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 3px">
-          <div style="flex: 0 1 42%; min-width: 280px; display: flex; flex-direction: column; gap: 14px; padding: 8px 0; background: #F4F4F2">
-            <h3 style="margin: 0; font-weight: 800; font-size: clamp(24px, 2.3vw, 30px); line-height: 1.15; color: #C4500F">Des road trips inspirants</h3>
-            <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3D42">Profitez des lieux et itinéraires exclusifs et partagez des journées conviviales autour de votre passion auto.</p>
-          </div>
-        </article>
-      
-        <article class="fmt" style="position: relative; z-index: 1; display: flex; flex-wrap: wrap; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px 0; margin-top: 10%">
-          <img src="img/podium.jpg" alt="Pilotes sur le podium au circuit Paul Armagnac" style="flex: 0 1 46%; min-width: 300px; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: 3px">
-          <div style="flex: 0 1 42%; min-width: 280px; display: flex; flex-direction: column; gap: 14px; padding: 8px 0; background: #F4F4F2">
-            <h3 style="margin: 0; font-weight: 800; font-size: clamp(24px, 2.3vw, 30px); line-height: 1.15; color: #C4500F">Des accès faciles vers la course auto</h3>
-            <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B3D42">Pratiquez le sport auto lors d'expériences organisées en circuit pour découvrir la course automobile sous différentes formules accompagné de professionnels reconnus.</p>
-          </div>
-        </article>
-      
+      <svg class="car" viewBox="0 0 34 18" aria-hidden="true"><rect x="2" y="3" width="28" height="12" rx="5" fill="#F26A1B"></rect><rect x="26" y="1" width="6" height="16" rx="1.5" fill="#0A0A0B"></rect><rect x="0" y="2" width="4" height="14" rx="1" fill="#0A0A0B"></rect><rect x="13" y="6" width="8" height="6" rx="2" fill="#0A0A0B"></rect></svg>
+
+      <article class="fmt">
+        <div class="shot"><img src="img/trackday.jpg" alt="Porsche 911 GT3 sur le circuit du Mans" loading="lazy"></div>
+        <div class="copy rv"><span class="eyebrow corner">Virage 1</span><h3>Des track days</h3><p>Participez à des expériences en piste avec votre véhicule ou avec un véhicule de location mis à disposition par nos partenaires sur les plus beaux circuits de France.</p></div>
+      </article>
+      <article class="fmt rev">
+        <div class="shot"><img src="img/roadtrip.jpg" alt="Porsche 911 GT3 sur une route de col dans les Alpes suisses" loading="lazy"></div>
+        <div class="copy rv"><span class="eyebrow corner">Virage 2</span><h3>Des road trips inspirants</h3><p>Profitez des lieux et itinéraires exclusifs et partagez des journées conviviales autour de votre passion auto.</p></div>
+      </article>
+      <article class="fmt">
+        <div class="shot"><img src="img/podium.jpg" alt="Pilotes sur le podium au circuit Paul Armagnac" loading="lazy"></div>
+        <div class="copy rv"><span class="eyebrow corner">Arrivée</span><h3>Des accès faciles vers la course auto</h3><p>Pratiquez le sport auto lors d'expériences organisées en circuit pour découvrir la course automobile sous différentes formules accompagné de professionnels reconnus.</p></div>
+      </article>
     </div>
   </div>
 </section>
 
-<section id="evenements" style="padding: 0 clamp(20px, 5vw, 64px) clamp(72px, 9vw, 128px)">
-  <div style="max-width: 1240px; margin: 0 auto">
-    <div aria-hidden="true" style="height: 14px; border-top: 2px solid #16171A; border-bottom: 2px solid #16171A; background-image: repeating-linear-gradient(90deg, #16171A 0 28px, transparent 28px 48px); background-size: 100% 2px; background-position: 0 50%; background-repeat: no-repeat; margin-bottom: clamp(48px, 6vw, 80px)"></div>
-    <h2 style="margin: 0 0 32px; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05">Nos événements</h2>
-    <ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #D3D3CF">
-      
-        <li style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 32px; padding: 22px 0; border-top: 1px solid #D3D3CF">
-          <span style="flex: 0 0 150px; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; color: #5B5D63">Nov. 2026</span>
-          <span style="flex: 1 1 280px; font-weight: 700; font-size: 21px; line-height: 1.25">Dîner networking</span>
-          <span style="flex: 0 1 240px; font-size: 17px; color: #3B3D42">Paris</span>
-          <a href="#contact" aria-label="Inscription : Dîner networking" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 700; color: #16171A; text-decoration-color: #F26A1B; text-decoration-thickness: 2px; text-underline-offset: 4px">Inscription</a>
-        </li>
-      
-        <li style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 32px; padding: 22px 0; border-top: 1px solid #D3D3CF">
-          <span style="flex: 0 0 150px; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; color: #5B5D63">Déc. 2026</span>
-          <span style="flex: 1 1 280px; font-weight: 700; font-size: 21px; line-height: 1.25">Soirée simulateur</span>
-          <span style="flex: 0 1 240px; font-size: 17px; color: #3B3D42">Paris</span>
-          <a href="#contact" aria-label="Inscription : Soirée simulateur" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 700; color: #16171A; text-decoration-color: #F26A1B; text-decoration-thickness: 2px; text-underline-offset: 4px">Inscription</a>
-        </li>
-      
-        <li style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 32px; padding: 22px 0; border-top: 1px solid #D3D3CF">
-          <span style="flex: 0 0 150px; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; color: #5B5D63">Janv. 2027</span>
-          <span style="flex: 1 1 280px; font-weight: 700; font-size: 21px; line-height: 1.25">24 Heures de Daytona</span>
-          <span style="flex: 0 1 240px; font-size: 17px; color: #3B3D42">Daytona, États-Unis</span>
-          <a href="#contact" aria-label="Inscription : 24 Heures de Daytona" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 700; color: #16171A; text-decoration-color: #F26A1B; text-decoration-thickness: 2px; text-underline-offset: 4px">Inscription</a>
-        </li>
-      
-        <li style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 32px; padding: 22px 0; border-top: 1px solid #D3D3CF">
-          <span style="flex: 0 0 150px; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; color: #5B5D63">Févr. 2027</span>
-          <span style="flex: 1 1 280px; font-weight: 700; font-size: 21px; line-height: 1.25">Driving Experience</span>
-          <span style="flex: 0 1 240px; font-size: 17px; color: #3B3D42">Laponie</span>
-          <a href="#contact" aria-label="Inscription : Driving Experience" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 700; color: #16171A; text-decoration-color: #F26A1B; text-decoration-thickness: 2px; text-underline-offset: 4px">Inscription</a>
-        </li>
-      
-        <li style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 32px; padding: 22px 0; border-top: 1px solid #D3D3CF">
-          <span style="flex: 0 0 150px; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; color: #5B5D63">Avr. 2027</span>
-          <span style="flex: 1 1 280px; font-weight: 700; font-size: 21px; line-height: 1.25">Track day</span>
-          <span style="flex: 0 1 240px; font-size: 17px; color: #3B3D42">Circuit de Magny-Cours</span>
-          <a href="#contact" aria-label="Inscription : Track day" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; font-weight: 700; color: #16171A; text-decoration-color: #F26A1B; text-decoration-thickness: 2px; text-underline-offset: 4px">Inscription</a>
-        </li>
-      
+<div class="kerb" aria-hidden="true"></div>
+
+<section id="evenements" class="events band">
+  <div class="wrap">
+    <div class="events-head">
+      <h2 class="display rv">Nos événements</h2>
+      <span class="eyebrow">Grille 2026 — 2027</span>
+    </div>
+    <ul class="grid">
+      <li><span class="pos" aria-hidden="true"></span><span class="date">Nov. 2026</span><span class="what">Dîner networking <span class="live">Prochain</span></span><span class="where">Paris</span><a href="#contact" aria-label="Inscription : Dîner networking">Inscription <span aria-hidden="true">→</span></a></li>
+      <li><span class="pos" aria-hidden="true"></span><span class="date">Déc. 2026</span><span class="what">Soirée simulateur</span><span class="where">Paris</span><a href="#contact" aria-label="Inscription : Soirée simulateur">Inscription <span aria-hidden="true">→</span></a></li>
+      <li><span class="pos" aria-hidden="true"></span><span class="date">Janv. 2027</span><span class="what">24 Heures de Daytona</span><span class="where">Daytona, États-Unis</span><a href="#contact" aria-label="Inscription : 24 Heures de Daytona">Inscription <span aria-hidden="true">→</span></a></li>
+      <li><span class="pos" aria-hidden="true"></span><span class="date">Févr. 2027</span><span class="what">Driving Experience</span><span class="where">Laponie</span><a href="#contact" aria-label="Inscription : Driving Experience">Inscription <span aria-hidden="true">→</span></a></li>
+      <li><span class="pos" aria-hidden="true"></span><span class="date">Avr. 2027</span><span class="what">Track day</span><span class="where">Circuit de Magny-Cours</span><a href="#contact" aria-label="Inscription : Track day">Inscription <span aria-hidden="true">→</span></a></li>
     </ul>
   </div>
 </section>
 
-<section id="newsletter" style="background: #000000; color: #F4F4F2; padding: clamp(72px, 9vw, 120px) clamp(20px, 5vw, 64px)">
-  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px 96px">
-    <div style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 20px">
-      <h2 style="margin: 0; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(28px, 3vw, 40px); line-height: 1.05">Une newsletter gratuite et exclusive</h2>
-      <p style="margin: 0; font-size: 18px; color: #C4C2BC">Des histoires de bolides, de pilotes pour les entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
-      <p style="margin: 0; font-size: 18px; color: #C4C2BC">Nos posts donnent un éclairage nouveau sur des profils inspirants, des événements emblématiques de notre sport.</p>
-      <form aria-label="Inscription à la newsletter" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px">
-        <label for="nl-email" style="width: 100%; font-size: 15px; font-weight: 600">Adresse Email</label>
-        <input id="nl-email" type="email" autocomplete="email" style="flex: 1 1 240px; min-height: 52px; padding: 0 16px; border: 1.5px solid #6B6D72; border-radius: 3px; background: #16171A; color: #F4F4F2; font: inherit; font-size: 16px">
-        <button type="button" style="min-height: 52px; padding: 0 24px; border: 0; border-radius: 3px; background: #F26A1B; color: #16171A; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer">S'inscrire</button>
+<section id="newsletter" class="news band">
+  <div class="wrap">
+    <div class="news-intro">
+      <h2 class="display rv">Une newsletter gratuite et exclusive</h2>
+      <p>Des histoires de bolides, de pilotes pour les entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
+      <p>Nos posts donnent un éclairage nouveau sur des profils inspirants, des événements emblématiques de notre sport.</p>
+      <form class="nl-form" aria-label="Inscription à la newsletter" action="https://idsociety.substack.com/subscribe" method="get" target="_blank">
+        <label for="nl-email">Adresse Email</label>
+        <input id="nl-email" name="email" type="email" autocomplete="email" required placeholder="vous@entreprise.fr">
+        <button class="btn btn-primary" type="submit">S'inscrire <span class="arr" aria-hidden="true">→</span></button>
       </form>
     </div>
-    <div style="flex: 1.3 1 460px; display: flex; flex-direction: column">
-      
-        <a href="https://idsociety.substack.com/p/nl58-les-secrets-de-germain-michou" style="display: flex; flex-direction: column; gap: 6px; padding: 22px 0; border-top: 1px solid #34363B; color: #F4F4F2; text-decoration: none">
-          <span style="font-size: 14px; color: #A9A7A1">NL#58, 6 septembre 2026</span>
-          <span style="font-size: 20px; font-weight: 700; line-height: 1.3">Les secrets de Germain Michou-Tonning pour réussir un road trip dans les Alpes suisses</span>
-        </a>
-      
-        <a href="https://idsociety.substack.com/p/nl57-le-mans-vs-porsche-qui-remporte" style="display: flex; flex-direction: column; gap: 6px; padding: 22px 0; border-top: 1px solid #34363B; color: #F4F4F2; text-decoration: none">
-          <span style="font-size: 14px; color: #A9A7A1">NL#57, 9 août 2026</span>
-          <span style="font-size: 20px; font-weight: 700; line-height: 1.3">Le Mans vs. Porsche : qui remporte le match de l'expérience 'visite au musée' ?</span>
-        </a>
-      
-        <a href="https://idsociety.substack.com/p/championnat-de-france-de-karting" style="display: flex; flex-direction: column; gap: 6px; padding: 22px 0; border-top: 1px solid #34363B; color: #F4F4F2; text-decoration: none">
-          <span style="font-size: 14px; color: #A9A7A1">NL#56, 15 juillet 2026</span>
-          <span style="font-size: 20px; font-weight: 700; line-height: 1.3">Championnat de France de karting, 75 pages de chronos, 10 minutes d'analyse : notre nouvelle approche IA en endurance</span>
-        </a>
-      
-      <a href="https://idsociety.substack.com/archive" style="display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; padding-top: 16px; border-top: 1px solid #34363B; color: #F4F4F2; font-size: 16px; font-weight: 700; text-decoration-color: #F26A1B; text-decoration-thickness: 2px; text-underline-offset: 4px">Toutes les archives</a>
+    <div class="issues">
+      <a class="issue" href="https://idsociety.substack.com/p/nl58-les-secrets-de-germain-michou"><span class="num" aria-hidden="true">58</span><span class="meta"><small>NL#58, 6 septembre 2026</small><span>Les secrets de Germain Michou-Tonning pour réussir un road trip dans les Alpes suisses</span></span><span class="go-arr" aria-hidden="true">→</span></a>
+      <a class="issue" href="https://idsociety.substack.com/p/nl57-le-mans-vs-porsche-qui-remporte"><span class="num" aria-hidden="true">57</span><span class="meta"><small>NL#57, 9 août 2026</small><span>Le Mans vs. Porsche : qui remporte le match de l'expérience 'visite au musée' ?</span></span><span class="go-arr" aria-hidden="true">→</span></a>
+      <a class="issue" href="https://idsociety.substack.com/p/championnat-de-france-de-karting"><span class="num" aria-hidden="true">56</span><span class="meta"><small>NL#56, 15 juillet 2026</small><span>Championnat de France de karting, 75 pages de chronos, 10 minutes d'analyse : notre nouvelle approche IA en endurance</span></span><span class="go-arr" aria-hidden="true">→</span></a>
+      <a class="archives" href="https://idsociety.substack.com/archive">Toutes les archives <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
 
-<section id="faq" style="padding: clamp(72px, 9vw, 120px) clamp(20px, 5vw, 64px)">
-  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px 96px">
-    <h2 style="flex: 1 1 320px; margin: 0; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05">Questions fréquentes</h2>
-    <div style="flex: 2 1 520px; border-bottom: 1px solid #D3D3CF">
-      <details style="border-top: 1px solid #D3D3CF; padding: 0">
-        <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 1.3">Dois-je avoir une entreprise ?<span aria-hidden="true" style="flex: 0 0 auto; font-size: 26px; font-weight: 400; line-height: 1; color: #5B5D63">+</span></summary>
-        <p style="margin: 0; padding: 0 0 22px; max-width: 64ch; color: #3B3D42">Oui, c'est préférable, nous sommes un club d'affaires avant tout.</p>
-      </details>
-      <details style="border-top: 1px solid #D3D3CF; padding: 0">
-        <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 1.3">Je travaille beaucoup, je n'ai pas le temps. Est-ce pour moi ?<span aria-hidden="true" style="flex: 0 0 auto; font-size: 26px; font-weight: 400; line-height: 1; color: #5B5D63">+</span></summary>
-        <p style="margin: 0; padding: 0 0 22px; max-width: 64ch; color: #3B3D42">Nous nous adaptons aux emplois du temps chargés d'entrepreneurs et dirigeants passionnés et passionnants car ce club est géré par des entrepreneurs en activité.</p>
-      </details>
-      <details style="border-top: 1px solid #D3D3CF; padding: 0">
-        <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 1.3">Frais de participation<span aria-hidden="true" style="flex: 0 0 auto; font-size: 26px; font-weight: 400; line-height: 1; color: #5B5D63">+</span></summary>
-        <p style="margin: 0; padding: 0 0 22px; max-width: 64ch; color: #3B3D42">ID Society Club est une entreprise dont l'objet social est l'organisation d'événements et de mise en relation ; les frais de participation peuvent donc être considérés comme des dépenses professionnelles.</p>
-      </details>
-      <details style="border-top: 1px solid #D3D3CF; padding: 0">
-        <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 1.3">Je n'ai jamais pratiqué le sport auto sérieusement<span aria-hidden="true" style="flex: 0 0 auto; font-size: 26px; font-weight: 400; line-height: 1; color: #5B5D63">+</span></summary>
-        <p style="margin: 0; padding: 0 0 22px; max-width: 64ch; color: #3B3D42">Nous accueillons tous les niveaux avec bienveillance. L'expérience de networking peut mener à la compétition, sans être un objectif absolu. Nous avons le réseau pour vous accompagner jusqu'en course si c'est votre rêve.</p>
-      </details>
-      <details style="border-top: 1px solid #D3D3CF; padding: 0">
-        <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 14px 0; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 1.3">Je ne connais personne<span aria-hidden="true" style="flex: 0 0 auto; font-size: 26px; font-weight: 400; line-height: 1; color: #5B5D63">+</span></summary>
-        <p style="margin: 0; padding: 0 0 22px; max-width: 64ch; color: #3B3D42">C'est justement pour partager des expériences que nous avons créé ce club pour vivre votre passion ensemble.</p>
-      </details>
+<section id="faq" class="faq band">
+  <div class="wrap">
+    <h2 class="display rv">Questions fréquentes</h2>
+    <div class="qa">
+      <details><summary>Dois-je avoir une entreprise ?<i aria-hidden="true"></i></summary><p>Oui, c'est préférable, nous sommes un club d'affaires avant tout.</p></details>
+      <details><summary>Je travaille beaucoup, je n'ai pas le temps. Est-ce pour moi ?<i aria-hidden="true"></i></summary><p>Nous nous adaptons aux emplois du temps chargés d'entrepreneurs et dirigeants passionnés et passionnants car ce club est géré par des entrepreneurs en activité.</p></details>
+      <details><summary>Frais de participation<i aria-hidden="true"></i></summary><p>ID Society Club est une entreprise dont l'objet social est l'organisation d'événements et de mise en relation ; les frais de participation peuvent donc être considérés comme des dépenses professionnelles.</p></details>
+      <details><summary>Je n'ai jamais pratiqué le sport auto sérieusement<i aria-hidden="true"></i></summary><p>Nous accueillons tous les niveaux avec bienveillance. L'expérience de networking peut mener à la compétition, sans être un objectif absolu. Nous avons le réseau pour vous accompagner jusqu'en course si c'est votre rêve.</p></details>
+      <details><summary>Je ne connais personne<i aria-hidden="true"></i></summary><p>C'est justement pour partager des expériences que nous avons créé ce club pour vivre votre passion ensemble.</p></details>
     </div>
   </div>
 </section>
 
-<section id="contact" style="background: #F26A1B; color: #16171A; padding: clamp(72px, 9vw, 120px) clamp(20px, 5vw, 64px)">
-  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px 96px">
-    <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 20px">
-      <h2 style="margin: 0; font-weight: 800; font-stretch: 125%; text-transform: uppercase; font-size: clamp(38px, 5vw, 72px); line-height: 0.98; letter-spacing: -0.01em">Rejoindre le club</h2>
-      <p style="margin: 0; max-width: 40ch; font-size: 19px; line-height: 1.5">Rencontrez de futurs associés ou partenaires d'affaires. Rejoignez des séjours passion avec vos clients ou collaborateurs.</p>
+<section id="contact" class="contact band">
+  <div class="flag" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="contact-intro">
+      <h2 class="display rv">Rejoindre le club</h2>
+      <p>Rencontrez de futurs associés ou partenaires d'affaires. Rejoignez des séjours passion avec vos clients ou collaborateurs.</p>
     </div>
-    <form aria-label="Contact" style="flex: 1.2 1 420px; display: flex; flex-direction: column; gap: 20px; padding: clamp(24px, 3vw, 40px); background: #000000; color: #F4F4F2; border-radius: 3px">
-      <div style="display: flex; flex-direction: column; gap: 8px">
-        <label for="c-nom" style="font-size: 15px; font-weight: 600">Prénom, Nom</label>
-        <input id="c-nom" type="text" autocomplete="name" style="min-height: 48px; padding: 0 14px; border: 1px solid #4A4C51; border-radius: 3px; background: #1C1C1E; color: #F4F4F2; font: inherit; font-size: 16px">
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 8px">
-        <label for="c-email" style="font-size: 15px; font-weight: 600">Adresse Email</label>
-        <input id="c-email" type="email" autocomplete="email" style="min-height: 48px; padding: 0 14px; border: 1px solid #4A4C51; border-radius: 3px; background: #1C1C1E; color: #F4F4F2; font: inherit; font-size: 16px">
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 8px">
-        <label for="c-message" style="font-size: 15px; font-weight: 600">Votre Message</label>
-        <textarea id="c-message" rows="4" style="padding: 12px 14px; border: 1px solid #4A4C51; border-radius: 3px; background: #1C1C1E; color: #F4F4F2; font: inherit; font-size: 16px; resize: vertical"></textarea>
-      </div>
-      <button type="button" style="min-height: 54px; border: 0; border-radius: 3px; background: #F26A1B; color: #16171A; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer">Envoyer</button>
+    <form class="c-form" aria-label="Contact">
+      <div class="field"><label for="c-nom">Prénom, Nom</label><input id="c-nom" type="text" autocomplete="name"></div>
+      <div class="field"><label for="c-email">Adresse Email</label><input id="c-email" type="email" autocomplete="email"></div>
+      <div class="field"><label for="c-message">Votre Message</label><textarea id="c-message" rows="4"></textarea></div>
+      <button class="btn btn-primary" type="button">Envoyer <span class="arr" aria-hidden="true">→</span></button>
     </form>
   </div>
 </section>
 
-<footer style="background: #000000; color: #F4F4F2; padding: 0 clamp(20px, 5vw, 64px) 40px">
-  <div aria-hidden="true" style="height: 14px; border-bottom: 2px solid #F4F4F2; background-image: repeating-linear-gradient(90deg, #F4F4F2 0 28px, transparent 28px 48px); background-size: 100% 2px; background-position: 0 50%; background-repeat: no-repeat; margin: 0 calc(-1 * clamp(20px, 5vw, 64px)) 56px"></div>
-  <div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px 48px">
-      <div style="flex: 1 1 320px; display: flex; align-items: center; gap: 16px">
-        <svg viewBox="0 0 200 200" width="64" height="64" role="img" aria-label="ID Society" style="display: block">
-  <circle cx="100" cy="100" r="100" fill="#000000"></circle>
-  <circle cx="100" cy="100" r="91.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
-  <circle cx="100" cy="100" r="83.5" fill="none" stroke="#F4F4F2" stroke-width="3.5" stroke-dasharray="6 4" pathLength="400" transform="rotate(-90 100 100)"></circle>
-  <circle cx="100" cy="100" r="75.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
-  <g transform="translate(100 100) scale(1.1) translate(-100 -100)">
-    <path d="M64 78 V136 H100 A36 36 0 0 0 100 64 H78" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
-    <path d="M84 116 V94 L94 84 H100 A16 16 0 0 1 100 116 Z" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
-    <rect x="58" y="58" width="12" height="12" fill="#F26A1B"></rect>
-  </g>
-</svg>
-        <p style="margin: 0; max-width: 320px; font-size: 15px; color: #C4C2BC">Club d'entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
-      </div>
-      <nav aria-label="Pied de page" style="display: flex; flex-wrap: wrap; gap: 0 28px; align-items: center">
-        <a href="#club" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">À propos</a>
-        <a href="#evenements" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">Événements</a>
-        <a href="https://idsociety.substack.com" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">Newsletter</a>
-        <a href="#contact" style="display: inline-flex; align-items: center; min-height: 44px; color: #F4F4F2; text-decoration: none; font-size: 15px">Contact</a>
-        <span style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #C4C2BC">@ID_SOCIETY_CLUB</span>
+<footer class="foot band">
+  <div class="wrap">
+    <div class="foot-top">
+      <a class="foot-brand" href="#top" style="text-decoration:none">
+        <svg viewBox="0 0 200 200" role="img" aria-label="ID Society">
+          <circle cx="100" cy="100" r="100" fill="#0A0A0B"></circle>
+          <circle cx="100" cy="100" r="91.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
+          <circle class="tach" cx="100" cy="100" r="83.5" fill="none" stroke="#F4F4F2" stroke-width="3.5" stroke-dasharray="6 4" pathLength="400"></circle>
+          <circle cx="100" cy="100" r="75.5" fill="none" stroke="#F4F4F2" stroke-width="3"></circle>
+          <g transform="translate(100 100) scale(1.1) translate(-100 -100)">
+            <path d="M64 78 V136 H100 A36 36 0 0 0 100 64 H78" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
+            <path d="M84 116 V94 L94 84 H100 A16 16 0 0 1 100 116 Z" fill="none" stroke="#F4F4F2" stroke-width="12"></path>
+            <rect x="58" y="58" width="12" height="12" fill="#F26A1B"></rect>
+          </g>
+        </svg>
+        <p>Club d'entrepreneurs, investisseurs et dirigeants passionnés de sport automobile.</p>
+      </a>
+      <nav aria-label="Pied de page">
+        <a href="#club">À propos</a>
+        <a href="#evenements">Événements</a>
+        <a href="https://idsociety.substack.com">Newsletter</a>
+        <a href="#contact">Contact</a>
+        <span>@ID_SOCIETY_CLUB</span>
       </nav>
     </div>
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-top: 20px; border-top: 1px solid #34363B; font-size: 13px; color: #A9A7A1">
+    <div class="wordmark" aria-hidden="true">ID Society</div>
+    <div class="legal">
       <span>© 2026 ID Society Club</span>
-      <span style="display: flex; flex-wrap: wrap; gap: 0 20px">
-        <a href="#top" style="color: #A9A7A1">Mentions légales</a>
-        <a href="#top" style="color: #A9A7A1">Politique de confidentialité</a>
-      </span>
+      <span><a href="#top">Mentions légales</a><a href="#top">Politique de confidentialité</a></span>
     </div>
   </div>
 </footer>
 
-</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- Procédure de départ : 5 feux, extinction, la page s'élance --- */
+  var lights = document.querySelector('.lights');
+  var seen = false;
+  try { seen = sessionStorage.getItem('ids-start') === '1'; sessionStorage.setItem('ids-start','1'); } catch(e){}
+  if (!still && !seen) {
+    root.classList.add('intro');
+    var n = 0;
+    var t = setInterval(function(){
+      n++; lights.className = 'lights on' + n;
+      if (n === 5) { clearInterval(t); setTimeout(function(){ lights.className = 'lights'; root.classList.add('go'); }, 420 + Math.random()*260); }
+    }, 300);
+  } else { root.classList.add('go'); }
+
+  /* --- Header compact, barre de progression « tour », compte-tours du logo --- */
+  var lap = document.querySelector('.lap');
+  var tachs = document.querySelectorAll('.site-header .tach');
+  /* --- Piste : tracé en pixels réels, trajectoire dessinée au scroll, voiture qui suit --- */
+  var circuit = document.querySelector('.circuit');
+  var svg = circuit && circuit.querySelector('.track');
+  var paths = svg ? svg.querySelectorAll('.tp') : [];
+  var racing = svg && svg.querySelector('.racing');
+  var car = document.querySelector('.car');
+  var base = [[230,0],[230,380],[230,480,770,470,770,570],[770,830],[770,930,230,920,230,1020],[230,1300]];
+  var L = 0;
+  function buildTrack(){
+    if (!svg || getComputedStyle(svg).display === 'none') return;
+    var w = circuit.clientWidth, h = circuit.clientHeight, sx = w/1000, sy = h/1375;
+    var d = '';
+    base.forEach(function(seg,i){
+      var pts = seg.map(function(v,j){ return (j%2 ? v*sy : v*sx).toFixed(1); });
+      d += (i===0 ? 'M' : (seg.length===2 ? ' L' : ' C')) + pts.join(' ');
+    });
+    svg.setAttribute('viewBox','0 0 '+w+' '+h);
+    svg.setAttribute('preserveAspectRatio','xMinYMin meet');
+    paths.forEach(function(p){ p.setAttribute('d', d); });
+    L = racing.getTotalLength();
+    racing.style.strokeDasharray = L;
+    racing.setAttribute('opacity', still ? '0' : '1');
+    if (!still) car.style.opacity = '1';
+    onScroll();
+  }
+  function onScroll(){
+    var y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    root.classList.toggle('is-scrolled', y > 40);
+    if (lap) lap.style.setProperty('--p', max > 0 ? (y/max).toFixed(4) : 0);
+    if (!still) tachs.forEach(function(c){ c.style.transform = 'rotate(' + (y*0.25) + 'deg)'; });
+    if (L && !still) {
+      var r = circuit.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (innerHeight*0.6 - r.top) / r.height));
+      racing.style.strokeDashoffset = L*(1-p);
+      var a = racing.getPointAtLength(L*p), b = racing.getPointAtLength(Math.min(L, L*p+2));
+      var ang = Math.atan2(b.y-a.y, b.x-a.x)*180/Math.PI;
+      car.style.transform = 'translate(' + a.x + 'px,' + a.y + 'px) rotate(' + ang + 'deg)';
+    }
+  }
+  var ticking = false;
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(function(){ onScroll(); ticking = false; }); } }, {passive:true});
+  addEventListener('resize', buildTrack);
+  addEventListener('load', buildTrack);
+  buildTrack();
+
+  /* --- Révélations au scroll (vérifiées à chaque frame de scroll, sans dépendre d'un observer) --- */
+  var items = [].slice.call(document.querySelectorAll('.rv, .shot'));
+  function revealCheck(){
+    var lim = innerHeight * 0.9;
+    items = items.filter(function(el){ if (el.getBoundingClientRect().top < lim){ el.classList.add('in'); return false; } return true; });
+  }
+  if (!still) {
+    revealCheck();
+    root.classList.add('reveal-armed');
+    addEventListener('scroll', function(){ requestAnimationFrame(revealCheck); }, {passive:true});
+    addEventListener('resize', revealCheck);
+  }
+
+  /* --- Lien de navigation actif --- */
+  var links = document.querySelectorAll('.nav a[href^="#"]:not(.btn)');
+  if ('IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) links.forEach(function(l){ l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id); }); }); }, {rootMargin:'-45% 0px -50% 0px'});
+    ['club','evenements','newsletter'].forEach(function(id){ var s = document.getElementById(id); if (s) so.observe(s); });
+  }
+})();
+</script>
 </body>
 </html>
