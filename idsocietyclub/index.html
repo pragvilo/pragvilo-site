@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&amp;family=Schibsted+Grotesk:ital,wght@0,400..800;1,400..800&amp;family=Martian+Mono:wdth,wght@75..112.5,400..700&amp;display=swap">
 <style>
-/* Concept : une page = un tour de circuit. Paddock (hero) → piste (formats) → grille (événements) → drapeau à damier (contact).
+/* Concept : départ (feux du hero) → grille (événements) → drapeau à damier (contact).
    Un seul vrai « moment » : la procédure de départ des feux dans le hero. Le reste reste sobre et précis. */
 :root{
   --asphalt:#0A0A0B;      /* fonds noirs */
@@ -32,7 +32,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{margin:0;background:var(--paper);color:var(--carbon);font-family:var(--body);font-size:17px;line-height:1.6;letter-spacing:-.005em;font-feature-settings:'ss01';-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--carbon);font-family:var(--body);font-size:16px;line-height:1.6;letter-spacing:-.005em;font-feature-settings:'ss01';-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
@@ -57,8 +57,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .site-header .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 32px;padding-block:10px;transition:padding .3s var(--ease)}
 .is-scrolled .site-header .wrap{padding-block:4px}
 .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
-.brand svg{width:48px;height:48px;transition:width .3s var(--ease),height .3s var(--ease)}
-.is-scrolled .brand svg{width:40px;height:40px}
+.brand svg{width:40px;height:40px;transition:width .3s var(--ease),height .3s var(--ease)}
+.is-scrolled .brand svg{width:34px;height:34px}
 .brand span{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:17px;letter-spacing:.03em;text-transform:uppercase}
 .tach{transform-origin:100px 100px;transform-box:view-box}
 .nav{display:flex;flex-wrap:wrap;align-items:center;gap:0 28px}
@@ -88,7 +88,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .hero h1 .ln{display:block;overflow:hidden;padding:.04em .08em .02em 0;margin-right:-.08em}
 .hero h1 .ln>span{display:inline-block}
 .hero h1 em{font-style:inherit;color:var(--orange)}
-.hero .lede{margin:0;max-width:36ch;font-size:clamp(18px, 1.6vw, 21px);line-height:1.5;color:#C4C2BC}
+.hero .lede{margin:0;max-width:40ch;font-size:clamp(16px, 1.3vw, 18px);line-height:1.5;color:#C4C2BC}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
 /* Animation d'intro (seulement si JS actif et mouvement autorisé) */
 .intro .hero h1 .ln>span{transform:translateY(110%) skewX(-12deg)}
@@ -142,39 +142,24 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .club-body .quote{--chk:var(--carbon)}
 .reveal-armed .rv.flag-t:not(.in)::before{transform:scaleY(0)}
 .rv.flag-t.in::before{transition:transform .8s .15s var(--ease)}
-.club-body .txt{display:flex;flex-direction:column;gap:22px;font-size:19px;line-height:1.65;color:var(--steel);max-width:62ch}
+.club-body .txt{display:flex;flex-direction:column;gap:16px;font-size:16px;line-height:1.65;color:var(--steel);max-width:64ch}
 .club-body .txt p{margin:0}
 @media (max-width:760px){.club-body{grid-template-columns:1fr}}
 
 /* ---------- Formats / piste ---------- */
 .formats{padding-bottom:clamp(32px, 3.5vw, 48px)}
 .formats h2{font-size:clamp(24px, 2.5vw, 36px);margin-bottom:24px}
-.corner{display:inline-flex;align-items:center;gap:10px;color:var(--orange-ink)}
-.corner::before{content:"";width:22px;height:2px;background:currentColor}
 .shot{position:relative;overflow:hidden;border-radius:2px;background:var(--carbon)}
-.shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}
-.shot:hover img{transform:scale(1.05)}
-.shot::after{content:"";position:absolute;inset:0;background:var(--orange);transform-origin:right;transform:scaleX(0);pointer-events:none}
-.reveal-armed .shot:not(.in)::after{transform:scaleX(1);transform-origin:left}
-.reveal-armed .shot:not(.in) img{transform:scale(1.15)}
-.shot.in::after{transform:scaleX(0);transition:transform .9s var(--ease)}
-.shot.in img{transition:transform 1.4s var(--ease)}
-.lead-fmt{display:flex;flex-direction:column;gap:24px}
-.lead-fmt .shot{aspect-ratio:21/9}
-.lead-fmt .shot img{object-position:50% 62%}
-.fmt-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 64px}
-.fmt-head>div{flex:1 1 320px;display:flex;flex-direction:column;gap:10px}
-.fmt-head p{flex:1.6 1 420px;margin:0;max-width:60ch;font-size:18px;color:var(--steel)}
-.formats h3{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:clamp(19px, 1.6vw, 23px);line-height:1.12;text-wrap:balance}
-.circuit{position:relative;padding-bottom:2%}
-.track{position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:visible}
-.fmt{position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 0;margin-top:5%}
-.fmt:first-of-type{margin-top:4%}
-.fmt.rev{flex-direction:row-reverse}
-.fmt .shot{flex:0 1 46%;min-width:300px;aspect-ratio:4/3}
-.fmt .copy{flex:0 1 42%;min-width:280px;display:flex;flex-direction:column;gap:12px;padding:20px 24px;background:var(--paper)}
-.fmt .copy p{margin:0;font-size:18px;line-height:1.6;color:var(--steel)}
-@media (max-width:760px){.track{display:none}.fmt,.fmt.rev{flex-direction:column;align-items:stretch;margin-top:48px}.fmt>*{flex:1 1 auto !important;width:100%;min-width:0 !important}.fmt .copy{padding:0}}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.fmt:hover .shot img{transform:scale(1.05)}
+.fmts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px clamp(16px, 2vw, 28px)}
+.fmt{display:flex;flex-direction:column;gap:12px;min-width:0}
+.fmt .shot{aspect-ratio:4/3}
+.fmt:first-child .shot img{object-position:50% 62%}
+.fmt p{margin:0;font-size:15px;line-height:1.55;color:var(--steel)}
+.formats h3{margin:0;font-family:var(--display);font-weight:800;font-stretch:112%;font-style:italic;font-size:17px;line-height:1.15;text-wrap:balance}
+@media (max-width:1000px){.fmts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.fmts{grid-template-columns:1fr}}
 
 /* ---------- Événements : écran de chronométrage ---------- */
 .events{padding-bottom:clamp(40px, 4.5vw, 64px)}
@@ -191,7 +176,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .grid li:hover .pos{color:var(--orange)}
 .grid .date{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--steel);transition:color .3s}
 .grid li:hover .date,.grid li:hover .where{color:#C4C2BC}
-.grid .what{font-weight:800;font-size:clamp(19px, 1.8vw, 23px);line-height:1.2;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.grid .what{font-weight:800;font-size:clamp(16px, 1.4vw, 19px);line-height:1.2;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .grid .where{font-size:16px;color:var(--steel);transition:color .3s}
 .live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;background:var(--orange);color:var(--carbon)}
 .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--carbon);animation:blink 1.2s steps(2) infinite}
@@ -205,7 +190,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .news .wrap{display:flex;flex-wrap:wrap;gap:56px 96px;position:relative}
 .news-intro{flex:1 1 380px;display:flex;flex-direction:column;gap:20px}
 .news h2{font-size:clamp(22px, 2.2vw, 32px)}
-.news-intro p{margin:0;font-size:18px;color:#C4C2BC}
+.news-intro p{margin:0;font-size:16px;color:#C4C2BC}
 .nl-form{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .nl-form label{width:100%;font-size:14px;font-weight:600;color:#C4C2BC}
 .nl-form input{flex:1 1 240px;min-height:54px;padding:0 16px;border:0;border-bottom:2px solid #4A4C51;border-radius:0;background:#141416;color:var(--paper);font:inherit;font-size:16px;transition:border-color .25s,background .25s}
@@ -216,7 +201,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .issue .num{font-family:var(--display);font-weight:850;font-stretch:125%;font-style:italic;font-size:clamp(26px, 2.4vw, 36px);line-height:1;color:transparent;-webkit-text-stroke:1.2px rgba(244,244,242,.45);transition:color .35s,-webkit-text-stroke-color .35s}
 .issue .meta{display:flex;flex-direction:column;gap:6px;min-width:0}
 .issue .meta small{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
-.issue .meta span{font-size:19px;font-weight:700;line-height:1.3}
+.issue .meta span{font-size:16px;font-weight:700;line-height:1.3}
 .issue .go-arr{font-size:22px;color:var(--orange);transform:translateX(-8px);opacity:0;transition:transform .35s var(--ease),opacity .35s}
 .issue:hover .num{color:var(--orange);-webkit-text-stroke-color:var(--orange)}
 .issue:hover .go-arr{transform:none;opacity:1}
@@ -232,7 +217,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .qa details{border-top:1px solid var(--line)}
 .qa details::details-content{height:0;overflow:clip;transition:height .45s var(--ease),content-visibility .45s allow-discrete}
 .qa details[open]::details-content{height:auto}
-.qa summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:68px;padding:14px 0;cursor:pointer;list-style:none;font-size:20px;font-weight:750;line-height:1.3;transition:color .2s}
+.qa summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:56px;padding:14px 0;cursor:pointer;list-style:none;font-size:17px;font-weight:750;line-height:1.3;transition:color .2s}
 .qa summary::-webkit-details-marker{display:none}
 .qa summary:hover{color:var(--orange-ink)}
 .qa summary i{flex:0 0 auto;position:relative;width:32px;height:32px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--line);transition:transform .45s var(--ease),background .3s,box-shadow .3s}
@@ -248,11 +233,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .contact .wrap{display:flex;flex-wrap:wrap;align-items:flex-start;gap:48px 96px}
 .contact-intro{flex:1 1 360px;display:flex;flex-direction:column;gap:22px}
 .contact h2{font-size:clamp(30px, 3.6vw, 52px);line-height:.95}
-.contact-intro p{margin:0;max-width:38ch;font-size:19px;line-height:1.5}
+.contact-intro p{margin:0;max-width:40ch;font-size:16px;line-height:1.55}
 .c-form{flex:1.2 1 420px;min-width:0;display:flex;flex-direction:column;gap:22px;padding:clamp(24px, 3vw, 40px);background:var(--asphalt);color:var(--paper);clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%)}
 .field{display:flex;flex-direction:column;gap:8px}
 .field label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#C4C2BC}
-.field input,.field textarea{min-height:50px;padding:12px 0;border:0;border-bottom:2px solid #3A3B40;background:transparent;color:var(--paper);font:inherit;font-size:17px;transition:border-color .25s}
+.field input,.field textarea{min-height:50px;padding:12px 0;border:0;border-bottom:2px solid #3A3B40;background:transparent;color:var(--paper);font:inherit;font-size:16px;transition:border-color .25s}
 .field textarea{resize:vertical;min-height:110px}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--orange)}
 .c-form .btn{justify-content:center;border:0;cursor:pointer;font:inherit;font-weight:750;width:100%}
@@ -316,7 +301,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 <section id="top" class="hero">
   <figure>
-    <img src="img/hero-lamera-clean.jpg" alt="La Lamera n°32 en piste à Valencia" fetchpriority="high">
+    <img src="/idsocietyclub/img/hero-lamera-clean.jpg" alt="La Lamera n°32 en piste à Valencia" fetchpriority="high">
     <div class="speed" aria-hidden="true"><i style="top:22%"></i><i style="top:38%;animation-delay:.08s"></i><i style="top:51%;animation-delay:.03s"></i><i style="top:63%;animation-delay:.12s"></i><i style="top:77%;animation-delay:.05s"></i></div>
     <figcaption>Photo © Stéphane Azemard</figcaption>
   </figure>
@@ -361,34 +346,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 <section class="formats band" aria-labelledby="formats-titre">
   <div class="wrap">
     <h2 id="formats-titre" class="display rv flag-t">What's in it for you?</h2>
-    <article class="lead-fmt">
-      <div class="shot"><img src="img/diner-hd.jpg" alt="Dîner du club sur une terrasse face à la tour Eiffel" loading="lazy"></div>
-      <div class="fmt-head rv">
-        <div><span class="eyebrow corner">Paddock · Paris</span><h3>Des networking parisiens</h3></div>
-        <p>Rencontrez des leaders inspirants des affaires et des pilotes passionnés lors de dîners ou des soirées de privatisation simulateur au cœur de Paris.</p>
-      </div>
-    </article>
-    <div class="circuit">
-      <svg class="track" aria-hidden="true" viewBox="0 0 1000 1375" preserveAspectRatio="none">
-        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#FFFFFF" stroke-width="40" vector-effect="non-scaling-stroke"></path>
-        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F26A1B" stroke-width="40" stroke-dasharray="12 12" vector-effect="non-scaling-stroke"></path>
-        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#1E1F22" stroke-width="32" vector-effect="non-scaling-stroke"></path>
-        <path class="tp" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F4F4F2" stroke-opacity=".5" stroke-width="2" stroke-dasharray="14 12" vector-effect="non-scaling-stroke"></path>
-        <path class="tp racing" d="M230 0 L230 380 C230 480 770 470 770 570 L770 830 C770 930 230 920 230 1020 L230 1300" fill="none" stroke="#F26A1B" stroke-width="4" stroke-linecap="round" opacity="0"></path>
-      </svg>
-
-      <article class="fmt">
-        <div class="shot"><img src="img/trackday.jpg" alt="Porsche 911 GT3 sur le circuit du Mans" loading="lazy"></div>
-        <div class="copy rv"><span class="eyebrow corner">Virage 1</span><h3>Des track days</h3><p>Participez à des expériences en piste avec votre véhicule ou avec un véhicule de location mis à disposition par nos partenaires sur les plus beaux circuits de France.</p></div>
-      </article>
-      <article class="fmt rev">
-        <div class="shot"><img src="img/roadtrip.jpg" alt="Porsche 911 GT3 sur une route de col dans les Alpes suisses" loading="lazy"></div>
-        <div class="copy rv"><span class="eyebrow corner">Virage 2</span><h3>Des road trips inspirants</h3><p>Profitez des lieux et itinéraires exclusifs et partagez des journées conviviales autour de votre passion auto.</p></div>
-      </article>
-      <article class="fmt">
-        <div class="shot"><img src="img/podium.jpg" alt="Pilotes sur le podium au circuit Paul Armagnac" loading="lazy"></div>
-        <div class="copy rv"><span class="eyebrow corner">Arrivée</span><h3>Des accès faciles vers la course auto</h3><p>Pratiquez le sport auto lors d'expériences organisées en circuit pour découvrir la course automobile sous différentes formules accompagné de professionnels reconnus.</p></div>
-      </article>
+    <div class="fmts">
+      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/diner-hd.jpg" alt="Dîner du club sur une terrasse face à la tour Eiffel" loading="lazy"></div><h3>Des networking parisiens</h3><p>Rencontrez des leaders inspirants des affaires et des pilotes passionnés lors de dîners ou des soirées de privatisation simulateur au cœur de Paris.</p></article>
+      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/trackday.jpg" alt="Porsche 911 GT3 sur le circuit du Mans" loading="lazy"></div><h3>Des track days</h3><p>Participez à des expériences en piste avec votre véhicule ou avec un véhicule de location mis à disposition par nos partenaires sur les plus beaux circuits de France.</p></article>
+      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/roadtrip.jpg" alt="Porsche 911 GT3 sur une route de col dans les Alpes suisses" loading="lazy"></div><h3>Des road trips inspirants</h3><p>Profitez des lieux et itinéraires exclusifs et partagez des journées conviviales autour de votre passion auto.</p></article>
+      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/podium.jpg" alt="Pilotes sur le podium au circuit Paul Armagnac" loading="lazy"></div><h3>Des accès faciles vers la course auto</h3><p>Pratiquez le sport auto lors d'expériences organisées en circuit pour découvrir la course automobile sous différentes formules accompagné de professionnels reconnus.</p></article>
     </div>
   </div>
 </section>
@@ -515,45 +477,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   /* --- Header compact, barre de progression « tour », compte-tours du logo --- */
   var lap = document.querySelector('.lap');
   var tachs = document.querySelectorAll('.site-header .tach');
-  /* --- Piste : tracé en pixels réels, trajectoire dessinée au scroll, voiture qui suit --- */
-  var circuit = document.querySelector('.circuit');
-  var svg = circuit && circuit.querySelector('.track');
-  var paths = svg ? svg.querySelectorAll('.tp') : [];
-  var racing = svg && svg.querySelector('.racing');
-  var base = [[230,0],[230,380],[230,480,770,470,770,570],[770,830],[770,930,230,920,230,1020],[230,1300]];
-  var L = 0;
-  function buildTrack(){
-    if (!svg || getComputedStyle(svg).display === 'none') return;
-    var w = circuit.clientWidth, h = circuit.clientHeight, sx = w/1000, sy = h/1375;
-    var d = '';
-    base.forEach(function(seg,i){
-      var pts = seg.map(function(v,j){ return (j%2 ? v*sy : v*sx).toFixed(1); });
-      d += (i===0 ? 'M' : (seg.length===2 ? ' L' : ' C')) + pts.join(' ');
-    });
-    svg.setAttribute('viewBox','0 0 '+w+' '+h);
-    svg.setAttribute('preserveAspectRatio','xMinYMin meet');
-    paths.forEach(function(p){ p.setAttribute('d', d); });
-    L = racing.getTotalLength();
-    racing.style.strokeDasharray = L;
-    racing.setAttribute('opacity', still ? '0' : '1');
-    onScroll();
-  }
   function onScroll(){
     var y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
     root.classList.toggle('is-scrolled', y > 40);
     if (lap) lap.style.setProperty('--p', max > 0 ? (y/max).toFixed(4) : 0);
     if (!still) tachs.forEach(function(c){ c.style.transform = 'rotate(' + (y*0.25) + 'deg)'; });
-    if (L && !still) {
-      var r = circuit.getBoundingClientRect();
-      var p = Math.min(1, Math.max(0, (innerHeight*0.6 - r.top) / r.height));
-      racing.style.strokeDashoffset = L*(1-p);
-    }
   }
   var ticking = false;
   addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(function(){ onScroll(); ticking = false; }); } }, {passive:true});
-  addEventListener('resize', buildTrack);
-  addEventListener('load', buildTrack);
-  buildTrack();
+  onScroll();
 
   /* --- Révélations au scroll (vérifiées à chaque frame de scroll, sans dépendre d'un observer) --- */
   var items = [].slice.call(document.querySelectorAll('.rv, .shot, .sweep'));
