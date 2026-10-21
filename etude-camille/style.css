@@ -48,6 +48,11 @@ a, button, summary, label, input{-webkit-tap-highlight-color:transparent; touch-
 /* Bloc-marque : Marianne et NOTAIRES DE FRANCE (fichier SVG), puis le nom de l'étude */
 .brand{display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--ink); margin-right:auto; min-width:0}
 .bm{display:block; height:52px; width:auto; flex:none}
+/* Logotype officiel NOTAIRES DE FRANCE (fichier du site notaires.fr), en monochrome blanc sur fond sombre */
+.ndf{display:block; height:48px; width:auto; max-width:220px; flex:none}
+.foot .ndf{filter:brightness(0) invert(1)}
+.ndf-txt{display:block; flex:none; max-width:8em; font:700 15px/1.05 var(--font); letter-spacing:.05em; text-transform:uppercase; color:var(--ink)}
+.foot .ndf-txt{color:#fff}
 .bm-rule{width:1px; height:40px; background:var(--line-solid); flex:none}
 .bm-etude{display:flex; flex-direction:column; min-width:0}
 .bm-etude b{font:800 1.6rem/1 var(--font); font-stretch:75%; letter-spacing:.01em; color:var(--ink)}
@@ -77,8 +82,8 @@ a, button, summary, label, input{-webkit-tap-highlight-color:transparent; touch-
 .hero-txt{display:flex; flex-direction:column; justify-content:center; padding:clamp(36px, 5vw, 64px) clamp(28px, 4vw, 60px) clamp(36px, 5vw, 64px) max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)))}
 .stamp{align-self:flex-start; margin:0 0 22px; padding:7px 12px 6px; border:1.5px solid var(--ochre); color:var(--sun); font:600 13.5px/1 var(--font); letter-spacing:.02em}
 .hero h1{color:#fff; margin:0}
-.hero h1 .l2{display:block; font:800 clamp(3.4rem, 6.6vw, 6.2rem)/.9 var(--font); font-stretch:75%; text-transform:uppercase; letter-spacing:.01em}
-.hero h1 .l1{display:block; font:600 clamp(1.3rem, 2.2vw, 1.9rem)/1.15 var(--font); color:var(--sky); margin-top:10px}
+.hero h1 .l2{display:block; font:800 clamp(2.6rem, 4.6vw, 4.1rem)/.92 var(--font); font-stretch:75%; text-transform:uppercase; letter-spacing:.01em}
+.hero h1 .l1{display:block; font:600 clamp(1.3rem, 2.1vw, 1.8rem)/1.15 var(--font); color:var(--sky); margin-top:8px}
 .hero h1::after{content:""; display:block; width:72px; height:5px; background:var(--red); margin-top:20px}
 .hero-sub{max-width:31em; margin:20px 0 26px; font-size:clamp(1.02rem, 1.3vw, 1.14rem); line-height:1.55; color:#D8E6F4}
 .actions{display:flex; flex-wrap:wrap; gap:10px}
@@ -203,8 +208,9 @@ a, button, summary, label, input{-webkit-tap-highlight-color:transparent; touch-
 /* Page guide */
 .guide{padding:32px 0 var(--sec)}
 .guide-grid{display:grid; grid-template-columns:minmax(0, 1fr) 320px; gap:clamp(28px, 5vw, 64px); align-items:start}
-.crumb{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; font-size:13.5px; color:var(--muted)}
-.crumb a{color:var(--muted); padding:10px 0}
+.crumb{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; margin-bottom:18px; font-size:13.5px; line-height:1.4; color:var(--muted)}
+/* Zone de clic agrandie sans décaler la ligne : le padding est compensé par une marge négative */
+.crumb a{color:var(--muted); padding:10px 0; margin:-10px 0}
 .guide h1{font-size:clamp(2rem, 4vw, 3rem); font-weight:800; font-stretch:75%; line-height:1.05; margin-bottom:14px; max-width:16em}
 .guide .lead{font-size:1.12rem; line-height:1.55; max-width:40em}
 .guide-meta{margin:0 0 20px; padding:8px 0 12px; border-bottom:3px solid var(--sun); font-size:13.5px; color:var(--muted)}
@@ -433,10 +439,11 @@ body.clean .todo{display:none !important}
   .top .wrap{gap:10px}
   .brand{gap:10px}
   .bm{height:40px}
+  .ndf{height:38px; max-width:150px}
   .bm-rule{height:30px}
   .bm-etude b{font-size:1.3rem}
   .hero-img{height:auto; aspect-ratio:16/10}
-  .hero h1 .l2{font-size:clamp(2.5rem, 12vw, 3.2rem)}
+  .hero h1 .l2{font-size:clamp(2.1rem, 9.5vw, 2.6rem)}
   .actions .btn{flex:1 1 100%}
   .notaires-grid{gap:16px}
   .person h3{font-size:1.25rem}
