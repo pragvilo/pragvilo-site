@@ -6,12 +6,12 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Pragvilo · services numériques</title>
-<meta name="description" content="Pragvilo conçoit, développe et fait tourner des services numériques. Une petite structure à Paris, un seul interlocuteur.">
+<meta name="description" content="Pragvilo conçoit, développe et fait tourner des services numériques pour ses clients. Comprendre ce qui compte, faire simple, passer à l’action.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700;800&family=Funnel+Sans:wght@400;600&family=Geist+Mono:wght@500&display=swap">
 <style>
-  /* Charte Pragvilo « Allumé » : une colonne, logo en haut (le o final est un interrupteur qui s'allume), la phrase du site en titre, méthode et contact sous un filet. */
+  /* Charte Pragvilo « Allumé » : une colonne, logo en haut (le o final est un interrupteur qui s'allume), la phrase du site en titre, approche et contact sous un filet. */
   :root {
     --ecran: #F6F6FA; --surface: #FFFFFF; --nuit: #0D0E1C; --gris: #5E6075; --ligne: #E1E2EC;
     --indigo: #3A2EFF; --lien: #3A2EFF; --lavande: #ECEBFF; --menthe: #2EE6A6;
@@ -45,7 +45,7 @@
   .rows { display: grid; border-top: 1px solid var(--ligne); }
   .row { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 16px 40px; padding-block: 24px; border-bottom: 1px solid var(--ligne); align-items: baseline; }
   .row p:not(.label) { margin: 0; max-width: 40rem; font-size: 17px; line-height: 27px; }
-  .contact { display: grid; gap: 12px; }
+  .stack { display: grid; gap: 12px; }
   .contact p { color: var(--gris); }
   .mail { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; color: var(--lien); text-decoration: none; border-bottom: 2px solid currentColor; }
   .mail:hover { border-bottom-color: transparent; }
@@ -95,20 +95,23 @@
 
   <main>
     <section class="hero">
-      <h1>Je fabrique des services numériques. <mark>Et je reste après la mise en ligne.</mark></h1>
-      <p class="lede">Pragvilo est une petite structure à Paris. Je conçois les services numériques, je les développe, puis je m’occupe de les faire tourner : hébergement, corrections, évolutions. Vous avez un seul interlocuteur du début à la fin.</p>
+      <h1>Nous concevons des services numériques. <mark>Et nous restons après la mise en ligne.</mark></h1>
+      <p class="lede">Pragvilo conçoit et développe des services numériques, puis s’occupe de les faire tourner une fois en ligne : hébergement, corrections, évolutions. Vous n’avez pas à chercher quelqu’un d’autre pour la suite.</p>
     </section>
 
     <div class="rows">
       <div class="row">
-        <p class="label">Comment je travaille</p>
-        <p>Je commence par une première version simple, utilisable vite. On regarde ensuite ce qui sert vraiment, et on ajuste à partir de là plutôt que de tout prévoir sur papier.</p>
+        <p class="label">Notre approche</p>
+        <div class="stack">
+          <p>Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
+          <p>Concrètement, une première version utilisable arrive vite. On regarde ensuite ce qui sert vraiment, et on améliore à partir de là plutôt que de tout prévoir sur papier.</p>
+        </div>
       </div>
       <div class="row">
         <p class="label">Contact</p>
-        <div class="contact">
+        <div class="stack contact">
           <p><a class="mail em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
-          <p>Décrivez votre projet en quelques lignes, c’est moi qui lis et qui réponds.</p>
+          <p>Décrivez votre projet en quelques lignes, nous revenons vers vous pour en parler.</p>
         </div>
       </div>
     </div>
