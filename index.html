@@ -9,166 +9,280 @@
 <meta name="description" content="Pragvilo conçoit et fait tourner les services numériques des entreprises et des associations : sites vitrines et refontes, applications et plateformes SaaS, IA, SEO, GEO et publicité en ligne.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700;800&family=Funnel+Sans:wght@400;600&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&display=swap">
 <style>
-  /* Charte Pragvilo « Allumé » : une colonne, logo en haut (le o final est un interrupteur qui s'allume), la phrase du site en titre, offre en quatre pôles, approche et contact sous un filet. */
+  /* Charte Pragvilo « Allumé ». Un seul moment fort : l'interrupteur du titre s'allume au chargement.
+     Le reste est sobre : titres en phrase, pas de surtitres en capitales, filets pour séparer les pôles. */
   :root {
-    --ecran: #F6F6FA; --surface: #FFFFFF; --nuit: #0D0E1C; --gris: #5E6075; --ligne: #E1E2EC;
-    --indigo: #3A2EFF; --lien: #3A2EFF; --lavande: #ECEBFF; --menthe: #2EE6A6;
+    --ecran: #F6F6FA; --surface: #FFFFFF; --nuit: #0D0E1C; --texte: #23253A; --gris: #4F5168; --ligne: #DCDDE8;
+    --indigo: #3A2EFF; --lien: #3A2EFF; --lavande: #ECEBFF; --menthe: #2EE6A6; --off: #C9CAD6; --erreur: #C4213A;
     --font-display: "Funnel Display", "Arial Black", Arial, sans-serif;
     --font-sans: "Funnel Sans", "Helvetica Neue", Arial, sans-serif;
-    --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --page: 70rem;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --ecran: #0B0C17; --surface: #15172A; --nuit: #EEEFF7; --gris: #A3A5BA; --ligne: #262940; --lien: #8C84FF; --lavande: #1E1B4D; color-scheme: dark; }
+    :root:not([data-theme="light"]) { --ecran: #0B0C17; --surface: #15172A; --nuit: #F2F2FA; --texte: #DCDDEA; --gris: #A7A9BE; --ligne: #2A2D45; --lien: #9A93FF; --lavande: #1E1B4D; --off: #3A3D57; --erreur: #FF7A8E; color-scheme: dark; }
   }
-  :root[data-theme="dark"] { --ecran: #0B0C17; --surface: #15172A; --nuit: #EEEFF7; --gris: #A3A5BA; --ligne: #262940; --lien: #8C84FF; --lavande: #1E1B4D; color-scheme: dark; }
+  :root[data-theme="dark"] { --ecran: #0B0C17; --surface: #15172A; --nuit: #F2F2FA; --texte: #DCDDEA; --gris: #A7A9BE; --ligne: #2A2D45; --lien: #9A93FF; --lavande: #1E1B4D; --off: #3A3D57; --erreur: #FF7A8E; color-scheme: dark; }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body { margin: 0; background: var(--ecran); color: var(--nuit); font-family: var(--font-sans); font-size: 16px; line-height: 24px; -webkit-font-smoothing: antialiased; }
-  .page { min-height: 100%; display: grid; grid-template-rows: auto 1fr auto; max-width: 72rem; margin: 0 auto;
-    padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); padding-block: clamp(24px, 4vw, 40px); }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--ecran); color: var(--texte); font-family: var(--font-sans); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: var(--page); margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+  a { color: var(--lien); }
+  :focus-visible { outline: 3px solid var(--lien); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { font-family: var(--font-display); color: var(--nuit); margin: 0; text-wrap: balance; }
 
-  .brand { display: inline-flex; width: fit-content; color: var(--nuit); }
-  .brand svg { height: 36px; width: auto; display: block; overflow: visible; }
+  /* En-tête */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 28px; }
+  .brand { display: inline-flex; color: var(--nuit); }
+  .brand svg { height: 34px; width: auto; display: block; }
   .brand .piste { fill: var(--indigo); }
   .brand .pastille { fill: var(--menthe); }
+  .nav { display: flex; align-items: center; gap: 28px; font-size: 16px; }
+  .nav a { color: var(--texte); text-decoration: none; }
+  .nav a:hover { color: var(--lien); }
+  .nav .btn { color: #fff; }
 
-  main { display: grid; align-content: center; gap: 64px; padding-block: clamp(56px, 10vh, 120px); }
-  .label { margin: 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--gris); }
-  .hero { display: grid; gap: 24px; max-width: 58rem; }
-  h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 72px); line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
-  h1 mark { background: none; color: var(--lien); }
-  .lede { margin: 0; max-width: 34rem; font-size: 19px; line-height: 29px; color: var(--gris); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border-radius: 999px; border: 0; background: var(--indigo); color: #fff; font: 600 17px/1 var(--font-sans); text-decoration: none; cursor: pointer; }
+  .btn:hover { background: #2A1FE0; }
+  .btn-small { min-height: 40px; padding: 0 18px; font-size: 15px; }
+  .link-arrowless { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
 
-  .rows { display: grid; border-top: 1px solid var(--ligne); }
-  .row { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 16px 40px; padding-block: 24px; border-bottom: 1px solid var(--ligne); align-items: baseline; }
-  .row p:not(.label) { margin: 0; max-width: 40rem; font-size: 17px; line-height: 27px; }
-  .stack { display: grid; gap: 12px; }
-  .cta { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--indigo); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 17px; text-decoration: none; }
-  .cta:hover { background: var(--nuit); color: var(--ecran); }
-  .hero p:has(.cta) { margin: 8px 0 0; }
-  .offre { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
-  .offre section { display: grid; gap: 8px; align-content: start; }
-  .offre h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; letter-spacing: -.02em; }
-  .offre p { color: var(--gris); }
-  .tags { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
-  .tags li { font-family: var(--font-mono); font-size: 12px; line-height: 16px; padding: 4px 10px; border-radius: 999px; background: var(--lavande); color: var(--lien); }
-  .steps { margin: 8px 0 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 16px; max-width: 40rem; }
-  .steps li { counter-increment: step; display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 12px; font-size: 16px; line-height: 25px; color: var(--gris); }
-  .steps li::before { content: counter(step); grid-row: span 2; width: 28px; height: 28px; border-radius: 999px; background: var(--lavande); color: var(--lien); font-family: var(--font-mono); font-size: 13px; display: grid; place-items: center; }
-  .steps span { color: var(--nuit); font-weight: 600; }
-  .contact p { color: var(--gris); }
-  .mail { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; color: var(--lien); text-decoration: none; border-bottom: 2px solid currentColor; }
-  .mail:hover { border-bottom-color: transparent; }
+  /* Titre */
+  .hero { padding-block: clamp(48px, 9vw, 112px) clamp(56px, 8vw, 104px); }
+  .hero h1 { font-weight: 800; font-size: clamp(44px, 7.6vw, 92px); line-height: 1; letter-spacing: -.04em; max-width: 15ch; }
+  .switch { display: inline-block; width: 1.42em; height: .78em; margin-left: .12em; vertical-align: -.04em; border-radius: 999px; background: var(--indigo); position: relative; }
+  .switch::after { content: ""; position: absolute; top: .09em; right: .09em; width: .6em; height: .6em; border-radius: 50%; background: var(--menthe); }
+  .lede { margin: 32px 0 0; max-width: 36rem; font-size: clamp(19px, 1.6vw, 22px); line-height: 1.55; color: var(--gris); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 40px; }
 
-  footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 13px; line-height: 19px; color: var(--gris); }
-  footer svg { width: 26px; height: auto; display: block; }
-  .linklike { font: inherit; color: var(--nuit); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ligne); }
-  .linklike:hover { text-decoration-color: currentColor; }
-  :focus-visible { outline: 2px solid var(--lien); outline-offset: 3px; border-radius: 2px; }
+  /* Sections */
+  section.block { padding-block: clamp(64px, 9vw, 112px); border-top: 1px solid var(--ligne); }
+  .block-head { display: grid; gap: 16px; max-width: 40rem; margin-bottom: clamp(40px, 5vw, 64px); }
+  .block-head h2 { font-weight: 800; font-size: clamp(32px, 4.4vw, 52px); line-height: 1.05; letter-spacing: -.035em; }
+  .block-head p { margin: 0; color: var(--gris); }
 
-  dialog { width: min(40rem, calc(100% - 32px)); max-height: calc(100% - 48px); padding: 0; border: 1px solid var(--ligne); border-radius: 20px; background: var(--surface); color: var(--nuit); }
-  dialog::backdrop { background: rgba(17, 20, 29, .6); }
+  /* Offre : quatre pôles séparés par des filets */
+  .poles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 5vw, 72px); margin: 0; padding: 0; list-style: none; }
+  .pole { display: grid; gap: 12px; align-content: start; padding-block: 32px 40px; border-top: 2px solid var(--nuit); }
+  .pole h3 { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: clamp(24px, 2.4vw, 30px); line-height: 1.15; letter-spacing: -.02em; }
+  .pole h3 .switch { font-size: 22px; margin: 0; flex: none; }
+  .pole p { margin: 0; max-width: 32rem; }
+  .pole ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; color: var(--gris); font-size: 16px; }
+  .pole li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--lien); margin-right: 10px; vertical-align: .2em; }
+
+  /* Approche */
+  .credo { margin: 0 0 clamp(48px, 6vw, 72px); max-width: 30ch; font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.2vw, 40px); line-height: 1.2; letter-spacing: -.025em; color: var(--nuit); }
+  .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; position: relative; padding-top: 56px; }
+  .steps li::before { content: counter(step); position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--lavande); color: var(--lien); font: 600 17px/40px var(--font-sans); text-align: center; z-index: 1; }
+  .steps li:not(:last-child)::after { content: ""; position: absolute; top: 19px; left: 48px; right: -24px; height: 2px; background: var(--ligne); }
+  .steps h3 { font-weight: 600; font-size: 21px; line-height: 1.25; letter-spacing: -.01em; }
+  .steps p { margin: 0; font-size: 16px; color: var(--gris); }
+
+  /* Contact */
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(40px, 6vw, 88px); align-items: start; }
+  .contact-grid .block-head { margin-bottom: 0; }
+  .direct { margin: 8px 0 0; font-size: 16px; color: var(--gris); }
+  .form { display: grid; gap: 20px; padding: clamp(24px, 3.5vw, 40px); background: var(--surface); border: 1px solid var(--ligne); border-radius: 24px; }
+  .field { display: grid; gap: 6px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  label, legend { font-size: 15px; font-weight: 600; color: var(--nuit); }
+  .opt { font-weight: 400; color: var(--gris); }
+  input[type="text"], input[type="email"], textarea { width: 100%; font: inherit; font-size: 17px; color: var(--nuit); background: var(--ecran); border: 1px solid var(--ligne); border-radius: 12px; padding: 12px 14px; }
+  textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
+  input:focus, textarea:focus { outline: 3px solid var(--lavande); border-color: var(--lien); }
+  input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--erreur); }
+  fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .chip span { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 1px solid var(--ligne); border-radius: 999px; font-size: 15px; font-weight: 500; color: var(--texte); background: var(--ecran); }
+  .chip span::before { content: ""; width: 22px; height: 12px; border-radius: 999px; background: var(--off); box-shadow: inset 2px 0 0 0 var(--off); flex: none; background-image: radial-gradient(circle at 6px 50%, #fff 4px, transparent 4.5px); }
+  .chip input:checked + span { border-color: var(--lien); color: var(--nuit); }
+  .chip input:checked + span::before { background-color: var(--indigo); background-image: radial-gradient(circle at 16px 50%, var(--menthe) 4px, transparent 4.5px); }
+  .chip input:focus-visible + span { outline: 3px solid var(--lien); outline-offset: 2px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  .note { margin: 0; font-size: 14px; color: var(--gris); }
+  .status { margin: 0; font-size: 16px; }
+  .status.ok { color: var(--nuit); font-weight: 600; }
+  .status.err { color: var(--erreur); }
+  .btn[disabled] { opacity: .6; cursor: progress; }
+
+  /* Pied de page */
+  footer { border-top: 1px solid var(--ligne); }
+  footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-block: 32px; font-size: 15px; color: var(--gris); }
+  .linklike { font: inherit; color: var(--texte); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+  dialog { width: min(40rem, calc(100% - 32px)); max-height: calc(100% - 48px); padding: 0; border: 1px solid var(--ligne); border-radius: 20px; background: var(--surface); color: var(--texte); }
+  dialog::backdrop { background: rgba(13, 14, 28, .6); }
   .legal { padding: clamp(24px, 4vw, 40px); display: grid; gap: 24px; }
   .legal header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-  .legal h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 32px; letter-spacing: -.03em; }
-  .legal h3 { margin: 0 0 4px; font-family: var(--font-mono); font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--lien); }
-  .legal p { margin: 0; font-size: 14px; line-height: 21px; }
+  .legal h2 { font-weight: 800; font-size: 28px; line-height: 32px; letter-spacing: -.03em; }
+  .legal h3 { margin: 0 0 4px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; color: var(--nuit); }
+  .legal p { margin: 0; font-size: 15px; line-height: 23px; }
   .legal p + p { margin-top: 4px; }
   .todo { background: var(--lavande); padding: 0 .3em; border-radius: 4px; }
-  .close { font: inherit; font-size: 14px; color: var(--lien); background: none; border: 1px solid var(--ligne); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
-  .close:hover { border-color: var(--lien); }
+  .close { font: inherit; font-size: 15px; color: var(--lien); background: none; border: 1px solid var(--ligne); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
 
-  @media (max-width: 640px) {
-    .row { grid-template-columns: 1fr; gap: 8px; }
-    .offre { grid-template-columns: 1fr; gap: 28px; }
-    .brand svg { height: 30px; }
+  @media (max-width: 980px) {
+    .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+    .steps li:nth-child(2)::after { display: none; }
+    .contact-grid { grid-template-columns: 1fr; }
   }
+  @media (max-width: 720px) {
+    body { font-size: 17px; }
+    .nav a:not(.btn) { display: none; }
+    .brand svg { height: 28px; }
+    .poles { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; gap: 0; }
+    .steps li { padding: 0 0 32px 60px; min-height: 40px; }
+    .steps li:not(:last-child)::after { top: 48px; bottom: 8px; left: 19px; right: auto; width: 2px; height: auto; }
+    .steps li:nth-child(2)::after { display: block; }
+    .two { grid-template-columns: 1fr; }
+  }
+
+  /* Le seul mouvement de la page : l'interrupteur du titre s'allume, comme le logo. */
   @media (prefers-reduced-motion: no-preference) {
-    /* Le logo s'allume : la pastille glisse de gauche à droite, une seule fois. */
-    .brand .pastille { animation: allumage .6s cubic-bezier(.3, .8, .2, 1.15) .35s both; }
-    .brand .piste { animation: piste .6s ease .35s both; }
-    @keyframes allumage { from { transform: translateX(-386.9px); fill: #FFFFFF; } }
-    @keyframes piste { from { fill: #C9CAD6; } }
+    .hero .switch { animation: piste .5s ease .5s both; }
+    .hero .switch::after { animation: allumage .5s cubic-bezier(.3, .8, .2, 1.2) .5s both; }
+    @keyframes piste { from { background: var(--off); } }
+    @keyframes allumage { from { transform: translateX(-.64em); background: #fff; } }
   }
 </style>
 </head>
 <body>
 
-
-<div class="page">
+<header class="wrap top">
   <a class="brand" href="#" aria-label="Pragvilo, accueil">
-    <svg viewBox="0 0 5068.9 1101" role="img" aria-hidden="true">
+    <svg viewBox="0 0 5068.9 1101" aria-hidden="true">
       <path fill="currentColor" d="M2279 1101Q2140 1101 2053.5 1045.5Q1967 990 1951 891H2145Q2168 957 2272 957Q2345 957 2383.5 924Q2422 891 2422 830V755H2417Q2389 802 2343.5 825.5Q2298 849 2233 849Q2149 849 2086.5 811.5Q2024 774 1989.5 705Q1955 636 1955 543Q1955 403 2032.5 320Q2110 237 2247 237Q2323 237 2377.5 266.5Q2432 296 2464 349H2506V249H2690V429H2600V830Q2600 960 2517 1030.5Q2434 1101 2279 1101ZM90 1089V429H0V249H184V349H226Q258 296 312.5 266.5Q367 237 443 237Q538 237 602 276.5Q666 316 699 386Q732 456 732 549Q732 642 700 712.5Q668 783 607 822Q546 861 459 861Q395 861 349.5 837.5Q304 814 278 772H274V1089ZM1481 860Q1373 860 1312.5 808.5Q1252 757 1252 671Q1252 582 1315.5 533.5Q1379 485 1497 485H1658V463Q1658 381 1554 381Q1462 381 1442 443H1260Q1281 341 1355 289Q1429 237 1553 237Q1690 237 1762 297.5Q1834 358 1834 474V669H1920V849H1736V749H1694Q1663 803 1612 831.5Q1561 860 1481 860ZM2954 849 2696 249H2891L3047 632H3051L3203 249H3394L3136 849ZM3733 849V9H3917V849ZM858 849V429H768V249H952V369H994Q1017 304 1069 272.5Q1121 241 1185 241H1236V401H1177Q1103 401 1070.5 442Q1038 483 1038 549V849ZM3443 849V249H3627V849ZM408 701Q479 701 513.5 660Q548 619 548 549Q548 479 513.5 438Q479 397 408 397Q346 397 310 431.5Q274 466 274 527V571Q274 632 310 666.5Q346 701 408 701ZM2279 689Q2344 689 2380 654Q2416 619 2416 557V527Q2416 466 2379.5 431.5Q2343 397 2279 397Q2212 397 2175.5 435.5Q2139 474 2139 544Q2139 614 2175.5 651.5Q2212 689 2279 689ZM3535 198Q3494 198 3465 169Q3436 140 3436 99Q3436 58 3465 29Q3494 0 3535 0Q3576 0 3605 29Q3634 58 3634 99Q3634 140 3605 169Q3576 198 3535 198ZM1509 722Q1553 722 1586.5 707Q1620 692 1639 666Q1658 640 1658 608V605H1505Q1428 605 1428 662Q1428 691 1449.5 706.5Q1471 722 1509 722Z"/>
       <path class="piste" d="M4370 237H4756.9C4929.2 237 5068.9 376.7 5068.9 549C5068.9 721.3 4929.2 861 4756.9 861H4370C4197.7 861 4058 721.3 4058 549C4058 376.7 4197.7 237 4370 237Z"/>
       <path class="pastille" d="M4997.1 549C4997.1 681.7 4889.6 789.2 4756.9 789.2C4624.2 789.2 4516.6 681.7 4516.6 549C4516.6 416.3 4624.2 308.8 4756.9 308.8C4889.6 308.8 4997.1 416.3 4997.1 549Z"/>
     </svg>
+
   </a>
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="#offre">Ce que nous faisons</a>
+    <a href="#approche">Notre approche</a>
+    <a class="btn btn-small" href="#contact">Nous écrire</a>
+  </nav>
+</header>
 
-  <main>
-    <section class="hero">
-      <h1>Sites, applications, IA, visibilité. <mark>Nous le faisons, et ça marche.</mark></h1>
-      <p class="lede">Pragvilo conçoit, développe et fait tourner les services numériques des entreprises et des associations. La même équipe construit votre outil, le met en ligne, puis vous aide à le faire connaître.</p>
-      <p><a class="cta em-link" data-u="tcatnoc" data-d="moc.olivgarp" href="#">Parler de votre projet</a></p>
-    </section>
-
-    <div class="rows">
-      <div class="row">
-        <p class="label">Ce que nous faisons</p>
-        <div class="offre">
-          <section>
-            <h2>Sites internet</h2>
-            <p>Des sites clairs et rapides, pensés pour que vos visiteurs vous contactent. Nouveau site ou refonte d’un site qui ne rapporte plus rien.</p>
-            <ul class="tags"><li>Site vitrine</li><li>Refonte</li><li>Hébergement et maintenance</li></ul>
-          </section>
-          <section>
-            <h2>Applications et plateformes</h2>
-            <p>Des outils métier et des plateformes SaaS, de la première version jusqu’à l’exploitation au quotidien.</p>
-            <ul class="tags"><li>Application</li><li>Plateforme SaaS</li><li>Outil métier</li></ul>
-          </section>
-          <section>
-            <h2>Intelligence artificielle</h2>
-            <p>De l’IA là où elle fait gagner du temps : des assistants et des automatisations branchés sur vos outils et vos données.</p>
-            <ul class="tags"><li>Assistants IA</li><li>Automatisations</li><li>Intégration</li></ul>
-          </section>
-          <section>
-            <h2>Visibilité et acquisition</h2>
-            <p>Être trouvé sur Google, être cité par les IA comme ChatGPT, et acheter du trafic qui rapporte plus qu’il ne coûte.</p>
-            <ul class="tags"><li>SEO</li><li>GEO</li><li>Publicité en ligne (paid)</li></ul>
-          </section>
-        </div>
-      </div>
-      <div class="row">
-        <p class="label">Notre approche</p>
-        <div class="stack">
-          <p>Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
-          <ol class="steps">
-            <li><span>On échange</span>Pour comprendre votre activité et ce que le projet doit changer pour vous.</li>
-            <li><span>Vous voyez une première version</span>En ligne, sur une adresse privée, en quelques jours plutôt qu’en quelques mois.</li>
-            <li><span>On ajuste</span>À partir de vos retours et de ce qui sert vraiment, pas d’un cahier des charges figé.</li>
-            <li><span>On met en ligne, et on reste</span>Le service est suivi, corrigé et amélioré tant que vous en avez besoin.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="row">
-        <p class="label">Contact</p>
-        <div class="stack contact">
-          <p><a class="mail em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
-          <p>Quelques lignes sur votre projet suffisent pour commencer. Nous vous répondons pour en parler.</p>
-        </div>
-      </div>
+<main>
+  <section class="wrap hero">
+    <h1>Sites, applications, IA, visibilité. Nous le faisons, et ça marche<span class="switch" aria-hidden="true"></span></h1>
+    <p class="lede">Pragvilo conçoit, développe et fait tourner les services numériques des entreprises et des associations. La même équipe construit votre outil, le met en ligne, puis vous aide à le faire connaître.</p>
+    <div class="actions">
+      <a class="btn" href="#contact">Décrire votre projet</a>
+      <a class="link-arrowless" href="#offre">Voir ce que nous faisons</a>
     </div>
-  </main>
+  </section>
 
-  <footer>
-    <svg viewBox="0 0 1010.9 624" aria-hidden="true"><path fill="#3A2EFF" d="M312 0H698.9C871.2 0 1010.9 139.7 1010.9 312C1010.9 484.3 871.2 624 698.9 624H312C139.7 624 0 484.3 0 312C0 139.7 139.7 0 312 0Z"/><path fill="#2EE6A6" d="M939.1 312C939.1 444.7 831.6 552.2 698.9 552.2C566.2 552.2 458.6 444.7 458.6 312C458.6 179.3 566.2 71.8 698.9 71.8C831.6 71.8 939.1 179.3 939.1 312Z"/></svg>
+  <section class="block" id="offre" aria-labelledby="offre-titre">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="offre-titre">Ce que nous faisons</h2>
+        <p>Quatre métiers qui se complètent. Vous pouvez nous confier l’un d’eux, ou tout le parcours, de la première maquette aux premiers clients.</p>
+      </div>
+      <ul class="poles">
+        <li class="pole">
+          <h3><span class="switch" aria-hidden="true"></span>Sites internet</h3>
+          <p>Des sites clairs et rapides, pensés pour que vos visiteurs comprennent ce que vous faites et vous contactent.</p>
+          <ul><li>Site vitrine</li><li>Refonte d’un site existant</li><li>Hébergement et maintenance</li></ul>
+        </li>
+        <li class="pole">
+          <h3><span class="switch" aria-hidden="true"></span>Applications et plateformes</h3>
+          <p>Des outils métier et des plateformes SaaS, de la première version jusqu’à l’exploitation au quotidien.</p>
+          <ul><li>Application web</li><li>Outil métier</li><li>Plateforme SaaS</li></ul>
+        </li>
+        <li class="pole">
+          <h3><span class="switch" aria-hidden="true"></span>Intelligence artificielle</h3>
+          <p>De l’IA là où elle fait gagner du temps : des assistants et des automatisations branchés sur vos outils et vos données.</p>
+          <ul><li>Assistants IA</li><li>Automatisation de tâches</li><li>Intégration à vos outils</li></ul>
+        </li>
+        <li class="pole">
+          <h3><span class="switch" aria-hidden="true"></span>Visibilité et acquisition</h3>
+          <p>Être trouvé sur Google, être cité par les IA comme ChatGPT, et acheter du trafic qui rapporte plus qu’il ne coûte.</p>
+          <ul><li>SEO (référencement Google)</li><li>GEO (visibilité dans les IA)</li><li>Publicité en ligne (Google, Meta)</li></ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="approche" aria-labelledby="approche-titre">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="approche-titre">Notre approche</h2>
+      </div>
+      <p class="credo">Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
+      <ol class="steps">
+        <li><h3>On échange</h3><p>Pour comprendre votre activité et ce que le projet doit changer pour vous.</p></li>
+        <li><h3>Vous voyez une première version</h3><p>En ligne, sur une adresse privée, en quelques jours plutôt qu’en quelques mois.</p></li>
+        <li><h3>On ajuste</h3><p>À partir de vos retours et de ce qui sert vraiment, pas d’un cahier des charges figé.</p></li>
+        <li><h3>On met en ligne, et on reste</h3><p>Le service est suivi, corrigé et amélioré tant que vous en avez besoin.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="contact" aria-labelledby="contact-titre">
+    <div class="wrap contact-grid">
+      <div class="block-head">
+        <h2 id="contact-titre">Parlons de votre projet</h2>
+        <p>Quelques lignes suffisent pour commencer : ce que vous faites, ce qui coince, ce que vous aimeriez obtenir. Nous revenons vers vous pour en parler.</p>
+        <p class="direct">Vous préférez l’email ? <a class="em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
+      </div>
+
+      <form class="form" id="contact-form" novalidate>
+        <div class="two">
+          <div class="field">
+            <label for="f-nom">Nom</label>
+            <input type="text" id="f-nom" name="nom" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-orga">Entreprise ou association <span class="opt">(facultatif)</span></label>
+          <input type="text" id="f-orga" name="organisation" autocomplete="organization">
+        </div>
+        <fieldset>
+          <legend>Ce qui vous intéresse <span class="opt">(facultatif)</span></legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="besoins" value="Site internet"><span>Site internet</span></label>
+            <label class="chip"><input type="checkbox" name="besoins" value="Application ou plateforme"><span>Application ou plateforme</span></label>
+            <label class="chip"><input type="checkbox" name="besoins" value="IA"><span>IA</span></label>
+            <label class="chip"><input type="checkbox" name="besoins" value="Visibilité et acquisition"><span>Visibilité et acquisition</span></label>
+            <label class="chip"><input type="checkbox" name="besoins" value="Pas encore sûr"><span>Je ne sais pas encore</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="f-message">Votre projet</label>
+          <textarea id="f-message" name="message" required></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="f-hp">Ne pas remplir</label><input type="text" id="f-hp" name="_honey" tabindex="-1" autocomplete="off"></div>
+        <div class="form-foot">
+          <button class="btn" type="submit" id="f-submit">Envoyer le message</button>
+          <p class="status" id="f-status" role="status" aria-live="polite"></p>
+        </div>
+        <p class="note">Vos informations servent uniquement à vous répondre. <button class="linklike" type="button" data-open-legal>Détails dans les mentions légales</button>.</p>
+        <noscript><p class="note">Le formulaire a besoin de JavaScript. Écrivez-nous directement à contact [at] pragvilo [point] com.</p></noscript>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
     <span>© 2026 Pragvilo</span>
-    <span aria-hidden="true">·</span>
-    <button class="linklike" type="button" id="open-legal">Mentions légales</button>
-  </footer>
-</div>
+    <button class="linklike" type="button" id="open-legal" data-open-legal>Mentions légales</button>
+  </div>
+</footer>
 
 <dialog id="legal" aria-labelledby="legal-title">
   <div class="legal">
@@ -195,7 +309,7 @@
     </section>
     <section>
       <h3>Données personnelles</h3>
-      <p>Ce site ne dépose aucun cookie et ne collecte aucune donnée personnelle. Les messages reçus par email servent uniquement à y répondre et ne sont pas transmis à des tiers.</p>
+      <p>Ce site ne dépose aucun cookie. Les informations saisies dans le formulaire de contact (nom, email, organisation, message) sont acheminées jusqu’à notre boîte mail par le service FormSubmit (formsubmit.co). Elles servent uniquement à vous répondre et ne sont ni revendues ni transmises à d’autres tiers.</p>
       <p>Conformément au RGPD, vous pouvez demander l’accès, la rectification ou la suppression de vos données en écrivant à l’adresse ci-dessus.</p>
     </section>
     <section>
@@ -205,23 +319,62 @@
   </div>
 </dialog>
 
+
 <script>
   (function () {
     var rev = function (s) { return s.split('').reverse().join(''); };
+    var addr = rev('tcatnoc') + String.fromCharCode(64) + rev('moc.olivgarp');
     document.querySelectorAll('.em').forEach(function (el) {
-      var addr = rev(el.dataset.u) + String.fromCharCode(64) + rev(el.dataset.d);
       el.textContent = addr;
       if (el.tagName === 'A') { el.href = 'mai' + 'lto:' + addr; }
     });
-    document.querySelectorAll('.em-link').forEach(function (el) {
-      el.href = 'mai' + 'lto:' + rev(el.dataset.u) + String.fromCharCode(64) + rev(el.dataset.d);
+
+    // Formulaire : envoi par FormSubmit (formsubmit.co), qui transfère le message par email.
+    var form = document.getElementById('contact-form');
+    var status = document.getElementById('f-status');
+    var submit = document.getElementById('f-submit');
+    function say(text, kind) { status.textContent = text; status.className = 'status' + (kind ? ' ' + kind : ''); }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var missing = null;
+      ['f-nom', 'f-email', 'f-message'].forEach(function (id) {
+        var el = document.getElementById(id);
+        var bad = !el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+        el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad && !missing) { missing = el; }
+      });
+      if (missing) {
+        say(missing.id === 'f-email' ? 'Indiquez une adresse email valide pour que nous puissions vous répondre.' : 'Remplissez votre nom, votre email et quelques mots sur le projet.', 'err');
+        missing.focus();
+        return;
+      }
+      var data = new FormData(form);
+      var besoins = data.getAll('besoins').join(', ');
+      var payload = {
+        nom: data.get('nom'), email: data.get('email'), organisation: data.get('organisation') || '—',
+        besoins: besoins || '—', message: data.get('message'),
+        _subject: 'Nouveau message depuis pragvilo.com : ' + data.get('nom'),
+        _template: 'table', _honey: data.get('_honey')
+      };
+      submit.disabled = true;
+      say('Envoi en cours…');
+      fetch('https://formsubmit.co/ajax/' + addr, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload)
+      }).then(function (r) { return r.json(); }).then(function (res) {
+        if (res && String(res.success) === 'true') {
+          form.reset();
+          say('Message envoyé. Nous revenons vers vous rapidement.', 'ok');
+        } else { throw new Error('refus'); }
+      }).catch(function () {
+        say('Le message n’est pas parti. Réessayez dans un instant, ou écrivez-nous à ' + addr + '.', 'err');
+      }).then(function () { submit.disabled = false; });
     });
   })();
   (function () {
     var dlg = document.getElementById('legal');
     function open() { if (dlg.showModal) { dlg.showModal(); } else { dlg.setAttribute('open', ''); } }
     function close() { if (dlg.close) { dlg.close(); } else { dlg.removeAttribute('open'); } }
-    document.getElementById('open-legal').addEventListener('click', open);
+    document.querySelectorAll('[data-open-legal]').forEach(function (b) { b.addEventListener('click', open); });
     document.getElementById('close-legal').addEventListener('click', close);
     dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
     if (location.hash === '#mentions-legales') open();
