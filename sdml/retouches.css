@@ -63,3 +63,23 @@
 @media (max-width: 960px) {
   .crumb a, footer .fine a { display: inline-block; padding: 12px 0; }
 }
+
+/* ---------- Retour de Gilles (22/10, 1 h 30) ---------- */
+/* Un peu de jaune dans Sécurité et Secteurs : équerres sur le badge MASE, filets jaunes, photos posées sur une bande jaune */
+.badge-mase { position: relative; }
+.badge-mase::after {
+  content: ""; position: absolute; inset: -12px; pointer-events: none;
+  background:
+    linear-gradient(var(--jaune), var(--jaune)) top left / 56px var(--eq) no-repeat,
+    linear-gradient(var(--jaune), var(--jaune)) top left / var(--eq) 56px no-repeat,
+    linear-gradient(var(--jaune), var(--jaune)) bottom right / 56px var(--eq) no-repeat,
+    linear-gradient(var(--jaune), var(--jaune)) bottom right / var(--eq) 56px no-repeat;
+}
+.secu-points div { border-top: 8px solid var(--jaune); box-shadow: inset 0 2px 0 var(--noir); }
+.secteur .ph { border-bottom: 8px solid var(--jaune); }
+.secteur .ph img { transition: transform 400ms ease; }
+.secteur:hover .ph img { transform: scale(1.03); }
+
+/* Petit chariot : un liseré jaune autour du crochet, pour qu'il reste visible sur fond noir (page Dépannage) */
+.trolley { filter: drop-shadow(2px 0 0 var(--jaune)) drop-shadow(-2px 0 0 var(--jaune)) drop-shadow(0 2px 0 var(--jaune)); }
+@media (prefers-reduced-motion: reduce) { .secteur .ph img { transition: none; } .secteur:hover .ph img { transform: none; } }
