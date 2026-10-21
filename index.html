@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title>Pragvilo</title>
-<meta name="description" content="Pragvilo imagine, développe et exploite ses propres services numériques pour répondre à des besoins concrets.">
+<title>Pragvilo · sites, applications, IA, SEO et acquisition</title>
+<meta name="description" content="Pragvilo conçoit et fait tourner les services numériques des entreprises et des associations : sites vitrines et refontes, applications et plateformes SaaS, IA, SEO, GEO et publicité en ligne.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700;800&family=Funnel+Sans:wght@400;600&family=Geist+Mono:wght@500&display=swap">
 <style>
-  /* Charte Pragvilo « Allumé » : une colonne, logo en haut (le o final est un interrupteur qui s'allume), la phrase du site en titre, approche et contact sous un filet. */
+  /* Charte Pragvilo « Allumé » : une colonne, logo en haut (le o final est un interrupteur qui s'allume), la phrase du site en titre, offre en quatre pôles, approche et contact sous un filet. */
   :root {
     --ecran: #F6F6FA; --surface: #FFFFFF; --nuit: #0D0E1C; --gris: #5E6075; --ligne: #E1E2EC;
     --indigo: #3A2EFF; --lien: #3A2EFF; --lavande: #ECEBFF; --menthe: #2EE6A6;
@@ -37,16 +37,29 @@
 
   main { display: grid; align-content: center; gap: 64px; padding-block: clamp(56px, 10vh, 120px); }
   .label { margin: 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--gris); }
-  .hero { display: grid; gap: 24px; max-width: 52rem; }
-  .hero .label { color: var(--lien); }
-  h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(42px, 7.4vw, 88px); line-height: .98; letter-spacing: -.045em; text-wrap: balance; }
-  @media (min-width: 900px) { h1 mark { white-space: nowrap; } }
+  .hero { display: grid; gap: 24px; max-width: 58rem; }
+  h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 72px); line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
   h1 mark { background: none; color: var(--lien); }
   .lede { margin: 0; max-width: 34rem; font-size: 19px; line-height: 29px; color: var(--gris); }
 
   .rows { display: grid; border-top: 1px solid var(--ligne); }
   .row { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 16px 40px; padding-block: 24px; border-bottom: 1px solid var(--ligne); align-items: baseline; }
   .row p:not(.label) { margin: 0; max-width: 40rem; font-size: 17px; line-height: 27px; }
+  .stack { display: grid; gap: 12px; }
+  .cta { display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--indigo); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 17px; text-decoration: none; }
+  .cta:hover { background: var(--nuit); color: var(--ecran); }
+  .hero p:has(.cta) { margin: 8px 0 0; }
+  .offre { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
+  .offre section { display: grid; gap: 8px; align-content: start; }
+  .offre h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; letter-spacing: -.02em; }
+  .offre p { color: var(--gris); }
+  .tags { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tags li { font-family: var(--font-mono); font-size: 12px; line-height: 16px; padding: 4px 10px; border-radius: 999px; background: var(--lavande); color: var(--lien); }
+  .steps { margin: 8px 0 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 16px; max-width: 40rem; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 12px; font-size: 16px; line-height: 25px; color: var(--gris); }
+  .steps li::before { content: counter(step); grid-row: span 2; width: 28px; height: 28px; border-radius: 999px; background: var(--lavande); color: var(--lien); font-family: var(--font-mono); font-size: 13px; display: grid; place-items: center; }
+  .steps span { color: var(--nuit); font-weight: 600; }
+  .contact p { color: var(--gris); }
   .mail { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; color: var(--lien); text-decoration: none; border-bottom: 2px solid currentColor; }
   .mail:hover { border-bottom-color: transparent; }
 
@@ -70,13 +83,10 @@
 
   @media (max-width: 640px) {
     .row { grid-template-columns: 1fr; gap: 8px; }
+    .offre { grid-template-columns: 1fr; gap: 28px; }
     .brand svg { height: 30px; }
   }
   @media (prefers-reduced-motion: no-preference) {
-    .hero > * { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
-    .hero > *:nth-child(2) { animation-delay: .06s; }
-    .hero > *:nth-child(3) { animation-delay: .12s; }
-    @keyframes rise { from { transform: translateY(8px); opacity: .001; } to { transform: none; opacity: 1; } }
     /* Le logo s'allume : la pastille glisse de gauche à droite, une seule fois. */
     .brand .pastille { animation: allumage .6s cubic-bezier(.3, .8, .2, 1.15) .35s both; }
     .brand .piste { animation: piste .6s ease .35s both; }
@@ -99,19 +109,55 @@
 
   <main>
     <section class="hero">
-      <p class="label">Création de services numériques</p>
-      <h1>Des idées bien pensées.<br><mark>Des services qui marchent.</mark></h1>
-      <p class="lede">Pragvilo imagine, développe et exploite ses propres services numériques pour répondre à des besoins concrets.</p>
+      <h1>Sites, applications, IA, visibilité. <mark>Nous le faisons, et ça marche.</mark></h1>
+      <p class="lede">Pragvilo conçoit, développe et fait tourner les services numériques des entreprises et des associations. La même équipe construit votre outil, le met en ligne, puis vous aide à le faire connaître.</p>
+      <p><a class="cta em-link" data-u="tcatnoc" data-d="moc.olivgarp" href="#">Parler de votre projet</a></p>
     </section>
 
     <div class="rows">
       <div class="row">
+        <p class="label">Ce que nous faisons</p>
+        <div class="offre">
+          <section>
+            <h2>Sites internet</h2>
+            <p>Des sites clairs et rapides, pensés pour que vos visiteurs vous contactent. Nouveau site ou refonte d’un site qui ne rapporte plus rien.</p>
+            <ul class="tags"><li>Site vitrine</li><li>Refonte</li><li>Hébergement et maintenance</li></ul>
+          </section>
+          <section>
+            <h2>Applications et plateformes</h2>
+            <p>Des outils métier et des plateformes SaaS, de la première version jusqu’à l’exploitation au quotidien.</p>
+            <ul class="tags"><li>Application</li><li>Plateforme SaaS</li><li>Outil métier</li></ul>
+          </section>
+          <section>
+            <h2>Intelligence artificielle</h2>
+            <p>De l’IA là où elle fait gagner du temps : des assistants et des automatisations branchés sur vos outils et vos données.</p>
+            <ul class="tags"><li>Assistants IA</li><li>Automatisations</li><li>Intégration</li></ul>
+          </section>
+          <section>
+            <h2>Visibilité et acquisition</h2>
+            <p>Être trouvé sur Google, être cité par les IA comme ChatGPT, et acheter du trafic qui rapporte plus qu’il ne coûte.</p>
+            <ul class="tags"><li>SEO</li><li>GEO</li><li>Publicité en ligne (paid)</li></ul>
+          </section>
+        </div>
+      </div>
+      <div class="row">
         <p class="label">Notre approche</p>
-        <p>Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer — avec l’utilité comme point de départ et le résultat comme repère.</p>
+        <div class="stack">
+          <p>Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
+          <ol class="steps">
+            <li><span>On échange</span>Pour comprendre votre activité et ce que le projet doit changer pour vous.</li>
+            <li><span>Vous voyez une première version</span>En ligne, sur une adresse privée, en quelques jours plutôt qu’en quelques mois.</li>
+            <li><span>On ajuste</span>À partir de vos retours et de ce qui sert vraiment, pas d’un cahier des charges figé.</li>
+            <li><span>On met en ligne, et on reste</span>Le service est suivi, corrigé et amélioré tant que vous en avez besoin.</li>
+          </ol>
+        </div>
       </div>
       <div class="row">
         <p class="label">Contact</p>
-        <p><a class="mail em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
+        <div class="stack contact">
+          <p><a class="mail em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
+          <p>Quelques lignes sur votre projet suffisent pour commencer. Nous vous répondons pour en parler.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -145,7 +191,7 @@
     <section>
       <h3>Hébergement</h3>
       <p>Render Services, Inc.</p>
-      <p>525 Brannan Street, Suite 300, San Francisco, CA 94107, États-Unis — render.com</p>
+      <p>525 Brannan Street, Suite 300, San Francisco, CA 94107, États-Unis (render.com)</p>
     </section>
     <section>
       <h3>Données personnelles</h3>
@@ -166,6 +212,9 @@
       var addr = rev(el.dataset.u) + String.fromCharCode(64) + rev(el.dataset.d);
       el.textContent = addr;
       if (el.tagName === 'A') { el.href = 'mai' + 'lto:' + addr; }
+    });
+    document.querySelectorAll('.em-link').forEach(function (el) {
+      el.href = 'mai' + 'lto:' + rev(el.dataset.u) + String.fromCharCode(64) + rev(el.dataset.d);
     });
   })();
   (function () {
