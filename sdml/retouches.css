@@ -83,3 +83,7 @@
 /* Petit chariot : un liseré jaune autour du crochet, pour qu'il reste visible sur fond noir (page Dépannage) */
 .trolley { filter: drop-shadow(2px 0 0 var(--jaune)) drop-shadow(-2px 0 0 var(--jaune)) drop-shadow(0 2px 0 var(--jaune)); }
 @media (prefers-reduced-motion: reduce) { .secteur .ph img { transition: none; } .secteur:hover .ph img { transform: none; } }
+
+/* Notes pour SDML dans un en-tête de section : même encadré violet que les propositions */
+.sec-head .avalider.note { align-self: end; }
+.avalider.note p { font-size: 16px; margin: 0; color: #2D1F55; }
