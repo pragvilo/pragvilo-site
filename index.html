@@ -381,7 +381,8 @@
       };
       submit.disabled = true;
       say('Envoi en cours…');
-      fetch('https://formsubmit.co/ajax/' + addr, {
+      // Alias FormSubmit de contact@pragvilo.com : l'adresse n'apparaît pas dans l'appel.
+      fetch('https://formsubmit.co/ajax/9a179fb1e57fe8e90ce82f052b21515b', {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload)
       }).then(function (r) { return r.json(); }).then(function (res) {
         if (res && String(res.success) === 'true') {
