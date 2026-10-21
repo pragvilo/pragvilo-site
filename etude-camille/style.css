@@ -312,3 +312,57 @@ body.clean .todo::before{content:none}
 .facts li > span{min-width:0;overflow-wrap:anywhere}
 @media (max-width:920px){ .rdv .form{order:-1} }
 @media (max-width:560px){ .mockbar{padding:6px 8px;font-size:12px} .mockbar button{padding:4px 8px} }
+
+/* v3 : titre de plaque, préparation, questions, barre mobile */
+.plaque h1 .role{display:block;white-space:normal;font-size:clamp(17px,2.2vw,22px);color:var(--ink-2);margin:18px 0 0;letter-spacing:.06em;text-shadow:none}
+@media (prefers-reduced-motion:no-preference){ .plaque h1 .role{animation-delay:.4s} }
+.prep{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);background:#fff;border:1px solid var(--line);box-shadow:0 30px 60px -48px rgba(30,42,68,.6)}
+.prep-tabs{display:flex;flex-direction:column;border-right:1px solid var(--line);background:#FAFBF8}
+.prep-tabs button{position:relative;text-align:left;font:inherit;font-size:16px;padding:16px 22px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink-2);cursor:pointer;transition:color .2s, background .2s}
+.prep-tabs button:last-child{border-bottom:0}
+.prep-tabs button::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--wax);transform:scaleY(0);transition:transform .35s var(--ease)}
+.prep-tabs button:hover{color:var(--ink);background:#fff}
+.prep-tabs button[aria-selected="true"]{color:var(--ink);background:#fff;font-weight:600}
+.prep-tabs button[aria-selected="true"]::before{transform:scaleY(1)}
+.prep-panels{padding:clamp(20px,3vw,36px)}
+.docs{list-style:none;margin:0 0 18px;padding:0;columns:2 260px;column-gap:32px}
+.docs li{break-inside:avoid;position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--stone-2);font-size:16px}
+.docs li::before{content:"";position:absolute;left:0;top:13px;width:16px;height:16px;border:1.5px solid var(--olive);border-radius:2px}
+.docs li::after{content:"";position:absolute;left:5px;top:15px;width:5px;height:9px;border:solid var(--olive);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.js [role=tabpanel].enter li{animation:rise .5s var(--ease) both}
+.js [role=tabpanel].enter li:nth-child(2){animation-delay:.04s}
+.js [role=tabpanel].enter li:nth-child(3){animation-delay:.08s}
+.js [role=tabpanel].enter li:nth-child(4){animation-delay:.12s}
+.js [role=tabpanel].enter li:nth-child(5){animation-delay:.16s}
+.js [role=tabpanel].enter li:nth-child(6){animation-delay:.2s}
+.prep .go{font-weight:600;font-size:15px}
+@media (max-width:760px){
+  .prep{grid-template-columns:1fr}
+  .prep-tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .prep-tabs button{flex:none;border-bottom:0;border-right:1px solid var(--line);padding:14px 16px;font-size:15px}
+  .prep-tabs button::before{left:0;right:0;top:auto;bottom:0;width:auto;height:3px;transform:scaleX(0)}
+  .prep-tabs button[aria-selected="true"]::before{transform:scaleX(1)}
+}
+.faq{border-top:1px solid var(--ink)}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;cursor:pointer;font-family:var(--display);font-size:clamp(19px,2vw,22px);line-height:1.3}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover span{text-decoration:underline;text-decoration-color:var(--wax);text-underline-offset:5px}
+.qa summary i{position:relative;flex:none;width:28px;height:28px;border:1px solid #B9BFAF;border-radius:50%;transition:transform .4s var(--ease), background .3s, border-color .3s}
+.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .4s var(--ease), background .3s}
+.qa summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.qa[open] summary i{background:var(--ink);border-color:var(--ink);transform:rotate(180deg)}
+.qa[open] summary i::before,.qa[open] summary i::after{background:#fff}
+.qa[open] summary i::after{transform:translate(-50%,-50%) rotate(0deg)}
+.qa .ans{overflow:hidden;transition:height .45s var(--ease)}
+.qa .ans p{margin:0;padding:0 48px 22px 0;color:var(--ink-2);max-width:var(--measure)}
+.actionbar{display:none}
+@media (max-width:560px){
+  .actionbar{display:grid;grid-template-columns:1fr 1.3fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .4s var(--ease)}
+  .top.scrolled ~ .actionbar,.actionbar.show{transform:none}
+  .actionbar a{display:flex;align-items:center;justify-content:center;min-height:46px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--ink);border-radius:2px}
+  .actionbar a.primary{background:var(--ink);color:#fff}
+  .mockbar{bottom:78px}
+  body{padding-bottom:72px}
+}
+@media (min-width:861px){ #questions .head{position:sticky;top:110px} }
