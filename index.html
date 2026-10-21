@@ -3,76 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%20role%3D%22img%22%20aria-label%3D%22Pragvilo%22%3E%3Ctitle%3EPragvilo%3C/title%3E%3Cg%20transform%3D%22translate%280%200%29%20scale%281.0%29%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%232945D6%22/%3E%3Cg%20transform%3D%22translate%2816.4%20-3.1%29%20scale%281.3%29%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%226%22%3E%3Cpath%20d%3D%22M3%2010V44%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2222%22%20r%3D%229%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2232.0%22%20cy%3D%2225.5%22%20r%3D%224.2%22%20fill%3D%22%23FFC93C%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Pragvilo</title>
 <meta name="description" content="Pragvilo imagine, développe et exploite ses propres services numériques pour répondre à des besoins concrets.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700;800&family=Funnel+Sans:wght@400;600&family=Geist+Mono:wght@500&display=swap">
 <style>
-  /* Charte Pragvilo : une colonne, logo en haut, la phrase du site en titre, approche et contact sous un filet. */
+  /* Charte Pragvilo « Allumé » : une colonne, logo en haut (le o final est un interrupteur qui s'allume), la phrase du site en titre, approche et contact sous un filet. */
   :root {
-    --papier: #FAFAF8; --surface: #FFFFFF; --encre: #161A26; --gris: #5B6070; --ligne: #E3E5EA;
-    --cobalt: #2945D6; --cobalt-pale: #E9EDFD; --point: #FFC93C; --sur-point: #161A26;
-    --font-display: "Bricolage Grotesque", "Arial Black", Arial, sans-serif;
-    --font-sans: "Public Sans", Arial, Helvetica, sans-serif;
+    --ecran: #F6F6FA; --surface: #FFFFFF; --nuit: #0D0E1C; --gris: #5E6075; --ligne: #E1E2EC;
+    --indigo: #3A2EFF; --lien: #3A2EFF; --lavande: #ECEBFF; --menthe: #2EE6A6;
+    --font-display: "Funnel Display", "Arial Black", Arial, sans-serif;
+    --font-sans: "Funnel Sans", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --papier: #11141D; --surface: #191D29; --encre: #ECEEF3; --gris: #A3A8B6; --ligne: #2B3142; --cobalt: #8EA0FF; --cobalt-pale: #1E2645; color-scheme: dark; }
+    :root:not([data-theme="light"]) { --ecran: #0B0C17; --surface: #15172A; --nuit: #EEEFF7; --gris: #A3A5BA; --ligne: #262940; --lien: #8C84FF; --lavande: #1E1B4D; color-scheme: dark; }
   }
-  :root[data-theme="dark"] { --papier: #11141D; --surface: #191D29; --encre: #ECEEF3; --gris: #A3A8B6; --ligne: #2B3142; --cobalt: #8EA0FF; --cobalt-pale: #1E2645; color-scheme: dark; }
+  :root[data-theme="dark"] { --ecran: #0B0C17; --surface: #15172A; --nuit: #EEEFF7; --gris: #A3A5BA; --ligne: #262940; --lien: #8C84FF; --lavande: #1E1B4D; color-scheme: dark; }
 
   *, *::before, *::after { box-sizing: border-box; }
   html, body { height: 100%; }
-  body { margin: 0; background: var(--papier); color: var(--encre); font-family: var(--font-sans); font-size: 16px; line-height: 24px; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--ecran); color: var(--nuit); font-family: var(--font-sans); font-size: 16px; line-height: 24px; -webkit-font-smoothing: antialiased; }
   .page { min-height: 100%; display: grid; grid-template-rows: auto 1fr auto; max-width: 72rem; margin: 0 auto;
     padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); padding-block: clamp(24px, 4vw, 40px); }
 
-  .brand { display: inline-flex; width: fit-content; color: var(--encre); }
-  .brand svg { height: 40px; width: auto; display: block; }
+  .brand { display: inline-flex; width: fit-content; color: var(--nuit); }
+  .brand svg { height: 36px; width: auto; display: block; overflow: visible; }
+  .brand .piste { fill: var(--indigo); }
+  .brand .pastille { fill: var(--menthe); }
 
   main { display: grid; align-content: center; gap: 64px; padding-block: clamp(56px, 10vh, 120px); }
-  .label { margin: 0; font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gris); }
+  .label { margin: 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--gris); }
   .hero { display: grid; gap: 24px; max-width: 52rem; }
-  .hero .label { color: var(--cobalt); }
-  h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
+  .hero .label { color: var(--lien); }
+  h1 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(42px, 7.4vw, 88px); line-height: .98; letter-spacing: -.045em; text-wrap: balance; }
   @media (min-width: 900px) { h1 mark { white-space: nowrap; } }
-  h1 mark { background: var(--point); color: var(--sur-point); padding: 0 .12em; border-radius: 4px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  h1 mark { background: none; color: var(--lien); }
   .lede { margin: 0; max-width: 34rem; font-size: 19px; line-height: 29px; color: var(--gris); }
 
   .rows { display: grid; border-top: 1px solid var(--ligne); }
   .row { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 16px 40px; padding-block: 24px; border-bottom: 1px solid var(--ligne); align-items: baseline; }
   .row p:not(.label) { margin: 0; max-width: 40rem; font-size: 17px; line-height: 27px; }
-  .mail { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 28px; color: var(--cobalt); text-decoration: none; border-bottom: 2px solid currentColor; }
+  .mail { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px; color: var(--lien); text-decoration: none; border-bottom: 2px solid currentColor; }
   .mail:hover { border-bottom-color: transparent; }
 
   footer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 13px; line-height: 19px; color: var(--gris); }
-  footer svg { width: 20px; height: 20px; display: block; }
-  .linklike { font: inherit; color: var(--encre); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ligne); }
+  footer svg { width: 26px; height: auto; display: block; }
+  .linklike { font: inherit; color: var(--nuit); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ligne); }
   .linklike:hover { text-decoration-color: currentColor; }
-  :focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
+  :focus-visible { outline: 2px solid var(--lien); outline-offset: 3px; border-radius: 2px; }
 
-  dialog { width: min(40rem, calc(100% - 32px)); max-height: calc(100% - 48px); padding: 0; border: 1px solid var(--ligne); border-radius: 8px; background: var(--surface); color: var(--encre); }
+  dialog { width: min(40rem, calc(100% - 32px)); max-height: calc(100% - 48px); padding: 0; border: 1px solid var(--ligne); border-radius: 20px; background: var(--surface); color: var(--nuit); }
   dialog::backdrop { background: rgba(17, 20, 29, .6); }
   .legal { padding: clamp(24px, 4vw, 40px); display: grid; gap: 24px; }
   .legal header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-  .legal h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 34px; letter-spacing: -.01em; }
-  .legal h3 { margin: 0 0 4px; font-size: 11px; line-height: 16px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--cobalt); }
+  .legal h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 32px; letter-spacing: -.03em; }
+  .legal h3 { margin: 0 0 4px; font-family: var(--font-mono); font-size: 11.5px; line-height: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--lien); }
   .legal p { margin: 0; font-size: 14px; line-height: 21px; }
   .legal p + p { margin-top: 4px; }
-  .todo { background: var(--cobalt-pale); padding: 0 .3em; border-radius: 4px; }
-  .close { font: inherit; font-size: 14px; color: var(--cobalt); background: none; border: 1px solid var(--ligne); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
-  .close:hover { border-color: var(--cobalt); }
+  .todo { background: var(--lavande); padding: 0 .3em; border-radius: 4px; }
+  .close { font: inherit; font-size: 14px; color: var(--lien); background: none; border: 1px solid var(--ligne); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
+  .close:hover { border-color: var(--lien); }
 
   @media (max-width: 640px) {
     .row { grid-template-columns: 1fr; gap: 8px; }
-    .brand svg { height: 34px; }
+    .brand svg { height: 30px; }
   }
   @media (prefers-reduced-motion: no-preference) {
     .hero > * { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }
     .hero > *:nth-child(2) { animation-delay: .06s; }
     .hero > *:nth-child(3) { animation-delay: .12s; }
     @keyframes rise { from { transform: translateY(8px); opacity: .001; } to { transform: none; opacity: 1; } }
+    /* Le logo s'allume : la pastille glisse de gauche à droite, une seule fois. */
+    .brand .pastille { animation: allumage .6s cubic-bezier(.3, .8, .2, 1.15) .35s both; }
+    .brand .piste { animation: piste .6s ease .35s both; }
+    @keyframes allumage { from { transform: translateX(-386.9px); fill: #FFFFFF; } }
+    @keyframes piste { from { fill: #C9CAD6; } }
   }
 </style>
 </head>
@@ -81,15 +90,10 @@
 
 <div class="page">
   <a class="brand" href="#" aria-label="Pragvilo, accueil">
-    <svg viewBox="0 0 297 64" role="img" aria-hidden="true">
-      <rect width="64" height="64" rx="14" fill="#2945D6"/>
-      <g transform="translate(16.4 -3.1) scale(1.3)" fill="none" stroke="#FFFFFF" stroke-width="6"><path d="M3 10V44"/><circle cx="12" cy="22" r="9"/></g>
-      <circle cx="32" cy="25.5" r="4.2" fill="#FFC93C"/>
-      <g transform="translate(84 4.95) scale(1.15)">
-        <g fill="none" stroke="currentColor" stroke-width="6"><path d="M3 10V44"/><circle cx="12" cy="22" r="9"/><path d="M32 34V10"/><path d="M32 22A10 10 0 0 1 42 12H45"/><circle cx="62" cy="22" r="9"/><path d="M71 10V34"/><circle cx="91" cy="22" r="9"/><path d="M100 10V36A8 8 0 0 1 92 44H85"/><circle cx="169" cy="22" r="9"/></g>
-        <g fill="currentColor"><polygon points="105,10 111.6,10 118,27 124.4,10 131,10 121.4,34 114.6,34"/><rect x="136" y="10" width="6" height="24"/><rect x="148" y="0" width="6" height="34"/></g>
-        <circle cx="139" cy="3" r="3.6" fill="var(--cobalt)"/>
-      </g>
+    <svg viewBox="0 0 5068.9 1101" role="img" aria-hidden="true">
+      <path fill="currentColor" d="M2279 1101Q2140 1101 2053.5 1045.5Q1967 990 1951 891H2145Q2168 957 2272 957Q2345 957 2383.5 924Q2422 891 2422 830V755H2417Q2389 802 2343.5 825.5Q2298 849 2233 849Q2149 849 2086.5 811.5Q2024 774 1989.5 705Q1955 636 1955 543Q1955 403 2032.5 320Q2110 237 2247 237Q2323 237 2377.5 266.5Q2432 296 2464 349H2506V249H2690V429H2600V830Q2600 960 2517 1030.5Q2434 1101 2279 1101ZM90 1089V429H0V249H184V349H226Q258 296 312.5 266.5Q367 237 443 237Q538 237 602 276.5Q666 316 699 386Q732 456 732 549Q732 642 700 712.5Q668 783 607 822Q546 861 459 861Q395 861 349.5 837.5Q304 814 278 772H274V1089ZM1481 860Q1373 860 1312.5 808.5Q1252 757 1252 671Q1252 582 1315.5 533.5Q1379 485 1497 485H1658V463Q1658 381 1554 381Q1462 381 1442 443H1260Q1281 341 1355 289Q1429 237 1553 237Q1690 237 1762 297.5Q1834 358 1834 474V669H1920V849H1736V749H1694Q1663 803 1612 831.5Q1561 860 1481 860ZM2954 849 2696 249H2891L3047 632H3051L3203 249H3394L3136 849ZM3733 849V9H3917V849ZM858 849V429H768V249H952V369H994Q1017 304 1069 272.5Q1121 241 1185 241H1236V401H1177Q1103 401 1070.5 442Q1038 483 1038 549V849ZM3443 849V249H3627V849ZM408 701Q479 701 513.5 660Q548 619 548 549Q548 479 513.5 438Q479 397 408 397Q346 397 310 431.5Q274 466 274 527V571Q274 632 310 666.5Q346 701 408 701ZM2279 689Q2344 689 2380 654Q2416 619 2416 557V527Q2416 466 2379.5 431.5Q2343 397 2279 397Q2212 397 2175.5 435.5Q2139 474 2139 544Q2139 614 2175.5 651.5Q2212 689 2279 689ZM3535 198Q3494 198 3465 169Q3436 140 3436 99Q3436 58 3465 29Q3494 0 3535 0Q3576 0 3605 29Q3634 58 3634 99Q3634 140 3605 169Q3576 198 3535 198ZM1509 722Q1553 722 1586.5 707Q1620 692 1639 666Q1658 640 1658 608V605H1505Q1428 605 1428 662Q1428 691 1449.5 706.5Q1471 722 1509 722Z"/>
+      <path class="piste" d="M4370 237H4756.9C4929.2 237 5068.9 376.7 5068.9 549C5068.9 721.3 4929.2 861 4756.9 861H4370C4197.7 861 4058 721.3 4058 549C4058 376.7 4197.7 237 4370 237Z"/>
+      <path class="pastille" d="M4997.1 549C4997.1 681.7 4889.6 789.2 4756.9 789.2C4624.2 789.2 4516.6 681.7 4516.6 549C4516.6 416.3 4624.2 308.8 4756.9 308.8C4889.6 308.8 4997.1 416.3 4997.1 549Z"/>
     </svg>
   </a>
 
@@ -113,7 +117,7 @@
   </main>
 
   <footer>
-    <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2945D6"/><g transform="translate(16.4 -3.1) scale(1.3)" fill="none" stroke="#FFFFFF" stroke-width="6"><path d="M3 10V44"/><circle cx="12" cy="22" r="9"/></g><circle cx="32" cy="25.5" r="4.2" fill="#FFC93C"/></svg>
+    <svg viewBox="0 0 1010.9 624" aria-hidden="true"><path fill="#3A2EFF" d="M312 0H698.9C871.2 0 1010.9 139.7 1010.9 312C1010.9 484.3 871.2 624 698.9 624H312C139.7 624 0 484.3 0 312C0 139.7 139.7 0 312 0Z"/><path fill="#2EE6A6" d="M939.1 312C939.1 444.7 831.6 552.2 698.9 552.2C566.2 552.2 458.6 444.7 458.6 312C458.6 179.3 566.2 71.8 698.9 71.8C831.6 71.8 939.1 179.3 939.1 312Z"/></svg>
     <span>© 2026 Pragvilo</span>
     <span aria-hidden="true">·</span>
     <button class="linklike" type="button" id="open-legal">Mentions légales</button>
