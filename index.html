@@ -6,7 +6,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Pragvilo · sites, applications, IA, SEO et acquisition</title>
-<meta name="description" content="Une seule équipe pour construire votre site ou votre application et le faire connaître : sites vitrines et refontes, applications et SaaS, IA, SEO, GEO et publicité en ligne, pour les entreprises et les associations.">
+<meta name="description" content="Un projet est fini quand il marche, pas quand il est livré. Pragvilo construit, met en ligne et fait connaître les sites, applications et outils IA des entreprises et des associations, jusqu’aux premiers résultats.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&display=swap">
@@ -66,17 +66,12 @@
   .block-head h2 { font-weight: 800; font-size: clamp(26px, 3vw, 34px); line-height: 1.1; letter-spacing: -.03em; }
   .block-head p { margin: 0; color: var(--gris); text-wrap: pretty; }
 
-  /* Pourquoi : chaque ligne passe de « éteint » (ailleurs) à « allumé » (avec Pragvilo) */
-  .switch.off { background: var(--off); }
-  .switch.off::after { right: auto; left: .09em; background: #fff; }
-  .compare { width: 100%; border-collapse: collapse; table-layout: fixed; }
-  .compare th { text-align: left; font: 600 15px/1.3 var(--font-sans); color: var(--nuit); padding: 0 0 12px; }
-  .compare th .switch { font-size: 14px; margin: 0 8px 0 0; vertical-align: -.1em; }
-  .compare th + th, .compare td + td { padding-left: clamp(20px, 4vw, 48px); }
-  .compare td { vertical-align: top; padding: 16px 0; border-top: 1px solid var(--ligne); text-wrap: pretty; }
-  .compare td:first-child { color: var(--gris); }
-  .compare td + td { color: var(--nuit); font-weight: 500; }
-  .compare tbody tr:last-child td { border-bottom: 1px solid var(--ligne); }
+  /* Parti pris : un texte suivi, pas de cartes */
+  .parti-pris { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(24px, 5vw, 64px); align-items: start; }
+  .parti-pris h2 { font-weight: 800; font-size: clamp(26px, 3vw, 34px); line-height: 1.1; letter-spacing: -.03em; }
+  .prose { display: grid; gap: 14px; max-width: 38rem; }
+  .prose p { margin: 0; text-wrap: pretty; }
+  .prose .lead-in { font-family: var(--font-display); font-weight: 600; font-size: clamp(19px, 2vw, 23px); line-height: 1.35; letter-spacing: -.015em; color: var(--nuit); }
 
   /* Offre : quatre pôles séparés par des filets */
   .poles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 48px); margin: 0; padding: 0; list-style: none; }
@@ -157,14 +152,7 @@
     .steps li:not(:last-child)::after { top: 40px; bottom: 6px; left: 15px; right: auto; width: 2px; height: auto; }
     .steps li:nth-child(2)::after { display: block; }
     .two { grid-template-columns: 1fr; }
-    .compare thead { display: none; }
-    .compare, .compare tbody, .compare tr, .compare td { display: block; width: auto; }
-    .compare tr { padding: 16px 0; border-top: 1px solid var(--ligne); }
-    .compare tbody tr:last-child { border-bottom: 1px solid var(--ligne); }
-    .compare td, .compare tbody tr:last-child td { border: 0; padding: 0; }
-    .compare td + td { padding: 8px 0 0; }
-    .compare td::before { content: attr(data-label); display: block; font-size: 13px; font-weight: 600; color: var(--gris); margin-bottom: 2px; }
-    .compare td + td::before { color: var(--lien); }
+    .parti-pris { grid-template-columns: 1fr; }
   }
 
   /* Le seul mouvement de la page : l'interrupteur du titre s'allume, comme le logo. */
@@ -188,7 +176,7 @@
 
   </a>
   <nav class="nav" aria-label="Navigation principale">
-    <a href="#pourquoi">Pourquoi nous</a>
+    <a href="#parti-pris">Notre parti pris</a>
     <a href="#offre">Ce que nous faisons</a>
     <a href="#approche">Notre approche</a>
     <a class="btn btn-small" href="#contact">Nous écrire</a>
@@ -197,47 +185,23 @@
 
 <main>
   <section class="wrap hero">
-    <h1>Votre projet numérique, de l’idée jusqu’aux premiers clients.</h1>
+    <h1>Un projet est fini quand il marche. Pas quand il est livré.</h1>
     <p class="kicker">Sites, applications, IA, visibilité. Nous le faisons, et ça marche<span class="switch" aria-hidden="true"></span></p>
-    <p class="lede">Pragvilo accompagne les entreprises et les associations sur tout le parcours : une seule équipe construit votre site ou votre application, le met en ligne, puis le fait connaître sur Google, dans les IA et en publicité.</p>
+    <p class="lede">Pragvilo construit, met en ligne et fait connaître les services numériques des entreprises et des associations. Nous fixons avec vous ce que « marcher » veut dire, et nous restons jusqu’à ce que ce soit le cas.</p>
     <div class="actions">
       <a class="btn" href="#contact">Décrire votre projet</a>
       <a class="link-arrowless" href="#offre">Voir ce que nous faisons</a>
     </div>
   </section>
 
-  <section class="block" id="pourquoi" aria-labelledby="pourquoi-titre">
-    <div class="wrap">
-      <div class="block-head">
-        <h2 id="pourquoi-titre">Pourquoi travailler avec nous</h2>
-        <p>Ce qui change quand la même équipe s’occupe de construire et de faire connaître.</p>
+  <section class="block" id="parti-pris" aria-labelledby="parti-pris-titre">
+    <div class="wrap parti-pris">
+      <h2 id="parti-pris-titre">Notre parti pris</h2>
+      <div class="prose">
+        <p class="lead-in">La plupart des projets numériques s’arrêtent le jour de la mise en ligne. Le site est livré, la facture est envoyée, et personne ne vérifie s’il rapporte quelque chose.</p>
+        <p>Chez Pragvilo, un projet est fini quand il marche. Avant de commencer, nous écrivons avec vous ce qu’il doit produire : des demandes de devis, des inscriptions, des heures gagnées, une place sur Google ou dans les réponses des IA. Ensuite nous construisons, nous mettons en ligne, nous mesurons, et nous ajustons jusqu’à y arriver.</p>
+        <p>C’est aussi pour ça que nous faisons tout, du site à la publicité. On ne peut pas promettre un résultat en ne tenant qu’un bout de la chaîne.</p>
       </div>
-      <table class="compare">
-        <thead>
-          <tr>
-            <th scope="col"><span class="switch off" aria-hidden="true"></span>Ailleurs</th>
-            <th scope="col"><span class="switch" aria-hidden="true"></span>Avec Pragvilo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-label="Ailleurs">Une agence fait le site, une autre le référencement, une troisième la publicité. Personne ne voit l’ensemble.</td>
-            <td data-label="Avec Pragvilo">Une seule équipe construit votre outil et le fait connaître. Le site, le SEO et les campagnes avancent ensemble.</td>
-          </tr>
-          <tr>
-            <td data-label="Ailleurs">Des semaines de cahier des charges avant de voir quoi que ce soit.</td>
-            <td data-label="Avec Pragvilo">Une première version en ligne très tôt, que vous testez et que nous ajustons avec vous.</td>
-          </tr>
-          <tr>
-            <td data-label="Ailleurs">L’IA reste un sujet de réunion. Rien ne change au quotidien.</td>
-            <td data-label="Avec Pragvilo">De l’IA branchée sur vos outils, là où elle fait vraiment gagner du temps.</td>
-          </tr>
-          <tr>
-            <td data-label="Ailleurs">Le prestataire livre, puis disparaît.</td>
-            <td data-label="Avec Pragvilo">Nous restons après la mise en ligne : hébergement, corrections, évolutions et suivi des résultats.</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
@@ -279,10 +243,10 @@
       </div>
       <p class="credo">Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
       <ol class="steps">
-        <li><h3>On échange</h3><p>Pour comprendre votre activité et ce que le projet doit changer pour vous.</p></li>
-        <li><h3>Vous voyez une première version</h3><p>En ligne, sur une adresse privée, en quelques jours plutôt qu’en quelques mois.</p></li>
-        <li><h3>On ajuste</h3><p>À partir de vos retours et de ce qui sert vraiment, pas d’un cahier des charges figé.</p></li>
-        <li><h3>On met en ligne, et on reste</h3><p>Le service est suivi, corrigé et amélioré tant que vous en avez besoin.</p></li>
+        <li><h3>On fixe l’objectif</h3><p>Ensemble, on écrit ce que « ça marche » veut dire pour vous, avec des chiffres qu’on pourra suivre.</p></li>
+        <li><h3>Vous voyez une première version</h3><p>En ligne, sur une adresse privée, très tôt. Vous la testez avant qu’on aille plus loin.</p></li>
+        <li><h3>On met en ligne et on mesure</h3><p>Vous voyez les chiffres : visites, demandes, inscriptions, temps gagné.</p></li>
+        <li><h3>On ajuste jusqu’au résultat</h3><p>Site, référencement, campagnes : on corrige tant que l’objectif n’est pas atteint.</p></li>
       </ol>
     </div>
   </section>
