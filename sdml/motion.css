@@ -1,0 +1,181 @@
+/* SDML v7 : la version en mouvement.
+   Une seule idée : tout bouge comme un pont roulant. Le chariot roule sur la poutre,
+   le câble descend, la charge se pose. Rien ne bouge sans raison. */
+
+:root {
+  --out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --io-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --io-quart: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ---------- La poutre de l'en-tête porte un chariot : il avance avec la lecture ---------- */
+.top .poutre { position: relative; overflow: visible; }
+.trolley { position: absolute; left: 0; top: -6px; width: 44px; height: 22px; will-change: transform; pointer-events: none; }
+.trolley::before { content: ""; position: absolute; inset: 0 0 auto; height: 12px; background: var(--jaune); border: 3px solid var(--noir); border-radius: 3px; }
+.trolley::after { content: ""; position: absolute; left: 20px; top: 12px; width: 4px; height: 12px; background: var(--noir); }
+.trolley i { position: absolute; left: 15px; top: 22px; width: 14px; height: 10px; border: 4px solid var(--noir); border-top: 0; border-radius: 0 0 10px 10px; }
+
+/* ---------- Rideau de transition : le pont traverse l'écran entre deux pages ---------- */
+.rideau { position: fixed; inset: 0; z-index: 100; background: var(--jaune); display: grid; place-items: center; transform: translateX(-101%); pointer-events: none; }
+.rideau::before, .rideau::after { content: ""; position: absolute; left: 0; right: 0; height: 22px; background: repeating-linear-gradient(-45deg, var(--noir) 0 18px, var(--jaune) 18px 36px); }
+.rideau::before { top: 0; }
+.rideau::after { bottom: 0; }
+.rideau img { width: min(46vw, 360px); height: auto; }
+.rideau .crochet { position: absolute; left: 50%; top: 22px; width: 6px; height: 28vh; margin-left: -3px; background: var(--noir); }
+.rideau .crochet::after { content: ""; position: absolute; left: -11px; bottom: -22px; width: 28px; height: 24px; border: 6px solid var(--noir); border-top: 0; border-radius: 0 0 16px 16px; }
+.rideau.couvre { transform: translateX(0); transition: transform 420ms var(--io-quart); pointer-events: auto; }
+.rideau.arrive { transform: translateX(0); }
+.rideau.arrive.part { transform: translateX(101%); transition: transform 620ms var(--io-quart); }
+
+/* ---------- Accueil : la boîte à boutons descend du chariot ---------- */
+.suspente { display: flex; flex-direction: column; align-items: center; width: 100%; transform-origin: 50% 0; }
+.js .hero .chariot { transform: translateX(-110vw); }
+.js .hero .cable { transform: scaleY(0); transform-origin: 50% 0; }
+.js .hero .corps { opacity: 0; transform: translateY(-40px); }
+.js .hero .pb .k { opacity: .35; }
+.anime .hero .chariot { transform: none; transition: transform 1100ms var(--io-cubic); }
+.anime .hero .cable { transform: none; transition: transform 520ms var(--out-quart) 1050ms; }
+.anime .hero .corps { opacity: 1; transform: none; transition: opacity 260ms ease-out 1100ms, transform 620ms var(--out-quart) 1100ms; }
+.anime .hero .suspente { animation: balancier 1900ms var(--out-quart) 1350ms both; }
+@keyframes balancier { 0% { transform: rotate(0) } 18% { transform: rotate(3.2deg) } 42% { transform: rotate(-2deg) } 64% { transform: rotate(1deg) } 82% { transform: rotate(-.4deg) } 100% { transform: rotate(0) } }
+.anime .hero .pb .k { opacity: 1; transition: opacity 180ms ease-out; }
+.anime .hero .pb:nth-of-type(1) .k { transition-delay: 1750ms; }
+.anime .hero .pb:nth-of-type(2) .k { transition-delay: 1810ms; }
+.anime .hero .pb:nth-of-type(3) .k { transition-delay: 1870ms; }
+.anime .hero .pb:nth-of-type(4) .k { transition-delay: 1930ms; }
+.anime .hero .pb:nth-of-type(5) .k { transition-delay: 1990ms; }
+.anime .hero .pb:nth-of-type(6) .k { transition-delay: 2050ms; }
+.anime .hero .pb.stop .k { animation: allume 900ms ease-out 2150ms 1; }
+@keyframes allume { 0%, 100% { box-shadow: inset 0 -5px 0 rgba(0,0,0,.25), 0 4px 0 #7A120E; } 40% { box-shadow: inset 0 -5px 0 rgba(0,0,0,.25), 0 4px 0 #7A120E, 0 0 0 10px rgba(211,34,27,.28); } }
+
+/* Titres hissés mot par mot */
+.hisse .m { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; margin-bottom: -.06em; }
+.hisse .m > span { display: inline-block; transform: translateY(105%); }
+.anime .hisse .m > span, .hisse.vu .m > span { transform: none; transition: transform 760ms var(--out-expo); transition-delay: calc(var(--i) * 45ms + var(--d, 0ms)); }
+.js .hero .lead, .js .hero .plaque, .js .hero .plaque > div { opacity: 0; transform: translateY(12px); }
+.anime .hero .lead, .anime .hero .plaque, .anime .hero .plaque > div { opacity: 1; transform: none; transition: opacity 400ms ease-out, transform 600ms var(--out-quart); }
+.anime .hero .lead { transition-delay: 500ms; }
+.anime .hero .plaque { transition-delay: 620ms; }
+.anime .hero .plaque > div:nth-child(1) { transition-delay: 700ms; }
+.anime .hero .plaque > div:nth-child(2) { transition-delay: 780ms; }
+.anime .hero .plaque > div:nth-child(3) { transition-delay: 860ms; }
+.anime .hero .plaque > div:nth-child(4) { transition-delay: 940ms; }
+
+/* Photo : elle se découvre comme une porte sectionnelle qui s'ouvre */
+.porte { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-rows: repeat(6, 1fr); pointer-events: none; }
+.porte span { background: #2A2C2B; border-bottom: 2px solid #1A1B1A; box-shadow: inset 0 2px 0 #3D3F3E; }
+.porte span:nth-child(odd) { background: #313332; }
+.porte::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: var(--jaune); }
+.porte.ouvre { transform: translateY(-101%); transition: transform 1300ms var(--io-quart) 150ms; }
+
+/* ---------- Bandeau clients : défilement continu ---------- */
+.clients { overflow: hidden; }
+.defile { flex: 1; min-width: 0; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.defile .logos { width: max-content; flex: none; justify-content: flex-start; gap: 72px; padding-right: 72px; animation: defile 34s linear infinite; }
+.defile:hover .logos, .defile:focus-within .logos { animation-play-state: paused; }
+@keyframes defile { to { transform: translateX(-50%); } }
+@media (max-width: 960px) { .defile { width: 100%; } .defile .logos { flex-wrap: nowrap; gap: 48px; padding-right: 48px; } }
+
+/* ---------- Parcours : un chariot passe d'une étape à l'autre ---------- */
+.parcours .navette { position: absolute; left: 0; top: 4px; width: 52px; height: 44px; z-index: 2; opacity: 0; pointer-events: none; }
+.parcours .navette::before { content: ""; position: absolute; left: 6px; right: 6px; top: 0; height: 16px; background: var(--noir); border-radius: 3px; }
+.parcours .navette::after { content: ""; position: absolute; left: 24px; top: 16px; width: 4px; height: 0; background: var(--noir); }
+.js .parcours .n { transform: scale(.82); background: var(--beton); transition: transform 300ms var(--out-quart), background-color 200ms ease; }
+.parcours.vu .n { transform: none; background: var(--jaune); }
+.parcours.vu li:nth-child(1) .n { transition-delay: 150ms; }
+.parcours.vu li:nth-child(2) .n { transition-delay: 500ms; }
+.parcours.vu li:nth-child(3) .n { transition-delay: 850ms; }
+.parcours.vu li:nth-child(4) .n { transition-delay: 1200ms; }
+.parcours.vu li:nth-child(5) .n { transition-delay: 1550ms; }
+.js .parcours li h3, .js .parcours li p { opacity: .25; transition: opacity 300ms ease-out; }
+.parcours.vu li h3, .parcours.vu li p { opacity: 1; }
+.parcours.vu li:nth-child(1) h3, .parcours.vu li:nth-child(1) p { transition-delay: 200ms; }
+.parcours.vu li:nth-child(2) h3, .parcours.vu li:nth-child(2) p { transition-delay: 550ms; }
+.parcours.vu li:nth-child(3) h3, .parcours.vu li:nth-child(3) p { transition-delay: 900ms; }
+.parcours.vu li:nth-child(4) h3, .parcours.vu li:nth-child(4) p { transition-delay: 1250ms; }
+.parcours.vu li:nth-child(5) h3, .parcours.vu li:nth-child(5) p { transition-delay: 1600ms; }
+@media (min-width: 961px) {
+  .parcours.vu .navette { animation: navette 1800ms var(--io-cubic) 100ms both; }
+}
+@keyframes navette { 0% { opacity: 0; transform: translateX(0); } 8% { opacity: 1; } 92% { opacity: 1; transform: translateX(var(--fin)); } 100% { opacity: 0; transform: translateX(var(--fin)); } }
+
+/* ---------- Équipements : chaque ligne a son appareil, le crochet descend au survol ---------- */
+.eq-list a { grid-template-columns: 112px 1fr auto; align-items: center; }
+.picto { width: 112px; height: 63px; }
+.picto .crochet, .picto .chariot-p { transition: transform 260ms var(--out-quart); }
+@media (hover: hover) and (pointer: fine) {
+  .eq-list a:hover .crochet, .type:hover .crochet { transform: translateY(7px); }
+  .eq-list a:hover .chariot-p, .type:hover .chariot-p { transform: translateX(10px); }
+  .eq-list a:hover .crochet { transform: translate(10px, 7px); }
+  .type:hover .crochet { transform: translate(10px, 7px); }
+}
+.eq-list a:focus-visible .crochet { transform: translate(10px, 7px); }
+@media (hover: hover) and (pointer: fine) {
+  .eq-list a:hover .crochet.tire, .type:hover .crochet.tire { transform: translateX(-8px); }
+}
+.eq-list a:focus-visible .crochet.tire { transform: translateX(-8px); }
+@media (max-width: 960px) { .eq-list a { grid-template-columns: 76px 1fr; } .picto { width: 76px; height: 43px; } }
+
+/* Les dessins des familles d'équipement se tracent à l'arrivée dans l'écran */
+.js .trace path, .js .trace rect:not(.sol), .js .trace circle { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.trace.vu path, .trace.vu rect:not(.sol), .trace.vu circle { stroke-dashoffset: 0; transition: stroke-dashoffset 1100ms var(--io-cubic); transition-delay: calc(var(--i, 0) * 120ms); }
+
+/* ---------- Petites choses qui répondent à la main ---------- */
+.btn { transition: transform 120ms ease, background-color 150ms ease; }
+.btn:active { transform: scale(.97); }
+.top .btn.rouge .voyant { animation: voyant 1600ms ease-in-out infinite; }
+@keyframes voyant { 0%, 100% { opacity: .95; box-shadow: 0 0 0 3px rgba(255,255,255,.3); } 50% { opacity: .55; box-shadow: 0 0 0 6px rgba(255,255,255,.12); } }
+.pb .k { transition: transform 90ms ease, box-shadow 90ms ease; }
+.pb:active .k { transform: translateY(3px); }
+@media (hover: hover) and (pointer: fine) {
+  .secteur .ph img { transition: transform 500ms var(--out-quart); }
+  .secteur:hover .ph img { transform: scale(1.05); }
+  .eq-list a { transition: background-color 150ms ease; }
+}
+/* FAQ : la réponse s'ouvre au lieu d'apparaître d'un coup (navigateurs récents) */
+:root { interpolate-size: allow-keywords; }
+.faq-i::details-content { height: 0; overflow: clip; transition: height 280ms var(--out-quart), content-visibility 280ms allow-discrete; }
+.faq-i[open]::details-content { height: auto; }
+
+/* Dépannage : le numéro arrive avec le titre */
+.js .dep-hero .appel { opacity: 0; transform: translateX(24px); }
+.anime .dep-hero .appel { opacity: 1; transform: none; transition: opacity 400ms ease-out 450ms, transform 700ms var(--out-quart) 450ms; }
+.js .dep-hero .lead, .js .p-hero .lead, .js .p-hero .cta, .js .p-hero .plaque { opacity: 0; transform: translateY(12px); }
+.anime .dep-hero .lead, .anime .p-hero .lead, .anime .p-hero .cta, .anime .p-hero .plaque { opacity: 1; transform: none; transition: opacity 400ms ease-out 380ms, transform 600ms var(--out-quart) 380ms; }
+.anime .p-hero .cta { transition-delay: 480ms; }
+.anime .p-hero .plaque { transition-delay: 560ms; }
+
+/* Bandeau maquette : liens entre les écrans */
+.ribbon a { color: #fff; font-weight: 700; margin-left: 14px; }
+.ribbon a[aria-current="page"] { text-decoration-thickness: 3px; }
+
+/* ---------- Mouvement réduit : tout est posé, rien ne bouge ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .trolley { display: none; }
+  .rideau { display: none; }
+  .js .hero .chariot, .js .hero .cable, .js .hero .corps, .js .hero .pb .k, .js .hero .lead, .js .hero .plaque, .js .hero .plaque > div { transform: none; opacity: 1; transition: none; }
+  .anime .hero .suspente, .anime .hero .pb.stop .k { animation: none; }
+  .hisse .m > span { transform: none; transition: none; }
+  .porte { display: none; }
+  .defile { mask-image: none; }
+  .defile .logos { animation: none; flex-wrap: wrap; width: auto; }
+  .defile .logos [aria-hidden="true"] { display: none; }
+  .parcours .navette { display: none; }
+  .js .parcours .n { transform: none; background: var(--jaune); transition: none; }
+  .js .parcours li h3, .js .parcours li p { opacity: 1; transition: none; }
+  .js .trace path, .js .trace rect, .js .trace circle { stroke-dashoffset: 0; transition: none; }
+  .picto .crochet, .picto .chariot-p { transition: none; }
+  .top .btn.rouge .voyant { animation: none; }
+  .btn, .pb .k { transition: none; }
+  .secteur .ph img { transition: none; }
+  .faq-i::details-content { transition: none; }
+  .js .dep-hero .appel, .js .dep-hero .lead, .js .p-hero .lead, .js .p-hero .cta, .js .p-hero .plaque { opacity: 1; transform: none; transition: none; }
+}
+
+/* Mobile : les liens entre écrans restent visibles */
+@media (max-width: 960px) {
+  .ribbon .wrap { flex-direction: column; gap: 4px; }
+  .ribbon .wrap span:last-child { display: block; }
+  .ribbon a { margin: 0 14px 0 0; }
+}
