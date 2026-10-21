@@ -48,11 +48,9 @@ a, button, summary, label, input{-webkit-tap-highlight-color:transparent; touch-
 /* Bloc-marque : Marianne et NOTAIRES DE FRANCE (fichier SVG), puis le nom de l'étude */
 .brand{display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--ink); margin-right:auto; min-width:0}
 .bm{display:block; height:52px; width:auto; flex:none}
-/* Logotype officiel NOTAIRES DE FRANCE (fichier du site notaires.fr), en monochrome blanc sur fond sombre */
-.ndf{display:block; height:48px; width:auto; max-width:220px; flex:none}
-.foot .ndf{filter:brightness(0) invert(1)}
-.ndf-txt{display:block; flex:none; max-width:8em; font:700 15px/1.05 var(--font); letter-spacing:.05em; text-transform:uppercase; color:var(--ink)}
-.foot .ndf-txt{color:#fff}
+/* Logotype officiel Notaires de France, en monochrome : encre sur fond clair, blanc sur fond sombre */
+.ndf{display:block; height:58px; width:auto; flex:none}
+.foot .ndf{height:72px}
 .bm-rule{width:1px; height:40px; background:var(--line-solid); flex:none}
 .bm-etude{display:flex; flex-direction:column; min-width:0}
 .bm-etude b{font:800 1.6rem/1 var(--font); font-stretch:75%; letter-spacing:.01em; color:var(--ink)}
@@ -439,7 +437,7 @@ body.clean .todo{display:none !important}
   .top .wrap{gap:10px}
   .brand{gap:10px}
   .bm{height:40px}
-  .ndf{height:38px; max-width:150px}
+  .ndf{height:46px}
   .bm-rule{height:30px}
   .bm-etude b{font-size:1.3rem}
   .hero-img{height:auto; aspect-ratio:16/10}
