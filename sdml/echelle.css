@@ -8,8 +8,8 @@
   :root { --rail: 1200px; }
   body { font-size: 16px; }
   .wrap { padding: 0 32px; }
-  .d1 { font-size: clamp(44px, 4.7vw, 67px); line-height: .92; }
-  .d2 { font-size: clamp(30px, 2.9vw, 42px); line-height: .98; }
+  .d1 { font-size: clamp(44px, 4.7vw, 67px); line-height: 1; }
+  .d2 { font-size: clamp(30px, 2.9vw, 42px); line-height: 1.06; }
   .d3 { font-size: 24px; }
   .lead { font-size: 18px; max-width: 36em; }
   .small { font-size: 14px; }
@@ -164,6 +164,13 @@
   .secu .wrap { grid-template-columns: minmax(0, 1fr); }
   .badge-mase { width: 120px; height: 120px; }
   .crumb { padding-top: 24px; }
+  /* Big Shoulders a de longs jambages : sous 1,06 d'interligne, un p ou un g touche la capitale de la ligne du dessous */
+  .d1 { line-height: 1.04; }
+  .d2 { line-height: 1.1; }
+  .sur-jaune[style] { padding: 56px 0 !important; }
+  /* Marques : deux colonnes séparées par des filets ; la cinquième occupe toute la largeur sous un filet */
+  .marques-row div { padding: 18px 10px; }
+  .marques-row div:nth-child(n+3) { border-top: 1px solid rgba(2,2,2,.25); }
   .appel .num { font-size: 40px; white-space: nowrap; }
 }
 
