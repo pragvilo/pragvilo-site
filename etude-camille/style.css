@@ -87,7 +87,7 @@ a, button, summary, label, input{-webkit-tap-highlight-color:transparent; touch-
 .actions{display:flex; flex-wrap:wrap; gap:10px}
 .hero-addr{margin:22px 0 0; font-size:14px; color:var(--sky)}
 .hero-addr a{color:#fff; font-weight:600}
-.hero-img{margin:0; position:relative; overflow:hidden; background:var(--sun)}
+.hero-img{margin:0; position:relative; overflow:hidden; background:var(--pastel)}
 .hero-img img{width:100%; height:100%; object-fit:cover; object-position:50% 50%}
 .hero-img::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--red); z-index:1; pointer-events:none}
 
