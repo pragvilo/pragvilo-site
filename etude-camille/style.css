@@ -478,3 +478,8 @@ body.clean .todo{display:none !important}
   .mockbar{bottom:calc(74px + env(safe-area-inset-bottom)); right:10px; padding:4px 4px 4px 10px; font-size:11px}
   .top.open ~ .mockbar{display:none}
 }
+
+/* Guides retirés de la maquette (proposés en option) : liens visibles mais inactifs */
+a.off{pointer-events:none; cursor:default}
+.guides-list a.off::after{display:none}
+.panel-lead .more.off{color:var(--muted); background:none}
