@@ -5,11 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<title>Pragvilo · sites, applications, IA, SEO et acquisition</title>
-<meta name="description" content="Un projet est fini quand il marche, pas quand il est livré. Pragvilo construit, met en ligne et fait connaître les sites, applications et outils IA des entreprises et des associations, jusqu’aux premiers résultats.">
+<title>Pragvilo · création de sites, applications, IA et référencement</title>
+<meta name="description" content="Pragvilo crée votre site, votre application ou votre outil IA, le met en ligne et le fait connaître (SEO, GEO, publicité). Entreprises et associations. Réponse sous 24 h, devis gratuit sous 48 h.">
+<link rel="canonical" href="https://pragvilo.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pragvilo.com/">
+<meta property="og:title" content="Pragvilo · votre projet numérique, de l’idée jusqu’aux premiers clients">
+<meta property="og:description" content="Sites, applications, IA, visibilité. Un projet est fini quand il marche, pas quand il est livré.">
+<meta property="og:locale" content="fr_FR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"ProfessionalService","@id":"https://pragvilo.com/#pragvilo","name":"Pragvilo","url":"https://pragvilo.com/","logo":"https://pragvilo.com/apple-touch-icon.png","description":"Création de sites internet, d’applications et d’outils IA, référencement (SEO, GEO) et publicité en ligne pour les entreprises et les associations.","address":{"@type":"PostalAddress","streetAddress":"9 rue Lagille","postalCode":"75018","addressLocality":"Paris","addressCountry":"FR"},"areaServed":"FR","knowsLanguage":"fr",
+"hasOfferCatalog":{"@type":"OfferCatalog","name":"Offres Pragvilo","itemListElement":[
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Sites internet","description":"Site vitrine, refonte, hébergement et maintenance."}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Applications et plateformes","description":"Application web, outil métier, plateforme SaaS."}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Intelligence artificielle","description":"Assistants IA, automatisation de tâches, intégration à vos outils."}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Visibilité et acquisition","description":"SEO, GEO et publicité en ligne."}}]}}
+]}
+</script>
 <style>
   /* Charte Pragvilo « Allumé ». Un seul moment fort : l'interrupteur du titre s'allume au chargement.
      Le reste est sobre : titres en phrase, pas de surtitres en capitales, filets pour séparer les pôles. */
@@ -65,22 +81,6 @@
   .block-head { display: grid; gap: 10px; max-width: 38rem; margin-bottom: clamp(24px, 3vw, 36px); }
   .block-head h2 { font-weight: 800; font-size: clamp(26px, 3vw, 34px); line-height: 1.1; letter-spacing: -.03em; }
   .block-head p { margin: 0; color: var(--gris); text-wrap: pretty; }
-
-  /* Parti pris : un texte suivi, pas de cartes */
-  .parti-pris { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(24px, 5vw, 64px); align-items: start; }
-  .parti-pris h2 { font-weight: 800; font-size: clamp(26px, 3vw, 34px); line-height: 1.1; letter-spacing: -.03em; }
-  .prose { display: grid; gap: 14px; max-width: 38rem; }
-  .prose p { margin: 0; text-wrap: pretty; }
-  .prose .lead-in { font-family: var(--font-display); font-weight: 600; font-size: clamp(19px, 2vw, 23px); line-height: 1.35; letter-spacing: -.015em; color: var(--nuit); }
-
-  /* Offre : quatre pôles séparés par des filets */
-  .poles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 48px); margin: 0; padding: 0; list-style: none; }
-  .pole { display: grid; gap: 8px; align-content: start; padding-block: 20px 28px; border-top: 2px solid var(--nuit); }
-  .pole h3 { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; line-height: 1.2; letter-spacing: -.015em; }
-  .pole h3 .switch { font-size: 16px; margin: 0; flex: none; }
-  .pole p { margin: 0; max-width: 32rem; }
-  .pole ul { margin: 2px 0 0; padding: 0; list-style: none; display: grid; gap: 2px; color: var(--gris); font-size: 14.5px; }
-  .pole li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--lien); margin-right: 10px; vertical-align: .2em; }
 
   /* Approche */
   .credo { margin: 0 0 clamp(32px, 4vw, 44px); max-width: 38ch; font-family: var(--font-display); font-weight: 600; font-size: clamp(19px, 2vw, 24px); line-height: 1.3; letter-spacing: -.025em; color: var(--nuit); }
@@ -145,13 +145,104 @@
     body { font-size: 16px; }
     .nav a:not(.btn) { display: none; }
     .brand svg { height: 24px; }
-    .poles { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; gap: 0; }
     .steps li { padding: 0 0 24px 48px; min-height: 32px; }
     .steps li:not(:last-child)::after { top: 40px; bottom: 6px; left: 15px; right: auto; width: 2px; height: auto; }
     .steps li:nth-child(2)::after { display: block; }
     .two { grid-template-columns: 1fr; }
-    .parti-pris { grid-template-columns: 1fr; }
+  }
+
+  /* Titre en deux colonnes : la promesse à gauche, le tableau d'interrupteurs à droite.
+     Allumer un besoin prépare le formulaire de contact. */
+  .hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
+  .assurances { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; color: var(--texte); }
+  .assurances li { display: flex; align-items: center; gap: 10px; }
+  .assurances li::before { content: ""; flex: none; width: 18px; height: 10px; border-radius: 999px; background: var(--indigo) radial-gradient(circle at 13px 50%, var(--menthe) 3px, transparent 3.5px); }
+
+  .besoin { display: grid; gap: 14px; padding: clamp(20px, 2.5vw, 28px); background: var(--surface); border-radius: 24px; box-shadow: 0 0 0 1px var(--ligne), 0 2px 4px rgba(13,14,28,.04), 0 18px 40px rgba(58,46,255,.10); }
+  .besoin h2 { font-weight: 800; font-size: 22px; line-height: 1.15; letter-spacing: -.02em; }
+  .besoin-sous { margin: -6px 0 0; font-size: 14.5px; color: var(--gris); }
+  .toggles { display: grid; }
+  .toggle { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid var(--ligne); cursor: pointer; }
+  .toggle input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .t-label { display: grid; font-weight: 600; font-size: 16px; color: var(--nuit); }
+  .t-label small { font-weight: 400; font-size: 13.5px; color: var(--gris); }
+  .t-switch { flex: none; position: relative; width: 46px; height: 26px; border-radius: 999px; background: var(--off); transition: background-color .2s ease; }
+  .t-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .25s cubic-bezier(.3, .8, .2, 1.2), background-color .2s ease; }
+  .toggle input:checked ~ .t-switch { background: var(--indigo); }
+  .toggle input:checked ~ .t-switch::after { transform: translateX(20px); background: var(--menthe); }
+  .toggle input:focus-visible ~ .t-switch { outline: 3px solid var(--lien); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .t-switch, .t-switch::after { transition: none; } }
+  .btn-block { width: 100%; min-height: 50px; font-size: 16px; }
+  .besoin-note { margin: 0; font-size: 13.5px; color: var(--gris); }
+
+  /* Situations : des phrases où le visiteur se reconnaît, chacune mène à une offre. */
+  .situations { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 48px); }
+  .situations li { display: grid; gap: 6px; align-content: start; padding-block: 18px 22px; border-top: 1px solid var(--ligne); }
+  .situations p { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(18px, 1.7vw, 20px); line-height: 1.3; letter-spacing: -.015em; color: var(--nuit); text-wrap: pretty; }
+  .situations a { font-size: 15px; font-weight: 600; text-underline-offset: 4px; }
+
+  /* Offres */
+  .offres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+  .offre { display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto 1fr auto auto; padding: clamp(20px, 2.5vw, 28px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); scroll-margin-top: 24px; }
+  .offre h3 { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; line-height: 1.2; letter-spacing: -.02em; }
+  .offre h3 .switch { font-size: 16px; margin: 0; flex: none; }
+  .offre-promesse { margin: 0; font-size: 16.5px; color: var(--nuit); text-wrap: pretty; }
+  .offre ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
+  .offre li { padding-left: 18px; position: relative; }
+  .offre li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--lien); }
+  .offre-pour { margin: 0; padding-top: 12px; border-top: 1px solid var(--ligne); font-size: 14.5px; color: var(--gris); }
+  .offre-pour strong { color: var(--nuit); font-weight: 600; }
+  .offre-cta { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--lavande); color: var(--lien); font-weight: 600; font-size: 15px; text-decoration: none; transition: background-color .15s; }
+  .offre-cta:hover { background: var(--indigo); color: #fff; }
+
+  /* Engagement : la seule bande sombre de la page, pour le mantra. */
+  .engagement { background: #0D0E1C; color: #C9CADB; padding-block: clamp(56px, 8vw, 96px); }
+  .engagement h2 { color: #fff; font-weight: 800; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: -.035em; max-width: 20ch; }
+  .engagement-intro { margin: 20px 0 0; max-width: 40rem; font-size: 17px; text-wrap: pretty; }
+  .engagements { margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  .engagements li { display: grid; gap: 6px; align-content: start; padding-top: 16px; border-top: 2px solid var(--menthe); }
+  .engagements h3 { color: #fff; font-weight: 600; font-size: 17px; line-height: 1.3; letter-spacing: -.01em; }
+  .engagements p { margin: 0; font-size: 14.5px; text-wrap: pretty; }
+  .engagement .credo { margin: clamp(32px, 4vw, 48px) 0 0; color: #fff; }
+  .engagement :focus-visible { outline-color: var(--menthe); }
+
+  .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .steps-cta { margin: clamp(28px, 4vw, 40px) 0 0; }
+
+  /* Questions */
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(24px, 5vw, 64px); align-items: start; }
+  .faq { display: grid; }
+  .faq details { border-top: 1px solid var(--ligne); }
+  .faq details:last-child { border-bottom: 1px solid var(--ligne); }
+  .faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 17px; color: var(--nuit); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: ""; flex: none; width: 30px; height: 16px; border-radius: 999px; background: var(--off) radial-gradient(circle at 8px 50%, #fff 5px, transparent 5.5px); transition: background-color .2s; }
+  .faq details[open] summary::after { background: var(--indigo) radial-gradient(circle at 22px 50%, var(--menthe) 5px, transparent 5.5px); }
+  .faq details p { margin: 0; padding: 0 0 18px; max-width: 40rem; color: var(--texte); text-wrap: pretty; }
+
+  .ensuite { margin: 8px 0 4px; padding: 0 0 0 20px; display: grid; gap: 6px; color: var(--texte); font-size: 15px; }
+  .ensuite li::marker { color: var(--lien); font-weight: 600; }
+
+  /* Bouton fixe sur mobile, masqué quand le formulaire est à l'écran. */
+  .barre-cta { display: none; }
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; }
+    .besoin { max-width: 32rem; }
+    .engagements { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr 1fr; }
+    .steps li:nth-child(3)::after { display: none; }
+    .steps li:nth-child(2)::after { display: block; }
+    .faq-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .situations, .offres, .engagements { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .steps li:nth-child(3)::after { display: block; }
+    .barre-cta { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 10px max(16px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--ecran) 92%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--ligne); transition: transform .25s ease; }
+    .barre-cta.cachee { transform: translateY(110%); }
+    footer { padding-bottom: 76px; }
   }
 
   /* Le seul mouvement de la page : l'interrupteur du titre s'allume, comme le logo. */
@@ -175,78 +266,140 @@
 
   </a>
   <nav class="nav" aria-label="Navigation principale">
-    <a href="#parti-pris">Notre parti pris</a>
-    <a href="#offre">Ce que nous faisons</a>
-    <a href="#approche">Notre approche</a>
-    <a class="btn btn-small" href="#contact">Nous écrire</a>
+    <a href="#offre">Offres</a>
+    <a href="#parti-pris">Notre engagement</a>
+    <a href="#questions">Questions</a>
+    <a class="btn btn-small" href="#contact">Demander un devis</a>
   </nav>
 </header>
 
 <main>
   <section class="wrap hero">
-    <h1>Un projet est fini quand il marche. Pas quand il est livré.</h1>
-    <p class="kicker">Sites, applications, IA, visibilité. Nous le faisons, et ça marche<span class="switch" aria-hidden="true"></span></p>
-    <p class="lede">Pragvilo construit, met en ligne et fait connaître les services numériques des entreprises et des associations. Nous fixons avec vous ce que « marcher » veut dire, et nous restons jusqu’à ce que ce soit le cas.</p>
-    <div class="actions">
-      <a class="btn" href="#contact">Décrire votre projet</a>
-      <a class="link-arrowless" href="#offre">Voir ce que nous faisons</a>
+    <div class="hero-text">
+      <h1>Votre projet numérique, de l’idée jusqu’aux premiers clients.</h1>
+      <p class="kicker">Sites, applications, IA, visibilité. Nous le faisons, et ça marche<span class="switch" aria-hidden="true"></span></p>
+      <p class="lede">Pragvilo crée votre site, votre application ou votre outil IA, le met en ligne et le fait connaître. Une même équipe du début à la fin, avec un objectif chiffré fixé avec vous avant de commencer.</p>
+      <ul class="assurances">
+        <li>Réponse sous 24 h ouvrées</li>
+        <li>Premier échange de 30 minutes offert</li>
+        <li>Devis gratuit sous 48 h, prix fixé avant de commencer</li>
+      </ul>
     </div>
+
+    <form class="besoin" id="besoin" aria-labelledby="besoin-titre">
+      <h2 id="besoin-titre">De quoi avez-vous besoin ?</h2>
+      <p class="besoin-sous">Allumez ce qui vous concerne. Nous vous répondons sous 24 h ouvrées.</p>
+      <div class="toggles">
+        <label class="toggle"><input type="checkbox" value="Site internet"><span class="t-label">Un site internet<small>Création ou refonte</small></span><span class="t-switch" aria-hidden="true"></span></label>
+        <label class="toggle"><input type="checkbox" value="Application ou plateforme"><span class="t-label">Une application<small>Outil métier, plateforme, SaaS</small></span><span class="t-switch" aria-hidden="true"></span></label>
+        <label class="toggle"><input type="checkbox" value="IA"><span class="t-label">De l’IA<small>Assistant, automatisation</small></span><span class="t-switch" aria-hidden="true"></span></label>
+        <label class="toggle"><input type="checkbox" value="Visibilité et acquisition"><span class="t-label">Plus de clients<small>Google, IA, publicité</small></span><span class="t-switch" aria-hidden="true"></span></label>
+      </div>
+      <button class="btn btn-block" type="submit">Demander un devis gratuit</button>
+      <p class="besoin-note">Pas sûr de ce qu’il vous faut ? <a href="#contact" data-besoin="Pas encore sûr">Décrivez simplement votre situation</a>.</p>
+    </form>
   </section>
 
-  <section class="block" id="parti-pris" aria-labelledby="parti-pris-titre">
-    <div class="wrap parti-pris">
-      <h2 id="parti-pris-titre">Notre parti pris</h2>
-      <div class="prose">
-        <p class="lead-in">La plupart des projets numériques s’arrêtent le jour de la mise en ligne. Le site est livré, la facture est envoyée, et personne ne vérifie s’il rapporte quelque chose.</p>
-        <p>Chez Pragvilo, un projet est fini quand il marche. Avant de commencer, nous écrivons avec vous ce qu’il doit produire : des demandes de devis, des inscriptions, des heures gagnées, une place sur Google ou dans les réponses des IA. Ensuite nous construisons, nous mettons en ligne, nous mesurons, et nous ajustons jusqu’à y arriver.</p>
-        <p>C’est aussi pour ça que nous faisons tout, du site à la publicité. On ne peut pas promettre un résultat en ne tenant qu’un bout de la chaîne.</p>
+  <section class="block" id="situations" aria-labelledby="situations-titre">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="situations-titre">Vous êtes au bon endroit si…</h2>
       </div>
+      <ul class="situations">
+        <li><p>Votre site existe, mais il ne vous apporte presque aucune demande.</p><a href="#offre-site">Refaire le site</a></li>
+        <li><p>Vous n’avez pas encore de site, ou il date d’une autre époque.</p><a href="#offre-site">Créer le site</a></li>
+        <li><p>Vos clients ne vous trouvent ni sur Google, ni quand ils posent la question à ChatGPT.</p><a href="#offre-visibilite">Être trouvé</a></li>
+        <li><p>Votre équipe passe des heures sur des tâches qu’un outil pourrait faire.</p><a href="#offre-ia">Automatiser</a></li>
+        <li><p>Vous avez une idée d’application ou de plateforme, et il faut la construire.</p><a href="#offre-app">Lancer l’application</a></li>
+        <li><p>Un prestataire vous a livré un projet, puis plus personne ne s’en est occupé.</p><a href="#parti-pris">Notre engagement</a></li>
+      </ul>
     </div>
   </section>
 
   <section class="block" id="offre" aria-labelledby="offre-titre">
     <div class="wrap">
       <div class="block-head">
-        <h2 id="offre-titre">Ce que nous faisons</h2>
-        <p>Quatre métiers qui se complètent. Vous pouvez nous confier l’un d’eux, ou tout le parcours, de la première maquette aux premiers clients.</p>
+        <h2 id="offre-titre">Nos offres</h2>
+        <p>Confiez-nous un seul de ces métiers, ou tout le parcours, de la première maquette aux premiers clients. Chaque projet commence par un échange de 30 minutes offert et un devis gratuit sous 48 h.</p>
       </div>
-      <ul class="poles">
-        <li class="pole">
+      <div class="offres">
+        <article class="offre" id="offre-site">
           <h3><span class="switch" aria-hidden="true"></span>Sites internet</h3>
-          <p>Des sites clairs et rapides, pensés pour que vos visiteurs comprennent ce que vous faites et vous contactent.</p>
-          <ul><li>Site vitrine</li><li>Refonte d’un site existant</li><li>Hébergement et maintenance</li></ul>
-        </li>
-        <li class="pole">
+          <p class="offre-promesse">Un site qui explique clairement ce que vous faites et qui donne envie de vous contacter.</p>
+          <ul><li>Site vitrine ou refonte complète</li><li>Textes, design et formulaire de contact pensés pour obtenir des demandes</li><li>Hébergement, sauvegardes et corrections après la mise en ligne</li></ul>
+          <p class="offre-pour"><strong>Idéal si</strong> votre site actuel ne vous ressemble plus ou ne rapporte rien.</p>
+          <a class="offre-cta" href="#contact" data-besoin="Site internet">Demander un devis pour un site</a>
+        </article>
+        <article class="offre" id="offre-app">
           <h3><span class="switch" aria-hidden="true"></span>Applications et plateformes</h3>
-          <p>Des outils métier et des plateformes SaaS, de la première version jusqu’à l’exploitation au quotidien.</p>
-          <ul><li>Application web</li><li>Outil métier</li><li>Plateforme SaaS</li></ul>
-        </li>
-        <li class="pole">
+          <p class="offre-promesse">L’outil dont votre activité a besoin, d’une première version testable jusqu’à l’utilisation au quotidien.</p>
+          <ul><li>Application web et outil métier</li><li>Plateforme SaaS, espace client, réservation</li><li>Hébergement, évolutions et support</li></ul>
+          <p class="offre-pour"><strong>Idéal si</strong> vous gérez encore tout dans des tableurs, ou si vous lancez un nouveau service.</p>
+          <a class="offre-cta" href="#contact" data-besoin="Application ou plateforme">Demander un devis pour une application</a>
+        </article>
+        <article class="offre" id="offre-ia">
           <h3><span class="switch" aria-hidden="true"></span>Intelligence artificielle</h3>
-          <p>De l’IA là où elle fait gagner du temps : des assistants et des automatisations branchés sur vos outils et vos données.</p>
-          <ul><li>Assistants IA</li><li>Automatisation de tâches</li><li>Intégration à vos outils</li></ul>
-        </li>
-        <li class="pole">
+          <p class="offre-promesse">De l’IA là où elle fait gagner du temps, branchée sur vos outils et vos données.</p>
+          <ul><li>Assistant qui répond à vos clients ou à votre équipe</li><li>Automatisation de tâches répétitives : devis, emails, saisie</li><li>Intégration à vos outils existants</li></ul>
+          <p class="offre-pour"><strong>Idéal si</strong> vous refaites chaque semaine les mêmes tâches à la main.</p>
+          <a class="offre-cta" href="#contact" data-besoin="IA">Demander un devis pour un projet IA</a>
+        </article>
+        <article class="offre" id="offre-visibilite">
           <h3><span class="switch" aria-hidden="true"></span>Visibilité et acquisition</h3>
-          <p>Être trouvé sur Google, être cité par les IA comme ChatGPT, et acheter du trafic qui rapporte plus qu’il ne coûte.</p>
-          <ul><li>SEO (référencement Google)</li><li>GEO (visibilité dans les IA)</li><li>Publicité en ligne (Google, Meta)</li></ul>
-        </li>
+          <p class="offre-promesse">Être trouvé par les bonnes personnes, et payer de la publicité seulement si elle rapporte.</p>
+          <ul><li>SEO : remonter dans les résultats Google</li><li>GEO : être cité dans les réponses de ChatGPT et des autres IA</li><li>Publicité en ligne (Google, Meta), suivie chiffres à l’appui</li></ul>
+          <p class="offre-pour"><strong>Idéal si</strong> vous avez un bon service, mais pas assez de clients qui le savent.</p>
+          <a class="offre-cta" href="#contact" data-besoin="Visibilité et acquisition">Demander un devis pour la visibilité</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="engagement" id="parti-pris" aria-labelledby="parti-pris-titre">
+    <div class="wrap">
+      <h2 id="parti-pris-titre">Un projet est fini quand il marche. Pas quand il est livré.</h2>
+      <p class="engagement-intro">La plupart des projets numériques s’arrêtent le jour de la mise en ligne. Le site est livré, la facture est envoyée, et personne ne vérifie s’il rapporte quelque chose. Chez Pragvilo, voici ce à quoi nous nous engageons.</p>
+      <ul class="engagements">
+        <li><h3>Un objectif écrit avant de commencer</h3><p>Des demandes de devis, des inscriptions, des heures gagnées : nous fixons avec vous ce que « marcher » veut dire, en chiffres.</p></li>
+        <li><h3>Une première version, très tôt</h3><p>En ligne, sur une adresse privée. Vous la testez avant que nous allions plus loin.</p></li>
+        <li><h3>Des résultats que vous voyez</h3><p>Visites, demandes, temps gagné : vous suivez les mêmes chiffres que nous.</p></li>
+        <li><h3>Nous restons après la mise en ligne</h3><p>Hébergement, corrections, référencement, campagnes : nous ajustons jusqu’à atteindre l’objectif.</p></li>
       </ul>
+      <p class="credo">Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
     </div>
   </section>
 
   <section class="block" id="approche" aria-labelledby="approche-titre">
     <div class="wrap">
       <div class="block-head">
-        <h2 id="approche-titre">Notre approche</h2>
+        <h2 id="approche-titre">Comment ça se passe</h2>
+        <p>De votre premier message à la mise en ligne, vous savez toujours où en est le projet.</p>
       </div>
-      <p class="credo">Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
       <ol class="steps">
-        <li><h3>On fixe l’objectif</h3><p>Ensemble, on écrit ce que « ça marche » veut dire pour vous, avec des chiffres qu’on pourra suivre.</p></li>
-        <li><h3>Vous voyez une première version</h3><p>En ligne, sur une adresse privée, très tôt. Vous la testez avant qu’on aille plus loin.</p></li>
-        <li><h3>On met en ligne et on mesure</h3><p>Vous voyez les chiffres : visites, demandes, inscriptions, temps gagné.</p></li>
-        <li><h3>On ajuste jusqu’au résultat</h3><p>Site, référencement, campagnes : on corrige tant que l’objectif n’est pas atteint.</p></li>
+        <li><h3>Vous nous écrivez</h3><p>Quelques lignes suffisent : votre activité, ce qui coince, ce que vous voulez obtenir.</p></li>
+        <li><h3>On en parle</h3><p>Nous répondons sous 24 h ouvrées. Puis 30 minutes offertes, en visio ou par téléphone, pour comprendre votre besoin.</p></li>
+        <li><h3>Vous recevez un devis</h3><p>Gratuit, sous 48 h : le prix, les étapes et l’objectif chiffré, écrits noir sur blanc.</p></li>
+        <li><h3>Vous voyez une première version</h3><p>Très tôt, en ligne. Vous testez, nous ajustons.</p></li>
+        <li><h3>Mise en ligne et suivi</h3><p>Nous mesurons et nous améliorons jusqu’au résultat fixé.</p></li>
       </ol>
+      <p class="steps-cta"><a class="btn" href="#contact">Décrire votre projet</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="questions" aria-labelledby="questions-titre">
+    <div class="wrap faq-grid">
+      <div class="block-head">
+        <h2 id="questions-titre">Vos questions</h2>
+        <p>Ce que l’on nous demande le plus souvent avant de commencer.</p>
+      </div>
+      <div class="faq">
+        <details><summary>Combien coûte un projet ?</summary><p>Cela dépend de ce qu’il faut construire. Après un premier échange de 30 minutes offert, vous recevez sous 48 h un devis gratuit et détaillé, avec un prix fixé avant de commencer. Rien n’est ajouté sans votre accord.</p></details>
+        <details><summary>Combien de temps faut-il ?</summary><p>Vous voyez une première version en ligne très tôt, puis nous avançons par étapes courtes. Le calendrier complet figure dans le devis, selon la taille du projet.</p></details>
+        <details><summary>Que se passe-t-il après la mise en ligne ?</summary><p>Nous restons. Hébergement, sauvegardes, corrections et évolutions, et surtout le suivi des chiffres fixés au départ, jusqu’à ce que l’objectif soit atteint.</p></details>
+        <details><summary>Nous sommes une petite structure ou une association. C’est pour nous ?</summary><p>Oui. Nous travaillons avec des entreprises et des associations qui n’ont pas d’équipe numérique, et nous adaptons le projet à vos moyens.</p></details>
+        <details><summary>Je ne sais pas encore exactement ce qu’il me faut.</summary><p>C’est fréquent, et c’est à ça que sert le premier échange. Décrivez votre situation, nous vous dirons ce qui serait utile, et ce qui ne l’est pas.</p></details>
+        <details><summary>Faut-il tout vous confier ?</summary><p>Non. Vous pouvez nous confier seulement le site, l’application, l’IA ou la visibilité. Tout faire ensemble permet simplement de s’engager sur le résultat.</p></details>
+      </div>
     </div>
   </section>
 
@@ -254,7 +407,12 @@
     <div class="wrap contact-grid">
       <div class="block-head">
         <h2 id="contact-titre">Parlons de votre projet</h2>
-        <p>Quelques lignes suffisent pour commencer : ce que vous faites, ce qui coince, ce que vous aimeriez obtenir. Nous revenons vers vous pour en parler.</p>
+        <p>Le premier échange de 30 minutes est offert, sans engagement.</p>
+        <ol class="ensuite" aria-label="Ce qui se passe ensuite">
+          <li>Nous vous répondons par email sous 24 h ouvrées.</li>
+          <li>Nous en parlons 30 minutes, en visio ou par téléphone. C’est offert.</li>
+          <li>Vous recevez un devis gratuit sous 48 h, avec l’objectif à atteindre.</li>
+        </ol>
         <p class="direct">Vous préférez l’email ? <a class="em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
       </div>
 
@@ -284,12 +442,12 @@
           </div>
         </fieldset>
         <div class="field">
-          <label for="f-message">Votre projet</label>
-          <textarea id="f-message" name="message" required></textarea>
+          <label for="f-message">Votre projet en quelques lignes</label>
+          <textarea id="f-message" name="message" required placeholder="Votre activité, ce qui coince aujourd’hui, ce que vous aimeriez obtenir."></textarea>
         </div>
         <div class="hp" aria-hidden="true"><label for="f-hp">Ne pas remplir</label><input type="text" id="f-hp" name="_honey" tabindex="-1" autocomplete="off"></div>
         <div class="form-foot">
-          <button class="btn" type="submit" id="f-submit">Envoyer le message</button>
+          <button class="btn" type="submit" id="f-submit">Envoyer ma demande</button>
           <p class="status" id="f-status" role="status" aria-live="polite"></p>
         </div>
         <p class="note">Vos informations servent uniquement à vous répondre. <button class="linklike" type="button" data-open-legal>Détails dans les mentions légales</button>.</p>
@@ -298,6 +456,10 @@
     </div>
   </section>
 </main>
+
+<div class="barre-cta" id="barre-cta">
+  <a class="btn btn-block" href="#contact">Demander un devis gratuit</a>
+</div>
 
 <footer>
   <div class="wrap">
@@ -386,7 +548,7 @@
       }).then(function (r) { return r.json(); }).then(function (res) {
         if (res && String(res.success) === 'true') {
           form.reset();
-          say('Message envoyé. Nous revenons vers vous rapidement.', 'ok');
+          say('Demande envoyée. Nous vous répondons sous 24 h ouvrées.', 'ok');
         } else if (res && /activ/i.test(res.message || '')) {
           // Premier envoi : FormSubmit attend que l'adresse de réception confirme le formulaire.
           say('Le formulaire est en cours d’activation. Écrivez-nous directement à ' + addr + ' en attendant.', 'err');
@@ -406,6 +568,43 @@
     document.getElementById('close-legal').addEventListener('click', close);
     dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
     if (location.hash === '#mentions-legales') open();
+  })();
+  (function () {
+    // Les besoins allumés dans le titre ou choisis depuis une offre cochent les cases du formulaire.
+    var contact = document.getElementById('contact');
+    var message = document.getElementById('f-message');
+    function preparer(valeurs) {
+      document.querySelectorAll('#contact-form input[name="besoins"]').forEach(function (c) {
+        if (valeurs.indexOf(c.value) !== -1) { c.checked = true; }
+      });
+    }
+    function allerAuFormulaire() {
+      contact.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      history.replaceState(null, '', '#contact');
+      setTimeout(function () { document.getElementById('f-nom').focus({ preventScroll: true }); }, 450);
+    }
+    document.getElementById('besoin').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var choisis = [];
+      this.querySelectorAll('input:checked').forEach(function (c) { choisis.push(c.value); });
+      preparer(choisis);
+      allerAuFormulaire();
+    });
+    document.querySelectorAll('[data-besoin]').forEach(function (a) {
+      a.addEventListener('click', function () { preparer([a.getAttribute('data-besoin')]); });
+    });
+
+    // Barre fixe sur mobile : cachée quand le tableau du titre ou le formulaire est visible.
+    var barre = document.getElementById('barre-cta');
+    if ('IntersectionObserver' in window) {
+      var visibles = new Set();
+      var obs = new IntersectionObserver(function (entrees) {
+        entrees.forEach(function (en) { if (en.isIntersecting) { visibles.add(en.target); } else { visibles.delete(en.target); } });
+        barre.classList.toggle('cachee', visibles.size > 0);
+      });
+      obs.observe(document.getElementById('besoin'));
+      obs.observe(contact);
+    }
   })();
 </script>
 
