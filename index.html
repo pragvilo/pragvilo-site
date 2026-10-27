@@ -134,6 +134,12 @@
   .legal h3 { margin: 0 0 4px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; color: var(--nuit); }
   .legal p { margin: 0; font-size: 15px; line-height: 23px; }
   .legal p + p { margin-top: 4px; }
+  /* Bandeau cookies : accepter et refuser ont le même poids (recommandation CNIL). */
+  .cookies { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 20; max-width: 34rem; margin-inline: auto; padding: 18px 20px; display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--ligne); border-radius: 16px; box-shadow: 0 12px 40px rgba(13, 14, 28, .18); }
+  .cookies[hidden] { display: none; }
+  .cookies p { margin: 0; font-size: 14.5px; line-height: 22px; }
+  .cookies .choix { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cookies .btn { flex: 1 1 8rem; }
   .close { font: inherit; font-size: 15px; color: var(--lien); background: none; border: 1px solid var(--ligne); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
 
   @media (max-width: 980px) {
@@ -465,8 +471,17 @@
   <div class="wrap">
     <span>© 2026 Pragvilo</span>
     <button class="linklike" type="button" id="open-legal" data-open-legal>Mentions légales</button>
+    <button class="linklike" type="button" data-cookies>Gérer les cookies</button>
   </div>
 </footer>
+
+<div class="cookies" id="cookies" role="region" aria-label="Cookies de mesure d’audience" hidden>
+  <p>Nous aimerions mesurer la fréquentation du site avec Google Analytics, pour savoir quelles pages vous sont utiles. Rien n’est déposé sans votre accord. <button class="linklike" type="button" data-open-legal>En savoir plus</button></p>
+  <div class="choix">
+    <button class="btn" type="button" data-consent="refuse">Refuser</button>
+    <button class="btn" type="button" data-consent="accept">Accepter</button>
+  </div>
+</div>
 
 <dialog id="legal" aria-labelledby="legal-title">
   <div class="legal">
@@ -493,7 +508,8 @@
     </section>
     <section>
       <h3>Données personnelles</h3>
-      <p>Ce site ne dépose aucun cookie. Les informations saisies dans le formulaire de contact (nom, email, organisation, message) sont acheminées jusqu’à notre boîte mail par le service FormSubmit (formsubmit.co). Elles sont conservées le temps nécessaire au suivi de votre demande, servent uniquement à vous répondre et ne sont ni revendues ni transmises à d’autres tiers.</p>
+      <p>Les informations saisies dans le formulaire de contact (nom, email, organisation, message) sont acheminées jusqu’à notre boîte mail par le service FormSubmit (formsubmit.co). Elles sont conservées le temps nécessaire au suivi de votre demande, servent uniquement à vous répondre et ne sont ni revendues ni transmises à d’autres tiers.</p>
+      <p>Mesure d’audience : si vous l’acceptez, ce site utilise Google Analytics (Google Ireland Ltd) pour compter les visites, les pages vues et les demandes envoyées, de façon statistique. Cela dépose des cookies (_ga, _ga_*) conservés au plus 13 mois. Sans votre accord, rien n’est chargé ni déposé. Votre choix est gardé 6 mois et vous pouvez le changer à tout moment avec le lien « Gérer les cookies » en bas de page.</p>
       <p>Conformément au RGPD, vous pouvez demander l’accès, la rectification ou la suppression de vos données en écrivant à l’adresse ci-dessus. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).</p>
     </section>
     <section>
@@ -505,6 +521,45 @@
 
 
 <script>
+  // Mesure d'audience Google Analytics 4, chargée seulement après accord (bandeau cookies).
+  (function () {
+    var GA_ID = 'G-D0E56L9VSP'; // ID de mesure du flux Web pragvilo.com, de la forme G-XXXXXXXXXX
+    var CLE = 'pragvilo-cookies', DUREE = 182 * 24 * 3600 * 1000;
+    var bandeau = document.getElementById('cookies');
+    var charge = false;
+    window.mesure = function () {};
+    function lire() {
+      try { var c = JSON.parse(localStorage.getItem(CLE)); return c && Date.now() - c.date < DUREE ? c.choix : null; } catch (e) { return null; }
+    }
+    function charger() {
+      if (charge || !GA_ID) return;
+      charge = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      window.mesure = function (nom, params) { gtag('event', nom, params || {}); };
+    }
+    function choisir(choix) {
+      try { localStorage.setItem(CLE, JSON.stringify({ choix: choix, date: Date.now() })); } catch (e) {}
+      bandeau.hidden = true;
+      if (choix === 'accept') { charger(); }
+      else if (charge) { location.reload(); } // retrait de l'accord : on recharge sans Analytics
+    }
+    document.querySelectorAll('[data-consent]').forEach(function (b) {
+      b.addEventListener('click', function () { choisir(b.getAttribute('data-consent')); });
+    });
+    document.querySelectorAll('[data-cookies]').forEach(function (b) {
+      b.addEventListener('click', function () { bandeau.hidden = false; });
+    });
+    if (!GA_ID) return;
+    var choix = lire();
+    if (choix === 'accept') { charger(); } else if (!choix) { bandeau.hidden = false; }
+  })();
   (function () {
     var rev = function (s) { return s.split('').reverse().join(''); };
     var addr = rev('tcatnoc') + String.fromCharCode(64) + rev('moc.olivgarp');
@@ -549,6 +604,7 @@
         if (res && String(res.success) === 'true') {
           form.reset();
           say('Demande envoyée. Nous vous répondons sous 24 h ouvrées.', 'ok');
+          mesure('generate_lead', { form: 'contact', besoins: besoins || 'aucun' });
         } else if (res && /activ/i.test(res.message || '')) {
           // Premier envoi : FormSubmit attend que l'adresse de réception confirme le formulaire.
           say('Le formulaire est en cours d’activation. Écrivez-nous directement à ' + addr + ' en attendant.', 'err');
