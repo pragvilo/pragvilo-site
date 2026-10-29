@@ -16,6 +16,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&display=swap">
+<script>
+  // Animations d'apparition seulement si le visiteur n'a pas demandé à réduire les animations.
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) { document.documentElement.classList.add('anim'); }
+</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"ProfessionalService","@id":"https://pragvilo.com/#pragvilo","name":"Pragvilo","url":"https://pragvilo.com/","logo":"https://pragvilo.com/apple-touch-icon.png","description":"Création de sites internet, d’applications et d’outils IA, référencement (SEO, GEO) et publicité en ligne pour les entreprises et les associations.","address":{"@type":"PostalAddress","streetAddress":"9 rue Lagille","postalCode":"75018","addressLocality":"Paris","addressCountry":"FR"},"areaServed":"FR","knowsLanguage":"fr",
@@ -182,23 +186,28 @@
   .btn-block { width: 100%; min-height: 50px; font-size: 16px; }
   .besoin-note { margin: 0; font-size: 13.5px; color: var(--gris); }
 
-  /* Situations : des phrases où le visiteur se reconnaît, chacune mène à une offre. */
-  .situations { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 48px); }
-  .situations li { display: grid; gap: 6px; align-content: start; padding-block: 18px 22px; border-top: 1px solid var(--ligne); }
-  .situations p { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(18px, 1.7vw, 20px); line-height: 1.3; letter-spacing: -.015em; color: var(--nuit); text-wrap: pretty; }
-  .situations a { font-size: 15px; font-weight: 600; text-underline-offset: 4px; }
+  /* Situations : des cartes courtes où le visiteur se reconnaît. Leur interrupteur s'allume quand elles arrivent à l'écran. */
+  .situations { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 18px); }
+  .situations li { display: grid; }
+  .situation { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; padding: clamp(18px, 2vw, 24px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); color: var(--nuit); text-decoration: none; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
+  .situation:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--lien), 0 16px 32px rgba(58, 46, 255, .14); }
+  .sit-texte { font-family: var(--font-display); font-weight: 600; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.25; letter-spacing: -.02em; text-wrap: pretty; }
+  .sit-lien { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--lien); }
+  .sit-lien::after { content: "→"; transition: transform .25s cubic-bezier(.2, .8, .2, 1); }
+  .situation:hover .sit-lien::after { transform: translateX(4px); }
+  .mini-switch { position: relative; width: 34px; height: 20px; border-radius: 999px; background: var(--indigo); transition: background-color .3s ease; }
+  .mini-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--menthe); transform: translateX(14px); transition: transform .35s cubic-bezier(.3, .8, .2, 1.2), background-color .3s ease; }
 
   /* Offres */
   .offres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
-  .offre { display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto 1fr auto auto; padding: clamp(20px, 2.5vw, 28px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); scroll-margin-top: 24px; }
+  .offre { display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto 1fr auto; padding: clamp(20px, 2.5vw, 28px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); scroll-margin-top: 24px; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
+  .offre:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--ligne), 0 18px 40px rgba(58, 46, 255, .12); }
   .offre h3 { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; line-height: 1.2; letter-spacing: -.02em; }
   .offre h3 .switch { font-size: 16px; margin: 0; flex: none; }
   .offre-promesse { margin: 0; font-size: 16.5px; color: var(--nuit); text-wrap: pretty; }
   .offre ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
   .offre li { padding-left: 18px; position: relative; }
   .offre li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--lien); }
-  .offre-pour { margin: 0; padding-top: 12px; border-top: 1px solid var(--ligne); font-size: 14.5px; color: var(--gris); }
-  .offre-pour strong { color: var(--nuit); font-weight: 600; }
   .offre-cta { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: var(--lavande); color: var(--lien); font-weight: 600; font-size: 15px; text-decoration: none; transition: background-color .15s; }
   .offre-cta:hover { background: var(--indigo); color: #fff; }
 
@@ -207,7 +216,8 @@
   .engagement h2 { color: #fff; font-weight: 800; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: -.035em; max-width: 20ch; }
   .engagement-intro { margin: 20px 0 0; max-width: 40rem; font-size: 17px; text-wrap: pretty; }
   .engagements { margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
-  .engagements li { display: grid; gap: 6px; align-content: start; padding-top: 16px; border-top: 2px solid var(--menthe); }
+  .engagements li { position: relative; display: grid; gap: 6px; align-content: start; padding-top: 18px; }
+  .engagements li::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--menthe); transform-origin: left; transition: transform .8s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i, 0) * 120ms + 200ms); }
   .engagements h3 { color: #fff; font-weight: 600; font-size: 17px; line-height: 1.3; letter-spacing: -.01em; }
   .engagements p { margin: 0; font-size: 14.5px; text-wrap: pretty; }
   .engagement .credo { margin: clamp(32px, 4vw, 48px) 0 0; color: #fff; }
@@ -235,6 +245,7 @@
 
   @media (max-width: 980px) {
     .hero { grid-template-columns: 1fr; }
+    .situations { grid-template-columns: 1fr 1fr; }
     .besoin { max-width: 32rem; }
     .engagements { grid-template-columns: 1fr 1fr; }
     .steps { grid-template-columns: 1fr 1fr 1fr; }
@@ -243,20 +254,49 @@
     .faq-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 720px) {
-    .situations, .offres, .engagements { grid-template-columns: 1fr; }
+    .offres, .engagements { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; }
     .steps li:nth-child(3)::after { display: block; }
+    .situations { grid-template-columns: 1fr; }
+    .situation { grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 14px; row-gap: 6px; }
+    .situation .mini-switch { grid-row: 1 / 3; margin-top: 3px; }
     .barre-cta { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 10px max(16px, env(safe-area-inset-left, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--ecran) 92%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--ligne); transition: transform .25s ease; }
     .barre-cta.cachee { transform: translateY(110%); }
     footer { padding-bottom: 76px; }
   }
 
-  /* Le seul mouvement de la page : l'interrupteur du titre s'allume, comme le logo. */
+  /* Mouvement : l'interrupteur du titre s'allume comme le logo, une lueur dérive derrière le titre,
+     et les blocs apparaissent au défilement en allumant leurs interrupteurs.
+     La classe .anim n'est posée que si le visiteur n'a pas demandé moins d'animations : sinon tout est affiché, allumé, immobile. */
+  main { overflow-x: clip; }
+  .hero { position: relative; isolation: isolate; }
+  .hero::before { content: ""; position: absolute; z-index: -1; top: 4%; right: -6%; width: min(46rem, 90vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(58, 46, 255, .22), rgba(46, 230, 166, .12) 55%, transparent); pointer-events: none; }
   @media (prefers-reduced-motion: no-preference) {
-    .hero .switch { animation: piste .5s ease .5s both; }
-    .hero .switch::after { animation: allumage .5s cubic-bezier(.3, .8, .2, 1.2) .5s both; }
+    .hero .switch { animation: piste .5s ease .9s both; }
+    .hero .switch::after { animation: allumage .5s cubic-bezier(.3, .8, .2, 1.2) .9s both; }
     @keyframes piste { from { background: var(--off); } }
     @keyframes allumage { from { transform: translateX(-.64em); background: #fff; } }
+    .hero::before { animation: derive 16s ease-in-out infinite alternate; }
+    @keyframes derive { 0% { translate: 0 0; scale: 1; } 50% { translate: -8% 6%; scale: 1.08; } 100% { translate: -14% -4%; scale: .96; } }
+    .anim .hero-text > *, .anim .besoin { animation: monte .7s cubic-bezier(.2, .8, .2, 1) both; }
+    .anim .hero-text > :nth-child(2) { animation-delay: .08s; }
+    .anim .hero-text > :nth-child(3) { animation-delay: .16s; }
+    .anim .hero-text > :nth-child(4) { animation-delay: .24s; }
+    .anim .besoin { animation-delay: .3s; }
+    @keyframes monte { from { opacity: 0; translate: 0 18px; } }
+    .anim .reveal { transition: opacity .7s ease, translate .7s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i, 0) * 90ms); }
+    .anim .reveal:not(.vu) { opacity: 0; translate: 0 24px; }
+    .anim .offre.reveal { transition: opacity .7s ease calc(var(--i, 0) * 90ms), translate .7s cubic-bezier(.2, .8, .2, 1) calc(var(--i, 0) * 90ms), transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
+    .anim .situation .mini-switch, .anim .offre .switch { transition: background-color .3s ease calc(var(--i, 0) * 90ms + 350ms); }
+    .anim .situation .mini-switch::after, .anim .offre .switch::after { transition: transform .35s cubic-bezier(.3, .8, .2, 1.2) calc(var(--i, 0) * 90ms + 350ms), background-color .3s ease calc(var(--i, 0) * 90ms + 350ms); }
+    .anim .reveal:not(.vu) .mini-switch, .anim .offre.reveal:not(.vu) .switch { background: var(--off); }
+    .anim .reveal:not(.vu) .mini-switch::after { transform: none; background: #fff; }
+    .anim .offre.reveal:not(.vu) .switch::after { transform: translateX(-.64em); background: #fff; }
+    .anim .engagements li.reveal:not(.vu)::before { transform: scaleX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .situation, .offre, .sit-lien::after, .mini-switch, .mini-switch::after { transition: none; }
+    .situation:hover, .offre:hover { transform: none; }
   }
 </style>
 </head>
@@ -284,17 +324,17 @@
     <div class="hero-text">
       <h1>Votre projet numérique, de l’idée jusqu’aux premiers clients.</h1>
       <p class="kicker">Sites, applications, IA, visibilité. Nous le faisons, et ça marche<span class="switch" aria-hidden="true"></span></p>
-      <p class="lede">Pragvilo crée votre site, votre application ou votre outil IA, le met en ligne et le fait connaître. Une même équipe du début à la fin, avec un objectif chiffré fixé avec vous avant de commencer.</p>
+      <p class="lede">Nous le créons, le mettons en ligne et le faisons connaître, avec un objectif chiffré fixé ensemble au départ.</p>
       <ul class="assurances">
         <li>Réponse sous 24 h ouvrées</li>
-        <li>Premier échange de 30 minutes offert</li>
-        <li>Devis gratuit sous 48 h, prix fixé avant de commencer</li>
+        <li>30 minutes d’échange offertes</li>
+        <li>Devis gratuit sous 48 h</li>
       </ul>
     </div>
 
     <form class="besoin" id="besoin" aria-labelledby="besoin-titre">
       <h2 id="besoin-titre">De quoi avez-vous besoin ?</h2>
-      <p class="besoin-sous">Allumez ce qui vous concerne. Nous vous répondons sous 24 h ouvrées.</p>
+      <p class="besoin-sous">Allumez ce qui vous concerne.</p>
       <div class="toggles">
         <label class="toggle"><input type="checkbox" value="Site internet"><span class="t-label">Un site internet<small>Création ou refonte</small></span><span class="t-switch" aria-hidden="true"></span></label>
         <label class="toggle"><input type="checkbox" value="Application ou plateforme"><span class="t-label">Une application<small>Outil métier, plateforme, SaaS</small></span><span class="t-switch" aria-hidden="true"></span></label>
@@ -309,15 +349,15 @@
   <section class="block" id="situations" aria-labelledby="situations-titre">
     <div class="wrap">
       <div class="block-head">
-        <h2 id="situations-titre">Vous êtes au bon endroit si…</h2>
+        <h2 id="situations-titre">Ça vous parle ?</h2>
       </div>
       <ul class="situations">
-        <li><p>Votre site existe, mais il ne vous apporte presque aucune demande.</p><a href="#offre-site">Refaire le site</a></li>
-        <li><p>Vous n’avez pas encore de site, ou il date d’une autre époque.</p><a href="#offre-site">Créer le site</a></li>
-        <li><p>Vos clients ne vous trouvent ni sur Google, ni quand ils posent la question à ChatGPT.</p><a href="#offre-visibilite">Être trouvé</a></li>
-        <li><p>Votre équipe passe des heures sur des tâches qu’un outil pourrait faire.</p><a href="#offre-ia">Automatiser</a></li>
-        <li><p>Vous avez une idée d’application ou de plateforme, et il faut la construire.</p><a href="#offre-app">Lancer l’application</a></li>
-        <li><p>Un prestataire vous a livré un projet, puis plus personne ne s’en est occupé.</p><a href="#parti-pris">Notre engagement</a></li>
+        <li><a class="situation" href="#offre-site"><span class="mini-switch" aria-hidden="true"></span><span class="sit-texte">Votre site ne vous apporte aucune demande.</span><span class="sit-lien">Refaire le site</span></a></li>
+        <li><a class="situation" href="#offre-site"><span class="mini-switch" aria-hidden="true"></span><span class="sit-texte">Pas encore de site, ou un site d’une autre époque.</span><span class="sit-lien">Créer le site</span></a></li>
+        <li><a class="situation" href="#offre-visibilite"><span class="mini-switch" aria-hidden="true"></span><span class="sit-texte">On ne vous trouve ni sur Google, ni sur ChatGPT.</span><span class="sit-lien">Être trouvé</span></a></li>
+        <li><a class="situation" href="#offre-ia"><span class="mini-switch" aria-hidden="true"></span><span class="sit-texte">Votre équipe refait chaque semaine les mêmes tâches.</span><span class="sit-lien">Automatiser</span></a></li>
+        <li><a class="situation" href="#offre-app"><span class="mini-switch" aria-hidden="true"></span><span class="sit-texte">Vous avez une idée d’application à construire.</span><span class="sit-lien">Lancer l’application</span></a></li>
+        <li><a class="situation" href="#parti-pris"><span class="mini-switch" aria-hidden="true"></span><span class="sit-texte">Votre prestataire a livré, puis disparu.</span><span class="sit-lien">Notre engagement</span></a></li>
       </ul>
     </div>
   </section>
@@ -326,36 +366,32 @@
     <div class="wrap">
       <div class="block-head">
         <h2 id="offre-titre">Nos offres</h2>
-        <p>Confiez-nous un seul de ces métiers, ou tout le parcours, de la première maquette aux premiers clients. Chaque projet commence par un échange de 30 minutes offert et un devis gratuit sous 48 h.</p>
+        <p>Un seul métier, ou tout le parcours.</p>
       </div>
       <div class="offres">
         <article class="offre" id="offre-site">
           <h3><span class="switch" aria-hidden="true"></span>Sites internet</h3>
-          <p class="offre-promesse">Un site qui explique clairement ce que vous faites et qui donne envie de vous contacter.</p>
-          <ul><li>Site vitrine ou refonte complète</li><li>Textes, design et formulaire de contact pensés pour obtenir des demandes</li><li>Hébergement, sauvegardes et corrections après la mise en ligne</li></ul>
-          <p class="offre-pour"><strong>Idéal si</strong> votre site actuel ne vous ressemble plus ou ne rapporte rien.</p>
-          <a class="offre-cta" href="#contact" data-besoin="Site internet">Demander un devis pour un site</a>
+          <p class="offre-promesse">Un site clair, qui donne envie de vous contacter.</p>
+          <ul><li>Site vitrine ou refonte</li><li>Textes et design pensés pour les demandes</li><li>Hébergement et maintenance</li></ul>
+          <a class="offre-cta" href="#contact" data-besoin="Site internet">Devis pour un site</a>
         </article>
         <article class="offre" id="offre-app">
           <h3><span class="switch" aria-hidden="true"></span>Applications et plateformes</h3>
-          <p class="offre-promesse">L’outil dont votre activité a besoin, d’une première version testable jusqu’à l’utilisation au quotidien.</p>
-          <ul><li>Application web et outil métier</li><li>Plateforme SaaS, espace client, réservation</li><li>Hébergement, évolutions et support</li></ul>
-          <p class="offre-pour"><strong>Idéal si</strong> vous gérez encore tout dans des tableurs, ou si vous lancez un nouveau service.</p>
-          <a class="offre-cta" href="#contact" data-besoin="Application ou plateforme">Demander un devis pour une application</a>
+          <p class="offre-promesse">L’outil dont votre activité a besoin, utilisé au quotidien.</p>
+          <ul><li>Application web, outil métier</li><li>Plateforme SaaS, espace client, réservation</li><li>Évolutions et support</li></ul>
+          <a class="offre-cta" href="#contact" data-besoin="Application ou plateforme">Devis pour une application</a>
         </article>
         <article class="offre" id="offre-ia">
           <h3><span class="switch" aria-hidden="true"></span>Intelligence artificielle</h3>
-          <p class="offre-promesse">De l’IA là où elle fait gagner du temps, branchée sur vos outils et vos données.</p>
-          <ul><li>Assistant qui répond à vos clients ou à votre équipe</li><li>Automatisation de tâches répétitives : devis, emails, saisie</li><li>Intégration à vos outils existants</li></ul>
-          <p class="offre-pour"><strong>Idéal si</strong> vous refaites chaque semaine les mêmes tâches à la main.</p>
-          <a class="offre-cta" href="#contact" data-besoin="IA">Demander un devis pour un projet IA</a>
+          <p class="offre-promesse">De l’IA là où elle fait gagner du temps.</p>
+          <ul><li>Assistant pour vos clients ou votre équipe</li><li>Devis, emails, saisie : automatisés</li><li>Branchée sur vos outils</li></ul>
+          <a class="offre-cta" href="#contact" data-besoin="IA">Devis pour un projet IA</a>
         </article>
         <article class="offre" id="offre-visibilite">
           <h3><span class="switch" aria-hidden="true"></span>Visibilité et acquisition</h3>
-          <p class="offre-promesse">Être trouvé par les bonnes personnes, et payer de la publicité seulement si elle rapporte.</p>
-          <ul><li>SEO : remonter dans les résultats Google</li><li>GEO : être cité dans les réponses de ChatGPT et des autres IA</li><li>Publicité en ligne (Google, Meta), suivie chiffres à l’appui</li></ul>
-          <p class="offre-pour"><strong>Idéal si</strong> vous avez un bon service, mais pas assez de clients qui le savent.</p>
-          <a class="offre-cta" href="#contact" data-besoin="Visibilité et acquisition">Demander un devis pour la visibilité</a>
+          <p class="offre-promesse">Être trouvé par les bonnes personnes.</p>
+          <ul><li>SEO : remonter sur Google</li><li>GEO : être cité par ChatGPT et les autres IA</li><li>Publicité Google et Meta, chiffres à l’appui</li></ul>
+          <a class="offre-cta" href="#contact" data-besoin="Visibilité et acquisition">Devis pour la visibilité</a>
         </article>
       </div>
     </div>
@@ -364,12 +400,12 @@
   <section class="engagement" id="parti-pris" aria-labelledby="parti-pris-titre">
     <div class="wrap">
       <h2 id="parti-pris-titre">Un projet est fini quand il marche. Pas quand il est livré.</h2>
-      <p class="engagement-intro">La plupart des projets numériques s’arrêtent le jour de la mise en ligne. Le site est livré, la facture est envoyée, et personne ne vérifie s’il rapporte quelque chose. Chez Pragvilo, voici ce à quoi nous nous engageons.</p>
+      <p class="engagement-intro">Trop de projets s’arrêtent à la mise en ligne. Nous restons jusqu’aux premiers résultats.</p>
       <ul class="engagements">
-        <li><h3>Un objectif écrit avant de commencer</h3><p>Des demandes de devis, des inscriptions, des heures gagnées : nous fixons avec vous ce que « marcher » veut dire, en chiffres.</p></li>
-        <li><h3>Une première version, très tôt</h3><p>En ligne, sur une adresse privée. Vous la testez avant que nous allions plus loin.</p></li>
-        <li><h3>Des résultats que vous voyez</h3><p>Visites, demandes, temps gagné : vous suivez les mêmes chiffres que nous.</p></li>
-        <li><h3>Nous restons après la mise en ligne</h3><p>Hébergement, corrections, référencement, campagnes : nous ajustons jusqu’à atteindre l’objectif.</p></li>
+        <li><h3>Un objectif chiffré</h3><p>Écrit avec vous, avant de commencer.</p></li>
+        <li><h3>Une première version, tôt</h3><p>Vous testez avant que nous allions plus loin.</p></li>
+        <li><h3>Les mêmes chiffres que nous</h3><p>Visites, demandes, temps gagné.</p></li>
+        <li><h3>Après la mise en ligne</h3><p>Nous ajustons jusqu’à l’objectif.</p></li>
       </ul>
       <p class="credo">Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
     </div>
@@ -379,14 +415,13 @@
     <div class="wrap">
       <div class="block-head">
         <h2 id="approche-titre">Comment ça se passe</h2>
-        <p>De votre premier message à la mise en ligne, vous savez toujours où en est le projet.</p>
       </div>
       <ol class="steps">
-        <li><h3>Vous nous écrivez</h3><p>Quelques lignes suffisent : votre activité, ce qui coince, ce que vous voulez obtenir.</p></li>
-        <li><h3>On en parle</h3><p>Nous répondons sous 24 h ouvrées. Puis 30 minutes offertes, en visio ou par téléphone, pour comprendre votre besoin.</p></li>
-        <li><h3>Vous recevez un devis</h3><p>Gratuit, sous 48 h : le prix, les étapes et l’objectif chiffré, écrits noir sur blanc.</p></li>
-        <li><h3>Vous voyez une première version</h3><p>Très tôt, en ligne. Vous testez, nous ajustons.</p></li>
-        <li><h3>Mise en ligne et suivi</h3><p>Nous mesurons et nous améliorons jusqu’au résultat fixé.</p></li>
+        <li><h3>Vous nous écrivez</h3><p>Quelques lignes suffisent.</p></li>
+        <li><h3>On en parle</h3><p>30 minutes offertes.</p></li>
+        <li><h3>Devis sous 48 h</h3><p>Prix, étapes, objectif.</p></li>
+        <li><h3>Première version</h3><p>Vous testez, nous ajustons.</p></li>
+        <li><h3>En ligne et suivi</h3><p>Jusqu’au résultat fixé.</p></li>
       </ol>
       <p class="steps-cta"><a class="btn" href="#contact">Décrire votre projet</a></p>
     </div>
@@ -396,7 +431,6 @@
     <div class="wrap faq-grid">
       <div class="block-head">
         <h2 id="questions-titre">Vos questions</h2>
-        <p>Ce que l’on nous demande le plus souvent avant de commencer.</p>
       </div>
       <div class="faq">
         <details><summary>Combien coûte un projet ?</summary><p>Cela dépend de ce qu’il faut construire. Après un premier échange de 30 minutes offert, vous recevez sous 48 h un devis gratuit et détaillé, avec un prix fixé avant de commencer. Rien n’est ajouté sans votre accord.</p></details>
@@ -413,11 +447,10 @@
     <div class="wrap contact-grid">
       <div class="block-head">
         <h2 id="contact-titre">Parlons de votre projet</h2>
-        <p>Le premier échange de 30 minutes est offert, sans engagement.</p>
         <ol class="ensuite" aria-label="Ce qui se passe ensuite">
-          <li>Nous vous répondons par email sous 24 h ouvrées.</li>
-          <li>Nous en parlons 30 minutes, en visio ou par téléphone. C’est offert.</li>
-          <li>Vous recevez un devis gratuit sous 48 h, avec l’objectif à atteindre.</li>
+          <li>Réponse sous 24 h ouvrées.</li>
+          <li>30 minutes d’échange, offertes.</li>
+          <li>Devis gratuit sous 48 h.</li>
         </ol>
         <p class="direct">Vous préférez l’email ? <a class="em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
       </div>
@@ -649,6 +682,22 @@
     document.querySelectorAll('[data-besoin]').forEach(function (a) {
       a.addEventListener('click', function () { preparer([a.getAttribute('data-besoin')]); });
     });
+
+    // Apparitions au défilement : chaque bloc arrive une fois, en décalé avec ses voisins.
+    if (document.documentElement.classList.contains('anim')) {
+      var cibles = document.querySelectorAll('main .block-head, .situations > li, .offre, .engagement h2, .engagement-intro, .engagements > li, .engagement .credo, .steps > li, .steps-cta, .faq, .contact-grid .form');
+      var apparition = new IntersectionObserver(function (entrees) {
+        entrees.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('vu'); apparition.unobserve(en.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      cibles.forEach(function (el) {
+        var freres = Array.prototype.filter.call(el.parentNode.children, function (f) { return f.tagName === el.tagName; });
+        el.style.setProperty('--i', Math.min(freres.indexOf(el), 5));
+        el.classList.add('reveal');
+        apparition.observe(el);
+      });
+    }
 
     // Barre fixe sur mobile : cachée quand le tableau du titre ou le formulaire est visible.
     var barre = document.getElementById('barre-cta');
