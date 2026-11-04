@@ -198,6 +198,31 @@
   .mini-switch { position: relative; width: 34px; height: 20px; border-radius: 999px; background: var(--indigo); transition: background-color .3s ease; }
   .mini-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--menthe); transform: translateX(14px); transition: transform .35s cubic-bezier(.3, .8, .2, 1.2), background-color .3s ease; }
 
+  /* Produits édités par Pragvilo. Chaque carte porte la couleur de sa marque dans un bandeau clair,
+     qui reste clair en mode sombre : les deux logos sont faits pour un fond clair. */
+  .produits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+  .produit { display: grid; grid-template-rows: auto 1fr; overflow: hidden; background: var(--surface); border-radius: 18px; box-shadow: 0 0 0 1px var(--ligne), 0 1px 2px rgba(13,14,28,.04); color: var(--texte); text-decoration: none; transition-property: translate, box-shadow; transition-duration: .25s; transition-timing-function: cubic-bezier(.2, .8, .2, 1); }
+  .produit-visuel { position: relative; display: grid; place-items: center; height: clamp(96px, 10vw, 120px); overflow: hidden; }
+  .produit-visuel::before { content: ""; position: absolute; inset: 0; transition: scale .4s cubic-bezier(.2, .8, .2, 1); }
+  .produit-visuel img { position: relative; height: auto; display: block; filter: drop-shadow(0 10px 18px rgba(16, 28, 78, .14)); }
+  .p-avanido .produit-visuel::before { background: radial-gradient(120% 90% at 85% 0%, rgba(49, 84, 213, .28), transparent 60%), radial-gradient(90% 80% at 0% 100%, rgba(18, 109, 107, .16), transparent 60%), #E8EDF7; }
+  .p-avanido .produit-visuel img { width: min(50%, 180px); }
+  .p-pistambule .produit-visuel::before { background: radial-gradient(110% 90% at 100% 0%, rgba(244, 211, 79, .55), transparent 55%), radial-gradient(90% 80% at 0% 100%, rgba(231, 124, 106, .22), transparent 60%), #FFF9EE; }
+  .p-pistambule .produit-visuel img { width: min(64%, 240px); }
+  .produit-corps { display: grid; gap: 8px; align-content: start; grid-template-rows: auto auto 1fr auto; padding: 16px 20px 18px; }
+  .produit-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .produit-tags li { padding: 2px 9px; border-radius: 999px; background: var(--lavande); color: var(--lien); font-size: 12px; font-weight: 600; }
+  .produit h3 { font-weight: 800; font-size: clamp(18px, 1.7vw, 20px); line-height: 1.15; letter-spacing: -.025em; }
+  .produit p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--gris); text-wrap: pretty; }
+  .produit-lien { display: inline-flex; align-items: center; gap: 8px; padding-top: 2px; font-weight: 600; font-size: 14.5px; color: var(--lien); }
+  .produit-lien svg { width: 18px; height: 18px; transition: translate .25s cubic-bezier(.2, .8, .2, 1); }
+  @media (hover: hover) {
+    .produit:hover { translate: 0 -3px; box-shadow: 0 0 0 1px var(--ligne), 0 18px 40px rgba(58, 46, 255, .14); }
+    .produit:hover .produit-visuel::before { scale: 1.06; }
+    .produit:hover .produit-lien svg { translate: 4px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .produit, .produit-visuel::before, .produit-lien svg { transition: none; } }
+
   /* Offres */
   .offres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
   .offre { display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto 1fr auto; padding: clamp(20px, 2.5vw, 28px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); scroll-margin-top: 24px; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
@@ -254,7 +279,7 @@
     .faq-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 720px) {
-    .offres, .engagements { grid-template-columns: 1fr; }
+    .offres, .engagements, .produits { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; }
     .steps li:nth-child(3)::after { display: block; }
     .situations { grid-template-columns: 1fr; }
@@ -344,6 +369,34 @@
       <button class="btn btn-block" type="submit">Demander un devis gratuit</button>
       <p class="besoin-note">Pas sûr de ce qu’il vous faut ? <a href="#contact" data-besoin="Pas encore sûr">Décrivez simplement votre situation</a>.</p>
     </form>
+  </section>
+
+  <section class="block" id="produits" aria-labelledby="produits-titre">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="produits-titre">Pragvilo édite aussi ses propres services</h2>
+      </div>
+      <div class="produits">
+        <a class="produit p-avanido" href="https://avanido.fr" target="_blank" rel="noopener">
+          <div class="produit-visuel"><img src="images/logo-avanido.png" alt="Avanido" width="510" height="170" loading="lazy"></div>
+          <div class="produit-corps">
+            <ul class="produit-tags"><li>Recherche d’emploi</li><li>Abonnement</li></ul>
+            <h3>Pour les cadres en recherche d’emploi.</h3>
+            <p>Chaque matin : l’offre à prendre, le poste à oser, la personne à contacter, et pourquoi. Mais aussi un CV adapté au poste, et quand l’entretien arrive, il est préparé.</p>
+            <span class="produit-lien">Découvrir avanido.fr <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+        <a class="produit p-pistambule" href="https://pistambule.fr" target="_blank" rel="noopener">
+          <div class="produit-visuel"><img src="images/logo-pistambule.webp" alt="Pistambule" width="480" height="114" loading="lazy"></div>
+          <div class="produit-corps">
+            <ul class="produit-tags"><li>Escape game</li><li>Montmartre, Paris</li></ul>
+            <h3>Un escape game en plein air dans Montmartre.</h3>
+            <p>À jouer sur son téléphone, en famille ou entre amis, sans réserver de créneau.</p>
+            <span class="produit-lien">Découvrir pistambule.fr <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
   </section>
 
   <section class="block" id="situations" aria-labelledby="situations-titre">
