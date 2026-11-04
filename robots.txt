@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /maquettes/
 
 Sitemap: https://pragvilo.com/sitemap.xml
