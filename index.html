@@ -600,7 +600,7 @@
     <section>
       <h3>Données personnelles</h3>
       <p>Le responsable du traitement est Pragvilo, dont les coordonnées figurent ci-dessus.</p>
-      <p>Les informations saisies dans le formulaire de contact (nom, email, organisation, message) sont acheminées jusqu’à notre boîte mail par le service FormSubmit (formsubmit.co). Elles sont conservées le temps nécessaire au suivi de votre demande, servent uniquement à vous répondre et ne sont ni revendues ni transmises à d’autres tiers.</p>
+      <p>Les informations saisies dans le formulaire de contact (nom, email, organisation, message) sont enregistrées chez notre hébergeur de données Supabase (serveurs dans l’Union européenne, Francfort) puis transmises à notre boîte mail par le service d’envoi Resend. Elles sont conservées le temps nécessaire au suivi de votre demande, servent uniquement à vous répondre et ne sont ni revendues ni transmises à d’autres tiers.</p>
       <p>Mesure d’audience : si vous l’acceptez, ce site utilise Google Analytics (Google Ireland Ltd) pour compter les visites, les pages vues et les demandes envoyées, de façon statistique. Cela dépose des cookies (_ga, _ga_*) conservés au plus 13 mois. Sans votre accord, rien n’est chargé ni déposé. Votre choix est gardé 6 mois et vous pouvez le changer à tout moment avec le lien « Gérer les cookies » en bas de page.</p>
       <p>Conformément au RGPD, vous pouvez demander l’accès, la rectification ou la suppression de vos données en écrivant à l’adresse ci-dessus. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).</p>
     </section>
@@ -660,7 +660,7 @@
       if (el.tagName === 'A') { el.href = 'mai' + 'lto:' + addr; }
     });
 
-    // Formulaire : envoi par FormSubmit (formsubmit.co), qui transfère le message par email.
+    // Formulaire : enregistré dans Supabase, puis envoyé par email à contact@pragvilo.com.
     var form = document.getElementById('contact-form');
     var status = document.getElementById('f-status');
     var submit = document.getElementById('f-submit');
@@ -681,29 +681,29 @@
       }
       var data = new FormData(form);
       var besoins = data.getAll('besoins').join(', ');
+      var fini = function () {
+        form.reset();
+        say('Demande envoyée. Nous vous répondons sous 24 h ouvrées.', 'ok');
+        mesure('generate_lead', { form: 'contact', besoins: besoins || 'aucun' });
+      };
+      // Champ piège rempli : c'est un robot, on fait comme si tout s'était bien passé.
+      if (data.get('_honey')) { fini(); return; }
       var payload = {
-        nom: data.get('nom'), email: data.get('email'), organisation: data.get('organisation') || '—',
-        besoins: besoins || '—', message: data.get('message'),
-        _subject: 'Nouveau message depuis pragvilo.com : ' + data.get('nom'),
-        _template: 'table', _honey: data.get('_honey')
+        nom: data.get('nom').trim(), email: data.get('email').trim(), organisation: (data.get('organisation') || '').trim() || null,
+        besoins: besoins || null, message: data.get('message').trim()
       };
       submit.disabled = true;
       say('Envoi en cours…');
-      // Alias FormSubmit de contact@pragvilo.com : l'adresse n'apparaît pas dans l'appel.
-      fetch('https://formsubmit.co/ajax/9a179fb1e57fe8e90ce82f052b21515b', {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload)
-      }).then(function (r) { return r.json(); }).then(function (res) {
-        if (res && String(res.success) === 'true') {
-          form.reset();
-          say('Demande envoyée. Nous vous répondons sous 24 h ouvrées.', 'ok');
-          mesure('generate_lead', { form: 'contact', besoins: besoins || 'aucun' });
-        } else if (res && /activ/i.test(res.message || '')) {
-          // Premier envoi : FormSubmit attend que l'adresse de réception confirme le formulaire.
-          say('Le formulaire est en cours d’activation. Écrivez-nous directement à ' + addr + ' en attendant.', 'err');
-          if (window.console) { console.warn('FormSubmit :', res.message); }
-        } else { throw new Error(res && res.message || 'refus'); }
+      // Le message est enregistré dans Supabase (table messages_site, projet avanido), qui l'envoie ensuite à contact@pragvilo.com.
+      // La clé publique ne permet que d'ajouter un message, jamais de lire.
+      var cle = 'sb_publishable_S9PWWIrzmvkcfCtAejsUAQ_ZzXo519N';
+      fetch('https://ojvlhvsgazatlulliqda.supabase.co/rest/v1/messages_site', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': cle, 'Authorization': 'Bearer ' + cle, 'Prefer': 'return=minimal' }, body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        fini();
       }).catch(function (err) {
-        if (window.console) { console.warn('FormSubmit :', err); }
+        if (window.console) { console.warn('Formulaire :', err); }
         say('Le message n’est pas parti. Réessayez dans un instant, ou écrivez-nous à ' + addr + '.', 'err');
       }).then(function () { submit.disabled = false; });
     });
