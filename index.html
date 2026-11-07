@@ -7,13 +7,13 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Pragvilo · création de sites, applications, IA et référencement</title>
 <meta name="description" content="Pragvilo crée votre site, votre application ou votre outil IA, le met en ligne et le fait connaître (SEO, GEO, publicité). Entreprises et associations. Réponse sous 24 h, devis gratuit sous 48 h.">
-<link rel="canonical" href="https://pragvilo.com/">
+<link rel="canonical" href="https://www.pragvilo.com/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://pragvilo.com/">
+<meta property="og:url" content="https://www.pragvilo.com/">
 <meta property="og:title" content="Pragvilo · votre projet numérique, de l’idée jusqu’aux premiers clients">
 <meta property="og:description" content="Sites, applications, IA, visibilité. Un projet est fini quand il marche, pas quand il est livré.">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:image" content="https://pragvilo.com/images/og-pragvilo.png">
+<meta property="og:image" content="https://www.pragvilo.com/images/og-pragvilo.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,7 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"ProfessionalService","@id":"https://pragvilo.com/#pragvilo","name":"Pragvilo","legalName":"Pragvilo","identifier":{"@type":"PropertyValue","propertyID":"SIREN","value":"132196601"},"url":"https://pragvilo.com/","logo":"https://pragvilo.com/apple-touch-icon.png","description":"Création de sites internet, d’applications et d’outils IA, référencement (SEO, GEO) et publicité en ligne pour les entreprises et les associations.","address":{"@type":"PostalAddress","streetAddress":"9 rue Lagille","postalCode":"75018","addressLocality":"Paris","addressCountry":"FR"},"areaServed":"FR","knowsLanguage":"fr",
+{"@type":"ProfessionalService","@id":"https://www.pragvilo.com/#pragvilo","name":"Pragvilo","legalName":"Pragvilo","identifier":{"@type":"PropertyValue","propertyID":"SIREN","value":"132196601"},"url":"https://www.pragvilo.com/","logo":"https://www.pragvilo.com/apple-touch-icon.png","description":"Création de sites internet, d’applications et d’outils IA, référencement (SEO, GEO) et publicité en ligne pour les entreprises et les associations.","address":{"@type":"PostalAddress","streetAddress":"9 rue Lagille","postalCode":"75018","addressLocality":"Paris","addressCountry":"FR"},"areaServed":"FR","knowsLanguage":"fr",
 "hasOfferCatalog":{"@type":"OfferCatalog","name":"Offres Pragvilo","itemListElement":[
 {"@type":"Offer","itemOffered":{"@type":"Service","name":"Sites internet","description":"Site vitrine, refonte, hébergement et maintenance."}},
 {"@type":"Offer","itemOffered":{"@type":"Service","name":"Applications et plateformes","description":"Application web, outil métier, plateforme SaaS."}},
@@ -681,13 +681,13 @@
       }
       var data = new FormData(form);
       var besoins = data.getAll('besoins').join(', ');
-      var fini = function () {
+      var fini = function (robot) {
         form.reset();
         say('Demande envoyée. Nous vous répondons sous 24 h ouvrées.', 'ok');
-        mesure('generate_lead', { form: 'contact', besoins: besoins || 'aucun' });
+        if (!robot) { mesure('generate_lead', { form: 'contact', besoins: besoins || 'aucun' }); }
       };
-      // Champ piège rempli : c'est un robot, on fait comme si tout s'était bien passé.
-      if (data.get('_honey')) { fini(); return; }
+      // Champ piège rempli : c'est un robot, on fait comme si tout s'était bien passé (sans compter de contact).
+      if (data.get('_honey')) { fini(true); return; }
       var payload = {
         nom: data.get('nom').trim(), email: data.get('email').trim(), organisation: (data.get('organisation') || '').trim() || null,
         besoins: besoins || null, message: data.get('message').trim()
