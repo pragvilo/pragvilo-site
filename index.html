@@ -77,7 +77,7 @@
 
   /* Titre */
   .hero { padding-block: clamp(20px, 3.5vw, 44px) clamp(32px, 4vw, 52px); }
-  .hero h1 { font-weight: 800; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.04; letter-spacing: -.035em; max-width: 21ch; }
+  .hero h1 { font-weight: 800; font-size: clamp(32px, 4vw, 50px); line-height: 1.04; letter-spacing: -.035em; max-width: 21ch; }
   .switch { display: inline-block; width: 1.42em; height: .78em; margin-left: .12em; vertical-align: -.04em; border-radius: 999px; background: var(--indigo); position: relative; }
   .switch::after { content: ""; position: absolute; top: .09em; right: .09em; width: .6em; height: .6em; border-radius: 50%; background: var(--menthe); }
   .kicker { margin: 14px 0 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(17px, 1.5vw, 19px); line-height: 1.3; letter-spacing: -.015em; color: var(--lien); }
@@ -85,9 +85,11 @@
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 28px; }
 
   /* Sections */
-  section.block { padding-block: clamp(32px, 4vw, 48px); border-top: 1px solid var(--ligne); }
+  section.block { padding-block: clamp(40px, 5vw, 64px); border-top: 1px solid var(--ligne); }
+  section.block.tinted { background: color-mix(in srgb, var(--lavande) 42%, var(--ecran)); border-top: 0; }
+  section.block.tinted + section.block { border-top: 0; }
   .block-head { display: grid; gap: 8px; max-width: 38rem; margin-bottom: clamp(18px, 2.2vw, 26px); }
-  .block-head h2 { font-weight: 800; font-size: clamp(26px, 3vw, 34px); line-height: 1.1; letter-spacing: -.03em; }
+  .block-head h2 { font-weight: 800; font-size: clamp(28px, 3.2vw, 38px); line-height: 1.1; letter-spacing: -.03em; }
   .block-head p { margin: 0; color: var(--gris); text-wrap: pretty; }
 
   /* Approche */
@@ -96,7 +98,7 @@
   .steps li { counter-increment: step; display: grid; gap: 4px; align-content: start; position: relative; padding-top: 44px; }
   .steps li::before { content: counter(step); position: absolute; top: 0; left: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--lavande); color: var(--lien); font: 600 14px/32px var(--font-sans); text-align: center; z-index: 1; }
   .steps li:not(:last-child)::after { content: ""; position: absolute; top: 15px; left: 40px; right: -16px; height: 2px; background: var(--ligne); }
-  .steps h3 { font-weight: 600; font-size: 16.5px; line-height: 1.3; letter-spacing: -.01em; }
+  .steps h3 { font-weight: 600; font-size: 17px; line-height: 1.3; letter-spacing: -.01em; }
   .steps p { margin: 0; font-size: 14.5px; color: var(--gris); text-wrap: pretty; }
 
   /* Contact */
@@ -193,7 +195,7 @@
   /* Situations : des cartes courtes où le visiteur se reconnaît. Leur interrupteur s'allume quand elles arrivent à l'écran. */
   .situations { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 18px); }
   .situations li { display: grid; }
-  .situation { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; padding: clamp(18px, 2vw, 24px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); color: var(--nuit); text-decoration: none; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
+  .situation { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; padding: clamp(18px, 2vw, 24px); background: var(--surface); border-radius: 16px; box-shadow: 0 0 0 1px var(--ligne); color: var(--nuit); text-decoration: none; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
   .situation:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--lien), 0 16px 32px rgba(58, 46, 255, .14); }
   .sit-texte { font-family: var(--font-display); font-weight: 600; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.25; letter-spacing: -.02em; text-wrap: pretty; }
   .sit-lien { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--lien); }
@@ -229,11 +231,11 @@
 
   /* Offres */
   .offres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
-  .offre { display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto 1fr auto; padding: clamp(20px, 2.5vw, 28px); background: var(--surface); border-radius: 20px; box-shadow: 0 0 0 1px var(--ligne); scroll-margin-top: 24px; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
+  .offre { display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto 1fr auto; padding: clamp(22px, 2.6vw, 30px); background: var(--surface); border-radius: 16px; box-shadow: 0 0 0 1px var(--ligne), 0 1px 2px rgba(13,14,28,.04), 0 10px 30px rgba(58,46,255,.06); scroll-margin-top: 24px; transition: transform .25s cubic-bezier(.2, .8, .2, 1), box-shadow .25s ease; }
   .offre:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--ligne), 0 18px 40px rgba(58, 46, 255, .12); }
   .offre h3 { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; line-height: 1.2; letter-spacing: -.02em; }
   .offre h3 .switch { font-size: 16px; margin: 0; flex: none; }
-  .offre-promesse { margin: 0; font-size: 16.5px; color: var(--nuit); text-wrap: pretty; }
+  .offre-promesse { margin: 0; font-size: 17.5px; line-height: 1.4; color: var(--nuit); text-wrap: pretty; }
   .offre ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 15px; }
   .offre li { padding-left: 18px; position: relative; }
   .offre li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; border-radius: 50%; background: var(--lien); }
@@ -242,7 +244,7 @@
 
   /* Engagement : la seule bande sombre de la page, pour le mantra. */
   .engagement { background: #0D0E1C; color: #C9CADB; padding-block: clamp(40px, 5.5vw, 64px); }
-  .engagement h2 { color: #fff; font-weight: 800; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: -.035em; max-width: 20ch; }
+  .engagement h2 { color: #fff; font-weight: 800; font-size: clamp(32px, 4.4vw, 54px); line-height: 1.05; letter-spacing: -.035em; max-width: 20ch; }
   .engagement-intro { margin: 20px 0 0; max-width: 40rem; font-size: 17px; text-wrap: pretty; }
   .engagements { margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
   .engagements li { position: relative; display: grid; gap: 6px; align-content: start; padding-top: 18px; }
@@ -260,7 +262,7 @@
   .faq { display: grid; }
   .faq details { border-top: 1px solid var(--ligne); }
   .faq details:last-child { border-bottom: 1px solid var(--ligne); }
-  .faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 17px; color: var(--nuit); }
+  .faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; cursor: pointer; list-style: none; font-weight: 600; font-size: 17px; color: var(--nuit); }
   .faq summary::-webkit-details-marker { display: none; }
   .faq summary::after { content: ""; flex: none; width: 30px; height: 16px; border-radius: 999px; background: var(--off) radial-gradient(circle at 8px 50%, #fff 5px, transparent 5.5px); transition: background-color .2s; }
   .faq details[open] summary::after { background: var(--indigo) radial-gradient(circle at 22px 50%, var(--menthe) 5px, transparent 5.5px); }
@@ -353,7 +355,7 @@
     <div class="hero-text">
       <h1>Votre projet numérique, de l’idée jusqu’aux premiers clients.</h1>
       <p class="kicker">Sites, applications, IA, visibilité. Nous le faisons, et ça marche<span class="switch" aria-hidden="true"></span></p>
-      <p class="lede">Nous le créons, le mettons en ligne et le faisons connaître, avec un objectif chiffré fixé ensemble au départ.</p>
+      <p class="lede">Pour les entreprises et les associations qui n’ont pas d’équipe numérique. Vous fixez l’objectif avec nous, vous testez une première version très tôt, et nous restons jusqu’au résultat.</p>
       <ul class="assurances">
         <li>Réponse sous 24 h ouvrées</li>
         <li>30 minutes d’échange offertes</li>
@@ -375,34 +377,6 @@
     </form>
   </section>
 
-  <section class="block" id="produits" aria-labelledby="produits-titre">
-    <div class="wrap">
-      <div class="block-head">
-        <h2 id="produits-titre">Pragvilo édite aussi ses propres services</h2>
-      </div>
-      <div class="produits">
-        <a class="produit p-avanido" href="https://avanido.fr" target="_blank" rel="noopener">
-          <div class="produit-visuel"><img src="images/logo-avanido.png" alt="Avanido" width="510" height="170" loading="lazy"></div>
-          <div class="produit-corps">
-            <ul class="produit-tags"><li>Recherche d’emploi</li><li>Abonnement</li></ul>
-            <h3>Pour les cadres en recherche d’emploi.</h3>
-            <p>Chaque matin : l’offre à prendre, le poste à oser, la personne à contacter, et pourquoi. Mais aussi un CV adapté au poste, et quand l’entretien arrive, il est préparé.</p>
-            <span class="produit-lien">Découvrir avanido.fr <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-        </a>
-        <a class="produit p-pistambule" href="https://pistambule.fr" target="_blank" rel="noopener">
-          <div class="produit-visuel"><img src="images/logo-pistambule.webp" alt="Pistambule" width="480" height="114" loading="lazy"></div>
-          <div class="produit-corps">
-            <ul class="produit-tags"><li>Escape game</li><li>Montmartre, Paris</li></ul>
-            <h3>Un escape game en plein air dans Montmartre.</h3>
-            <p>À jouer sur son téléphone, en famille ou entre amis, sans réserver de créneau.</p>
-            <span class="produit-lien">Découvrir pistambule.fr <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <section class="block" id="situations" aria-labelledby="situations-titre">
     <div class="wrap">
       <div class="block-head">
@@ -419,11 +393,11 @@
     </div>
   </section>
 
-  <section class="block" id="offre" aria-labelledby="offre-titre">
+  <section class="block tinted" id="offre" aria-labelledby="offre-titre">
     <div class="wrap">
       <div class="block-head">
         <h2 id="offre-titre">Nos offres</h2>
-        <p>Un seul métier, ou tout le parcours.</p>
+        <p>Un seul métier, ou tout le parcours. Le prix est fixé avant de commencer, rien n’est ajouté sans votre accord.</p>
       </div>
       <div class="offres">
         <article class="offre" id="offre-site">
@@ -464,7 +438,7 @@
         <li><h3>Les mêmes chiffres que nous</h3><p>Visites, demandes, temps gagné.</p></li>
         <li><h3>Après la mise en ligne</h3><p>Nous ajustons jusqu’à l’objectif.</p></li>
       </ul>
-      <p class="credo">Comprendre ce qui compte, faire simple et passer à l’action. Tester, apprendre et améliorer, avec l’utilité comme point de départ et le résultat comme repère.</p>
+      <p class="credo">Pas de cahier des charges de quarante pages. Une première version que vous testez, des chiffres que vous suivez avec nous, et des ajustements jusqu’à ce que ça marche.</p>
     </div>
   </section>
 
@@ -472,6 +446,7 @@
     <div class="wrap">
       <div class="block-head">
         <h2 id="approche-titre">Comment ça se passe</h2>
+        <p>Cinq étapes, et un seul interlocuteur du premier message jusqu’au résultat.</p>
       </div>
       <ol class="steps">
         <li><h3>Vous nous écrivez</h3><p>Quelques lignes suffisent.</p></li>
@@ -481,6 +456,35 @@
         <li><h3>En ligne et suivi</h3><p>Jusqu’au résultat fixé.</p></li>
       </ol>
       <p class="steps-cta"><a class="btn" href="#contact">Décrire votre projet</a></p>
+    </div>
+  </section>
+
+  <section class="block tinted" id="produits" aria-labelledby="produits-titre">
+    <div class="wrap">
+      <div class="block-head">
+        <h2 id="produits-titre">Nous construisons aussi pour nous-mêmes</h2>
+        <p>Deux produits que nous éditons et faisons vivre au quotidien, avec la même méthode que pour vos projets.</p>
+      </div>
+      <div class="produits">
+        <a class="produit p-avanido" href="https://avanido.fr" target="_blank" rel="noopener">
+          <div class="produit-visuel"><img src="images/logo-avanido.png" alt="Avanido" width="510" height="170" loading="lazy"></div>
+          <div class="produit-corps">
+            <ul class="produit-tags"><li>Recherche d’emploi</li><li>Abonnement</li></ul>
+            <h3>Pour les cadres en recherche d’emploi.</h3>
+            <p>Chaque matin : l’offre à prendre, le poste à oser, la personne à contacter, et pourquoi. Mais aussi un CV adapté au poste, et quand l’entretien arrive, il est préparé.</p>
+            <span class="produit-lien">Découvrir avanido.fr <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+        <a class="produit p-pistambule" href="https://pistambule.fr" target="_blank" rel="noopener">
+          <div class="produit-visuel"><img src="images/logo-pistambule.webp" alt="Pistambule" width="480" height="114" loading="lazy"></div>
+          <div class="produit-corps">
+            <ul class="produit-tags"><li>Escape game</li><li>Montmartre, Paris</li></ul>
+            <h3>Un escape game en plein air dans Montmartre.</h3>
+            <p>À jouer sur son téléphone, en famille ou entre amis, sans réserver de créneau.</p>
+            <span class="produit-lien">Découvrir pistambule.fr <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -504,6 +508,7 @@
     <div class="wrap contact-grid">
       <div class="block-head">
         <h2 id="contact-titre">Parlons de votre projet</h2>
+        <p>Quelques lignes suffisent. Nous vous disons ce qui serait utile, et ce qui ne l’est pas.</p>
         <ol class="ensuite" aria-label="Ce qui se passe ensuite">
           <li>Réponse sous 24 h ouvrées.</li>
           <li>30 minutes d’échange, offertes.</li>
@@ -559,7 +564,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Pragvilo</span>
+    <span>© 2026 Pragvilo, Paris</span>
     <button class="linklike" type="button" id="open-legal" data-open-legal>Mentions légales</button>
     <button class="linklike" type="button" data-cookies>Gérer les cookies</button>
   </div>
