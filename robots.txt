@@ -3,4 +3,9 @@ Allow: /
 Disallow: /maquettes/
 Disallow: /catalogue-theatre/
 
+Disallow: /catalogue-automobile/
+Disallow: /restaurant-reservation/
+Disallow: /projet-xee/
+Disallow: /kim-kosta/
+
 Sitemap: https://www.pragvilo.com/sitemap.xml
