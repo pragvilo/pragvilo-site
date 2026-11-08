@@ -36,8 +36,8 @@ export function rewriteCss(css, owner, assets) {
   if (/@import\b/i.test(css)) throw new Error('CSS imports are not supported.');
   return css.replace(/url\(\s*(?:"([^"]*)"|'([^']*)'|([^)]*?))\s*\)/gi, (_, double, single, unquoted) => 'url("' + assetUrl((double ?? single ?? unquoted).trim(), owner, assets) + '")');
 }
-export function pageHtml(html, search) {
-  return html.replace(/<html\b[^>]*>/i, tag => tag.replace(/\sdata-preview-search\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '').replace(/>$/, ' data-preview-search="' + escapeAttribute(search) + '">'));
+export function pageHtml(html, search, assetUrls = {}) {
+  return html.replace(/<html\b[^>]*>/i, tag => tag.replace(/\sdata-preview-(?:search|assets)\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '').replace(/>$/, ' data-preview-search="' + escapeAttribute(search) + '" data-preview-assets="' + escapeAttribute(JSON.stringify(assetUrls)) + '">'));
 }
 
 export function mountPreview(bundle, iframe, { slug } = {}) {
@@ -60,7 +60,7 @@ export function mountPreview(bundle, iframe, { slug } = {}) {
   function render(route) {
     current = parseRoute(route, bundle.pages);
     // Inert attributes prevent even the parser from requesting clear resources.
-    const inert = pageHtml(bundle.pages[current.page], current.search).replace(/\b(src|href|srcset|poster)\s*=/gi, 'data-pv-$1=');
+    const inert = pageHtml(bundle.pages[current.page], current.search, Object.fromEntries(assets)).replace(/\b(src|href|srcset|poster)\s*=/gi, 'data-pv-$1=');
     const document = new host.DOMParser().parseFromString(inert, 'text/html');
     for (const element of document.querySelectorAll('[data-pv-src], [data-pv-href], [data-pv-poster], [data-pv-srcset]')) {
       for (const attribute of ['src', 'href', 'poster', 'srcset']) {
