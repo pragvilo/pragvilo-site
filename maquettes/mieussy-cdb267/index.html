@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mieussy · maquette indicative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#FAF8F3;--texte:#1C1F1A;--gris:#5B6157;--ligne:#E4E0D6;--rouge:#B5302A;--or:#E3B23C;--sapin:#1F2B24;--creme:#F2EDE1}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:16px/1.5 "Public Sans",system-ui,sans-serif;color:var(--texte);background:var(--fond)}
+a{color:inherit}
+h1,h2,h3,.titre{font-family:"Fraunces",Georgia,serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.bandeau-maquette{background:#0D0E1C;color:#DCDDEA;font-size:13px;text-align:center;padding:7px 16px}
+.bandeau-maquette b{color:#2EE6A6}
+.alerte{background:var(--or);color:var(--sapin);font-weight:600;font-size:15px}
+.alerte .wrap{display:flex;gap:12px;align-items:center;padding-top:10px;padding-bottom:10px}
+.alerte b{background:var(--sapin);color:var(--or);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px;flex:none}
+.alerte a{margin-left:auto;white-space:nowrap}
+header{background:#fff;border-bottom:1px solid var(--ligne);position:sticky;top:0;z-index:5}
+header .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px}
+header img{width:40px;height:auto}
+.nom{font:700 24px "Fraunces",serif;line-height:1.1}
+.nom small{display:block;font:500 11.5px "Public Sans",sans-serif;color:var(--gris);letter-spacing:.1em;text-transform:uppercase}
+nav{margin-left:auto;display:flex;gap:26px;font-weight:600;font-size:15px}
+nav a{text-decoration:none}
+nav a:hover{color:var(--rouge)}
+.burger{display:none;margin-left:auto;background:none;border:0;font-size:26px;cursor:pointer}
+.hero{position:relative;min-height:340px;background:url(village.jpg) center 40%/cover;display:flex;align-items:center}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(31,43,36,.85) 0%,rgba(31,43,36,.4) 60%,rgba(31,43,36,.05) 100%)}
+.hero .wrap{position:relative;z-index:1;color:#fff;padding-top:44px;padding-bottom:84px;width:100%}
+.hero h1{font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 10px}
+.hero p{font-size:18px;margin:0 0 22px;opacity:.92;max-width:560px}
+form.recherche{display:flex;background:#fff;border-radius:10px;overflow:hidden;max-width:580px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+form.recherche input{flex:1;border:0;padding:15px 18px;font:inherit;min-width:0}
+form.recherche button{background:var(--rouge);color:#fff;border:0;padding:0 24px;font:600 16px "Public Sans",sans-serif;cursor:pointer}
+.acces{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:-48px;position:relative;z-index:2}
+.acces a{background:#fff;border-radius:12px;padding:18px 14px;box-shadow:0 4px 18px rgba(31,43,36,.12);font-weight:600;font-size:14.5px;line-height:1.3;border-top:4px solid var(--rouge);text-decoration:none;transition:transform .15s}
+.acces a:hover{transform:translateY(-2px)}
+.acces svg{display:block;width:26px;height:26px;margin-bottom:10px;stroke:var(--rouge);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.corps{display:grid;grid-template-columns:2fr 1fr;gap:36px;padding-top:40px}
+.sec-t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.sec-t h2{font-size:26px;margin:0}
+.sec-t a{color:var(--rouge);font-weight:600;font-size:14px}
+.actus{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.une{background:var(--sapin);color:#fff;border-radius:12px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;min-height:250px}
+.etiq{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--or);margin-bottom:8px}
+.une .titre{font-size:26px;line-height:1.15;margin-bottom:8px}
+.une p{margin:0;opacity:.85;font-size:15px}
+.liste{display:flex;flex-direction:column;gap:12px}
+.liste>a{background:#fff;border:1px solid var(--ligne);border-radius:10px;padding:14px 16px;text-decoration:none;display:flex;gap:12px;align-items:center}
+.liste .etiq{color:var(--rouge);margin-bottom:3px}
+.liste .titre{font-size:17px;line-height:1.25}
+.liste img{width:74px;height:56px;object-fit:cover;border-radius:6px;flex:none}
+.cote{display:flex;flex-direction:column;gap:16px}
+.bloc{background:#fff;border:1px solid var(--ligne);border-radius:12px;padding:18px}
+.ev{display:flex;gap:14px;align-items:center}
+.ev .d{background:var(--rouge);color:#fff;border-radius:8px;width:58px;text-align:center;padding:6px 0;font-weight:700;line-height:1.1;flex:none}
+.ev .d span{display:block;font-size:24px;font-family:"Fraunces",serif}
+.ev .d small{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.ev .titre{font-size:17px}
+.ev p{margin:2px 0 0;font-size:13.5px;color:var(--gris)}
+.pratique{background:var(--creme);border-radius:12px;padding:18px;font-size:14.5px}
+.pratique h3{margin:0 0 8px;font-size:18px}
+.pratique div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--ligne);padding:8px 0}
+.pratique div:last-child{border:0}
+.pratique a{color:var(--rouge);font-weight:600}
+.decouvrir{margin-top:36px;background:var(--sapin);color:#fff;border-radius:14px;padding:26px 30px;display:flex;align-items:center;gap:30px}
+.decouvrir .titre{font-size:28px;line-height:1.15}
+.decouvrir p{margin:6px 0 0;opacity:.85}
+.decouvrir a{margin-left:auto;background:var(--or);color:var(--sapin);font-weight:700;padding:13px 20px;border-radius:8px;white-space:nowrap;text-decoration:none}
+footer{margin-top:48px;background:#fff;border-top:1px solid var(--ligne);font-size:14px;color:var(--gris)}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;padding-top:28px;padding-bottom:28px}
+footer b{display:block;color:var(--texte);margin-bottom:6px}
+footer a{display:block;text-decoration:none;margin:3px 0}
+.note{font-size:12.5px;text-align:center;padding:14px 16px 28px;color:var(--gris)}
+:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+@media (max-width:900px){
+  nav{display:none}.burger{display:block}
+  .acces{grid-template-columns:repeat(3,1fr)}
+  .corps{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  .alerte a{display:none}
+  .hero{min-height:300px}
+  .hero p{font-size:16px}
+  .acces{grid-template-columns:1fr 1fr;gap:10px;margin-top:-38px}
+  .actus{grid-template-columns:1fr}
+  .une{min-height:190px}
+  .decouvrir{flex-direction:column;align-items:flex-start;gap:14px}
+  .decouvrir a{margin-left:0}
+  footer .wrap{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="bandeau-maquette"><b>Maquette indicative</b> réalisée par Pragvilo pour la consultation S-2026-03 · couleurs provisoires, la nouvelle charte de la commune sera appliquée</div>
+
+<div class="alerte" role="status"><div class="wrap"><b>Alerte</b><span>Exemple d'alerte : coupure d'eau prévue mardi de 8 h à 12 h au chef-lieu.</span><a href="#">En savoir plus</a></div></div>
+
+<header><div class="wrap">
+  <img src="blason-couleur.jpg" alt="Blason de Mieussy">
+  <div class="nom">Mieussy<small>Haute-Savoie · Berceau du parapente</small></div>
+  <nav aria-label="Menu principal"><a href="#">Mairie et démarches</a><a href="#">Vivre à Mieussy</a><a href="#">Découvrir</a><a href="#">Actualités et agenda</a></nav>
+  <button class="burger" aria-label="Ouvrir le menu">☰</button>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <h1>Bienvenue à Mieussy</h1>
+  <p>Toutes les démarches et les infos de la commune, au même endroit.</p>
+  <form class="recherche" role="search" onsubmit="return false"><label for="q" style="position:absolute;left:-9999px">Rechercher sur le site</label><input id="q" type="search" placeholder="Que cherchez-vous ? Ex. : permis de construire, cantine…"><button>Rechercher</button></form>
+</div></section>
+
+<div class="wrap">
+  <nav class="acces" aria-label="Accès directs">
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Démarches en ligne</a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></svg>Payer mes factures</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg>Urbanisme et PLU</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>École et cantine</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 13h12l1-13M9 7V4h6v3"/></svg>Déchèterie</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M3 10h18L12 4zM5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg>Conseil municipal</a>
+  </nav>
+
+  <div class="corps">
+    <section>
+      <div class="sec-t"><h2>Actualités</h2><a href="#">Toutes les actualités →</a></div>
+      <div class="actus">
+        <a class="une" href="#" style="text-decoration:none"><span class="etiq">Vie municipale</span><span class="titre">Réunion publique le 17 novembre 2026</span><p>Les élus présentent les projets de la commune et répondent à vos questions.</p></a>
+        <div class="liste">
+          <a href="#"><div><span class="etiq">Pratique</span><div class="titre">Payer vos factures en ligne</div></div></a>
+          <a href="#"><img src="agence-postale.jpg" alt=""><div><span class="etiq">Services</span><div class="titre">L'agence postale communale</div></div></a>
+          <a href="#"><div><span class="etiq">Environnement</span><div class="titre">Déchèterie des Montagnes du Giffre</div></div></a>
+        </div>
+      </div>
+    </section>
+    <aside class="cote">
+      <div class="bloc">
+        <div class="sec-t"><h2>Agenda</h2><a href="#">Tout →</a></div>
+        <div class="ev"><div class="d"><span>17</span><small>nov.</small></div><div><div class="titre">Réunion publique</div><p>Mieussy</p></div></div>
+      </div>
+      <div class="pratique">
+        <h3>Infos pratiques</h3>
+        <div><span>Mairie</span><a href="#">Horaires →</a></div>
+        <div><span>Agence postale</span><a href="#">Horaires →</a></div>
+        <div><span>France Services</span><a href="#">Voir →</a></div>
+        <div><span>PanneauPocket</span><a href="#">S'abonner →</a></div>
+        <div><span><a href="tel:+33450430167" style="color:inherit;font-weight:400">04 50 43 01 67</a></span><a href="#">Contact →</a></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="decouvrir"><div><div class="titre">Découvrir Mieussy</div><p>Le berceau du parapente, la station et le patrimoine, avec l'Office de tourisme.</p></div><a href="#">Explorer la commune</a></section>
+</div>
+</main>
+
+<footer><div class="wrap">
+  <div><b>Commune de Mieussy</b>1, place de la Mairie, 74440 Mieussy<br>04 50 43 01 67</div>
+  <div><b>La commune</b><a href="#">Mairie et démarches</a><a href="#">Vivre à Mieussy</a><a href="#">Marchés publics</a></div>
+  <div><b>Informations</b><a href="#">Mentions légales</a><a href="#">Accessibilité</a><a href="#">Plan du site</a></div>
+</div></footer>
+<p class="note">Maquette non contractuelle, contenus repris du site actuel de la commune. Réalisée par Pragvilo.</p>
+</body>
+</html>
