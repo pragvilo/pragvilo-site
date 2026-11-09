@@ -8,4 +8,6 @@ Disallow: /restaurant-reservation/
 Disallow: /projet-xee/
 Disallow: /kim-kosta/
 
+Disallow: /livret-memoire/
+
 Sitemap: https://www.pragvilo.com/sitemap.xml
