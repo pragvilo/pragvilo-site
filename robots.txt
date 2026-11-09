@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /maquettes/
+Disallow: /mieussy/
 Disallow: /catalogue-theatre/
 
 Disallow: /catalogue-automobile/
