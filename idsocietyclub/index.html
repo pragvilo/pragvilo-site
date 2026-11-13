@@ -248,6 +248,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .field input,.field textarea{min-height:50px;padding:12px 0;border:0;border-bottom:2px solid #3A3B40;background:transparent;color:var(--paper);font:inherit;font-size:16px;transition:border-color .25s}
 .field textarea{resize:vertical;min-height:110px}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--red)}
+.c-status{margin:0;min-height:1.4em;font-size:14px;color:#C4C2BC}.c-status.ok{color:#7BD88F}.c-status.err{color:#FF8A80}
 .c-form .btn{justify-content:center;border:0;cursor:pointer;font:inherit;font-weight:750;width:100%}
 .contact .flag-t{--chk:#000}
 
@@ -348,8 +349,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   <div class="wrap">
     <h2 id="formats-titre" class="display rv flag-t">What's in it for you?</h2>
     <div class="fmts">
-      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/diner-hd.jpg" alt="Dîner du club sur une terrasse face à la tour Eiffel" loading="lazy"></div><h3>Des networking parisiens</h3><p>Rencontrez des leaders inspirants des affaires et des pilotes passionnés lors de dîners ou des soirées de privatisation simulateur au cœur de Paris.</p></article>
-      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/porsche-experience.jpg" alt="Deux membres dans une Porsche GT3 au Porsche Experience Center du Mans" loading="lazy"><span class="credit">© Anthony Favennec</span></div><h3>Des track days</h3><p>Participez à des expériences en piste avec votre véhicule ou avec un véhicule de location mis à disposition par nos partenaires sur les plus beaux circuits de France.</p></article>
+      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/diner-trophee.jpg" alt="Remise du trophée Lamera lors d'un dîner du club à Paris" loading="lazy"></div><h3>Des networking parisiens</h3><p>Rencontrez des leaders inspirants des affaires et des pilotes passionnés lors de dîners ou des soirées de privatisation simulateur au cœur de Paris.</p></article>
+      <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/lamera-piste.jpg" alt="La Lamera n°32 en piste, phares allumés, à la sortie d'un virage" loading="lazy"></div><h3>Des track days</h3><p>Participez à des expériences en piste avec votre véhicule ou avec un véhicule de location mis à disposition par nos partenaires sur les plus beaux circuits de France.</p></article>
       <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/roadtrip-furka.jpg" alt="Porsche 911 GT3 devant l'hôtel Belvédère, col de la Furka" loading="lazy"></div><h3>Des road trips inspirants</h3><p>Profitez des lieux et itinéraires exclusifs et partagez des journées conviviales autour de votre passion auto.</p></article>
       <article class="fmt"><div class="shot"><img src="/idsocietyclub/img/karting-podium.jpg" alt="Trois membres du club avec leur trophée de deuxième place en karting" loading="lazy"></div><h3>Des accès faciles vers la course auto</h3><p>Pratiquez le sport auto lors d'expériences organisées en circuit pour découvrir la course automobile sous différentes formules accompagné de professionnels reconnus.</p></article>
     </div>
@@ -379,8 +380,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
       <a class="btn btn-primary" href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener">Suivez-nous sur Instagram</a>
     </div>
     <div class="mosaic">
-      <a href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener" class="shot"><img src="/idsocietyclub/img/daytona-grille.jpg" alt="« ID Society » écrit à la craie sur la ligne de départ de Daytona" loading="lazy"></a>
-      <a href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener" class="shot"><img src="/idsocietyclub/img/daytona-nascar.jpg" alt="Membres du club en combinaison NASCAR Racing Experience à Daytona" loading="lazy"></a>
+      <a href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener" class="shot"><img src="/idsocietyclub/img/karting-renaux.jpg" alt="Trois membres du club en combinaison ID Society devant le kart n°92" loading="lazy"></a>
+      <a href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener" class="shot"><img src="/idsocietyclub/img/magny-cours-equipe.jpg" alt="Membres du club en combinaison autour d'une voiture de course à Magny-Cours" loading="lazy"></a>
       <a href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener" class="shot"><img src="/idsocietyclub/img/daytona-tribunes.jpg" alt="Les tribunes pleines du Daytona International Speedway" loading="lazy"></a>
       <a href="https://www.instagram.com/id_society_club/" target="_blank" rel="noopener" class="shot"><img src="/idsocietyclub/img/roadtrip-stelvio.jpg" alt="Deux Porsche 911 GT3 au pied du col du Stelvio" loading="lazy"></a>
     </div>
@@ -428,11 +429,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
       <h2 class="display rv flag-t">Rejoindre le club</h2>
       <p>Rencontrez de futurs associés ou partenaires d'affaires. Rejoignez des séjours passion avec vos clients ou collaborateurs.</p>
     </div>
-    <form class="c-form" aria-label="Contact">
-      <div class="field"><label for="c-nom">Prénom, Nom</label><input id="c-nom" type="text" autocomplete="name"></div>
-      <div class="field"><label for="c-email">Adresse Email</label><input id="c-email" type="email" autocomplete="email"></div>
-      <div class="field"><label for="c-message">Votre Message</label><textarea id="c-message" rows="4"></textarea></div>
-      <button class="btn btn-primary" type="button">Envoyer <span class="arr" aria-hidden="true">→</span></button>
+    <form class="c-form" id="c-form" aria-label="Contact" novalidate>
+      <div class="field"><label for="c-nom">Prénom, Nom</label><input id="c-nom" name="nom" type="text" autocomplete="name" required maxlength="120"></div>
+      <div class="field"><label for="c-email">Adresse Email</label><input id="c-email" name="email" type="email" autocomplete="email" required maxlength="200"></div>
+      <div class="field"><label for="c-message">Votre Message</label><textarea id="c-message" name="message" rows="4" required maxlength="4000"></textarea></div>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button class="btn btn-primary" type="submit">Envoyer <span class="arr" aria-hidden="true">→</span></button>
+      <p class="c-status" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -508,6 +511,28 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
     var so = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) links.forEach(function(l){ l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id); }); }); }, {rootMargin:'-45% 0px -50% 0px'});
     ['club','evenements','newsletter'].forEach(function(id){ var s = document.getElementById(id); if (s) so.observe(s); });
   }
+})();
+</script>
+<script>
+(function(){
+  // « Rejoindre le club » : le message est enregistré dans Supabase (table messages_site, site = idsociety),
+  // qui l'envoie ensuite par e-mail au président du club. La clé publique ne permet que d'ajouter un message.
+  var form=document.getElementById('c-form'); if(!form) return;
+  var status=form.querySelector('.c-status'), btn=form.querySelector('button[type="submit"]');
+  function say(t,c){status.textContent=t;status.className='c-status'+(c?' '+c:'');}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d=new FormData(form);
+    if(d.get('_honey')){form.reset();say('Message envoyé. Nous revenons vers vous rapidement.','ok');return;}
+    var nom=(d.get('nom')||'').trim(), email=(d.get('email')||'').trim(), message=(d.get('message')||'').trim();
+    if(!nom||!message||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){say('Merci de remplir votre nom, une adresse email valide et votre message.','err');return;}
+    btn.disabled=true; say('Envoi en cours…');
+    var cle='sb_publishable_S9PWWIrzmvkcfCtAejsUAQ_ZzXo519N';
+    fetch('https://ojvlhvsgazatlulliqda.supabase.co/rest/v1/messages_site',{method:'POST',headers:{'Content-Type':'application/json','apikey':cle,'Authorization':'Bearer '+cle,'Prefer':'return=minimal'},body:JSON.stringify({nom:nom,email:email,message:message,site:'idsociety'})})
+    .then(function(r){if(!r.ok) throw new Error('HTTP '+r.status); form.reset(); say('Message envoyé. Nous revenons vers vous rapidement.','ok');})
+    .catch(function(err){if(window.console) console.warn('Formulaire :',err); say('Le message n’est pas parti. Réessayez dans un instant ou écrivez-nous sur Instagram.','err');})
+    .then(function(){btn.disabled=false;});
+  });
 })();
 </script>
 </body>
