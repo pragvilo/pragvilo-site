@@ -9,10 +9,27 @@ API = "https://idsociety.substack.com/api/v1/archive?sort=new&limit=10"
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
         "août", "septembre", "octobre", "novembre", "décembre"]
 
-req = urllib.request.Request(API, headers={"User-Agent": "Mozilla/5.0 (site-updater)"})
-posts = json.load(urllib.request.urlopen(req, timeout=30))
-posts = posts["posts"] if isinstance(posts, dict) else posts
-posts = [p for p in posts if p.get("type") == "newsletter" and p.get("audience") != "only_paid"][:3]
+UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+      "Accept": "*/*", "Accept-Language": "fr-FR,fr;q=0.9"}
+
+
+def get(url):
+    return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30).read()
+
+
+try:
+    posts = json.loads(get(API))
+    posts = posts["posts"] if isinstance(posts, dict) else posts
+    posts = [p for p in posts if p.get("type") == "newsletter" and p.get("audience") != "only_paid"]
+except Exception as e:  # l'API refuse parfois les serveurs GitHub : on passe par le flux RSS
+    print("API indisponible, flux RSS :", e)
+    import xml.etree.ElementTree as ET
+    from email.utils import parsedate_to_datetime
+    root = ET.fromstring(get("https://idsociety.substack.com/feed"))
+    posts = [{"title": i.findtext("title"), "canonical_url": i.findtext("link"),
+              "post_date": parsedate_to_datetime(i.findtext("pubDate")).isoformat()}
+             for i in root.iter("item")]
+posts = posts[:3]
 if len(posts) < 3:
     sys.exit("Moins de 3 newsletters récupérées, rien modifié.")
 
