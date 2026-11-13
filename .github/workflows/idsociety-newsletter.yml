@@ -1,23 +1,18 @@
 name: Newsletters ID Society
+# Substack bloque les serveurs GitHub : la page est mise à jour ailleurs.
+# Ici on redéploie Render dès que la page change sur main.
 on:
-  schedule:
-    - cron: "17 6 * * *"
+  push:
+    branches: [main]
+    paths: [idsocietyclub/index.html]
   workflow_dispatch:
-permissions:
-  contents: write
 jobs:
-  update:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 scripts/update_idsociety_newsletter.py
-      - name: Commit et redéploiement
+      - name: Redéploiement Render
         env:
           RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
-          if git diff --quiet; then echo "Rien de neuf"; exit 0; fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "ID Society : dernières newsletters"
-          git push
-          if [ -n "$RENDER_DEPLOY_HOOK" ]; then curl -fsS -X POST "$RENDER_DEPLOY_HOOK"; else echo "Pas de RENDER_DEPLOY_HOOK : déploiement Render à lancer à la main"; fi
+          if [ -z "$RENDER_DEPLOY_HOOK" ]; then echo "::error::Secret RENDER_DEPLOY_HOOK absent"; exit 1; fi
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK" > /dev/null && echo "Deploiement lance"
