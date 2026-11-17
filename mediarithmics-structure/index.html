@@ -131,8 +131,11 @@ section[data-theme="light"]{border-bottom-color:var(--border-subtle)}
 .sigbar i:nth-child(1){background:var(--brand-cyan)}.sigbar i:nth-child(2){background:var(--brand-coral)}.sigbar i:nth-child(3){background:var(--brand-green)}.sigbar i:nth-child(4){background:var(--brand-orange)}
 
 .logos{padding:var(--space-7) 0}
-.logos .row{display:grid;grid-template-columns:repeat(8,1fr);gap:var(--space-3);margin-top:var(--space-4)}
-.logos .ph{height:52px}
+.logos{border-bottom:0}
+.lrow{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--space-5) var(--space-6);align-items:center;margin-top:var(--space-5)}
+.lrow img{display:block;width:100%;height:56px;object-fit:contain;filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply;opacity:.75;transition:opacity .15s var(--ease)}
+.lrow img:hover{opacity:1}
+.logo img{display:block;height:22px;width:auto}
 
 .chain{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--space-5);align-items:stretch}
 .chain .arrow{align-self:center;color:var(--text-secondary);font-size:var(--size-h2);line-height:1}
@@ -180,7 +183,7 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
   .chain .arrow{justify-self:center;transform:rotate(90deg)}
   .row3,.res,.mapbox{grid-template-columns:1fr}
   .row4{grid-template-columns:1fr 1fr}
-  .logos .row{grid-template-columns:repeat(4,1fr)}
+  .lrow{grid-template-columns:repeat(4,1fr)}
   .fcols{grid-template-columns:1fr 1fr}
   section{padding:var(--space-7) 0}
   .final .card{padding:var(--space-5)}
@@ -200,7 +203,7 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#">mediarithmics <small>vector logo to come</small></a>
+    <a class="logo" href="#"><img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e8175d14ce4_logo-mediarithmics.svg" alt="mediarithmics"></a>
     <nav class="menu" aria-label="Main">
       <div tabindex="0"><span class="dd">Solutions</span>
         <div class="subm">
@@ -240,7 +243,7 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
 
 <section class="hero">
   <div class="wrap">
-    <div class="note"><span class="k">Menu and hero</span>Menu by audience first (Solutions), then product (Platform), then proof (Customers). Pricing removed, as in the brief. The three promise drafts from the workshop switch with the orange buttons. <b>To decide: the final promise · Gilles C., Sébastien</b></div>
+    <div class="note"><span class="k">Menu and hero</span>Menu by audience first (Solutions), then product (Platform), then proof (Customers). Pricing removed, as in the brief. The three promise drafts from the workshop switch with the orange buttons. Logo taken from the current site, the official vector file is still needed. <b>To decide: the final promise · Gilles C., Sébastien</b></div>
     <div class="grid">
       <div>
         <div class="drafts" role="group" aria-label="Promise drafts">
@@ -262,14 +265,25 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
   <div class="sigbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 </section>
 
-<section class="logos">
+<section class="logos" data-theme="light">
   <div class="wrap">
-    <p class="small">Trusted by broadcasters, retailers and telcos across Europe</p>
-    <div class="row">
-      <div class="ph">TF1</div><div class="ph">Channel 4</div><div class="ph">Canal+</div><div class="ph">France TV</div>
-      <div class="ph">Intermarché</div><div class="ph">Unlimitail</div><div class="ph">Valiuz</div><div class="ph">Orange</div>
+    <p class="small">Trusted by broadcasters, publishers, retailers and telcos across Europe</p>
+    <div class="lrow">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e9002d14d22_TF1_logo_256x256.png" alt="TF1">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5eeccdd14d28_Channel_4_logo_256x256.png" alt="Channel 4">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e7d26d14d01_Logo%20France.256x256.png" alt="France Télévisions">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e908cd14d5f_canal-logo.png" alt="Canal+">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/62f3b8117d043002b9fdfb7f_LOGO_PRISMA_RVB-01%20(1).jpeg" alt="Prisma Media">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6356ac933d976b526b19307b_webedia-removebg-preview.png" alt="Webedia">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/646380f912edca6979dc311b_havas4931.jpg" alt="Havas">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/642189b6cf41236f04b050a3_Logo-Cdiscount-baseline.png" alt="Cdiscount">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6421898377100740af8c3cf4_2560px-Logo_Fnac_Darty.svg.png" alt="Fnac Darty">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61fc171d3c66b2c7ab7c1cec_valiuz_site_2.png" alt="Valiuz">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6356ac814412bfe68ecfd1ee_ezgif.com-gif-maker-removebg-preview.png" alt="Showroomprivé">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/646516047b6cc3ee89e62a3a_6KDMmUdUqolmRtrJgyopt-6ebf0e93e87e21682c5ec40a0d948953-Solid_version-1100.jpg" alt="AutoScout24">
+      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/642188849fac23615981b4bb_Orange_logo.svg.png" alt="Orange">
     </div>
-    <div class="note" style="margin:var(--space-5) 0 0"><span class="k">To confirm</span>Names from the brief v2. <b>Which logos we can show · Sébastien</b></div>
+    <div class="note" style="margin:var(--space-5) 0 0"><span class="k">To confirm</span>The 13 logos on mediarithmics.io today, shown in grey on a light band so they read as one set. Brief v2 also names Intermarché, Auchan, Système U, Unlimitail, Bouygues. <b>Which logos we can show, and better files · Sébastien</b></div>
   </div>
 </section>
 
@@ -425,7 +439,7 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
 <footer>
   <div class="wrap">
     <div class="fcols">
-      <div><div class="logo" style="margin-bottom:var(--space-3)">mediarithmics</div><p>The agentic marketing platform.</p><div class="ph" style="height:46px;width:150px;margin-top:var(--space-3)">EY Top 250 badge</div></div>
+      <div><div class="logo" style="margin-bottom:var(--space-3)"><img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e8175d14ce4_logo-mediarithmics.svg" alt="mediarithmics"></div><p>The agentic marketing platform.</p><div class="ph" style="height:46px;width:150px;margin-top:var(--space-3)">EY Top 250 badge</div></div>
       <div><h4>Solutions</h4><a href="#">Retail media</a><a href="#">TV and media</a><a href="#">Consumer brands</a></div>
       <div><h4>Platform</h4><a href="#">How it works</a><a href="#">AI agents</a><a href="#">Partners</a><a href="#">Security</a></div>
       <div><h4>Resources</h4><a href="#">Customers</a><a href="#">Blog</a><a href="#">News</a><a href="#">Whitepapers</a></div>
@@ -443,6 +457,7 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
         <div><b>To decide</b>Duplicate Retail and Media pages · Downloadables · Webseries · event pages from 2024 and 2025</div>
         <div><b>Removed, with redirects</b>Pricing · Old Home (source of the broken links) · draft pages Consumer brands and Into the mics</div>
       </div>
+      <p style="margin:var(--space-3) 0 0"><b>Logo:</b> the one shown is the file from mediarithmics.io today, single colour. We need the official vector logo (SVG, with the four-colour dots your design system mentions) · Sam.</p>
       <p style="margin:var(--space-3) 0 0"><b>Proposals to validate, not covered by your design system:</b> buttons (8px radius, cyan fill, dark text), menu drop-downs, hover and focus states.</p>
     </div>
   </div>
