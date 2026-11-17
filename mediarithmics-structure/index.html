@@ -691,5 +691,30 @@ document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',
 const tg=document.getElementById('tg');
 tg.addEventListener('click',()=>{const on=document.body.classList.toggle('notes');tg.textContent=on?'Hide notes':'Show notes';});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+<script>
+/* Motion (ex-Framer Motion, vanilla build). Design system: max 250 ms, cubic-bezier(.2,0,.2,1). One orchestrated moment: the agent demo in the hero frame. */
+(()=>{
+  if(!window.Motion||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const {animate,inView,stagger}=Motion, E=[.2,0,.2,1], T=.25;
+  const q=s=>document.querySelectorAll(s);
+  // Hero entrance
+  animate('.hero .announce, .hero h1, .hero .lead, .hero .ctas',{opacity:[0,1],y:[8,0]},{duration:T,ease:E,delay:stagger(.06)});
+  // Agent demo: request, then steps ticked one by one, then results on the right
+  const f=document.querySelector('.frame'); if(!f)return;
+  const ask=f.querySelectorAll('.ask'), steps=f.querySelectorAll('.steps li'), bars=f.querySelectorAll('.bars .tr i'), rail=f.querySelectorAll('.rail > *');
+  [...ask,...steps,...rail].forEach(e=>e.style.opacity=0);
+  const w=[...bars].map(b=>b.style.width); bars.forEach(b=>b.style.width='0%');
+  inView(f,()=>{
+    animate(ask[0],{opacity:[0,1],y:[6,0]},{duration:T,ease:E,delay:.3});
+    animate(ask[1],{opacity:[0,1]},{duration:T,ease:E,delay:.75});
+    animate(steps,{opacity:[0,1],x:[-6,0]},{duration:T,ease:E,delay:stagger(.45,{startDelay:.9})});
+    animate(rail,{opacity:[0,1],y:[6,0]},{duration:T,ease:E,delay:stagger(.12,{startDelay:2.4})});
+    bars.forEach((b,i)=>animate(b,{width:['0%',w[i]]},{duration:T,ease:E,delay:2.6+i*.12}));
+  },{amount:.35});
+  // Solutions tabs: new panel slides in
+  q('.tabs button').forEach(b=>b.addEventListener('click',()=>{const p=document.getElementById(b.dataset.t);if(p)animate(p,{opacity:[0,1],y:[6,0]},{duration:T,ease:E});}));
+})();
+</script>
 </body>
 </html>
