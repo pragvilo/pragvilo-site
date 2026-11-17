@@ -154,7 +154,8 @@ section.s{padding:112px 0}
 
 /* Foundation / agents split */
 .fig{margin:0 0 var(--space-5);background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);overflow:hidden}
-.fig img{display:block;width:100%;height:auto}
+.fig img,.fig video{display:block;width:100%;height:auto;mix-blend-mode:lighten}
+@media (prefers-reduced-motion:reduce){.fig video{display:none}.fig{aspect-ratio:1344/768;background:url(sources-profil.webp) center/cover}}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5)}
 .panel{background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);padding:var(--space-6);display:flex;flex-direction:column;transition:border-color .15s var(--ease)}
 .panel:hover{border-color:var(--border-strong)}
@@ -436,8 +437,8 @@ body.notes .drafts{display:flex}
       <div><p class="eyebrow">The platform</p><h2>Know your customers. Let agents do the busywork.</h2></div>
       <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
     </div>
-    <figure class="fig"><img src="sources-profil.webp" width="1344" height="768" alt="Scattered data sources converging into one unified customer profile" loading="lazy"></figure>
-    <div class="note"><span class="k">Visual</span>Illustration generated for the mockup (ElevenLabs), in the design system colours. To be replaced or redrawn by your designer if you keep the idea.</div>
+    <figure class="fig"><video src="sources-profil.mp4" poster="sources-profil.webp" width="1270" height="726" autoplay muted loop playsinline preload="metadata" aria-label="Scattered data sources converging into one unified customer profile"></video></figure>
+    <div class="note"><span class="k">Visual</span>Looping animation generated for the mockup (ElevenLabs video, 6 s, 2.3 MB), in the design system colours. In Webflow it would be a compressed background video or a Lottie file. To be replaced or redrawn by your designer if you keep the idea.</div>
     <div class="split">
       <div class="panel">
         <h3><span class="mk c-cyan"></span>See each customer once</h3>
