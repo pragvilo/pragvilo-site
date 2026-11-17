@@ -7,199 +7,301 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="googlebot" content="noindex, nofollow, noarchive">
 <meta name="referrer" content="no-referrer">
-<title>mediarithmics homepage structure, draft</title>
+<title>mediarithmics homepage, draft</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* Tokens copied from the mediarithmics design system, annex 11 (version October 2026) */
+/* Tokens from the mediarithmics design system, annex 11 (October 2026) */
 :root{
   --brand-cyan:#00a1df;--brand-coral:#ff5959;--brand-green:#00ad68;--brand-orange:#f58d39;--brand-violet:#7057d1;--brand-deep:#093058;
   --surface-base:#061e44;--surface-raised:#0a2450;--surface-deep:#093058;--surface-raised-alt:#0e3268;
   --border-subtle:#1c4378;--border-strong:#3a5c8f;
   --text-primary:#eaf1fa;--text-secondary:#9fb3cd;--text-tertiary:#7e94b4;--text-inverse:#061e44;--text-white:#ffffff;
   --text-link:var(--brand-cyan);--text-eyebrow:var(--brand-cyan);
+  --chart-bar-track:#0c2450;
   --size-display:69px;--size-h1:43px;--size-h2:29px;--size-h3:21px;--size-body-lg:19px;--size-body:16px;--size-small:14px;--size-eyebrow:13px;--size-micro:12px;
   --track-display:-0.02em;--track-h1:-0.015em;--track-h2:-0.01em;--track-eyebrow:0.08em;
   --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:22px;--space-6:32px;--space-7:48px;--space-8:64px;
-  --margin-x:5%;--grid-gutter:1.9%;
+  --margin-x:5%;
   --marker-size:9px;--dot-size:11px;--accent-rule-height:4px;
   --radius-card:12px;--radius-box:8px;--radius-bar:4px;--radius-pill:999px;
   --cover-gradient:linear-gradient(180deg,#08254D,#021035);
-  --leading-display:1.05;--leading-heading:1.2;--leading-body:1.45;
   --font-sans:"DM Sans",Archivo,Inter,"Helvetica Neue",sans-serif;
+  --font-mono:"DM Mono","IBM Plex Mono",ui-monospace,monospace;
   --ease:cubic-bezier(.2,0,.2,1);
 }
 [data-theme="light"]{
   --surface-base:#f7f9fc;--surface-raised:#ffffff;--surface-deep:#edf2f8;--surface-raised-alt:#ffffff;
   --border-subtle:#d2dce8;--border-strong:#b6c4d6;
   --text-primary:#061e44;--text-secondary:#4d5f80;--text-tertiary:#6c7c99;--text-inverse:#ffffff;
-  --text-link:#0077a8;--text-eyebrow:#0077a8;
+  --text-link:#0077a8;--text-eyebrow:#0077a8;--chart-bar-track:#edf2f8;
+  background:var(--surface-base);color:var(--text-primary);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--surface-base);color:var(--text-primary);font-family:var(--font-sans);font-size:var(--size-body);line-height:var(--leading-body);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--surface-base);color:var(--text-primary);font-family:var(--font-sans);font-size:var(--size-body);line-height:1.45;-webkit-font-smoothing:antialiased}
 a{color:var(--text-link);text-decoration:none}
 :focus-visible{outline:2px solid var(--brand-cyan);outline-offset:2px}
 .wrap{max-width:1280px;margin:0 auto;padding:0 var(--margin-x)}
-[data-theme="light"]{background:var(--surface-base);color:var(--text-primary)}
-
-/* ---------- Pragvilo annotations (not part of the design) ---------- */
-.doc{background:var(--surface-deep);border-bottom:1px solid var(--border-subtle);font-size:var(--size-small);color:var(--text-secondary)}
-.doc .wrap{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-6);align-items:center;justify-content:space-between;padding-top:var(--space-3);padding-bottom:var(--space-3)}
-.doc b{color:var(--text-primary);font-weight:500}
-.doc label{display:inline-flex;gap:var(--space-2);align-items:center;cursor:pointer;user-select:none;color:var(--text-primary)}
-.doc input{accent-color:var(--brand-cyan);width:16px;height:16px}
-.note{border:1px dashed var(--brand-orange);border-radius:var(--radius-box);padding:var(--space-3) var(--space-4);font-size:var(--size-small);color:var(--text-secondary);margin:0 0 var(--space-6);max-width:780px}
-.note .k{display:block;font-size:var(--size-micro);font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--brand-orange);margin-bottom:var(--space-1)}
-.note b{color:var(--text-primary);font-weight:500}
-[data-theme="light"] .note b{color:var(--text-primary)}
-body.clean .note,body.clean .drafts{display:none}
-
-/* placeholders */
-.ph{border:1px dashed var(--border-strong);border-radius:var(--radius-card);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-1);color:var(--text-tertiary);font-size:var(--size-micro);text-align:center;padding:var(--space-3);background:transparent}
-
-/* ---------- Type scale ---------- */
-.eyebrow{font-size:var(--size-eyebrow);font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--text-eyebrow);margin:0 0 var(--space-4)}
-.display{font-size:var(--size-display);line-height:var(--leading-display);letter-spacing:var(--track-display);font-weight:400;margin:0 0 var(--space-5);max-width:15ch}
-.display b{font-weight:700}
-h2{font-size:var(--size-h1);line-height:var(--leading-display);letter-spacing:var(--track-h1);font-weight:700;margin:0 0 var(--space-4);max-width:22ch}
-h3{font-size:var(--size-h3);line-height:var(--leading-heading);font-weight:700;margin:0 0 var(--space-2)}
-.sub{font-size:var(--size-body-lg);color:var(--text-secondary);max-width:60ch;margin:0 0 var(--space-7)}
+.mono{font-family:var(--font-mono)}
 p{margin:0 0 var(--space-3)}
+
+/* Type */
+.eyebrow{font-size:var(--size-eyebrow);font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--text-eyebrow);margin:0 0 var(--space-4)}
+.display{font-size:var(--size-display);line-height:1.05;letter-spacing:var(--track-display);font-weight:400;margin:0 auto var(--space-5);max-width:17ch}
+.display b{font-weight:700}
+h2{font-size:var(--size-h1);line-height:1.05;letter-spacing:var(--track-h1);font-weight:700;margin:0 0 var(--space-4);max-width:20ch}
+h3{font-size:var(--size-h3);line-height:1.2;font-weight:700;margin:0 0 var(--space-2)}
+.lead{font-size:var(--size-body-lg);color:var(--text-secondary);max-width:58ch;margin:0}
 .small{font-size:var(--size-small);color:var(--text-secondary)}
 .micro{font-size:var(--size-micro);color:var(--text-tertiary)}
 
-/* ---------- Components ---------- */
-/* Buttons: not defined by the source, Pragvilo proposal */
-.btn{display:inline-flex;align-items:center;gap:var(--space-2);border-radius:var(--radius-box);padding:var(--space-3) var(--space-5);font-weight:500;font-size:var(--size-body);border:1px solid transparent;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease)}
-.btn.primary{background:var(--brand-cyan);color:var(--text-inverse)}
-[data-theme="light"] .btn.primary{color:#061e44}
+/* Buttons (proposal, not defined by the source) */
+.btn{display:inline-flex;align-items:center;gap:var(--space-2);border-radius:var(--radius-box);padding:13px var(--space-5);font-weight:500;font-size:var(--size-body);border:1px solid transparent;cursor:pointer;transition:filter .15s var(--ease),border-color .15s var(--ease)}
+.btn.primary{background:var(--brand-cyan);color:#061e44}
 .btn.primary:hover{filter:brightness(1.08)}
 .btn.primary:active{filter:brightness(.9)}
 .btn.secondary{border-color:var(--border-strong);color:var(--text-primary)}
 .btn.secondary:hover{border-color:var(--text-secondary)}
+.link{font-weight:500;color:var(--text-link);border-bottom:1px solid transparent;transition:border-color .15s var(--ease)}
+.link:hover{border-color:currentColor}
 
-.pill{display:inline-flex;align-items:center;border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:2px 10px;font-size:var(--size-micro);font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--text-secondary);background:transparent}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:2px 10px;font-size:var(--size-micro);font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--text-secondary)}
+.mk{display:inline-block;flex:none;width:var(--marker-size);height:var(--marker-size);border-radius:1px}
+.c-cyan{background:var(--brand-cyan)}.c-coral{background:var(--brand-coral)}.c-green{background:var(--brand-green)}.c-orange{background:var(--brand-orange)}.c-violet{background:var(--brand-violet)}
 
-.card{background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);padding:var(--space-5);display:flex;flex-direction:column;transition:border-color .15s var(--ease)}
-.card:hover{border-color:var(--border-strong)}
-.card h3{display:flex;align-items:baseline;gap:var(--space-3)}
-.mk{flex:none;width:var(--marker-size);height:var(--marker-size);border-radius:1px;transform:translateY(-2px)}
-.mk.cyan{background:var(--brand-cyan)}.mk.coral{background:var(--brand-coral)}.mk.green{background:var(--brand-green)}.mk.orange{background:var(--brand-orange)}.mk.violet{background:var(--brand-violet)}
-.card .ico{width:24px;height:24px;color:var(--brand-cyan);margin-bottom:var(--space-4)}
-.card .go{margin-top:auto;padding-top:var(--space-4);font-weight:500}
-.card ul{list-style:none;padding:0;margin:var(--space-3) 0 0;font-size:var(--size-small);color:var(--text-secondary)}
-.card li{padding:var(--space-2) 0;border-top:1px solid var(--border-subtle)}
-
-.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)}
-.row4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)}
-
-/* ---------- Nav ---------- */
-header.nav{position:sticky;top:0;z-index:20;background:var(--surface-base);border-bottom:1px solid var(--border-subtle)}
-.nav .wrap{display:flex;align-items:center;gap:var(--space-6);height:68px}
-.logo{display:inline-flex;align-items:center;gap:var(--space-2);color:var(--text-white);font-weight:700;font-size:20px;letter-spacing:-.01em}
-.logo small{font-weight:400;font-size:var(--size-micro);color:var(--text-tertiary);border:1px dashed var(--border-strong);border-radius:var(--radius-pill);padding:0 8px}
-.menu{display:flex;gap:var(--space-5);font-size:15px;color:var(--text-secondary);flex:1}
+/* Nav */
+header.nav{position:sticky;top:0;z-index:30;background:rgba(6,30,68,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border-subtle)}
+.nav .wrap{display:flex;align-items:center;gap:var(--space-7);height:68px}
+.logo img{display:block;height:22px;width:auto}
+.menu{display:flex;gap:var(--space-6);font-size:15px;flex:1}
 .menu > div{position:relative}
 .menu > div > span,.menu > div > a{color:var(--text-secondary);cursor:default;transition:color .15s var(--ease)}
 .menu > div:hover > span,.menu > div > a:hover{color:var(--text-primary)}
 .menu .dd::after{content:"";display:inline-block;width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-3px);margin-left:var(--space-2)}
-.subm{display:none;position:absolute;top:28px;left:calc(-1 * var(--space-3));background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);padding:var(--space-2);min-width:260px}
+.subm{display:none;position:absolute;top:30px;left:-16px;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);padding:var(--space-2);min-width:280px}
 .menu > div:hover .subm,.menu > div:focus-within .subm{display:block}
-.subm a{display:block;padding:var(--space-2) var(--space-3);border-radius:var(--radius-box);color:var(--text-primary);font-size:15px}
-.subm a small{display:block;color:var(--text-secondary);font-size:var(--size-micro)}
+.subm a{display:flex;gap:var(--space-3);align-items:flex-start;padding:10px var(--space-3);border-radius:var(--radius-box);color:var(--text-primary);font-size:15px}
+.subm a .mk{margin-top:6px}
+.subm a small{display:block;color:var(--text-secondary);font-size:13px}
 .subm a:hover{background:var(--surface-raised-alt)}
-.navr{display:flex;gap:var(--space-3);align-items:center}
-.lang{display:inline-flex;gap:var(--space-1)}
-.lang .pill.on{color:var(--text-primary);border-color:var(--text-secondary)}
+.navr{display:flex;gap:var(--space-4);align-items:center}
+.navr .signin{color:var(--text-secondary);font-size:15px}
 .burger{display:none}
 
-/* ---------- Sections ---------- */
-section{padding:var(--space-8) 0;border-bottom:1px solid var(--border-subtle)}
-section[data-theme="light"]{border-bottom-color:var(--border-subtle)}
-
-.hero{background:var(--cover-gradient);padding:var(--space-8) 0 0;border-bottom:0}
-.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--space-7);align-items:center;padding-bottom:var(--space-8)}
-.hero .sub{margin-bottom:var(--space-6)}
-.hero .ph{min-height:380px}
-.drafts{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5)}
-.drafts button{font:500 var(--size-micro) var(--font-sans);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--brand-orange);background:transparent;border:1px dashed var(--brand-orange);border-radius:var(--radius-pill);padding:var(--space-1) var(--space-3);cursor:pointer}
-.drafts button[aria-pressed=true]{background:var(--brand-orange);color:var(--text-inverse);border-style:solid}
-.ctas{display:flex;gap:var(--space-3);flex-wrap:wrap}
+/* Hero */
+.hero{background:var(--cover-gradient);text-align:center;padding:96px 0 0;overflow:hidden}
+.hero .lead{margin:0 auto var(--space-6)}
+.hero .ctas{display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;margin-bottom:var(--space-8)}
+.announce{display:inline-flex;align-items:center;gap:var(--space-3);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:5px 14px 5px 6px;font-size:var(--size-small);color:var(--text-secondary);margin-bottom:var(--space-6);transition:border-color .15s var(--ease)}
+.announce:hover{border-color:var(--border-strong)}
+.announce .pill{border-color:var(--brand-violet);color:#b9acef;background:rgba(112,87,209,.16)}
 .sigbar{display:grid;grid-template-columns:repeat(4,1fr);height:var(--accent-rule-height)}
 .sigbar i:nth-child(1){background:var(--brand-cyan)}.sigbar i:nth-child(2){background:var(--brand-coral)}.sigbar i:nth-child(3){background:var(--brand-green)}.sigbar i:nth-child(4){background:var(--brand-orange)}
 
-.logos{padding:var(--space-7) 0}
-.logos{border-bottom:0}
-.lrow{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--space-5) var(--space-6);align-items:center;margin-top:var(--space-5)}
-.lrow img{display:block;width:100%;height:56px;object-fit:contain;filter:grayscale(1) contrast(1.1);mix-blend-mode:multiply;opacity:.75;transition:opacity .15s var(--ease)}
+/* Product frame */
+.frame{position:relative;margin:0 auto;max-width:1100px;text-align:left;background:var(--surface-raised);border:1px solid var(--border-strong);border-bottom:0;border-radius:var(--radius-card) var(--radius-card) 0 0;overflow:hidden}
+.frame .bar{display:flex;align-items:center;gap:var(--space-3);height:40px;padding:0 var(--space-4);border-bottom:1px solid var(--border-subtle);font-size:var(--size-micro);color:var(--text-tertiary)}
+.frame .bar .dots{display:flex;gap:6px}.frame .bar .dots i{width:9px;height:9px;border-radius:50%;background:var(--border-strong)}
+.frame .bar .path{font-family:var(--font-mono)}
+.frame .bar .illu{margin-left:auto}
+.app{display:grid;grid-template-columns:210px 1fr 300px;min-height:440px}
+.side{border-right:1px solid var(--border-subtle);padding:var(--space-4) var(--space-3);font-size:var(--size-small);background:var(--surface-base)}
+.side .grp{font-size:11px;font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--text-tertiary);margin:var(--space-4) var(--space-2) var(--space-2)}
+.side .grp:first-child{margin-top:0}
+.side .it{display:flex;align-items:center;gap:10px;padding:7px var(--space-2);border-radius:6px;color:var(--text-secondary)}
+.side .it.on{background:var(--surface-raised-alt);color:var(--text-primary)}
+.main{padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-4)}
+.ask{display:flex;gap:var(--space-3);align-items:flex-start}
+.av{flex:none;width:28px;height:28px;border-radius:50%;background:var(--surface-raised-alt);border:1px solid var(--border-strong);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--text-secondary)}
+.av.ag{background:var(--brand-violet);border-color:var(--brand-violet);color:#fff}
+.bubble{background:var(--surface-raised-alt);border:1px solid var(--border-subtle);border-radius:var(--radius-box);padding:var(--space-3) var(--space-4);font-size:15px;line-height:1.45}
+.steps{list-style:none;margin:0;padding:0;font-size:var(--size-small)}
+.steps li{display:flex;gap:var(--space-3);align-items:center;padding:9px 0;border-bottom:1px solid var(--border-subtle);color:var(--text-secondary)}
+.steps li:last-child{border-bottom:0}
+.steps .st{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center}
+.steps .ok{background:var(--brand-green)}.steps .ok svg{width:11px;height:11px;stroke:#061e44}
+.steps .run{border:2px solid var(--brand-orange);border-right-color:transparent;animation:spin 1.1s linear infinite}
+.steps b{color:var(--text-primary);font-weight:500}
+.steps .t{margin-left:auto;font-family:var(--font-mono);font-size:var(--size-micro);color:var(--text-tertiary)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.compose{margin-top:auto;display:flex;align-items:center;gap:var(--space-3);border:1px solid var(--border-strong);border-radius:var(--radius-box);padding:10px var(--space-3);color:var(--text-tertiary);font-size:var(--size-small)}
+.compose .send{margin-left:auto;width:28px;height:28px;border-radius:6px;background:var(--brand-cyan);display:grid;place-items:center}
+.rail{border-left:1px solid var(--border-subtle);padding:var(--space-5) var(--space-4);display:flex;flex-direction:column;gap:var(--space-5);background:var(--surface-base)}
+.kpi .l{font-size:var(--size-micro);color:var(--text-tertiary);text-transform:uppercase;letter-spacing:var(--track-eyebrow);font-weight:500}
+.kpi .v{font-size:var(--size-h2);font-weight:700;letter-spacing:var(--track-h2);margin-top:4px}
+.kpi .d{font-size:var(--size-micro);color:var(--brand-green)}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bars .r{display:grid;grid-template-columns:78px 1fr 34px;gap:var(--space-2);align-items:center;font-size:var(--size-micro);color:var(--text-secondary)}
+.bars .tr{height:8px;border-radius:var(--radius-bar);background:var(--chart-bar-track);overflow:hidden}
+.bars .tr i{display:block;height:100%;border-radius:var(--radius-bar)}
+.bars .n{font-family:var(--font-mono);text-align:right;color:var(--text-tertiary)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Logos */
+.logos{padding:var(--space-7) 0 var(--space-8)}
+.logos p{text-align:center;color:var(--text-tertiary);font-size:var(--size-small);margin-bottom:var(--space-6)}
+.lrow{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-6) 52px;align-items:center}
+.lrow img{display:block;height:34px;width:auto;max-width:120px;object-fit:contain;filter:grayscale(1) invert(1) brightness(1.5) contrast(1.2);mix-blend-mode:screen;opacity:.62;transition:opacity .15s var(--ease)}
+.lrow img.tall{height:46px}
 .lrow img:hover{opacity:1}
-.logo img{display:block;height:22px;width:auto}
 
-.chain{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--space-5);align-items:stretch}
-.chain .arrow{align-self:center;color:var(--text-secondary);font-size:var(--size-h2);line-height:1}
-.agents{margin-top:var(--space-5)}
-.agents .card .pill{align-self:flex-start;margin-bottom:var(--space-3)}
+/* Generic sections */
+section.s{padding:112px 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-7);align-items:end;margin-bottom:var(--space-7)}
+.head .lead{justify-self:end}
 
-/* comparison pair: before coral, after cyan */
-.ex{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-7);align-items:start}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
-.pair .v{font-size:var(--size-h1);font-weight:700;letter-spacing:var(--track-h1);line-height:var(--leading-display);margin:var(--space-3) 0}
-.pair .before .v{color:var(--brand-coral)}
-.pair .after .v{color:#0077a8}
+/* Foundation / agents split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5)}
+.panel{background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);padding:var(--space-6);display:flex;flex-direction:column;transition:border-color .15s var(--ease)}
+.panel:hover{border-color:var(--border-strong)}
+.panel h3{display:flex;align-items:center;gap:var(--space-3);font-size:var(--size-h2);letter-spacing:var(--track-h2);margin-bottom:var(--space-3)}
+.panel .small{max-width:46ch}
+.viz{margin-top:var(--space-6);border-top:1px solid var(--border-subtle);padding-top:var(--space-5)}
+/* identity viz */
+.idv{display:grid;grid-template-columns:1fr 36px 1.2fr;gap:var(--space-3);align-items:center}
+.src{display:flex;flex-direction:column;gap:var(--space-2)}
+.src span{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border-subtle);border-radius:var(--radius-box);padding:8px var(--space-3);font-size:var(--size-small);color:var(--text-secondary)}
+.src span em{font-style:normal;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary)}
+.join{height:100%;position:relative}
+.join svg{position:absolute;inset:0;width:100%;height:100%}
+.profile{border:1px solid var(--border-strong);border-radius:var(--radius-box);padding:var(--space-4);background:var(--surface-raised-alt)}
+.profile .id{font-family:var(--font-mono);font-size:var(--size-micro);color:var(--brand-cyan);margin-bottom:var(--space-3)}
+.profile dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px var(--space-3);font-size:var(--size-micro)}
+.profile dt{color:var(--text-tertiary)}.profile dd{margin:0;color:var(--text-primary);text-align:right}
+.row4.blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);margin-top:var(--space-7);padding-top:var(--space-6);border-top:1px solid var(--border-subtle)}
+.blocks .mk{margin-bottom:var(--space-4)}
+/* agents list */
+.agl{display:flex;flex-direction:column}
+.agl .a{display:grid;grid-template-columns:auto 1fr auto;gap:var(--space-3);align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--border-subtle)}
+.agl .a:last-child{border-bottom:0}
+.agl .a b{display:block;font-weight:500}
+.agl .a small{color:var(--text-secondary);font-size:13px}
+.agl .pill.live{border-color:var(--brand-green);color:var(--brand-green)}
 
-/* stat strip */
-.strip{border-top:1px solid var(--border-strong);padding-top:var(--space-6)}
-.stat .v{font-size:var(--size-h1);font-weight:700;letter-spacing:var(--track-h1);line-height:var(--leading-display);color:var(--brand-cyan)}
-.stat:first-child .v{color:var(--text-white)}
-.stat .l{font-size:var(--size-small);color:var(--text-secondary);margin-top:var(--space-2);max-width:26ch}
+/* Audiences, tabs */
+.tabs{display:flex;gap:var(--space-2);border-bottom:1px solid var(--border-subtle);margin-bottom:var(--space-6);overflow-x:auto}
+.tabs button{display:flex;align-items:center;gap:10px;font:500 var(--size-body) var(--font-sans);color:var(--text-secondary);background:none;border:0;border-bottom:2px solid transparent;padding:var(--space-3) var(--space-4) var(--space-4);margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .15s var(--ease)}
+.tabs button:hover{color:var(--text-primary)}
+.tabs button[aria-selected=true]{color:var(--text-primary);border-bottom-color:var(--brand-cyan)}
+.tp{display:none;grid-template-columns:1fr 1fr;gap:var(--space-7);align-items:center}
+.tp.on{display:grid}
+.tp h3{font-size:var(--size-h2);letter-spacing:var(--track-h2);margin-bottom:var(--space-4);max-width:22ch}
+.tp ul{list-style:none;padding:0;margin:var(--space-5) 0 var(--space-6)}
+.tp li{display:flex;gap:var(--space-3);padding:var(--space-3) 0;border-top:1px solid var(--border-subtle);color:var(--text-secondary)}
+.tp li svg{flex:none;width:20px;height:20px;color:var(--brand-cyan);margin-top:1px}
+.tp li b{color:var(--text-primary);font-weight:500}
+.mini{background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);padding:var(--space-5)}
+.mini .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5)}
+.mini .top b{font-weight:500}
+.legend{display:flex;gap:var(--space-4);font-size:var(--size-micro);color:var(--text-secondary)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:1px}
+.stack{display:flex;flex-direction:column;gap:var(--space-3)}
+.stack .r{display:grid;grid-template-columns:110px 1fr;gap:var(--space-3);align-items:center;font-size:var(--size-small);color:var(--text-secondary)}
+.stack .b{display:flex;height:22px;border-radius:var(--radius-bar);overflow:hidden;background:var(--chart-bar-track)}
+.stack .b i{display:block;height:100%}
+.mini .foot{margin-top:var(--space-5);padding-top:var(--space-4);border-top:1px solid var(--border-subtle);display:flex;justify-content:space-between;font-size:var(--size-micro);color:var(--text-tertiary)}
 
-.cases .ph{height:160px;margin-bottom:var(--space-4)}
-.res .ph{min-height:150px}
-.res{grid-template-columns:2fr 1fr 1fr}
+/* Example, light */
+.ex{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--space-8);align-items:center}
+.quote{font-size:var(--size-h2);line-height:1.25;letter-spacing:var(--track-h2);font-weight:400;margin:0 0 var(--space-5)}
+.quote b{font-weight:700}
+.who{display:flex;align-items:center;gap:var(--space-3);font-size:var(--size-small);color:var(--text-secondary)}
+.who .ph{width:40px;height:40px;border-radius:50%;background:var(--surface-deep);border:1px solid var(--border-subtle)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border-subtle);border-radius:var(--radius-card);background:var(--surface-raised);overflow:hidden}
+.cmp > div{padding:var(--space-6)}
+.cmp > div + div{border-left:1px solid var(--border-subtle)}
+.cmp .h{display:flex;align-items:center;gap:var(--space-2);font-weight:700;margin-bottom:var(--space-4)}
+.cmp .v{font-size:56px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.cmp .before .v{color:var(--brand-coral)}.cmp .after .v{color:#0077a8}
+.cmp ul{list-style:none;padding:0;margin:var(--space-5) 0 0;font-size:var(--size-small);color:var(--text-secondary)}
+.cmp li{padding:6px 0}
 
-.final .card{display:grid;grid-template-columns:1.4fr .6fr;gap:var(--space-6);align-items:center;padding:var(--space-7)}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border-strong)}
+.stats > div{padding:var(--space-6) var(--space-5) 0 0}
+.stats .v{font-size:56px;font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--brand-cyan)}
+.stats > div:first-child .v{color:var(--text-white)}
+.stats .l{font-size:var(--size-small);color:var(--text-secondary);margin-top:var(--space-3);max-width:24ch}
 
-footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color:var(--text-secondary)}
-.fcols{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:var(--space-5)}
+/* Why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-7)}
+.why svg{width:24px;height:24px;color:var(--brand-cyan);margin-bottom:var(--space-4)}
+.why h3{margin-bottom:var(--space-3)}
+
+/* Cases */
+.cases{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:var(--space-5)}
+.case{display:flex;flex-direction:column;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-card);overflow:hidden;transition:border-color .15s var(--ease)}
+.case:hover{border-color:var(--border-strong)}
+.case .img{aspect-ratio:16/9;background:var(--surface-deep);display:grid;place-items:center;border-bottom:1px solid var(--border-subtle)}
+.case .img span{font-size:var(--size-micro);color:var(--text-tertiary)}
+.case .body{padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2);flex:1}
+.case .body .link{margin-top:auto;padding-top:var(--space-3)}
+.case .metric{font-size:var(--size-h2);font-weight:700;color:#0077a8}
+
+/* Final */
+.final{text-align:center;background:var(--cover-gradient);padding:120px 0}
+.final h2{margin:0 auto var(--space-4);max-width:18ch;font-size:56px}
+.final .lead{margin:0 auto var(--space-6)}
+
+/* Footer */
+footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color:var(--text-secondary);border-top:1px solid var(--border-subtle)}
+.fcols{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:var(--space-5)}
 .fcols h4{color:var(--text-primary);font-size:var(--size-small);margin:0 0 var(--space-3);font-weight:700}
-.fcols a{display:block;color:var(--text-secondary);padding:3px 0}
+.fcols a{display:block;color:var(--text-secondary);padding:4px 0}
 .fcols a:hover{color:var(--text-primary)}
+.badges{display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap}
 .fbot{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6);justify-content:space-between;margin-top:var(--space-7);padding-top:var(--space-5);border-top:1px solid var(--border-subtle);font-size:var(--size-micro);color:var(--text-tertiary)}
-.mapbox{margin-top:var(--space-3);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
-.mapbox div{border:1px solid var(--border-subtle);border-radius:var(--radius-box);padding:var(--space-3)}
-.mapbox b{display:block;margin-bottom:var(--space-1)}
+.lang{display:inline-flex;gap:var(--space-1)}
+.lang .pill.on{color:var(--text-primary);border-color:var(--text-secondary)}
 
+/* Pragvilo review layer, hidden by default */
+.review{position:fixed;right:20px;bottom:20px;z-index:50;display:flex;gap:var(--space-2);align-items:center;background:var(--surface-raised);border:1px solid var(--border-strong);border-radius:var(--radius-pill);padding:6px 6px 6px 16px;font-size:var(--size-small);color:var(--text-secondary)}
+.review button{font:500 var(--size-small) var(--font-sans);border:0;border-radius:var(--radius-pill);padding:8px 14px;cursor:pointer;background:var(--brand-orange);color:#061e44}
+.note{display:none;border:1px dashed var(--brand-orange);border-radius:var(--radius-box);padding:var(--space-3) var(--space-4);font-size:var(--size-small);color:var(--text-secondary);margin:0 0 var(--space-6);max-width:820px;text-align:left}
+.note .k{display:block;font-size:var(--size-micro);font-weight:500;letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--brand-orange);margin-bottom:var(--space-1)}
+.note b{color:var(--text-primary);font-weight:500}
+.hero .note{margin:0 auto var(--space-6)}
+.drafts{display:none;gap:var(--space-2);justify-content:center;flex-wrap:wrap;margin-bottom:var(--space-5)}
+.drafts button{font:500 var(--size-micro) var(--font-sans);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--brand-orange);background:transparent;border:1px dashed var(--brand-orange);border-radius:var(--radius-pill);padding:var(--space-1) var(--space-3);cursor:pointer}
+.drafts button[aria-pressed=true]{background:var(--brand-orange);color:#061e44;border-style:solid}
+body.notes .note{display:block}
+body.notes .drafts{display:flex}
+
+@media (max-width:1080px){
+  .app{grid-template-columns:1fr}
+  .side,.rail{display:none}
+}
 @media (max-width:960px){
+  .row4.blocks{grid-template-columns:1fr 1fr}
   :root{--size-display:44px;--size-h1:32px;--size-h2:24px}
   .menu,.navr .hide-m{display:none}
   .burger{display:inline-flex;width:40px;height:40px;border:1px solid var(--border-subtle);border-radius:var(--radius-box);align-items:center;justify-content:center}
   .burger i{display:block;width:16px;height:2px;background:var(--text-primary);box-shadow:0 5px 0 var(--text-primary),0 -5px 0 var(--text-primary)}
   .nav .wrap{justify-content:space-between}
-  .hero .grid,.ex,.final .card{grid-template-columns:1fr}
-  .hero .ph{min-height:220px}
-  .chain{grid-template-columns:1fr}
-  .chain .arrow{justify-self:center;transform:rotate(90deg)}
-  .row3,.res,.mapbox{grid-template-columns:1fr}
-  .row4{grid-template-columns:1fr 1fr}
-  .lrow{grid-template-columns:repeat(4,1fr)}
+  .hero{padding-top:64px}
+  .head,.split,.tp.on,.ex,.why,.cases{grid-template-columns:1fr}
+  .head .lead{justify-self:start}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats > div{padding-bottom:var(--space-5)}
+  .stats .v,.cmp .v{font-size:40px}
   .fcols{grid-template-columns:1fr 1fr}
-  section{padding:var(--space-7) 0}
-  .final .card{padding:var(--space-5)}
+  section.s{padding:72px 0}
+  .final{padding:80px 0}.final h2{font-size:36px}
+  .lrow{gap:var(--space-5) var(--space-6)}
+  .lrow img{height:26px}.lrow img.tall{height:36px}
 }
-@media (max-width:440px){ .pair{grid-template-columns:1fr} .row4{grid-template-columns:1fr} }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:520px){
+  .cmp{grid-template-columns:1fr}.cmp > div + div{border-left:0;border-top:1px solid var(--border-subtle)}
+  .idv{grid-template-columns:1fr}.join{display:none}
+  .review span{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-
-<div class="doc">
-  <div class="wrap">
-    <div><b>Homepage structure, draft for discussion.</b> Placeholder copy. Built on the mediarithmics design system, October 2026 · Pragvilo, 17 Nov 2026</div>
-    <label><input type="checkbox" id="clean"> Hide notes</label>
-  </div>
-</div>
 
 <header class="nav">
   <div class="wrap">
@@ -207,29 +309,29 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
     <nav class="menu" aria-label="Main">
       <div tabindex="0"><span class="dd">Solutions</span>
         <div class="subm">
-          <a href="#audiences">Retail media<small>For retailers growing their media business</small></a>
-          <a href="#audiences">TV and media<small>For broadcasters and ad sales houses</small></a>
-          <a href="#audiences">Consumer brands<small>For brands working with their own data</small></a>
+          <a href="#audiences"><span class="mk c-cyan"></span><span>Retail media<small>Grow your retail media business</small></span></a>
+          <a href="#audiences"><span class="mk c-coral"></span><span>TV and media<small>Sell cookieless audiences on every screen</small></span></a>
+          <a href="#audiences"><span class="mk c-green"></span><span>Consumer brands<small>Measure campaigns on sales</small></span></a>
         </div>
       </div>
       <div tabindex="0"><span class="dd">Platform</span>
         <div class="subm">
-          <a href="#chain">How it works<small>Identities first, then AI agents</small></a>
-          <a href="#chain">AI agents<small>What the agents do today</small></a>
-          <a href="#why">Partners and integrations<small>Snowflake · clean rooms · activation</small></a>
-          <a href="#why">Security and compliance<small>European · sovereign · GDPR</small></a>
+          <a href="#platform"><span class="mk c-cyan"></span><span>Identity foundation<small>One view of every customer</small></span></a>
+          <a href="#platform"><span class="mk c-violet"></span><span>AI agents<small>Audiences, campaigns, measurement</small></span></a>
+          <a href="#why"><span class="mk c-green"></span><span>Partners and integrations<small>Snowflake, clean rooms, activation</small></span></a>
+          <a href="#why"><span class="mk c-orange"></span><span>Security and compliance<small>ISO 27001, hosted in France</small></span></a>
         </div>
       </div>
-      <div><a href="#cases">Customers</a></div>
+      <div><a href="#customers">Customers</a></div>
       <div tabindex="0"><span class="dd">Resources</span>
         <div class="subm">
-          <a href="#resources">Blog</a>
-          <a href="#resources">News and events</a>
-          <a href="#resources">Whitepapers</a>
-          <a href="#resources">For AI agents<small>Scope to confirm</small></a>
+          <a href="#"><span class="mk c-cyan"></span><span>Blog</span></a>
+          <a href="#"><span class="mk c-cyan"></span><span>News and events</span></a>
+          <a href="#"><span class="mk c-cyan"></span><span>Whitepapers</span></a>
+          <a href="#"><span class="mk c-violet"></span><span>For AI agents<small>A page written for AI assistants</small></span></a>
         </div>
       </div>
-      <div><span>Company</span></div>
+      <div><a href="#">Company</a></div>
     </nav>
     <div class="navr">
       <span class="hide-m lang"><span class="pill on">EN</span><span class="pill">FR</span><span class="pill">ES</span></span>
@@ -243,194 +345,298 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
 
 <section class="hero">
   <div class="wrap">
-    <div class="note"><span class="k">Menu and hero</span>Menu by audience first (Solutions), then product (Platform), then proof (Customers). Pricing removed, as in the brief. The three promise drafts from the workshop switch with the orange buttons. Logo taken from the current site, the official vector file is still needed. <b>To decide: the final promise · Gilles C., Sébastien</b></div>
-    <div class="grid">
-      <div>
-        <div class="drafts" role="group" aria-label="Promise drafts">
-          <button aria-pressed="true" data-d="a">Draft A · the chain</button>
-          <button aria-pressed="false" data-d="b">Draft B · time saved</button>
-          <button aria-pressed="false" data-d="c">Draft C · the platform</button>
+    <div class="note"><span class="k">Hero</span>Three promise drafts from the workshop, switch them with the orange buttons. Logo from the current site, the official vector file is still needed. <b>To decide: the final promise · Gilles C., Sébastien</b></div>
+    <div class="drafts" role="group" aria-label="Promise drafts">
+      <button aria-pressed="true" data-d="a">Draft A · the chain</button>
+      <button aria-pressed="false" data-d="b">Draft B · time saved</button>
+      <button aria-pressed="false" data-d="c">Draft C · the platform</button>
+    </div>
+    <a class="announce" href="#platform"><span class="pill">Mics AI</span>Build audiences by asking in plain words</a>
+    <h1 class="display" id="h1"><b>Master</b> your customer <b>identities.</b> Let <b>AI agents</b> run your <b>marketing.</b></h1>
+    <p class="lead" id="lede">More than just a CDP. Speak marketing, launch campaigns, measure everything.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#meeting">Book a meeting with an expert</a>
+      <a class="btn secondary" href="#platform">See how it works</a>
+    </div>
+
+    <div class="frame" aria-label="Product illustration">
+      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="path">mediarithmics / segmentation / mics-ai</span><span class="illu">Mock-up, real screenshot to come</span></div>
+      <div class="app">
+        <aside class="side">
+          <div class="grp">Segmentation</div>
+          <div class="it on"><span class="mk c-violet"></span>Mics AI agent</div>
+          <div class="it"><span class="mk c-cyan"></span>Standard Builder</div>
+          <div class="it"><span class="mk c-cyan"></span>Advanced Builder</div>
+          <div class="it"><span class="mk c-cyan"></span>Look-alike</div>
+          <div class="grp">Data</div>
+          <div class="it"><span class="mk c-cyan"></span>Customer 360</div>
+          <div class="it"><span class="mk c-cyan"></span>Data Clean Room</div>
+          <div class="it"><span class="mk c-cyan"></span>Connect ID</div>
+          <div class="grp">Activation</div>
+          <div class="it"><span class="mk c-green"></span>Automation</div>
+          <div class="it"><span class="mk c-orange"></span>Dashboards</div>
+        </aside>
+        <div class="main">
+          <div class="ask"><span class="av">You</span><div class="bubble">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+          <div class="ask"><span class="av ag">AI</span>
+            <ul class="steps" style="flex:1">
+              <li><span class="st ok"><svg viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Request turned into a segment</b></span><span class="t">segment_id</span></li>
+              <li><span class="st ok"><svg viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Reach previewed</b> before activation</span><span class="t">insights</span></li>
+              <li><span class="st ok"><svg viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Consent applied</b> per purpose and destination</span><span class="t">processing_rules</span></li>
+              <li><span class="st run"></span><span><b>Activating</b> on Meta, DV360, Equativ</span><span class="t">3 connectors</span></li>
+            </ul>
+          </div>
+          <div class="compose">Ask Mics AI<span class="send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#061e44" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
         </div>
-        <p class="eyebrow">The agentic marketing platform</p>
-        <h1 class="display" id="h1"><b>Master</b> your customer <b>identities.</b> Let <b>AI agents</b> run your <b>marketing.</b></h1>
-        <p class="sub" id="lede">Faster campaigns · measured on sales · on your own data. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <div class="ctas">
-          <a class="btn primary" href="#meeting">Book a meeting with an expert</a>
-          <a class="btn secondary" href="#chain">See how it works</a>
-        </div>
+        <aside class="rail">
+          <div class="kpi"><div class="l">Segment size</div><div class="v">0.0M</div><div class="micro">profiles</div></div>
+          <div>
+            <div class="kpi"><div class="l">Reach by destination</div></div>
+            <div class="bars" style="margin-top:10px">
+              <div class="r">Meta<span class="tr"><i style="width:70%;background:var(--brand-cyan)"></i></span><span class="n">00%</span></div>
+              <div class="r">DV360<span class="tr"><i style="width:55%;background:var(--brand-orange)"></i></span><span class="n">00%</span></div>
+              <div class="r">Equativ<span class="tr"><i style="width:40%;background:var(--brand-green)"></i></span><span class="n">00%</span></div>
+            </div>
+          </div>
+          <div class="kpi"><div class="l">Overlap with other segments</div><div class="v">00%</div></div>
+          <div class="chips"><span class="pill">Consent OK</span><span class="pill">Hosted in France</span></div>
+        </aside>
       </div>
-      <div class="ph"><span>Product visual · an agent at work on a real campaign</span><span>Screenshot or flat vector illustration, no stock photo · Sam</span></div>
     </div>
   </div>
   <div class="sigbar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 </section>
 
-<section class="logos" data-theme="light">
+<section class="logos">
   <div class="wrap">
-    <p class="small">Trusted by broadcasters, publishers, retailers and telcos across Europe</p>
+    <div class="note"><span class="k">To confirm</span>The 13 logos on mediarithmics.io today. The brief also names Intermarché, Auchan, Système U, Unlimitail, Bouygues. <b>Which logos we can show, and clean files · Sébastien</b></div>
+    <p>Trusted by Europe's broadcasters, publishers, retailers and telcos</p>
     <div class="lrow">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e9002d14d22_TF1_logo_256x256.png" alt="TF1">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5eeccdd14d28_Channel_4_logo_256x256.png" alt="Channel 4">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e7d26d14d01_Logo%20France.256x256.png" alt="France Télévisions">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e908cd14d5f_canal-logo.png" alt="Canal+">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e9002d14d22_TF1_logo_256x256.png" alt="TF1">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5eeccdd14d28_Channel_4_logo_256x256.png" alt="Channel 4">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e7d26d14d01_Logo%20France.256x256.png" alt="France Télévisions">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e908cd14d5f_canal-logo.png" alt="Canal+">
       <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/62f3b8117d043002b9fdfb7f_LOGO_PRISMA_RVB-01%20(1).jpeg" alt="Prisma Media">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6356ac933d976b526b19307b_webedia-removebg-preview.png" alt="Webedia">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6356ac933d976b526b19307b_webedia-removebg-preview.png" alt="Webedia">
       <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/646380f912edca6979dc311b_havas4931.jpg" alt="Havas">
       <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/642189b6cf41236f04b050a3_Logo-Cdiscount-baseline.png" alt="Cdiscount">
       <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6421898377100740af8c3cf4_2560px-Logo_Fnac_Darty.svg.png" alt="Fnac Darty">
       <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61fc171d3c66b2c7ab7c1cec_valiuz_site_2.png" alt="Valiuz">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6356ac814412bfe68ecfd1ee_ezgif.com-gif-maker-removebg-preview.png" alt="Showroomprivé">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/646516047b6cc3ee89e62a3a_6KDMmUdUqolmRtrJgyopt-6ebf0e93e87e21682c5ec40a0d948953-Solid_version-1100.jpg" alt="AutoScout24">
-      <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/642188849fac23615981b4bb_Orange_logo.svg.png" alt="Orange">
-    </div>
-    <div class="note" style="margin:var(--space-5) 0 0"><span class="k">To confirm</span>The 13 logos on mediarithmics.io today, shown in grey on a light band so they read as one set. Brief v2 also names Intermarché, Auchan, Système U, Unlimitail, Bouygues. <b>Which logos we can show, and better files · Sébastien</b></div>
-  </div>
-</section>
-
-<section id="chain">
-  <div class="wrap">
-    <div class="note"><span class="k">Needed</span>The story agreed in the workshop, in this order. Violet is kept for AI and agents only, as your design system says. <b>Agents live today vs roadmap · Stéphane</b></div>
-    <p class="eyebrow">01 — How it works</p>
-    <h2>Your identities are the foundation. AI agents do the rest.</h2>
-    <p class="sub">One customer view · campaigns run by agents · results measured on sales</p>
-    <div class="chain">
-      <div class="card">
-        <h3><span class="mk cyan"></span>Master your marketing identities</h3>
-        <p class="small">You see each customer once, across screens, stores and sites. Lorem ipsum dolor sit amet.</p>
-      </div>
-      <div class="arrow" aria-hidden="true">→</div>
-      <div class="card">
-        <h3><span class="mk violet"></span>Agentic AI becomes possible</h3>
-        <p class="small">Agents build audiences, launch campaigns and report on sales. Lorem ipsum dolor sit amet.</p>
-      </div>
-    </div>
-    <div class="row4 agents">
-      <div class="card"><span class="pill">Live?</span><h3><span class="mk violet"></span>Audience agent</h3><p class="small">Lorem ipsum dolor sit amet.</p></div>
-      <div class="card"><span class="pill">Live?</span><h3><span class="mk violet"></span>Campaign agent</h3><p class="small">Lorem ipsum dolor sit amet.</p></div>
-      <div class="card"><span class="pill">Live?</span><h3><span class="mk violet"></span>Measurement agent</h3><p class="small">Lorem ipsum dolor sit amet.</p></div>
-      <div class="card"><span class="pill">Roadmap?</span><h3><span class="mk violet"></span>Agent name</h3><p class="small">Lorem ipsum dolor sit amet.</p></div>
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/6356ac814412bfe68ecfd1ee_ezgif.com-gif-maker-removebg-preview.png" alt="Showroomprivé">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/646516047b6cc3ee89e62a3a_6KDMmUdUqolmRtrJgyopt-6ebf0e93e87e21682c5ec40a0d948953-Solid_version-1100.jpg" alt="AutoScout24">
+      <img class="tall" src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/642188849fac23615981b4bb_Orange_logo.svg.png" alt="Orange">
     </div>
   </div>
 </section>
 
-<section data-theme="light" id="example">
+<section class="s" id="platform">
   <div class="wrap">
-    <div class="note"><span class="k">Needed</span>One real campaign run with the agents, before and after. Built as your comparison pattern: coral for before, cyan for after. <b>The example and the customer who stands behind it · Sébastien</b></div>
+    <div class="note"><span class="k">Source</span>Product names and descriptions from your RFP decks (September 2026). Violet stays for AI only. <b>To confirm: is Mics AI the only agent live today, and what is on the roadmap · Stéphane</b></div>
+    <div class="head">
+      <div><p class="eyebrow">The platform</p><h2>Your identities are the foundation. AI agents do the rest.</h2></div>
+      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h3><span class="mk c-cyan"></span>Master your identities</h3>
+        <p class="small">We collect and unify your data sources around a single profile, and match anonymous visits to known customers.</p>
+        <div class="viz">
+          <div class="idv">
+            <div class="src">
+              <span>Website and app<em>user_point</em></span>
+              <span>CRM<em>crm_id</em></span>
+              <span>Transactions<em>order_id</em></span>
+              <span>Store receipts<em>receipt_id</em></span>
+            </div>
+            <div class="join" aria-hidden="true"><svg viewBox="0 0 36 180" preserveAspectRatio="none"><path d="M0 20 C 20 20, 16 90, 36 90 M0 66 C 20 66, 16 90, 36 90 M0 114 C 20 114, 16 90, 36 90 M0 160 C 20 160, 16 90, 36 90" fill="none" stroke="#3a5c8f" stroke-width="1.5"/></svg></div>
+            <div class="profile">
+              <div class="id">Customer 360</div>
+              <dl><dt>Lorem</dt><dd>Ipsum</dd><dt>Dolor</dt><dd>Sit amet</dd><dt>Computed field</dt><dd>00</dd><dt>User choices</dt><dd style="color:var(--brand-green)">Stored</dd></dl>
+            </div>
+          </div>
+          <p class="micro" style="margin:var(--space-3) 0 0">Mock-up, values are placeholders</p>
+        </div>
+      </div>
+      <div class="panel">
+        <h3><span class="mk c-violet"></span>Let agents run the work</h3>
+        <p class="small">The Mics AI agent turns your intent, written in plain words, into audience segments and insights ready to activate.</p>
+        <div class="viz agl">
+          <div class="a"><span class="mk c-violet"></span><span><b>Mics AI agent</b><small>From a request in plain words to an audience ready to activate</small></span></div>
+          <div class="a"><span class="mk c-cyan"></span><span><b>Standard Builder</b><small>Ready-made criteria and a reach preview before activation</small></span></div>
+          <div class="a"><span class="mk c-cyan"></span><span><b>Look-alike</b><small>Extends a campaign to profiles similar to a source audience</small></span></div>
+          <div class="a"><span class="mk c-green"></span><span><b>Automation</b><small>Real-time journeys across channels, alongside your CRM</small></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="row4 blocks">
+      <div><span class="mk c-cyan"></span><h3>Agentic Marketing Platform</h3><p class="small">Grow the return of your marketing on your first-party data.</p></div>
+      <div><span class="mk c-coral"></span><h3>Data Collaboration</h3><p class="small">Connect every partner in a clean room, and keep your data isolated.</p></div>
+      <div><span class="mk c-green"></span><h3>Connect ID</h3><p class="small">Activate your CRM base at scale to get more from each campaign.</p></div>
+      <div><span class="mk c-orange"></span><h3>Cockpit</h3><p class="small">Standardise ad measurement to steer retail media.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="audiences" style="padding-top:0">
+  <div class="wrap">
+    <div class="note"><span class="k">Needed</span>One message per audience, in the order of the brief, in tabs instead of three identical cards. Each tab links to the existing sector page. Wording stays positive. <b>Pains and proof per audience · Sébastien's team</b></div>
+    <div class="head">
+      <div><p class="eyebrow">Solutions</p><h2>Built for the people who sell and buy media.</h2></div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-t="t1"><span class="mk c-cyan"></span>Retail media</button>
+      <button role="tab" aria-selected="false" data-t="t2"><span class="mk c-coral"></span>TV and media</button>
+      <button role="tab" aria-selected="false" data-t="t3"><span class="mk c-green"></span>Consumer brands</button>
+    </div>
+
+    <div class="tp on" id="t1" role="tabpanel">
+      <div>
+        <h3>Grow your retail media business, and keep your customer data yours.</h3>
+        <p class="lead" style="font-size:var(--size-body)">A sovereign retail media infrastructure, with the network effect of many retailers on one platform.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+        </ul>
+        <a class="link" href="#">Explore retail media</a>
+      </div>
+      <div class="mini">
+        <div class="top"><b>Chart title</b><div class="legend"><span><i class="c-cyan"></i>Series 1</span><span><i style="background:#7f93b8"></i>Series 2</span></div></div>
+        <div class="stack">
+          <div class="r">Lorem<span class="b"><i style="width:58%;background:var(--brand-cyan)"></i><i style="width:30%;background:#7f93b8"></i></span></div>
+          <div class="r">Ipsum<span class="b"><i style="width:44%;background:var(--brand-cyan)"></i><i style="width:31%;background:#7f93b8"></i></span></div>
+          <div class="r">Dolor<span class="b"><i style="width:51%;background:var(--brand-cyan)"></i><i style="width:33%;background:#7f93b8"></i></span></div>
+          <div class="r">Sit amet<span class="b"><i style="width:39%;background:var(--brand-cyan)"></i><i style="width:29%;background:#7f93b8"></i></span></div>
+        </div>
+        <div class="foot"><span>Placeholder chart</span><span>Unlimitail · Valiuz</span></div>
+      </div>
+    </div>
+
+    <div class="tp" id="t2" role="tabpanel">
+      <div>
+        <h3>Sell cookieless audiences on every screen, in days.</h3>
+        <p class="lead" style="font-size:var(--size-body)">Your first-party data becomes audiences you can activate on every screen, and a clean room you share with advertisers.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+        </ul>
+        <a class="link" href="#">Explore TV and media</a>
+      </div>
+      <div class="mini">
+        <div class="top"><b>Chart title</b><div class="legend"><span><i class="c-cyan"></i>Series 1</span><span><i style="background:#7f93b8"></i>Series 2</span></div></div>
+        <div class="stack">
+          <div class="r">Lorem<span class="b"><i style="width:46%;background:var(--brand-cyan)"></i><i style="width:28%;background:#7f93b8"></i></span></div>
+          <div class="r">Ipsum<span class="b"><i style="width:62%;background:var(--brand-cyan)"></i><i style="width:20%;background:#7f93b8"></i></span></div>
+          <div class="r">Dolor<span class="b"><i style="width:38%;background:var(--brand-cyan)"></i><i style="width:35%;background:#7f93b8"></i></span></div>
+          <div class="r">Sit amet<span class="b"><i style="width:55%;background:var(--brand-cyan)"></i><i style="width:22%;background:#7f93b8"></i></span></div>
+        </div>
+        <div class="foot"><span>Placeholder chart</span><span>Channel 4 · TF1 · Canal+</span></div>
+      </div>
+    </div>
+
+    <div class="tp" id="t3" role="tabpanel">
+      <div>
+        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+        <p class="lead" style="font-size:var(--size-body)">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing</span></li>
+        </ul>
+        <a class="link" href="#">Explore consumer brands</a>
+      </div>
+      <div class="mini">
+        <div class="top"><b>Chart title</b><div class="legend"><span><i class="c-cyan"></i>Series 1</span></div></div>
+        <div class="stack">
+          <div class="r">Lorem<span class="b"><i style="width:72%;background:var(--brand-cyan)"></i></span></div>
+          <div class="r">Ipsum<span class="b"><i style="width:54%;background:var(--brand-cyan)"></i></span></div>
+          <div class="r">Dolor<span class="b"><i style="width:41%;background:var(--brand-cyan)"></i></span></div>
+          <div class="r">Sit amet<span class="b"><i style="width:29%;background:var(--brand-cyan)"></i></span></div>
+        </div>
+        <div class="foot"><span>Placeholder chart</span><span>Proof to come</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-theme="light" id="example">
+  <div class="wrap">
+    <div class="note"><span class="k">Needed</span>One real campaign run with the agents, with the time it took before and after. This is what makes the homepage believable. <b>The example and the customer who signs it · Sébastien</b></div>
     <div class="ex">
       <div>
-        <p class="eyebrow">02 — A real example</p>
-        <h2>From campaign idea to launch, in minutes.</h2>
-        <p class="sub" style="margin-bottom:var(--space-6)">Customer name · the campaign · what the agent did. Lorem ipsum dolor sit amet.</p>
-        <a class="btn secondary" href="#cases">Read the case study</a>
+        <p class="eyebrow">A real example</p>
+        <p class="quote">“Lorem ipsum dolor sit amet, consectetur adipiscing elit. <b>Sed do eiusmod tempor incididunt ut labore.</b>”</p>
+        <div class="who"><span class="ph"></span><span><b style="color:var(--text-primary);font-weight:500">Name, role</b><br>Customer company</span></div>
+        <p style="margin-top:var(--space-6)"><a class="link" href="#">Read the full story</a></p>
       </div>
-      <div class="pair">
-        <div class="card before"><h3><span class="mk coral"></span>Before</h3><div class="v">X days</div><p class="small">From idea to launch, by hand</p></div>
-        <div class="card after"><h3><span class="mk cyan"></span>With the agents</h3><div class="v">X min</div><p class="small">From idea to launch</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="audiences">
-  <div class="wrap">
-    <div class="note"><span class="k">Needed</span>One message per audience, in the order of the brief. Each card links to the existing sector page for now. Wording stays positive. <b>Three pains and the proof for each audience · Sébastien's team</b></div>
-    <p class="eyebrow">03 — By solution</p>
-    <h2>Built for the people who sell and buy media.</h2>
-    <div class="row3" style="margin-top:var(--space-6)">
-      <div class="card">
-        <h3><span class="mk cyan"></span>Retail media</h3>
-        <p class="small">You grow your retail media business on a sovereign infrastructure. Your customer data stays yours.</p>
-        <ul><li>Lorem ipsum dolor sit amet</li><li>Lorem ipsum dolor sit amet</li><li>Unlimitail · Valiuz</li></ul>
-        <a class="go" href="#">Retail media</a>
-      </div>
-      <div class="card">
-        <h3><span class="mk cyan"></span>TV and media</h3>
-        <p class="small">You turn your first-party data into cookieless audiences, active in days on every screen.</p>
-        <ul><li>Lorem ipsum dolor sit amet</li><li>Lorem ipsum dolor sit amet</li><li>Channel 4 · TF1</li></ul>
-        <a class="go" href="#">TV and media</a>
-      </div>
-      <div class="card">
-        <h3><span class="mk cyan"></span>Consumer brands</h3>
-        <p class="small">You work with retailers and media on your own data, and see what each campaign brings in sales.</p>
-        <ul><li>Lorem ipsum dolor sit amet</li><li>Lorem ipsum dolor sit amet</li><li>Proof to come</li></ul>
-        <a class="go" href="#">Consumer brands</a>
+      <div class="cmp">
+        <div class="before"><div class="h"><span class="mk c-coral"></span>Before</div><div class="v">X weeks</div><ul><li>Lorem ipsum dolor sit</li><li>Lorem ipsum dolor sit</li><li>Lorem ipsum dolor sit</li></ul></div>
+        <div class="after"><div class="h"><span class="mk c-cyan"></span>With the agents</div><div class="v">X hours</div><ul><li>Lorem ipsum dolor sit</li><li>Lorem ipsum dolor sit</li><li>Lorem ipsum dolor sit</li></ul></div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="s">
   <div class="wrap">
-    <div class="note"><span class="k">To confirm</span>Figures from the brief v2, as your stat strip. <b>Figures we can publish, and the EY Top 250 badge · Gilles C.</b></div>
-    <p class="eyebrow">04 — In numbers</p>
-    <h2>Already at work across Europe.</h2>
-    <div class="row4 strip" style="margin-top:var(--space-6)">
-      <div class="stat"><div class="v">97%</div><div class="l">of households in France and Europe with at least one identity managed by mediarithmics</div></div>
-      <div class="stat"><div class="v">80+</div><div class="l">retail banners</div></div>
-      <div class="stat"><div class="v">9+</div><div class="l">TV groups and broadcasters</div></div>
-      <div class="stat"><div class="v">7</div><div class="l">countries, from the UK to LATAM</div></div>
+    <div class="note"><span class="k">Source</span>Figures from your RFP decks (September 2026). Other options: 97% of French households (brief v2), 110% net revenue retention, 7-year average contract. <b>Which figures we can publish · Gilles C.</b></div>
+    <div class="head">
+      <div><p class="eyebrow">In numbers</p><h2>Trusted by European media and retail since 2013.</h2></div>
+    </div>
+    <div class="stats">
+      <div><div class="v">90%</div><div class="l">market share among French media and retailers</div></div>
+      <div><div class="v">200</div><div class="l">media brands served since 2013</div></div>
+      <div><div class="v">80</div><div class="l">retail customers served since 2013</div></div>
+      <div><div class="v">10 bn</div><div class="l">events processed every day</div></div>
     </div>
   </div>
 </section>
 
-<section id="why">
+<section class="s" id="why" style="padding-top:0">
   <div class="wrap">
-    <div class="note"><span class="k">Note</span>Answers the three objections from the brief without naming them. Icons from Lucide, as your design system approves.</div>
-    <p class="eyebrow">05 — Why mediarithmics</p>
-    <h2>More than a customer data platform.</h2>
-    <div class="row3" style="margin-top:var(--space-6)">
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-        <h3>European and sovereign</h3><p class="small">Your data stays in Europe, under your control. Lorem ipsum dolor sit amet.</p>
+    <div class="note"><span class="k">Source</span>From your RFP decks. Answers the objections from the brief (governance, need for a CDP) without naming them. Icons from Lucide, approved by your design system.</div>
+    <div class="head">
+      <div><p class="eyebrow">Why mediarithmics</p><h2>More than a customer data platform.</h2></div>
+    </div>
+    <div class="why">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        <h3>French and sovereign</h3><p class="small">An independent French software company, ISO 27001 certified. Your data is hosted in France and never leaves the European Union.</p>
       </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-        <h3>Composable — zero copy</h3><p class="small">Compute is pushed down to your warehouse, so no copy of the data leaves it.</p>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+        <h3>Composable, zero copy</h3><p class="small">A native Snowflake connection reuses the data already in your warehouse, without rebuilding your pipelines.</p>
       </div>
-      <div class="card">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        <h3>Measured on sales</h3><p class="small">Identity · clean room · sales impact, in one platform. Lorem ipsum dolor sit amet.</p>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <h3>Privacy by design</h3><p class="small">Consent is applied device by device and destination by destination. Each exclusion is traceable for your DPO.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section data-theme="light" id="cases">
+<section class="s" data-theme="light" id="customers">
   <div class="wrap">
-    <div class="note"><span class="k">Note</span>Pulled from your Study cases collection in Webflow (32 items). We pick the three to feature.</div>
-    <p class="eyebrow">06 — Customers</p>
-    <h2>What our customers do with it.</h2>
-    <div class="row3 cases" style="margin-top:var(--space-6)">
-      <div class="card"><div class="ph">Case visual</div><span class="pill" style="align-self:flex-start;margin-bottom:var(--space-3)">TV and media</span><h3>Case study title from the CMS</h3><p class="small">Excerpt from the CMS, one or two lines.</p></div>
-      <div class="card"><div class="ph">Case visual</div><span class="pill" style="align-self:flex-start;margin-bottom:var(--space-3)">Retail media</span><h3>Case study title from the CMS</h3><p class="small">Excerpt from the CMS, one or two lines.</p></div>
-      <div class="card"><div class="ph">Case visual</div><span class="pill" style="align-self:flex-start;margin-bottom:var(--space-3)">Consumer brands</span><h3>Case study title from the CMS</h3><p class="small">Excerpt from the CMS, one or two lines.</p></div>
+    <div class="note"><span class="k">Source</span>From your RFP decks. Havas Media is another option (15 countries, 50 datamarts in c. 6 months). On the site, these cards come from the Study cases collection (32 items). <b>Which stories are public · Sébastien</b></div>
+    <div class="head">
+      <div><p class="eyebrow">Customers</p><h2>What our customers do with it.</h2></div>
+      <a class="link" href="#" style="justify-self:end">All customer stories</a>
     </div>
-  </div>
-</section>
-
-<section id="resources">
-  <div class="wrap">
-    <div class="note"><span class="k">Note</span>Blog (64 posts), News (17) and Whitepapers stay as they are. Later published from Notion, once IT approves.</div>
-    <p class="eyebrow">07 — Resources</p>
-    <h2>Read, watch, download.</h2>
-    <div class="row3 res" style="margin-top:var(--space-6)">
-      <div class="ph">Latest whitepaper · title, cover, download</div>
-      <div class="ph">Latest blog post</div>
-      <div class="ph">Next event · #IntoTheMics</div>
+    <div class="cases">
+      <a class="case" href="#"><div class="img"><span>Case visual from the CMS</span></div><div class="body"><span class="pill" style="align-self:flex-start">TV and media</span><div class="metric">c. 7 weeks</div><h3>Canal+</h3><p class="small">Monetisation and marketing use cases, deployed alongside a complex ecosystem of existing tools.</p><span class="link">Read the story</span></div></a>
+      <a class="case" href="#"><div class="img"><span>Case visual from the CMS</span></div><div class="body"><span class="pill" style="align-self:flex-start">Retail</span><div class="metric">6 banners</div><h3>Les Mousquetaires</h3><p class="small">Customer data spread across more than 15 tools, brought together for paid media and omnichannel marketing.</p><span class="link">Read the story</span></div></a>
+      <a class="case" href="#"><div class="img"><span>Case visual from the CMS</span></div><div class="body"><span class="pill" style="align-self:flex-start">Classifieds</span><div class="metric">10+ entities</div><h3>Adevinta and leboncoin</h3><p class="small">Chosen in a global tender against 10 other vendors, for marketing and ad sales teams in 6+ countries.</p><span class="link">Read the story</span></div></a>
     </div>
   </div>
 </section>
 
 <section class="final" id="meeting">
   <div class="wrap">
-    <div class="note"><span class="k">Note</span>Main action of the site, from the brief: a meeting with an expert. Same HubSpot form as today.</div>
-    <div class="card">
-      <div>
-        <h2 style="margin-bottom:var(--space-3)">See what the agents can do with your data.</h2>
-        <p class="sub" style="margin:0">30 minutes with an expert · on your own use case</p>
-      </div>
-      <div><a class="btn primary" href="#meeting">Book a meeting</a></div>
-    </div>
+    <div class="note" style="margin:0 auto var(--space-6)"><span class="k">Note</span>Main action of the site, from the brief. Same HubSpot form as today.</div>
+    <h2>See what the agents can do with your data.</h2>
+    <p class="lead">30 minutes with an expert, on your own use case.</p>
+    <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap"><a class="btn primary" href="#meeting">Book a meeting</a><a class="btn secondary" href="#">Download the whitepaper</a></div>
   </div>
 </section>
 
@@ -439,9 +645,13 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
 <footer>
   <div class="wrap">
     <div class="fcols">
-      <div><div class="logo" style="margin-bottom:var(--space-3)"><img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e8175d14ce4_logo-mediarithmics.svg" alt="mediarithmics"></div><p>The agentic marketing platform.</p><div class="ph" style="height:46px;width:150px;margin-top:var(--space-3)">EY Top 250 badge</div></div>
+      <div>
+        <img src="https://cdn.prod.website-files.com/61f82f720bea5e0c5dd14cb4/61f82f720bea5e8175d14ce4_logo-mediarithmics.svg" alt="mediarithmics" style="height:22px;display:block;margin-bottom:var(--space-4)">
+        <p>The European agentic marketing platform.</p>
+        <div class="badges"><span class="pill">ISO 27001</span><span class="pill">EY Top 250</span></div>
+      </div>
       <div><h4>Solutions</h4><a href="#">Retail media</a><a href="#">TV and media</a><a href="#">Consumer brands</a></div>
-      <div><h4>Platform</h4><a href="#">How it works</a><a href="#">AI agents</a><a href="#">Partners</a><a href="#">Security</a></div>
+      <div><h4>Platform</h4><a href="#">Identity foundation</a><a href="#">AI agents</a><a href="#">Partners</a><a href="#">Security</a></div>
       <div><h4>Resources</h4><a href="#">Customers</a><a href="#">Blog</a><a href="#">News</a><a href="#">Whitepapers</a></div>
       <div><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div>
     </div>
@@ -451,29 +661,31 @@ footer{padding:var(--space-8) 0 var(--space-6);font-size:var(--size-small);color
     </div>
 
     <div class="note" style="margin-top:var(--space-7);max-width:none">
-      <span class="k">Where your current pages go · from the Webflow inventory, 60 pages</span>
-      <div class="mapbox">
-        <div><b>Kept, in the new menu</b>Home · Platform · Contact · Calendar · sector pages (Retail, Media, Broadcast, Telecom, Travel, Finance) · use cases · Snowflake · Composable CDP · Hightouch comparison · Blog · News · Whitepapers · legal pages</div>
-        <div><b>To decide</b>Duplicate Retail and Media pages · Downloadables · Webseries · event pages from 2024 and 2025</div>
-        <div><b>Removed, with redirects</b>Pricing · Old Home (source of the broken links) · draft pages Consumer brands and Into the mics</div>
-      </div>
-      <p style="margin:var(--space-3) 0 0"><b>Logo:</b> the one shown is the file from mediarithmics.io today, single colour. We need the official vector logo (SVG, with the four-colour dots your design system mentions) · Sam.</p>
-      <p style="margin:var(--space-3) 0 0"><b>Proposals to validate, not covered by your design system:</b> buttons (8px radius, cyan fill, dark text), menu drop-downs, hover and focus states.</p>
+      <span class="k">Where your current pages go · Webflow inventory, 60 pages</span>
+      Kept in the new menu: Home, Platform, Contact, Calendar, sector pages, use cases, Snowflake, Composable CDP, Hightouch comparison, Blog, News, Whitepapers, legal pages. To decide: duplicate Retail and Media pages, Downloadables, Webseries, event pages from 2024 and 2025. Removed with redirects: Pricing, Old Home (source of the broken links), drafts Consumer brands and Into the mics.<br><br>
+      <b>Logo:</b> taken from mediarithmics.io, single colour. We need the official vector logo · Sam. <b>Not covered by your design system, to validate:</b> buttons, menu drop-downs, tabs, hover and focus states. Facts come from the brief, the design system and your RFP decks of September 2026. Everything else is Lorem ipsum or a placeholder. The product screen is a mock-up until we get real screenshots.
     </div>
   </div>
 </footer>
 
+<div class="review"><span>Draft for review</span><button type="button" id="tg">Show notes</button></div>
+
 <script>
 const D={
-  a:{h:"<b>Master</b> your customer <b>identities.</b> Let <b>AI agents</b> run your <b>marketing.</b>",l:"Faster campaigns · measured on sales · on your own data. Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
-  b:{h:"From <b>campaign idea</b> to <b>launch,</b> in <b>minutes.</b>",l:"Needs the real example behind it · with the customer's name. Lorem ipsum dolor sit amet."},
-  c:{h:"The <b>European agentic marketing platform,</b> built on <b>your own data.</b>",l:"Keeps sovereignty in the first line. Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+  a:{h:"<b>Master</b> your customer <b>identities.</b> Let <b>AI agents</b> run your <b>marketing.</b>",l:"mediarithmics unifies your first-party data across screens, stores and sites. Your teams and your agents launch campaigns faster, and you measure them on sales."},
+  b:{h:"From <b>campaign idea</b> to <b>launch,</b> in <b>minutes.</b>",l:"AI agents build the audience, launch the campaign and track sales, on a clean view of your customers. Needs the real example behind it."},
+  c:{h:"The <b>European agentic marketing platform,</b> built on <b>your own data.</b>",l:"Your customer data stays in Europe and in your warehouse. AI agents turn it into campaigns you can measure on sales."}
 };
 document.querySelectorAll('.drafts button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.drafts button').forEach(x=>x.setAttribute('aria-pressed',x===b));
-  const d=D[b.dataset.d]; document.getElementById('h1').innerHTML=d.h; document.getElementById('lede').textContent=d.l;
+  const d=D[b.dataset.d];document.getElementById('h1').innerHTML=d.h;document.getElementById('lede').textContent=d.l;
 }));
-document.getElementById('clean').addEventListener('change',e=>document.body.classList.toggle('clean',e.target.checked));
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('.tp').forEach(p=>p.classList.toggle('on',p.id===b.dataset.t));
+}));
+const tg=document.getElementById('tg');
+tg.addEventListener('click',()=>{const on=document.body.classList.toggle('notes');tg.textContent=on?'Hide notes':'Show notes';});
 </script>
 </body>
 </html>
