@@ -10,5 +10,6 @@ Disallow: /projet-xee/
 Disallow: /kim-kosta/
 
 Disallow: /livret-memoire/
+Disallow: /mediarithmics-structure/
 
 Sitemap: https://www.pragvilo.com/sitemap.xml
