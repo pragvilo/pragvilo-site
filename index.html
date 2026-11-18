@@ -72,6 +72,10 @@
   .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 0; background: var(--indigo); color: #fff; font: 600 15px/1 var(--font-sans); text-decoration: none; cursor: pointer; transition-property: background-color, scale; transition-duration: .15s; }
   .btn:active { scale: .97; }
   .btn:hover { background: #2A1FE0; }
+  .btn-ghost { background: transparent; color: var(--lien); box-shadow: inset 0 0 0 1.5px var(--lien); }
+  .btn-ghost:hover { background: var(--lavande, #ECEBFF); }
+  .rdv { margin: 14px 0 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  .rdv span { font-size: 14.5px; color: var(--gris); }
   .btn-small { min-height: 38px; padding: 0 16px; font-size: 14px; }
   .link-arrowless { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
 
@@ -326,6 +330,7 @@
     <a href="#offre">Offres</a>
     <a href="#parti-pris">Notre engagement</a>
     <a href="#questions">Questions</a>
+    <a href="https://cal.com/gilles-pragvilo" target="_blank" rel="noopener">Prendre rendez-vous</a>
     <a class="btn btn-small" href="#contact">Demander un devis</a>
   </nav>
 </header>
@@ -494,6 +499,7 @@
           <li>30 minutes d’échange, offertes.</li>
           <li>Devis gratuit sous 48 h.</li>
         </ol>
+        <p class="rdv"><a class="btn btn-ghost" href="https://cal.com/gilles-pragvilo" target="_blank" rel="noopener">Prendre rendez-vous</a><span>Choisissez un créneau de 15 min, 30 min ou 1 h dans l’agenda de Gilles.</span></p>
         <p class="direct">Vous préférez l’email ? <a class="em" data-u="tcatnoc" data-d="moc.olivgarp" href="#">contact [at] pragvilo [point] com</a></p>
       </div>
 
