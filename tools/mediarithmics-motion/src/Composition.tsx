@@ -51,4 +51,4 @@ export function Identity() {
 export {Journey} from './Journey';
 import {Journey} from './Journey';
 
-export const MyComposition = () => <Composition id="CustomerJourney" component={Journey} durationInFrames={480} fps={30} width={720} height={440} defaultProps={{}}/>;
+export const MyComposition = () => <Composition id="CustomerJourney" component={Journey} durationInFrames={420} fps={30} width={720} height={440} defaultProps={{}}/>;

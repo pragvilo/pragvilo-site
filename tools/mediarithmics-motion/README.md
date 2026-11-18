@@ -18,16 +18,20 @@ when visible again. One pause button in the sticky header controls all players.
 Reduced motion is respected by default; explicit playback remains available.
 No automatic scrolling, form submission, tab switching or focus movement.
 
-The hero keeps the complete chain visible in one 720 × 440 scene (16 seconds).
+The hero keeps the complete chain visible in one 720 × 440 scene (14 seconds).
 Store, CRM and Video have distinct labelled pictograms. Animated signals follow
 their exact curved paths into one person. The same cyan person then travels
-into the centre of a nine-person audience, before that audience activates
+into the centre of a fifteen-person customer base; a coral contour selects four people, before that audience activates
 Email, Ads and Video with staggered moving signals and a second wave.
-Identity zooms to 1.2×, Audience to 1.14×, Campaign to 1.1×, then each
-returns to its original size. Inactive stages are desaturated and dimmed to
-50% while the full chain stays visible. Labels are 18px; the three coloured
-stage names sit underneath. A full-colour overview closes the loop.
-Reduced motion opens on the complete final state (frame 440).
+Identity grows to 1.55×, Audience and Campaign to 1.22×, while inactive
+stages shrink to 0.76× and become grey at 50% opacity. Connections follow the
+changing bounds to keep the chain continuous. The 16-beat narrative is sped
+up by 8/7 and plays in 420 frames at 30fps (14 seconds).
+Four of the fifteen people are selected inside a coral contour; the outer
+customer-base panel stays neutral. Layered surfaces, inset highlights and
+soft navy shadows add depth, as requested for this hero animation.
+Labels are 18px; coloured stage names sit underneath. A full-colour overview
+closes the loop. Reduced motion opens on that complete state (frame 385).
 The static SVG fallback matches that final state.
 
 The Audience Agent timeline highlights request / rules / created every five seconds.
