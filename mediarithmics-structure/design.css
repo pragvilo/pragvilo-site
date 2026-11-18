@@ -610,3 +610,8 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 }
 @media(max-width:400px){.nav-meet{display:none}.nav-inner .wordmark img{width:142px}}
 @media(prefers-reduced-motion:reduce){.agent-demo .agent-pane{transition:none}}
+
+/* The complete journey keeps one stable frame; the focus moves inside it. */
+.journey-shell{min-height:0;aspect-ratio:720/400}
+.journey-fallback{padding:0}
+.auto-player--hero .motion-canvas{overflow:visible}

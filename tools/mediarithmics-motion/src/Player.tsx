@@ -21,7 +21,7 @@ function MotionButton() {
 }
 
 const configurations = {
-  hero: {component: Journey, width:720, height:440, duration:360},
+  hero: {component: Journey, width:720, height:400, duration:360},
   identity: {component: IdentityLoop, width:720, height:440, duration:120},
   audience: {component: AudienceFlow, width:600, height:110, duration:450},
   retail: {component: RetailFlow, width:720, height:440, duration:360},
@@ -33,7 +33,6 @@ const audienceSteps = ['request','rules','created'];
 function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source?: string}) {
   const ref = useRef<PlayerRef>(null);
   const enabled = useSyncExternalStore(subscribe, snapshot);
-  const [stage, setStage] = useState(0);
   const [failed, setFailed] = useState(false);
   const gate = useRef({enabled, visible:false, documentVisible:!document.hidden, dialogOpen:false, interacting:false});
   const sync = useRef(() => {});
@@ -68,14 +67,13 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
       if (demo?.querySelector<HTMLElement>('.agent-console')?.contains(event.relatedTarget as Node | null)) return;
       gate.current.interacting = false; sync.current();
     };
-    const manualState = () => {p.seekTo(0); setStage(0);};
+    const manualState = () => {p.seekTo(0); };
     const onFrame: CallbackListener<'frameupdate'> = ({detail}) => {
       // A visible diagnostic marker also makes automated playback verifiable.
       if (detail.frame % 15 === 0) host.dataset.frame = String(detail.frame);
       const next = kind === 'audience' ? Math.floor(detail.frame / 150) : Math.floor(detail.frame / 120);
       if (next === lastStage) return;
       lastStage = next;
-      setStage(next);
       if (demo && !gate.current.interacting) demo.dispatchEvent(new CustomEvent('mics:audience-tick',{detail:audienceSteps[next]}));
     };
     const fail = () => {setFailed(true); if (fallback) fallback.hidden = false; delete host.dataset.ready;};
@@ -101,7 +99,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     <div aria-hidden="true" className="motion-canvas" style={{aspectRatio:config.width + '/' + config.height}}>
       <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' || kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
     </div>
-    {kind === 'hero' && <div className="art-control" role="group" aria-label="Explore the customer journey"><div className="steps">{['Identity','Audience','Campaign'].map((name,index) => <button type="button" key={name} aria-pressed={stage === index} onClick={() => ref.current?.seekTo(index * 120 + (enabled ? 0 : 90))}><span>0{index + 1}</span>{name}</button>)}</div></div>}
+
 
   </div>;
 }

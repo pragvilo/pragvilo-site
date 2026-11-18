@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Composition, Easing, Interactive, Sequence, interpolate, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Composition, Easing, Interactive, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 
 const palette = ['#00A1DF', '#FF5959', '#00AD68', '#F58D39'];
 const ease = Easing.bezier(.2, 0, .2, 1);
@@ -48,46 +48,59 @@ export function Identity() {
   </AbsoluteFill>;
 }
 
-function Audience() {
-  const frame = useCurrentFrame();
-  return <AbsoluteFill>
-    <svg viewBox="0 0 720 440" style={{width: '100%', height: '100%'}}>
-      <Contours x={535} y={205} frame={frame}/>
-      <path d="M327 205h105" stroke="#FF5959" strokeWidth="2"/><path d="m420 196 12 9-12 9" stroke="#FF5959" strokeWidth="2" fill="none"/>
-      {Array.from({length: 12}, (_, i) => {
-        const selected = [1, 4, 6, 11].includes(i);
-        const shown = progress(frame, 6 + (i % 4) * 5, 12 + (i % 4) * 5);
-        const color = selected && shown > .5 ? '#FF5959' : '#7E94B4';
-        return <g key={i} opacity={selected ? 1 : 1 - shown * .58}><circle cx={56 + (i % 4) * 77} cy={114 + Math.floor(i / 4) * 92} r="30" fill={selected && shown > .5 ? '#093058' : '#0A2450'} stroke={color} strokeWidth={selected ? 2 : 1}/><Person x={56 + (i % 4) * 77} y={111 + Math.floor(i / 4) * 92} color={color} scale={.8}/></g>;
-      })}
-      <Interactive.G><rect x="432" y="122" width="205" height="167" rx="12" fill="#061E44" stroke="#FF5959" strokeWidth="1.5"/><Person x={493} y={184} color="#FF5959"/><Person x={535} y={169} color="#EAF1FA" scale={1.2}/><Person x={577} y={184} color="#FF5959"/><text x="535" y="254" fill="#EAF1FA" textAnchor="middle" fontSize="28">Your audience</text></Interactive.G>
-    </svg>
-    <SceneTitle>Find the people who matter.</SceneTitle>
-  </AbsoluteFill>;
-}
-
-function Campaign() {
-  const frame = useCurrentFrame();
-  return <AbsoluteFill>
-    <svg viewBox="0 0 720 440" style={{width: '100%', height: '100%'}}>
-      <Contours x={163} y={207} frame={frame}/>
-      {['Email', 'Ads', 'Video'].map((label, i) => {
-        const y = 76 + i * 105;
-        const t = interpolate(frame, [10 + i * 8, 65 + i * 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-        return <g key={label}><path d={`M258 208C355 208 358 ${y + 32} 476 ${y + 32}`} stroke={palette[i]} fill="none" strokeWidth="2"/><circle cx={258 + 218 * t} cy={208 + (y + 32 - 208) * (t * t * (3 - 2 * t))} r="5" fill={palette[i]} opacity={frame < 90 ? 1 : 0}/><rect x="476" y={y} width="220" height="64" rx="12" fill="#0A2450" stroke="#3A5C8F"/><Icon type={label.toLowerCase()} x={514} y={y + 32} color={palette[i]}/><text x="551" y={y + 42} fill="#EAF1FA" fontSize="29" fontWeight="500">{label}</text></g>;
-      })}
-      <Interactive.G><rect x="66" y="127" width="192" height="162" rx="12" fill="#061E44" stroke="#00AD68" strokeWidth="1.5"/><Person x={122} y={183} color="#00AD68"/><Person x={163} y={169} scale={1.2}/><Person x={204} y={183} color="#00AD68"/><text x="163" y="251" fill="#EAF1FA" textAnchor="middle" fontSize="27">Your audience</text></Interactive.G>
-    </svg>
-    <SceneTitle>Put your audience into action.</SceneTitle>
-  </AbsoluteFill>;
+// Three permanent editing units. Only their emphasis changes, never their visibility.
+function JourneyCard({kind, focus}: {kind: 'identity' | 'audience' | 'campaign'; focus: number}) {
+  const color = kind === 'identity' ? '#00A1DF' : kind === 'audience' ? '#FF5959' : '#00AD68';
+  return <>
+    <rect x="-95" y="-132" width="190" height="264" rx="12" fill="#0A2450" stroke="#3A5C8F" strokeWidth="1.4"/>
+    <rect x="-95" y="-132" width="190" height="264" rx="12" fill="none" stroke={color} strokeWidth="2.4" opacity={focus}/>
+    <text y="-90" textAnchor="middle" fill="#EAF1FA" fontSize="29" fontWeight="550" letterSpacing="-.7">{kind === 'identity' ? 'Identity' : kind === 'audience' ? 'Audience' : 'Campaign'}</text>
+    {kind === 'identity' ? <>
+      <path d="M-46-36Q-46-12 0 0M0-36V0M46-36Q46-12 0 0" fill="none" stroke="#3A5C8F" strokeWidth="2"/>
+      <g opacity={.65 + focus * .35}>
+        <circle cx="-46" cy="-44" r="17" fill="#093058"/><Icon type="website" x={-46} y={-44} color="#00A1DF"/>
+        <circle cy="-44" r="17" fill="#093058"/><g transform="translate(0 -44) scale(.65)"><Person x={0} y={0} color="#00A1DF"/></g>
+        <circle cx="46" cy="-44" r="17" fill="#093058"/><g transform="translate(46 -44) scale(.7)"><Icon type="store" x={0} y={0} color="#00A1DF"/></g>
+      </g>
+      <circle cy="23" r="37" fill="#0E3268" stroke="#00A1DF" strokeWidth="1.5"/><Person x={0} y={20} scale={1.25}/>
+      <circle cx="27" cy="49" r="11" fill="#00A1DF"/><path d="m22 49 4 4 7-8" stroke="#061E44" strokeWidth="2.4" fill="none"/>
+      <text y="94" fill="#9FB3CD" textAnchor="middle" fontSize="24">One customer<tspan x="0" dy="28">view</tspan></text>
+    </> : kind === 'audience' ? <>
+      {Array.from({length:6},(_,i) => <g key={i} transform={`translate(${-48 + i % 3 * 48} ${-28 + Math.floor(i / 3) * 53})`}>
+        <circle r="22" fill={[0,2,4].includes(i) ? '#FF5959' : '#093058'} stroke={[0,2,4].includes(i) ? '#FF5959' : '#3A5C8F'} opacity={[0,2,4].includes(i) ? .72 + focus * .28 : .65}/>
+        <Person x={0} y={-2} scale={.65} color={[0,2,4].includes(i) ? '#061E44' : '#9FB3CD'}/>
+      </g>)}
+      <path d="M-53 61H53" stroke="#FF5959" strokeWidth="2" strokeLinecap="round"/>
+      <text y="94" fill="#9FB3CD" textAnchor="middle" fontSize="24">People who<tspan x="0" dy="28">matter</tspan></text>
+    </> : <>
+      <rect x="-56" y="-53" width="112" height="85" rx="8" fill="#0E3268" stroke="#00AD68" strokeWidth="1.5"/>
+      <path d="M-42-36H-12M-42-24H8" stroke="#9FB3CD" strokeWidth="3" strokeLinecap="round"/>
+      <circle cx="28" cy="2" r="23" fill="#00AD68"/>
+      <path d="m16 2 11-12 13 12m-13-12v25" stroke="#061E44" strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 28 2)"/>
+      <g transform="translate(-41 57) scale(.62)"><Icon type="email" x={0} y={0} color="#00AD68"/></g>
+      <g transform="translate(0 57) scale(.62)"><Icon type="ads" x={0} y={0} color="#00AD68"/></g>
+      <g transform="translate(41 57) scale(.62)"><Icon type="video" x={0} y={0} color="#00AD68"/></g>
+      <text y="94" fill="#9FB3CD" textAnchor="middle" fontSize="24">Ready to<tspan x="0" dy="28">reach</tspan></text>
+    </>}
+  </>;
 }
 
 export function Journey() {
-  return <AbsoluteFill style={{fontFamily: '"DM Sans", sans-serif'}}>
-    <Sequence name="01 · Connect customer data" durationInFrames={120}><Identity/></Sequence>
-    <Sequence name="02 · Build an audience" from={120} durationInFrames={120}><Audience/></Sequence>
-    <Sequence name="03 · Activate a campaign" from={240} durationInFrames={120}><Campaign/></Sequence>
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const focus = (values: number[]) => interpolate(frame, [0, 4 * fps - 7, 4 * fps, 8 * fps - 7, 8 * fps, 12 * fps - 7, 12 * fps - 1], values, {extrapolateLeft:'clamp',extrapolateRight:'clamp',easing:ease});
+  const identity = focus([1,1,0,0,0,0,1]);
+  const audience = focus([0,0,1,1,0,0,0]);
+  const campaign = focus([0,0,0,0,1,1,0]);
+  return <AbsoluteFill style={{fontFamily:'"DM Sans", sans-serif'}}>
+    <svg viewBox="0 0 720 400" width="720" height="400">
+      <path d="M188 200H532" stroke="#3A5C8F" strokeWidth="2"/>
+      <path d="m236 193 8 7-8 7m236-14 8 7-8 7" stroke="#9FB3CD" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      <g transform="translate(124 200)"><Interactive.G name="Identity · one customer view" style={{scale:.94 + identity * .17}}><JourneyCard kind="identity" focus={identity}/></Interactive.G></g>
+      <g transform="translate(360 200)"><Interactive.G name="Audience · people who matter" style={{scale:.94 + audience * .17}}><JourneyCard kind="audience" focus={audience}/></Interactive.G></g>
+      <g transform="translate(596 200)"><Interactive.G name="Campaign · ready to reach" style={{scale:.94 + campaign * .17}}><JourneyCard kind="campaign" focus={campaign}/></Interactive.G></g>
+    </svg>
   </AbsoluteFill>;
 }
 
-export const MyComposition = () => <Composition id="CustomerJourney" component={Journey} durationInFrames={360} fps={30} width={720} height={440} defaultProps={{}}/>;
+export const MyComposition = () => <Composition id="CustomerJourney" component={Journey} durationInFrames={360} fps={30} width={720} height={400} defaultProps={{}}/>;

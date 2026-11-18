@@ -18,6 +18,11 @@ when visible again. One pause button in the sticky header controls all players.
 Reduced motion is respected by default; explicit playback remains available.
 No automatic scrolling, form submission, tab switching or focus movement.
 
+The hero keeps Identity → Audience → Campaign connected and visible throughout.
+Its three cards take turns enlarging every four seconds, with a 233 ms transition
+and a seamless return to Identity. No step buttons or technical identifiers.
+The 720 × 400 frame has a matching static SVG fallback and reserves its space.
+
 The Audience Agent timeline highlights request / rules / created every five seconds.
 All three stages remain visible. Selecting a brief updates the complete example.
 Input focus pauses the timeline; leaving the console resumes it. The 600 × 110
