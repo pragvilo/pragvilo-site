@@ -136,6 +136,119 @@
   }
   setupArtwork();
 
+  function focusDemoStep(heading) {
+    heading.focus({preventScroll:true});
+    const bounds = heading.getBoundingClientRect();
+    if (bounds.top < $('.header').getBoundingClientRect().bottom || bounds.bottom > window.innerHeight) {
+      heading.scrollIntoView({block:'center'});
+    }
+  }
+
+  function setupAudienceDemo() {
+    const demo = $('#audience-agent');
+    const select = $('#sample-brief');
+    const request = $('#agent-request');
+    const history = $('#agent-history');
+    const name = $('#agent-name');
+    const summary = $('#agent-summary');
+    const examples = {
+      shoppers: {request:request.textContent, history:history.textContent, summary:summary.textContent},
+      winback: {
+        request:'Find loyalty members who have bought in store, have not returned in six months and have opted in to marketing.',
+        history:'A previous in-store purchase, with none in the past six months',
+        summary:'Loyalty members who last bought in store at least six months ago and have opted in to marketing.'
+      }
+    };
+    const panes = [...demo.querySelectorAll('[data-agent-pane]')];
+    const steps = [...demo.querySelectorAll('.agent-progress li')];
+
+    function applyBrief() {
+      const brief = examples[select.value];
+      request.textContent = brief.request;
+      history.textContent = brief.history;
+      name.textContent = select.selectedOptions[0].textContent;
+      summary.textContent = brief.summary;
+    }
+    function showPane(state, moveFocus) {
+      panes.forEach((pane, index) => {
+        const current = pane.dataset.agentPane === state;
+        pane.hidden = !current;
+        if (!current) {
+          steps[index].removeAttribute('aria-current');
+          return;
+        }
+        steps[index].setAttribute('aria-current','step');
+        if (moveFocus && canAnimate()) {
+          gsap.fromTo(pane, {opacity:.65, y:3}, {opacity:1, y:0, duration:.18, ease, overwrite:true, clearProps:'transform,opacity'});
+        }
+      });
+      if (moveFocus) focusDemoStep(demo.querySelector('.agent-pane:not([hidden]) h4'));
+    }
+    select.addEventListener('change', applyBrief);
+    demo.querySelectorAll('[data-agent-action]').forEach(button => {
+      button.addEventListener('click', () => {
+        applyBrief();
+        showPane(button.dataset.agentAction, true);
+      });
+    });
+    applyBrief();
+    showPane('request', false);
+    demo.dataset.ready = '';
+  }
+
+  function setupRetailTrace() {
+    const trace = $('#click-to-store');
+    const clickButton = $('#record-click');
+    const purchaseButton = $('#record-purchase');
+    const checkout = $('#checkout-card');
+    const retry = $('#reset-trace');
+    const result = $('#trace-result');
+    const detail = $('#trace-detail');
+    const reports = {
+      idle: ['Waiting for an ad click','Click the example ad to start following this shopper.'],
+      clicked: ['Waiting for a store receipt','The campaign click is recorded. Choose how the shopper checks out, then record their purchase.'],
+      matched: [result.textContent, detail.textContent],
+      unmatched: ['Unmatched store sale','The purchase is recorded without the loyalty account used online. The retailer sees a sale, but cannot link this receipt to the ad click.']
+    };
+    function render(state) {
+      const clicked = state !== 'idle';
+      const complete = state === 'matched' || state === 'unmatched';
+      trace.dataset.state = state;
+      clickButton.disabled = clicked;
+      checkout.disabled = purchaseButton.disabled = state !== 'clicked';
+      retry.hidden = !complete;
+      clickButton.querySelector('span').textContent = clicked ? 'Click recorded' : 'Click the example ad';
+      purchaseButton.querySelector('span').textContent = complete ? 'Purchase recorded' : 'Record the purchase';
+      icon(clickButton, clicked ? 'check' : 'arrow');
+      icon(purchaseButton, complete ? 'check' : 'arrow');
+      $('#click-event').toggleAttribute('data-recorded',clicked);
+      $('#purchase-event').toggleAttribute('data-recorded',complete);
+      $('#report-event').toggleAttribute('data-recorded',complete);
+      [result.textContent, detail.textContent] = reports[state];
+    }
+    clickButton.addEventListener('click', () => {
+      render('clicked');
+      focusDemoStep($('#purchase-event h5'));
+    });
+    purchaseButton.addEventListener('click', () => {
+      render(checkout.value);
+      if (canAnimate()) {
+        gsap.fromTo(result.parentElement, {opacity:.65, y:3}, {opacity:1, y:0, duration:.18, ease, overwrite:true, clearProps:'transform,opacity'});
+      }
+      focusDemoStep(result);
+    });
+    retry.addEventListener('click', () => {
+      checkout.value = trace.dataset.state === 'matched' ? 'unmatched' : 'matched';
+      render('clicked');
+      focusDemoStep(checkout);
+    });
+    checkout.value = 'matched';
+    render('idle');
+    trace.dataset.ready = '';
+  }
+  setupAudienceDemo();
+  setupRetailTrace();
+
   const tabs = $$('.sector-tabs [role="tab"]');
   function activateTab(tab) {
     tabs.forEach(item => {
@@ -160,15 +273,22 @@
       activateTab(next);
     });
   });
-  function syncDeepLink() {
-    const tab = tabs.find(t => '#' + t.getAttribute('aria-controls') === location.hash);
-    if (tab) {
-      activateTab(tab);
-      document.getElementById(tab.getAttribute('aria-controls')).scrollIntoView({block:'start'});
+  function revealSectorTarget(hash) {
+    const target = document.getElementById(hash.slice(1));
+    const panel = target?.closest('.sector[role="tabpanel"]');
+    if (panel) {
+      const tab = tabs.find(t => t.getAttribute('aria-controls') === panel.id);
+      if (panel.hidden) activateTab(tab);
+      target.scrollIntoView({block:'start'});
     }
   }
-  window.addEventListener('hashchange', syncDeepLink);
-  if (location.hash) syncDeepLink();
+  document.querySelectorAll('a[href="#click-to-store"]').forEach(link => {
+    link.addEventListener('click', event => {
+      if (!event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) revealSectorTarget(link.hash);
+    });
+  });
+  window.addEventListener('hashchange', () => revealSectorTarget(location.hash));
+  if (location.hash) revealSectorTarget(location.hash);
 
   const notes = $('#review-dialog');
   const film = $('#film-dialog');

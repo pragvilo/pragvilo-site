@@ -33,6 +33,10 @@
       <symbol id="users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5"/></symbol>
       <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 20v-2a7 7 0 0 1 14 0v2"/></symbol>
       <symbol id="join" viewBox="0 0 24 24"><path d="m3 4 5 5m-5 11 5-5m0-6 3 3h9m-12 3 3-3"/></symbol>
+      <symbol id="check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+      <symbol id="pointer" viewBox="0 0 24 24"><path d="m5 3 14 9-7 1.5L9 20Z"/></symbol>
+      <symbol id="receipt" viewBox="0 0 24 24"><path d="M5 3l2 1.5L10 3l2 1.5L15 3l2 1.5L19 3v18l-2-1.5-2 1.5-3-1.5-2 1.5-3-1.5L5 21Z"/><path d="M8 9h8m-8 4h8m-8 4h4"/></symbol>
+      <symbol id="report" viewBox="0 0 24 24"><path d="M3 4v16h18M7 15v-4m5 4V7m5 8v-6"/></symbol>
     </defs>
   </svg>
 
@@ -56,7 +60,7 @@
           <p class="lead">Turn the customer data you already have into audiences you can reach and campaigns you can measure.</p>
           <div class="hero-actions">
             <a class="button primary" href="https://www.mediarithmics.io/contact">Book a meeting <svg class="icon"><use href="#up-right"/></svg></a>
-            <a class="inline-link dark-link" href="#platform">Explore the platform <svg class="icon"><use href="#down"/></svg></a>
+            <a class="inline-link dark-link" href="#audience-agent">Try the Audience Agent <svg class="icon"><use href="#down"/></svg></a>
           </div>
         </div>
         <figure class="hero-figure">
@@ -103,7 +107,7 @@
           <div class="capabilities">
             <a href="https://www.mediarithmics.io/platform/marketing-personalisation"><span class="marker cyan"></span>Personalise a campaign<svg class="icon"><use href="#up-right"/></svg></a>
             <a href="https://www.mediarithmics.io/platform/data-collaboration"><span class="marker coral"></span>Build an audience with a partner<svg class="icon"><use href="#up-right"/></svg></a>
-            <a href="https://www.mediarithmics.io/platform/attribution"><span class="marker green"></span>Measure what led to a sale<svg class="icon"><use href="#up-right"/></svg></a>
+            <a href="#click-to-store"><span class="marker green"></span>Follow an ad click to an in-store sale<svg class="icon"><use href="#down"/></svg></a>
           </div>
         </div>
         <div class="diagram">
@@ -124,13 +128,47 @@
           <button class="film-link" id="open-film" type="button"><span class="play-ring"><svg class="icon"><use href="#play"/></svg></span>Watch the illustration <span class="film-length">0:05</span></button>
         </div>
       </div>
-      <div class="wrap brief" id="example">
-        <div><p class="eyebrow"><span class="marker violet"></span>Mics AI · Illustrative workflow</p><h3>From a brief to a campaign.</h3></div>
-        <div class="brief-example">
-          <details name="brief-step" open><summary>The brief</summary><p>“I’d like to invite past shoppers back into our stores.”</p></details>
-          <details name="brief-step"><summary>The audience</summary><p>Start with loyalty customers who previously bought in store and can be contacted for marketing.</p></details>
-          <details name="brief-step"><summary>The campaign</summary><p>Choose a message for that audience and review the channels before launching.</p></details>
-        </div>
+      <div class="wrap demo-wrap" id="example">
+        <section class="agent-demo" id="audience-agent" aria-labelledby="agent-title">
+          <div class="agent-intro">
+            <p class="eyebrow"><span class="marker violet"></span>Audience Agent</p>
+            <h3 id="agent-title">Tell the agent who you want to reach.</h3>
+            <p class="intro">Describe your shoppers in everyday language. The agent turns your request into a set of rules you can review before creating the audience.</p>
+          </div>
+          <div class="agent-console">
+            <div class="console-header"><span class="console-name"><svg class="icon"><use href="#users"/></svg>Audience builder</span><small>Illustrative demo</small></div>
+            <ol class="agent-progress enhanced-only" aria-label="Audience creation steps">
+              <li aria-current="step"><span>01</span>Request</li><li><span>02</span>Rules</li><li><span>03</span>Audience</li>
+            </ol>
+            <div class="agent-pane" data-agent-pane="request">
+              <h4 tabindex="-1">Make a request</h4>
+              <label class="sample-choice enhanced-only">Sample brief
+                <select id="sample-brief"><option value="shoppers">In-store shoppers</option><option value="winback">Shoppers to win back</option></select>
+              </label>
+              <blockquote id="agent-request">Find loyalty members who have bought in store and opted in to marketing.</blockquote>
+              <div class="demo-actions enhanced-only"><button type="button" class="button demo-primary" data-agent-action="rules">Generate audience rules <svg class="icon"><use href="#arrow"/></svg></button></div>
+            </div>
+            <div class="agent-pane" data-agent-pane="rules">
+              <h4 tabindex="-1">Review the proposed rules</h4>
+              <p>Include shoppers who meet all three conditions.</p>
+              <dl class="agent-rules">
+                <div><dt>Customer group</dt><dd>Loyalty members</dd></div>
+                <div><dt>Purchase history</dt><dd id="agent-history">At least one in-store purchase</dd></div>
+                <div><dt>Marketing permission</dt><dd>Opted in</dd></div>
+              </dl>
+              <div class="demo-actions enhanced-only">
+                <button type="button" class="button demo-primary" data-agent-action="created">Create example audience <svg class="icon"><use href="#check"/></svg></button>
+                <button type="button" class="demo-text-button" data-agent-action="request">Change brief</button>
+              </div>
+            </div>
+            <div class="agent-pane" data-agent-pane="created">
+              <div class="agent-success"><svg class="icon"><use href="#check"/></svg><h4 tabindex="-1">Example audience created</h4></div>
+              <p class="audience-name" id="agent-name">In-store shoppers</p>
+              <p id="agent-summary">Loyalty members with an in-store purchase and permission to receive marketing.</p>
+              <div class="demo-actions"><a class="inline-link on-light" href="#click-to-store">Follow an ad click to the store <svg class="icon"><use href="#down"/></svg></a><button type="button" class="demo-text-button enhanced-only" data-agent-action="request">Try another brief</button></div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -147,6 +185,35 @@
         <article class="sector retail" id="retail" role="tabpanel" aria-labelledby="tab-retail">
           <div class="sector-image"><img loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/retail.svg" alt=""></div>
           <div class="sector-copy"><p class="eyebrow"><span class="marker green"></span>Retail media</p><h3>Turn shopper insight into a media offering.</h3><p>Give advertisers a way to reach your shoppers and see how their campaigns contribute to sales.</p><a href="https://www.mediarithmics.io/vertical/retail" class="inline-link dark-link">Explore retail media <svg class="icon"><use href="#arrow"/></svg></a></div>
+          <section class="retail-trace" id="click-to-store" aria-labelledby="trace-title">
+            <div class="trace-header">
+              <div><p class="eyebrow"><span class="marker green"></span>Retail measurement · Illustrative demo</p><h4 id="trace-title">From an ad click to an in-store sale.</h4></div>
+              <p>Follow one shopper who has agreed to measurement. Their loyalty account can link an online click to a store receipt.</p>
+            </div>
+            <ol class="trace-events">
+              <li class="trace-card" id="click-event">
+                <div class="trace-label"><span>01 · Online</span><svg class="icon"><use href="#pointer"/></svg></div>
+                <h5>Ad click</h5><p>The shopper clicks a campaign ad while signed in to their loyalty account.</p>
+                <button type="button" class="trace-action enhanced-only" id="record-click"><span>Click the example ad</span><svg class="icon"><use href="#arrow"/></svg></button>
+              </li>
+              <li class="trace-card" id="purchase-event">
+                <div class="trace-label"><span>02 · In store</span><svg class="icon"><use href="#receipt"/></svg></div>
+                <h5 tabindex="-1">Store receipt</h5><p>The shopper buys in store during the campaign’s measurement window.</p>
+                <noscript><p>At checkout, the shopper scans the loyalty card connected to the online account.</p></noscript>
+                <label class="checkout-choice enhanced-only" for="checkout-card">At checkout
+                  <select id="checkout-card" disabled><option value="matched">Scan the same loyalty card</option><option value="unmatched">Continue without a card</option></select>
+                </label>
+                <button type="button" class="trace-action enhanced-only" id="record-purchase" disabled><span>Record the purchase</span><svg class="icon"><use href="#arrow"/></svg></button>
+              </li>
+              <li class="trace-card trace-report" id="report-event">
+                <div class="trace-label"><span>03 · Campaign report</span><svg class="icon"><use href="#report"/></svg></div>
+                <div><h5 id="trace-result" tabindex="-1" aria-describedby="trace-detail">Matched store sale</h5><p id="trace-detail">The click and receipt share the same loyalty account. The sale appears in the campaign report.</p></div>
+                <noscript><p>Without that loyalty link, the store records the sale and the campaign report leaves it unmatched.</p></noscript>
+                <button type="button" class="trace-reset enhanced-only" id="reset-trace" hidden>Try another checkout</button>
+              </li>
+            </ol>
+            <a class="inline-link dark-link trace-source" href="https://www.mediarithmics.io/platform/attribution">How attribution works <svg class="icon"><use href="#up-right"/></svg></a>
+          </section>
         </article>
         <article class="sector broadcast" id="broadcast" role="tabpanel" aria-labelledby="tab-media" hidden>
           <div class="sector-image"><img loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/broadcast.svg" alt=""></div>
@@ -216,7 +283,7 @@
       </fieldset>
       <button type="button" class="button light preview-headline">Preview headline <svg class="icon"><use href="#arrow"/></svg></button>
     </section>
-    <section><h3>Artwork and copy</h3><p>The animated shapes and customer journey are editorial illustrations. The film is a concept visual. Customer stories and reading links open existing public resources. The specific AI agent workflows and final copy are awaiting product review.</p></section>
+    <section><h3>Artwork and copy</h3><p>The Audience Agent demo illustrates a plain-language request and the review of proposed audience rules. The retail demo uses fictional events and a shared loyalty account to illustrate one way to match a click with a purchase. A match records an observed journey. Measuring additional sales would require a comparison. The product team will review the wording and interface before the website launch.</p><p>The film is a concept visual. Customer stories and reading links open existing public resources.</p></section>
     <section><h3>Pages and languages</h3><p>Keep the platform, sector pages, customer stories, resources, contact and legal pages. Review duplicate sector pages, older events and redirects before migration. French and Spanish follow English copy approval.</p></section>
   </dialog>
   <dialog id="film-dialog" aria-labelledby="film-title">
