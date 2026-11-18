@@ -18,10 +18,14 @@ when visible again. One pause button in the sticky header controls all players.
 Reduced motion is respected by default; explicit playback remains available.
 No automatic scrolling, form submission, tab switching or focus movement.
 
-The hero keeps Identity → Audience → Campaign connected and visible throughout.
-Its three cards take turns enlarging every four seconds, with a 233 ms transition
-and a seamless return to Identity. No step buttons or technical identifiers.
-The 720 × 400 frame has a matching static SVG fallback and reserves its space.
+The hero keeps the complete chain visible in one 720 × 440 scene (16 seconds).
+Store, CRM and Video have distinct labelled pictograms. Animated signals follow
+their exact curved paths into one person. The same cyan person then travels
+into the centre of a nine-person audience, before that audience activates
+Email, Ads and Video with staggered moving signals and a second wave.
+Subtle zooms guide attention; the complete chain stays visible.
+Reduced motion opens on the complete final state (frame 440).
+The static SVG fallback matches that final state.
 
 The Audience Agent timeline highlights request / rules / created every five seconds.
 All three stages remain visible. Selecting a brief updates the complete example.

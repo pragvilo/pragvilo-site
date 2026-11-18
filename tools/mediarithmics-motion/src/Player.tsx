@@ -21,7 +21,7 @@ function MotionButton() {
 }
 
 const configurations = {
-  hero: {component: Journey, width:720, height:400, duration:360},
+  hero: {component: Journey, width:720, height:440, duration:480},
   identity: {component: IdentityLoop, width:720, height:440, duration:120},
   audience: {component: AudienceFlow, width:600, height:110, duration:450},
   retail: {component: RetailFlow, width:720, height:440, duration:360},
@@ -97,7 +97,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
   if (failed) return null;
   return <div className={'auto-player auto-player--' + kind}>
     <div aria-hidden="true" className="motion-canvas" style={{aspectRatio:config.width + '/' + config.height}}>
-      <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' || kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
+      <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' ? (enabled ? 0 : 440) : kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
     </div>
 
 
