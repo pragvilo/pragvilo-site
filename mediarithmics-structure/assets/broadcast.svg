@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="28 0 312 204" fill="none" stroke-linejoin="round" stroke-linecap="round">
+<g transform="matrix(1 -.12 .12 1 63 69)">
+<rect x="0" y="0" width="148" height="101" rx="10" fill="#0a2450" stroke="#f58d39" stroke-width="2.4"/>
+<rect x="8" y="8" width="132" height="76" rx="6" fill="#061e44" stroke="#f58d39" stroke-width="1.3"/>
+</g>
+<g transform="matrix(1 -.12 .12 1 88 59)">
+<rect x="0" y="0" width="148" height="101" rx="10" fill="#0a2450" stroke="#00ad68" stroke-width="2.4"/>
+<rect x="8" y="8" width="132" height="76" rx="6" fill="#061e44" stroke="#00ad68" stroke-width="1.3"/>
+</g>
+<g transform="matrix(1 -.12 .12 1 113 49)">
+<rect x="0" y="0" width="148" height="101" rx="10" fill="#0a2450" stroke="#ff5959" stroke-width="2.4"/>
+<rect x="8" y="8" width="132" height="76" rx="6" fill="#061e44" stroke="#ff5959" stroke-width="1.3"/>
+</g>
+<g transform="matrix(1 -.12 .12 1 138 39)">
+<rect x="0" y="0" width="148" height="101" rx="10" fill="#0a2450" stroke="#00a1df" stroke-width="2.4"/>
+<rect x="8" y="8" width="132" height="76" rx="6" fill="#061e44" stroke="#00a1df" stroke-width="1.3"/>
+<path d="m61 28 29 18-29 18z" fill="#ff5959" stroke="none" stroke-width="1"/>
+<path d="M15 92h20m83 0h4" fill="none" stroke="#00a1df" stroke-width="2"/>
+</g>
+
+</svg>
