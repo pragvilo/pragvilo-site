@@ -54,15 +54,20 @@
     }
     const stages = buttons.map((_, i) => art.makeStage(i));
     const captions = [
-      'Bring scattered signals into one customer view.',
-      'Find the people who belong in the same audience.',
-      'Take that audience into your next campaign.'
+      'Connect the signals that belong to the same person.',
+      'Review the people and rules behind your audience.',
+      'Use that audience in a campaign you can measure.'
+    ];
+    const outcomes = [
+      ['Bring together', 'Website · CRM · Store', 'Recognise', 'One customer view'],
+      ['Describe', 'People to reach again', 'Review', 'An audience with clear rules'],
+      ['Activate', 'Your chosen audience', 'Measure', 'Your campaign outcomes']
     ];
     live.innerHTML = art.svg(0);
     const paths = [...live.querySelectorAll('path')];
     artStage.classList.add('ready');
     let current = 0;
-    let playing = !motionPreference.matches;
+    let playing = false;
     let visible = false;
     let focusing = false;
     let timer = 0;
@@ -83,6 +88,12 @@
       current = index;
       buttons.forEach((b, i) => b.setAttribute('aria-pressed', String(i === index)));
       caption.textContent = captions[index];
+      const [inputLabel, input, outputLabel, output] = outcomes[index];
+      $('#story-input-label').textContent = inputLabel;
+      $('#story-input').textContent = input;
+      $('#story-output-label').textContent = outputLabel;
+      $('#story-output').textContent = output;
+      $('#story-outcome').dataset.stage = index;
     }
     function schedule() {
       window.clearTimeout(timer);
@@ -152,8 +163,15 @@
     const name = $('#agent-name');
     const summary = $('#agent-summary');
     const examples = {
-      shoppers: {request:request.textContent, history:history.textContent, summary:summary.textContent},
+      viewers: {
+        request:'Find registered viewers who have not watched in six months and have opted in to marketing.',
+        group:'Registered viewers', historyLabel:'Viewing history',
+        history:'No viewing in the past six months',
+        summary:'Registered viewers with no viewing in six months and permission to receive marketing.'
+      },
+      shoppers: {request:request.textContent, group:'Loyalty members', historyLabel:'Purchase history', history:history.textContent, summary:summary.textContent},
       winback: {
+        group:'Loyalty members', historyLabel:'Purchase history',
         request:'Find loyalty members who have bought in store, have not returned in six months and have opted in to marketing.',
         history:'A previous in-store purchase, with none in the past six months',
         summary:'Loyalty members who last bought in store at least six months ago and have opted in to marketing.'
@@ -166,6 +184,8 @@
       const brief = examples[select.value];
       request.textContent = brief.request;
       history.textContent = brief.history;
+      $('#agent-group').textContent = brief.group;
+      $('#agent-history-label').textContent = brief.historyLabel;
       name.textContent = select.selectedOptions[0].textContent;
       summary.textContent = brief.summary;
     }
@@ -203,6 +223,18 @@
     const checkout = $('#checkout-card');
     const retry = $('#reset-trace');
     const result = $('#trace-result');
+    const mobile = window.matchMedia('(max-width:760px)');
+    const cards = [...trace.querySelectorAll('.trace-card')];
+    let currentState = 'idle';
+    function syncCards() {
+      const step = currentState === 'idle' ? 0 : currentState === 'clicked' ? 1 : 2;
+      const focusedCard = cards.findIndex(card => card.contains(document.activeElement));
+      cards.forEach((card, index) => {card.hidden = mobile.matches && index !== step;});
+      $('#trace-step-number').textContent = String(step + 1);
+      $('#trace-step-name').textContent = '· ' + ['Ad click', 'Store receipt', 'Campaign report'][step];
+      if (mobile.matches && focusedCard >= 0 && focusedCard !== step) cards[step].querySelector('h5').focus({preventScroll:true});
+    }
+    mobile.addEventListener('change', syncCards);
     const detail = $('#trace-detail');
     const reports = {
       idle: ['Waiting for an ad click','Click the example ad to start following this shopper.'],
@@ -211,6 +243,7 @@
       unmatched: ['Unmatched store sale','The purchase is recorded without the loyalty account used online. The retailer sees a sale, but cannot link this receipt to the ad click.']
     };
     function render(state) {
+      currentState = state;
       const clicked = state !== 'idle';
       const complete = state === 'matched' || state === 'unmatched';
       trace.dataset.state = state;
@@ -225,6 +258,7 @@
       $('#purchase-event').toggleAttribute('data-recorded',complete);
       $('#report-event').toggleAttribute('data-recorded',complete);
       [result.textContent, detail.textContent] = reports[state];
+      syncCards();
     }
     clickButton.addEventListener('click', () => {
       render('clicked');
@@ -241,6 +275,11 @@
       checkout.value = trace.dataset.state === 'matched' ? 'unmatched' : 'matched';
       render('clicked');
       focusDemoStep(checkout);
+    });
+    $('#restart-trace').addEventListener('click', () => {
+      checkout.value = 'matched';
+      render('idle');
+      focusDemoStep($('#click-event h5'));
     });
     checkout.value = 'matched';
     render('idle');
@@ -279,6 +318,8 @@
     if (panel) {
       const tab = tabs.find(t => t.getAttribute('aria-controls') === panel.id);
       if (panel.hidden) activateTab(tab);
+      const disclosure = target.closest('details');
+      if (disclosure) disclosure.open = true;
       target.scrollIntoView({block:'start'});
     }
   }
@@ -292,6 +333,7 @@
 
   const notes = $('#review-dialog');
   const film = $('#film-dialog');
+  const demoDialog = $('#demo-dialog');
   const video = film.querySelector('video');
   function notifyDialog() {document.dispatchEvent(new Event('mics:dialog'));}
   function openDialog(dialog) {
@@ -306,7 +348,7 @@
     video.play().catch(() => {});
   });
   film.addEventListener('close', () => video.pause());
-  for (const dialog of [notes,film]) {
+  for (const dialog of [notes,film,demoDialog]) {
     dialog.addEventListener('close', notifyDialog);
     dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', e => {
@@ -315,6 +357,55 @@
       if (e.clientX < box.left || e.clientX > box.right || e.clientY < box.top || e.clientY > box.bottom) dialog.close();
     });
   }
+
+
+  const demoForm = $('#demo-form');
+  const confirmation = $('#demo-confirmation');
+  const demoFields = ['name', 'email', 'interest'].map(name => $('#demo-' + name));
+  const errors = {
+    name:'Enter your name to preview the request.',
+    email:'Enter a valid email address, such as alex@example.com.',
+    interest:'Choose a topic for this example.'
+  };
+  function validateField(field) {
+    const valid = field.value.trim() !== '' && !(field.type === 'email' && field.validity.typeMismatch);
+    field.setAttribute('aria-invalid', String(!valid));
+    $('#' + field.id + '-error').textContent = valid ? '' : errors[field.name];
+    return valid;
+  }
+  $$('[data-demo-open]').forEach(button => button.addEventListener('click', () => {
+    openDialog(demoDialog);
+    $('#demo-name').focus({preventScroll:true});
+  }));
+  demoFields.forEach(field => field.addEventListener('input', () => {
+    if (field.getAttribute('aria-invalid') === 'true') validateField(field);
+  }));
+  demoForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const invalid = demoFields.filter(field => !validateField(field));
+    if (invalid.length) {invalid[0].focus(); return;}
+    $('#request-name').textContent = $('#demo-name').value.trim();
+    $('#request-email').textContent = $('#demo-email').value.trim();
+    $('#request-topic').textContent = $('#demo-interest').value;
+    demoForm.hidden = true;
+    confirmation.hidden = false;
+    $('#demo-confirmation-title').focus();
+  });
+  $('#edit-request').addEventListener('click', () => {
+    confirmation.hidden = true;
+    demoForm.hidden = false;
+    $('#demo-name').focus();
+  });
+  demoDialog.addEventListener('close', () => {
+    demoForm.reset();
+    demoForm.hidden = false;
+    confirmation.hidden = true;
+    demoFields.forEach(field => {
+      field.removeAttribute('aria-invalid');
+      $('#' + field.id + '-error').textContent = '';
+    });
+    ['name','email','topic'].forEach(name => {$('#request-' + name).textContent = '';});
+  });
 
   const heading = $('#headline');
   const defaultHeadline = heading.innerHTML;
