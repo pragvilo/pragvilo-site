@@ -4,7 +4,7 @@ import {Player, type PlayerRef, type CallbackListener} from '@remotion/player';
 import {Journey} from './Composition';
 import {IdentityLoop, AudienceFlow, RetailFlow, AmbientArtwork} from './Scenes';
 import {motionAllowed, shouldPlay} from './playback';
-import {audienceMoment} from './audienceTimeline';
+import {audienceMoment, audienceSeconds} from './audienceTimeline';
 
 const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
 let choice: boolean | null = null;
@@ -24,7 +24,7 @@ function MotionButton() {
 const configurations = {
   hero: {component: Journey, width:720, height:440, duration:420},
   identity: {component: IdentityLoop, width:720, height:440, duration:120},
-  audience: {component: AudienceFlow, width:600, height:360, duration:1080},
+  audience: {component: AudienceFlow, width:600, height:360, duration:audienceSeconds*3*30},
   retail: {component: RetailFlow, width:720, height:440, duration:360},
   art: {component: AmbientArtwork, width:720, height:400, duration:240},
 };
@@ -46,6 +46,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     const demo = kind === 'audience' ? document.querySelector<HTMLElement>('#audience-agent') : null;
     const target = demo?.querySelector<HTMLElement>('.agent-console') || host;
     let lastMoment = '';
+    let manualUntilFrame:number|null = null;
     const publishAudience = (frame:number) => {
       if (!demo) return;
       const moment=audienceMoment(frame);
@@ -59,7 +60,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     sync.current = () => {
       gate.current.documentVisible = !document.hidden;
       gate.current.dialogOpen = !!document.querySelector('dialog[open]');
-      const play = shouldPlay(gate.current);
+      const play = shouldPlay({...gate.current,interacting:gate.current.interacting && manualUntilFrame===null});
       host.dataset.playing = String(play);
       if (play && !p.isPlaying()) p.play();
       else if (!play && p.isPlaying()) p.pause();
@@ -80,11 +81,27 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     const onFrame: CallbackListener<'frameupdate'> = ({detail}) => {
       // A visible diagnostic marker also makes automated playback verifiable.
       if (detail.frame % 15 === 0) host.dataset.frame = String(detail.frame);
-      if (!gate.current.interacting) publishAudience(detail.frame);
+      publishAudience(detail.frame);
+      if (manualUntilFrame!==null && detail.frame>=manualUntilFrame) {
+        manualUntilFrame=null;
+        sync.current();
+      }
+    };
+    const onSelect = (event:Event) => {
+      const index=(event as CustomEvent<{index:number}>).detail?.index;
+      if (!Number.isInteger(index) || index<0 || index>2) return;
+      const start=index*audienceSeconds*30;
+      const animate=gate.current.enabled && !preference.matches;
+      manualUntilFrame=animate?start+45:null;
+      const frame=animate?start:start+45;
+      p.seekTo(frame);
+      publishAudience(frame);
+      sync.current();
     };
     const fail = () => {setFailed(true); if (fallback) fallback.hidden = false; delete host.dataset.ready; if(demo) demo.dispatchEvent(new CustomEvent('mics:audience-tick',{detail:{index:0,step:'created'}}));};
     p.addEventListener('frameupdate',onFrame);
     p.addEventListener('error',fail);
+    demo?.addEventListener('mics:audience-select',onSelect);
     document.addEventListener('visibilitychange',onContext);
     document.addEventListener('mics:dialog',onContext);
     // Preserve keyboard focus and a visitor's edits; automatic scenes never submit or click controls.
@@ -93,6 +110,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     publishAudience(p.getCurrentFrame());
     return () => {
       observer.disconnect(); p.removeEventListener('frameupdate',onFrame); p.removeEventListener('error',fail);
+      demo?.removeEventListener('mics:audience-select',onSelect);
       document.removeEventListener('visibilitychange',onContext); document.removeEventListener('mics:dialog',onContext);
       demo?.querySelector<HTMLElement>('.agent-console')?.removeEventListener('focusin',hold);
       demo?.querySelector<HTMLElement>('.agent-console')?.removeEventListener('focusout',release);
@@ -103,7 +121,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
   if (failed) return null;
   return <div className={'auto-player auto-player--' + kind}>
     <div aria-hidden="true" className="motion-canvas" style={{aspectRatio:config.width + '/' + config.height}}>
-      <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' ? (enabled ? 0 : 385) : kind === 'audience' ? (enabled ? 0 : 270) : kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
+      <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' ? (enabled ? 0 : 385) : kind === 'audience' ? (enabled ? 0 : 45) : kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
     </div>
 
 

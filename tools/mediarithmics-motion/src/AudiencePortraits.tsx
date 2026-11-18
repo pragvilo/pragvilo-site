@@ -1,10 +1,15 @@
-import {AbsoluteFill, Easing, Interactive, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
-import {audienceMoment} from './audienceTimeline';
+import {Easing, Interactive, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
+import {audienceMoment, audienceSelections, audienceColors, audienceSeconds} from './audienceTimeline';
 
 const clamp={extrapolateLeft:'clamp',extrapolateRight:'clamp',easing:Easing.bezier(.2,0,.2,1)} as const;
-const selections=[[0,3,4,8,10],[1,2,5,7,11],[0,2,6,8,9]];
-const selectedPositions=[[190,115],[300,85],[410,115],[245,235],[355,235]];
-const surroundingPositions=[[48,65],[552,65],[48,180],[552,180],[48,295],[552,295],[300,330]];
+const surroundingPositions=[[48,55],[552,55],[48,140],[552,140],[48,225],[552,225],[48,310],[552,310],[300,325]];
+function selectedPosition(rank:number,count:number) {
+  const columns=count>4?3:2;
+  const rows=Math.ceil(count/columns);
+  const row=Math.floor(rank/columns);
+  const inRow=Math.min(columns,count-row*columns);
+  return [300+(rank%columns-(inRow-1)/2)*108,180+(row-(rows-1)/2)*96];
+}
 
 function Portrait({variant}:{variant:number}) {
   const hair=variant%4;
@@ -22,33 +27,35 @@ function Portrait({variant}:{variant:number}) {
   </g>;
 }
 
-export function AudienceFlow() {
-  const frame=useCurrentFrame(); const {fps}=useVideoConfig();
+export function AudienceIllustration({frame=45,fps=30}:{frame?:number;fps?:number}) {
   const {index,local}=audienceMoment(frame,fps);
-  const selection=interpolate(local,[4*fps,5*fps],[0,1],clamp);
-  const reveal=interpolate(local,[2*fps,2*fps+6],[0,1],clamp);
-  const reset=interpolate(local,[11.7*fps,12*fps-1],[1,0],clamp);
+  const selection=interpolate(local,[1.2*fps,1.2*fps+7],[0,1],clamp);
+  const reveal=interpolate(local,[.6*fps,.6*fps+6],[0,1],clamp);
+  const reset=interpolate(local,[(audienceSeconds-.25)*fps,audienceSeconds*fps-1],[1,0],clamp);
+  const color=audienceColors[index];
   const t=selection*reset;
-  return <AbsoluteFill style={{fontFamily:'"DM Sans",sans-serif'}}>
-    <svg viewBox="0 0 600 360" width="600" height="360">
-      <rect x="135" y="28" width="330" height="257" rx="36" fill="#F7F9FC" stroke="#D2DCE8" opacity={t}/>
-      <Interactive.G name="People matching the suggested criteria">
+  return <svg viewBox="0 0 600 360" width="600" height="360">
+      <rect x="132" y="24" width="336" height="304" rx="36" fill="#EDF2F8" stroke={color} opacity={t}/>
+      <g>
         {Array.from({length:12},(_,i)=>{
-          const rank=selections[index].indexOf(i);
+          const rank=audienceSelections[index].indexOf(i);
           const selected=rank!==-1;
-          const other=Array.from({length:12},(_,j)=>j).filter(j=>!selections[index].includes(j)).indexOf(i);
-          const target=selected?selectedPositions[rank]:surroundingPositions[other];
+          const other=Array.from({length:12},(_,j)=>j).filter(j=>!audienceSelections[index].includes(j)).indexOf(i);
+          const target=selected?selectedPosition(rank,audienceSelections[index].length):surroundingPositions[other];
           const startX=90+(i%4)*140; const startY=65+Math.floor(i/4)*95;
           const x=startX+(target[0]-startX)*t;
           const y=startY+(target[1]-startY)*t;
           const scale=selected?.82+.28*t:.82-.28*t;
           return <g key={i} transform={`translate(${x} ${y}) scale(${scale})`} opacity={selected?1:1-.72*t}>
             <Portrait variant={i}/>
-            <circle r="40" fill="none" stroke={selection>.5?'#00AD68':'#7057D1'} strokeWidth="2.2" opacity={selected?reveal*reset:0}/>
-            {selected&&<g opacity={t}><circle cx="29" cy="28" r="10" fill="#00AD68" stroke="#FFFFFF" strokeWidth="2"/><path d="m25 28 3 3 5-6" fill="none" stroke="#061E44" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></g>}
+            <circle r="40" fill="none" stroke={color} strokeWidth="2.2" opacity={selected?reveal*reset:0}/>
+            {selected&&<g opacity={t}><circle cx="29" cy="28" r="10" fill={color} stroke="#FFFFFF" strokeWidth="2"/><path d="m25 28 3 3 5-6" fill="none" stroke="#061E44" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></g>}
           </g>;
         })}
-      </Interactive.G>
-    </svg>
-  </AbsoluteFill>;
+      </g>
+    </svg>;
+}
+
+export function AudienceFlow() {
+  return <Interactive.Div name="People matching the suggested criteria" style={{position:'absolute',inset:0}}><AudienceIllustration frame={useCurrentFrame()} fps={useVideoConfig().fps}/></Interactive.Div>;
 }

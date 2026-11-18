@@ -34,18 +34,24 @@ Labels are 18px; coloured stage names sit underneath. A full-colour overview
 closes the loop. Reduced motion opens on that complete state (frame 385).
 The static SVG fallback matches that final state.
 
-The Audience Agent shows three natural-language requests at all times, with
-no dropdown or required choice. A You avatar accompanies them. Suggested
-criteria appear below the requests, before the people on mobile.
-AudienceWalkthrough is 600 × 360, 1080 frames at 30fps: three examples of
-12 seconds each. Request emphasis lasts two seconds, criteria emphasis two
-seconds, then five of twelve varied illustrated portraits regroup over one
-second. The final audience holds for almost seven seconds. `audienceTimeline.ts`
-keeps HTML copy and Remotion portraits on the same example and stage.
-A single header control pauses every animation; offscreen/background/dialog
-and keyboard-focus gates are preserved. Reduced motion starts at frame 270
-on the complete first example. The fallback SVG shows that same state. All
-people and data are explicitly fictional, with no invented result count.
+The Audience Agent shows three clickable prospect roles: a TV & media audience
+manager (coral), a retail media manager (green) and a brand CRM manager (orange).
+Each has its own illustrated persona and request. The same colors identify the
+solution tabs. Suggested criteria and an audience count accompany each request.
+AudienceWalkthrough is 600 × 360, 540 frames at 30fps: three six-second examples.
+Request and criteria emphasis last 0.6 seconds each; regrouping takes seven
+frames (233 ms), then the completed result holds. Groups contain 4, 7 and 3 of
+the 12 illustrative profiles, with different memberships and layouts.
+`audienceTimeline.ts` keeps the portraits and HTML states synchronized.
+Clicking or keyboard-activating a request seeks to that example and replays it;
+while focus is within the console, it holds the completed selection. Offscreen,
+background, dialog, reduced-motion and the header pause gates remain effective.
+While paused or with reduced motion, clicking shows the completed state directly.
+The build generates three SVG fallbacks from the same portrait component; these
+remain selectable if the Player fails. Only explicit selections announce their
+result to screen readers; autoplay never moves keyboard focus.
+All people, roles and data are explicitly fictional illustration examples, not
+product counts or customer performance claims.
 The retail sequence illustrates an observed match via a shared loyalty account,
 not a causal sales uplift. Existing deeper manual examples remain available.
 
