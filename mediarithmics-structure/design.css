@@ -540,3 +540,73 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
   .case-motion-control{margin-top:-12px}
 }
 .audience-visual .motion-toolbar>span{width:100%}
+
+/* A single motion control; a complete example stays visible as the highlights advance. */
+.global-motion{display:flex;align-items:center;flex:none}
+.global-motion .motion-toggle{width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:8px;color:var(--ink)}
+.global-motion .motion-toggle .icon{width:17px;height:17px}
+.art-control .steps{width:100%}
+.platform .demo-wrap{margin-top:0}
+.agent-demo{display:block;padding:0}
+.agent-intro{display:block;margin-bottom:28px}
+.agent-intro h2{font-size:clamp(32px,3.5vw,49px);letter-spacing:-.05em;line-height:1.08;margin:14px 0 0}
+.agent-console{padding:24px;background:var(--white)}
+.console-header{gap:16px;margin-bottom:22px}
+.console-header .sample-choice{margin:0;flex-direction:row;align-items:center;gap:10px}
+.sample-choice select{min-height:44px}
+.agent-stages{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:stretch}
+.agent-demo .agent-pane,.agent-demo[data-ready] .agent-pane{min-height:0;margin:0;padding:20px;border:1px solid var(--edge);border-radius:12px;background:var(--paper);transition:background .2s var(--ease),border-color .2s var(--ease)}
+.agent-stage-heading{display:flex;align-items:center;gap:9px;color:var(--ink-2)}
+.agent-stage-heading h3{font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.2;margin:0;color:var(--navy)}
+.agent-stage-heading>.icon{margin-left:auto;width:16px;height:16px;flex:none}
+.stage-number{display:grid;place-items:center;width:28px;height:28px;border:1px solid var(--edge-strong);border-radius:50%;font-size:11px;flex:none;font-variant-numeric:tabular-nums}
+.agent-demo[data-step=request] [data-agent-pane=request],.agent-demo[data-step=rules] [data-agent-pane=rules]{border-color:var(--violet);background:var(--white)}
+.agent-demo[data-step=request] [data-agent-pane=request] .stage-number,.agent-demo[data-step=rules] [data-agent-pane=rules] .stage-number{background:var(--violet);border-color:var(--violet);color:var(--white)}
+.agent-demo[data-step=created] [data-agent-pane=created]{border-color:var(--green);background:var(--white)}
+.agent-demo[data-step=created] [data-agent-pane=created] .stage-number{background:var(--green);border-color:var(--green);color:var(--navy)}
+.agent-pane blockquote{border:0;padding:0;background:transparent;font-size:22px;line-height:1.4;margin-top:24px}
+.agent-rules{gap:12px;margin-top:20px}
+.agent-rules div{display:block;padding:0;border:0;border-radius:0}
+.agent-rules dt{font-size:11px;margin-bottom:3px}
+.agent-rules dd{font-size:14px;line-height:1.35;display:flex;gap:5px;align-items:center}
+.agent-rules dd .icon{width:14px;height:14px;color:var(--link)}
+.agent-pane .audience-name{font-size:28px;margin-top:24px}
+.agent-pane .audience-visual{max-width:none;margin:12px 0 8px}
+.audience-cloud{grid-template-columns:repeat(8,1fr);gap:5px}
+.audience-cloud>span{display:grid!important}
+.audience-cloud .icon{width:17px;height:17px}
+.agent-pane .audience-status{display:flex;align-items:center;gap:7px;font-size:12px;margin:0}
+.agent-pane .audience-status .marker{width:6px;height:6px}
+.agent-pane #agent-summary{margin:0}
+.agent-footer{display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin-top:16px}
+.agent-footer small{font-size:11px;color:var(--ink-2)}
+.agent-footer .inline-link{font-size:14px;min-height:44px}
+@media(max-width:1100px) and (min-width:761px){
+  .nav-inner{gap:12px}.nav-inner .wordmark img{width:145px}#navigation{gap:14px}
+  .agent-stages{gap:10px}.agent-demo .agent-pane{padding:16px}.agent-pane blockquote{font-size:19px}
+  .agent-stage-heading h3{font-size:15px}.agent-stage-heading{gap:6px}
+}
+@media(max-width:760px){
+  .nav-inner{gap:8px}.global-motion{margin-left:auto}.nav-meet{margin-left:0}
+  .nav-inner .wordmark img{width:126px}
+  .agent-intro{margin-bottom:22px}.agent-intro h2{max-width:330px;font-size:36px}
+  .agent-console{padding:16px}.console-header{gap:12px;margin-bottom:16px}
+  .console-name{font-size:14px}.console-header .sample-choice{width:100%;justify-content:space-between;gap:7px;font-size:11px}
+  .sample-choice select{font-size:13px;flex:1;max-width:220px}
+  .agent-stages{grid-template-columns:1fr;gap:10px}
+  .agent-demo .agent-pane{padding:16px}
+  .agent-stage-heading h3{font-size:16px}
+  .agent-pane blockquote{font-size:18px;margin-top:14px;line-height:1.4}
+  .agent-stage-heading>.icon{transform:rotate(90deg)}
+  [data-agent-pane=created] .agent-stage-heading>.icon{transform:none}
+  .agent-rules{gap:9px;margin-top:14px}
+  .agent-rules div{display:grid;grid-template-columns:100px 1fr;gap:8px;align-items:start}
+  .agent-rules dt{font-size:11px;margin:0}.agent-rules dd{font-size:13px}
+  .agent-pane .audience-name{font-size:25px;margin-top:14px}
+  .agent-pane .audience-visual{margin:7px 0;max-width:330px}
+  .agent-footer{margin-top:12px;gap:2px}.agent-footer small{width:100%}
+  .case-cover,.case:last-child .case-cover{aspect-ratio:360/115}
+  .case-copy{padding:18px}.case-copy h3{font-size:24px}
+}
+@media(max-width:400px){.nav-meet{display:none}.nav-inner .wordmark img{width:142px}}
+@media(prefers-reduced-motion:reduce){.agent-demo .agent-pane{transition:none}}

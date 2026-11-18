@@ -70,9 +70,6 @@
         summary:'Loyalty members who last bought in store at least six months ago and have opted in to marketing.'
       }
     };
-    const panes = [...demo.querySelectorAll('[data-agent-pane]')];
-    const steps = [...demo.querySelectorAll('.agent-progress li')];
-
     function applyBrief() {
       const brief = examples[select.value];
       request.textContent = brief.request;
@@ -82,40 +79,20 @@
       name.textContent = select.selectedOptions[0].textContent;
       summary.textContent = brief.summary;
     }
-    function showPane(state, moveFocus) {
+    function highlight(state) {
+      // Keep every stage in the document and readable throughout the loop.
       demo.dataset.step = state;
-      panes.forEach((pane, index) => {
-        const current = pane.dataset.agentPane === state;
-        pane.hidden = !current;
-        if (!current) {
-          steps[index].removeAttribute('aria-current');
-          return;
-        }
-        steps[index].setAttribute('aria-current','step');
-        if (moveFocus && canAnimate()) {
-          gsap.fromTo(pane, {opacity:.65, y:3}, {opacity:1, y:0, duration:.18, ease, overwrite:true, clearProps:'transform,opacity'});
-        }
-      });
-      demo.dispatchEvent(new CustomEvent('mics:audience-state', {detail:state}));
-      if (moveFocus) focusDemoStep(demo.querySelector('.agent-pane:not([hidden]) h4'));
     }
-    const manual = () => demo.dispatchEvent(new Event('mics:audience-manual'));
-    select.addEventListener('change', () => {manual(); applyBrief(); showPane('request', false);});
-    demo.addEventListener('mics:audience-tick', event => {
-      if (!['request','rules','created'].includes(event.detail)) return;
-      // Never hide a focused form control, even if an automatic tick arrives at a boundary.
-      if (demo.querySelector('.agent-console').contains(document.activeElement)) {manual(); return;}
-      applyBrief(); showPane(event.detail, false);
+    select.addEventListener('change', () => {
+      applyBrief();
+      highlight('request');
+      demo.dispatchEvent(new Event('mics:audience-manual'));
     });
-    demo.querySelectorAll('[data-agent-action]').forEach(button => {
-      button.addEventListener('click', () => {
-        applyBrief();
-        manual();
-        showPane(button.dataset.agentAction, true);
-      });
+    demo.addEventListener('mics:audience-tick', event => {
+      if (['request','rules','created'].includes(event.detail)) highlight(event.detail);
     });
     applyBrief();
-    showPane('request', false);
+    highlight('request');
     demo.dataset.ready = '';
   }
 
@@ -235,23 +212,14 @@
   if (location.hash) revealSectorTarget(location.hash);
 
   const notes = $('#review-dialog');
-  const film = $('#film-dialog');
   const demoDialog = $('#demo-dialog');
-  const video = film.querySelector('video');
   function notifyDialog() {document.dispatchEvent(new Event('mics:dialog'));}
   function openDialog(dialog) {
     dialog.showModal();
     notifyDialog();
   }
   $('#open-notes').addEventListener('click', () => openDialog(notes));
-  $('#open-film').addEventListener('click', () => {
-    openDialog(film);
-    if (!video.hasAttribute('src')) video.src = '/mediarithmics-structure/sources-profil.mp4';
-    video.currentTime = 0;
-    video.play().catch(() => {});
-  });
-  film.addEventListener('close', () => video.pause());
-  for (const dialog of [notes,film,demoDialog]) {
+  for (const dialog of [notes,demoDialog]) {
     dialog.addEventListener('close', notifyDialog);
     dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', e => {

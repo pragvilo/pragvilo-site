@@ -13,17 +13,17 @@ const subscribe = (listener: () => void) => {subscribers.add(listener); return (
 const notify = () => subscribers.forEach(listener => listener());
 preference.addEventListener('change', () => {if (preference.matches) choice = null; notify();});
 function setMotion(enabled: boolean) {choice = enabled; notify();}
-function MotionButton({compact = false}: {compact?: boolean}) {
+function MotionButton() {
   const enabled = useSyncExternalStore(subscribe, snapshot);
-  return <button type="button" className={compact ? 'icon-button art-play' : 'motion-toggle'} aria-label={enabled ? 'Pause all animations' : 'Play all animations'} onClick={() => setMotion(!enabled)}>
-    <svg className="icon" aria-hidden="true"><use href={enabled ? '#pause' : '#play'}/></svg>{!compact && (enabled ? 'Pause animations' : 'Play animations')}
+  return <button type="button" className="icon-button motion-toggle" title={enabled ? 'Pause all animations' : 'Play all animations'} aria-label={enabled ? 'Pause all animations' : 'Play all animations'} onClick={() => setMotion(!enabled)}>
+    <svg className="icon" aria-hidden="true"><use href={enabled ? '#pause' : '#play'}/></svg><span className="sr-only">{enabled ? 'Pause all animations' : 'Play all animations'}</span>
   </button>;
 }
 
 const configurations = {
   hero: {component: Journey, width:720, height:440, duration:360},
   identity: {component: IdentityLoop, width:720, height:440, duration:120},
-  audience: {component: AudienceFlow, width:600, height:330, duration:450},
+  audience: {component: AudienceFlow, width:600, height:110, duration:450},
   retail: {component: RetailFlow, width:720, height:440, duration:360},
   art: {component: AmbientArtwork, width:720, height:400, duration:240},
 };
@@ -34,7 +34,6 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
   const ref = useRef<PlayerRef>(null);
   const enabled = useSyncExternalStore(subscribe, snapshot);
   const [stage, setStage] = useState(0);
-  const [held, setHeld] = useState(false);
   const [failed, setFailed] = useState(false);
   const gate = useRef({enabled, visible:false, documentVisible:!document.hidden, dialogOpen:false, interacting:false});
   const sync = useRef(() => {});
@@ -46,7 +45,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     if (fallback?.hasAttribute('data-motion-fallback')) fallback.hidden = true;
     host.dataset.ready = '';
     const demo = kind === 'audience' ? document.querySelector<HTMLElement>('#audience-agent') : null;
-    const target = demo?.querySelector('.agent-console') || host;
+    const target = demo?.querySelector<HTMLElement>('.agent-console') || host;
     let lastStage = -1;
     sync.current = () => {
       gate.current.documentVisible = !document.hidden;
@@ -56,7 +55,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
       if (play && !p.isPlaying()) p.play();
       else if (!play && p.isPlaying()) p.pause();
     };
-    const threshold = kind === 'audience' ? .6 : .2;
+    const threshold = .2;
     const observer = new IntersectionObserver(([entry]) => {
       gate.current.visible = entry.isIntersecting && entry.intersectionRatio >= threshold;
       sync.current();
@@ -64,12 +63,12 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     observer.observe(target);
     // Hidden sector panels can become visible without changing the page scroll.
     const onContext = () => sync.current();
-    const hold = () => {gate.current.interacting = true; setHeld(true); sync.current();};
-    const manualState = (event: Event) => {
-      if (!gate.current.interacting) return;
-      const index = audienceSteps.indexOf((event as CustomEvent<string>).detail);
-      if (index >= 0) {p.seekTo(index * 150 + 90); setStage(index);}
+    const hold = () => {gate.current.interacting = true; sync.current();};
+    const release = (event: FocusEvent) => {
+      if (demo?.querySelector<HTMLElement>('.agent-console')?.contains(event.relatedTarget as Node | null)) return;
+      gate.current.interacting = false; sync.current();
     };
+    const manualState = () => {p.seekTo(0); setStage(0);};
     const onFrame: CallbackListener<'frameupdate'> = ({detail}) => {
       // A visible diagnostic marker also makes automated playback verifiable.
       if (detail.frame % 15 === 0) host.dataset.frame = String(detail.frame);
@@ -85,32 +84,25 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     document.addEventListener('visibilitychange',onContext);
     document.addEventListener('mics:dialog',onContext);
     // Preserve keyboard focus and a visitor's edits; automatic scenes never submit or click controls.
-    demo?.querySelector('.agent-console')?.addEventListener('focusin',hold);
-    demo?.addEventListener('mics:audience-manual',hold);
-    demo?.addEventListener('mics:audience-state',manualState);
+    demo?.querySelector<HTMLElement>('.agent-console')?.addEventListener('focusin',hold);
+    demo?.querySelector<HTMLElement>('.agent-console')?.addEventListener('focusout',release);
+    demo?.addEventListener('mics:audience-manual',manualState);
     return () => {
       observer.disconnect(); p.removeEventListener('frameupdate',onFrame); p.removeEventListener('error',fail);
       document.removeEventListener('visibilitychange',onContext); document.removeEventListener('mics:dialog',onContext);
-      demo?.querySelector('.agent-console')?.removeEventListener('focusin',hold);
-      demo?.removeEventListener('mics:audience-manual',hold); demo?.removeEventListener('mics:audience-state',manualState);
+      demo?.querySelector<HTMLElement>('.agent-console')?.removeEventListener('focusin',hold);
+      demo?.querySelector<HTMLElement>('.agent-console')?.removeEventListener('focusout',release);
+      demo?.removeEventListener('mics:audience-manual',manualState);
     };
   }, [host,kind]);
   useEffect(() => {gate.current.enabled = enabled; sync.current();}, [enabled]);
-  const explore = () => {
-    gate.current.interacting = true; setHeld(true); sync.current(); ref.current?.seekTo(90);
-    document.querySelector('#audience-agent')?.dispatchEvent(new CustomEvent('mics:audience-tick',{detail:'request'}));
-  };
-  const resume = () => {
-    gate.current.interacting = false; setHeld(false); setMotion(true); ref.current?.seekTo(0);
-    document.querySelector('#audience-agent')?.dispatchEvent(new CustomEvent('mics:audience-tick',{detail:'request'}));
-    sync.current();
-  };
   if (failed) return null;
   return <div className={'auto-player auto-player--' + kind}>
     <div aria-hidden="true" className="motion-canvas" style={{aspectRatio:config.width + '/' + config.height}}>
       <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' || kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
     </div>
-    {kind === 'hero' ? <div className="art-control" role="group" aria-label="Explore the customer journey"><div className="steps">{['Identity','Audience','Campaign'].map((name,index) => <button type="button" key={name} aria-pressed={stage === index} onClick={() => ref.current?.seekTo(index * 120 + (enabled ? 0 : 90))}><span>0{index + 1}</span>{name}</button>)}</div><MotionButton compact/></div> : kind !== 'art' && <div className="motion-toolbar"><span>{kind === 'audience' ? held ? 'Explore at your pace' : enabled ? 'Automatic walkthrough' : 'Walkthrough paused' : enabled ? 'Illustrative journey · auto' : 'Illustrative journey · paused'}</span>{kind === 'audience' && held ? <button className="motion-toggle" type="button" onClick={resume}><svg className="icon" aria-hidden="true"><use href="#play"/></svg>Resume walkthrough</button> : kind === 'audience' ? <><button type="button" className="motion-toggle" onClick={explore}>Try it yourself <svg className="icon" aria-hidden="true"><use href="#arrow"/></svg></button><MotionButton/></> : <MotionButton/>}</div>}
+    {kind === 'hero' && <div className="art-control" role="group" aria-label="Explore the customer journey"><div className="steps">{['Identity','Audience','Campaign'].map((name,index) => <button type="button" key={name} aria-pressed={stage === index} onClick={() => ref.current?.seekTo(index * 120 + (enabled ? 0 : 90))}><span>0{index + 1}</span>{name}</button>)}</div></div>}
+
   </div>;
 }
 

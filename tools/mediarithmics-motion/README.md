@@ -12,15 +12,16 @@ Illustrative graphics, not production screenshots. No audio or remote assets.
   Alternative output: `npm run build:player -- /absolute/path/journey-player.js`.
 
 Players are explicitly muted, loop, and start when 20% of their observed area is
-visible. The audience walkthrough waits until 60% of its console is visible, including on mobile.
+visible, including the audience console on mobile.
 Offscreen players, background tabs and players behind a dialog pause and resume
-when visible again. All pause buttons share a single page-level preference.
+when visible again. One pause button in the sticky header controls all players.
 Reduced motion is respected by default; explicit playback remains available.
 No automatic scrolling, form submission, tab switching or focus movement.
 
-The Audience Agent timeline drives request / rules / created every five seconds.
-Try it yourself, focus on an input, or a manual action holds that timeline until
-Resume walkthrough is selected. Visuals follow the manually selected step.
+The Audience Agent timeline highlights request / rules / created every five seconds.
+All three stages remain visible. Selecting a brief updates the complete example.
+Input focus pauses the timeline; leaving the console resumes it. The 600 × 110
+profile band stays compact on mobile.
 The retail sequence illustrates an observed match via a shared loyalty account,
 not a causal sales uplift. Existing deeper manual examples remain available.
 

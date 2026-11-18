@@ -9,12 +9,12 @@ export function AudienceFlow() {
   const phase = Math.min(2, Math.floor(frame / (5 * fps)));
   const selection = interpolate(frame, [5 * fps, 5 * fps + 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return <AbsoluteFill style={{fontFamily: '"DM Sans", sans-serif'}}>
-    <svg viewBox="0 0 600 330" width="600" height="330">
-      {Array.from({length: 18}, (_, i) => {
-        const selected = [1, 4, 6, 11, 13, 16].includes(i);
+    <svg viewBox="0 0 600 110" width="600" height="110">
+      {Array.from({length: 8}, (_, i) => {
+        const selected = [0, 2, 3, 5, 7].includes(i);
         const color = phase === 2 ? '#00AD68' : '#7057D1';
-        const x = 48 + (i % 6) * 100;
-        const y = 50 + Math.floor(i / 6) * 94;
+        const x = 38 + i * 75;
+        const y = 55;
         const arrive = interpolate(frame, [i, i + 6], [8, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
         return <g key={i} transform={`translate(${x} ${y + arrive})`} opacity={selected ? 1 : 1 - selection * .8}>
           <circle r="34" fill={selected && phase > 0 ? color : '#EDF2F8'} stroke={selected && phase > 0 ? color : '#D2DCE8'} strokeWidth="1.5"/>
@@ -22,7 +22,6 @@ export function AudienceFlow() {
         </g>;
       })}
     </svg>
-    <Interactive.Div name="Audience state" style={{position:'absolute',top:284,left:0,right:0,fontSize:25,lineHeight:1.2,color:'#4D5F80'}}>{['Your customer data','Matching your rules','Your audience is ready'][phase]}</Interactive.Div>
   </AbsoluteFill>;
 }
 
