@@ -23,7 +23,10 @@ Store, CRM and Video have distinct labelled pictograms. Animated signals follow
 their exact curved paths into one person. The same cyan person then travels
 into the centre of a nine-person audience, before that audience activates
 Email, Ads and Video with staggered moving signals and a second wave.
-Subtle zooms guide attention; the complete chain stays visible.
+Identity zooms to 1.2×, Audience to 1.14×, Campaign to 1.1×, then each
+returns to its original size. Inactive stages are desaturated and dimmed to
+50% while the full chain stays visible. Labels are 18px; the three coloured
+stage names sit underneath. A full-colour overview closes the loop.
 Reduced motion opens on the complete final state (frame 440).
 The static SVG fallback matches that final state.
 
