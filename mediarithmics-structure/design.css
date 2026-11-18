@@ -506,3 +506,37 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 }
 
 .resources{padding-top:var(--section)}
+
+/* Automatic Remotion scenes share one pause control and stop outside the viewport. */
+.motion-canvas{position:relative;overflow:hidden;pointer-events:none}
+.motion-canvas svg{max-width:none}
+.motion-toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:44px;flex-wrap:wrap}
+.motion-toolbar>span{font-size:11px;color:var(--muted)}
+.motion-toggle{display:inline-flex;gap:7px;align-items:center;justify-content:center;min-height:44px;padding:7px 0;font-size:12px;font-weight:550;color:inherit}
+.motion-toggle .icon{width:14px;height:14px}
+.case-motion-control{display:flex;justify-content:flex-end;margin-top:-15px;margin-bottom:12px;color:var(--ink-2)}
+.motion-art{position:absolute;inset:0;pointer-events:none}
+.motion-art .auto-player,.motion-art .motion-canvas{height:100%}
+.case-brand{z-index:1}
+.inline-poster{width:100%;height:auto}
+.diagram{padding:24px}
+.diagram .film-link{margin-top:8px;font-size:12px;min-height:36px;opacity:.85}
+.diagram .play-ring{width:27px;height:27px}
+.diagram .motion-toolbar{border-top:1px solid var(--line)}
+.audience-visual .motion-toolbar{margin-top:6px;color:var(--ink-2)}
+.audience-visual .motion-toolbar>span{color:var(--ink-2)}
+.agent-demo[data-ready] .agent-pane{min-height:340px}
+.sector-image>[data-motion-kind=art]{max-width:560px;margin:auto}
+.sector-image .motion-toolbar{margin-top:10px}
+.motion-toggle:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media(max-width:760px){
+  .agent-intro{display:block}
+  .agent-intro h3{font-size:38px}
+  .audience-visual{max-width:390px;margin-top:24px}
+  .audience-visual .motion-toolbar{gap:3px}
+  .agent-demo[data-ready] .agent-pane{min-height:380px}
+  .sector-image .motion-toolbar{justify-content:flex-start;gap:4px 16px}
+  .diagram{padding:18px}
+  .case-motion-control{margin-top:-12px}
+}
+.audience-visual .motion-toolbar>span{width:100%}

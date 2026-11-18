@@ -26,7 +26,7 @@ function SceneTitle({children}: {children: React.ReactNode}) {
   return <Interactive.Div style={{position: 'absolute', left: 24, right: 24, top: 380, color: '#EAF1FA', fontSize: 36, lineHeight: 1.1, fontWeight: 550, letterSpacing: '-.04em', textAlign: 'center', opacity: progress(frame, 0, 6)}}>{children}</Interactive.Div>;
 }
 
-function Identity() {
+export function Identity() {
   const frame = useCurrentFrame();
   return <AbsoluteFill>
     <svg viewBox="0 0 720 440" style={{width: '100%', height: '100%'}}>

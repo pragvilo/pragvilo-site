@@ -10,10 +10,10 @@
   <meta name="description" content="Explore how mediarithmics brings customer identity, audiences and campaigns together.">
   <link rel="icon" href="/mediarithmics-structure/assets/brand-icon.svg" type="image/svg+xml">
   <link rel="preload" href="/mediarithmics-structure/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/mediarithmics-structure/design.css?v=20261118-visual">
+  <link rel="stylesheet" href="/mediarithmics-structure/design.css?v=20261118-auto">
   <script defer src="/mediarithmics-structure/assets/gsap.min.js"></script>
-  <script defer src="/mediarithmics-structure/assets/journey-player.js?v=20261118-visual"></script>
-  <script defer src="/mediarithmics-structure/experience.js?v=20261118-visual"></script>
+  <script defer src="/mediarithmics-structure/assets/journey-player.js?v=20261118-auto"></script>
+  <script defer src="/mediarithmics-structure/experience.js?v=20261118-auto"></script>
 </head>
 <body id="top">
   <a href="#main" class="skip">Skip to content</a>
@@ -66,7 +66,7 @@
         <figure class="hero-figure" aria-label="An illustrative journey from customer data to a campaign">
           <div class="figure-heading"><span class="eyebrow">From data to action</span><span class="example-label">Illustrative journey</span></div>
           <div class="journey-shell">
-            <div class="journey-fallback"><img src="/mediarithmics-structure/assets/journey-poster.svg" width="720" height="440" alt="Website, CRM and store data come together in one customer view."></div>
+            <div class="journey-fallback" data-motion-fallback><img src="/mediarithmics-structure/assets/journey-poster.svg" width="720" height="440" alt="Website, CRM and store data come together in one customer view."></div>
             <div id="journey-player"></div>
           </div>
           <figcaption class="sr-only">Connect your customer data, build an audience, then activate it across your campaigns.</figcaption>
@@ -92,17 +92,18 @@
     <section class="customers chapter light-section" id="customers" aria-labelledby="customers-title">
       <div class="wrap">
         <div class="section-head"><div><p class="eyebrow"><span class="marker coral"></span>Customer stories</p><h2 id="customers-title">Already at work.</h2></div><a class="inline-link on-light" href="https://www.mediarithmics.io/downloadables">More customer stories <svg class="icon"><use href="#up-right"/></svg></a></div>
+        <div class="case-motion-control" data-motion-switch></div>
         <div class="case-grid">
           <a class="case" href="https://www.mediarithmics.io/study-case/tf1">
-            <div class="case-cover tf1-cover"><img class="case-print" width="360" height="200" alt="" src="/mediarithmics-structure/assets/cover-tf1.svg"><img class="case-brand tf1" src="/mediarithmics-structure/assets/tf1.webp" width="66" height="24" alt="TF1"></div>
+            <div class="case-cover tf1-cover"><img class="case-print" data-motion-fallback width="360" height="200" alt="" src="/mediarithmics-structure/assets/cover-tf1.svg"><div class="motion-art" aria-hidden="true" data-motion-kind="art" data-motion-source="/mediarithmics-structure/assets/cover-tf1.svg"></div><img class="case-brand tf1" src="/mediarithmics-structure/assets/tf1.webp" width="66" height="24" alt="TF1"></div>
             <div class="case-copy"><span class="eyebrow">Video on demand</span><h3>Video audiences. <br>Without cookies.</h3><span class="case-read">Read the case study <svg class="icon"><use href="#up-right"/></svg></span></div>
           </a>
           <a class="case" href="https://www.mediarithmics.io/study-case/fnac-darty">
-            <div class="case-cover fnac-cover"><img class="case-print" width="360" height="200" alt="" src="/mediarithmics-structure/assets/cover-fnac.svg"><img class="case-brand fnac" src="/mediarithmics-structure/assets/fnac-darty.webp" width="100" height="20" alt="Fnac Darty"></div>
+            <div class="case-cover fnac-cover"><img class="case-print" data-motion-fallback width="360" height="200" alt="" src="/mediarithmics-structure/assets/cover-fnac.svg"><div class="motion-art" aria-hidden="true" data-motion-kind="art" data-motion-source="/mediarithmics-structure/assets/cover-fnac.svg"></div><img class="case-brand fnac" src="/mediarithmics-structure/assets/fnac-darty.webp" width="100" height="20" alt="Fnac Darty"></div>
             <div class="case-copy"><span class="eyebrow">Retail media</span><h3>RetailLink. <br>Retail media, self-serve.</h3><span class="case-read">Read the case study <svg class="icon"><use href="#up-right"/></svg></span></div>
           </a>
           <a class="case" href="https://www.mediarithmics.io/study-case/channel-4">
-            <div class="case-cover channel-cover"><img class="case-print" width="360" height="200" alt="" src="/mediarithmics-structure/assets/cover-channel.svg"><img class="case-brand channel" src="/mediarithmics-structure/assets/channel4.webp" width="22" height="30" alt="Channel 4"></div>
+            <div class="case-cover channel-cover"><img class="case-print" data-motion-fallback width="360" height="200" alt="" src="/mediarithmics-structure/assets/cover-channel.svg"><div class="motion-art" aria-hidden="true" data-motion-kind="art" data-motion-source="/mediarithmics-structure/assets/cover-channel.svg"></div><img class="case-brand channel" src="/mediarithmics-structure/assets/channel4.webp" width="22" height="30" alt="Channel 4"></div>
             <div class="case-copy"><span class="eyebrow">Data collaboration</span><h3>The data behind <br>Brandm4tch.</h3><span class="case-read">Read the case study <svg class="icon"><use href="#up-right"/></svg></span></div>
           </a>
         </div>
@@ -123,20 +124,10 @@
         </div>
         <div class="diagram">
           <div class="diagram-head"><span class="eyebrow">Identity in practice</span><svg class="icon"><use href="#join"/></svg></div>
-          <div class="flow" role="img" aria-label="A website, store and CRM connect to a single customer profile.">
-            <div class="flow-sources" aria-hidden="true">
-              <span><svg class="icon"><use href="#monitor"/></svg>Website</span>
-              <span><svg class="icon"><use href="#store"/></svg>Store</span>
-              <span><svg class="icon"><use href="#users"/></svg>CRM</span>
-            </div>
-            <svg class="wires" viewBox="0 0 100 158" preserveAspectRatio="none" aria-hidden="true" fill="none">
-              <path stroke="#00a1df" d="M0 24H24C50 24 40 79 72 79H100"/>
-              <path stroke="#ff5959" d="M0 79H100"/>
-              <path stroke="#00ad68" d="M0 134H24C50 134 40 79 72 79H100"/>
-            </svg>
-            <div class="flow-profile" aria-hidden="true"><div class="avatar"><svg class="icon"><use href="#user"/></svg></div><strong>One customer</strong><span class="profile-sources"><i></i><i></i><i></i></span></div>
-          </div>
-          <button class="film-link" id="open-film" type="button"><span class="play-ring"><svg class="icon"><use href="#play"/></svg></span>Watch the illustration <span class="film-length">0:05</span></button>
+          <div data-motion-fallback><img class="inline-poster" src="/mediarithmics-structure/assets/journey-poster.svg" width="720" height="440" alt="Website, CRM and store data connect to one customer profile."></div>
+          <div data-motion-kind="identity"></div>
+          <p class="sr-only">Website, CRM and store data form one customer profile.</p>
+          <button class="film-link" id="open-film" type="button"><span class="play-ring"><svg class="icon"><use href="#play"/></svg></span>Open the film <span class="film-length">0:05</span></button>
         </div>
       </div>
       <div class="wrap demo-wrap" id="example">
@@ -145,7 +136,10 @@
             <p class="eyebrow"><span class="marker violet"></span>Audience Agent</p>
             <h3 id="agent-title">Your words.<br>Your audience.</h3>
             <p class="intro">Describe. Review. Create.</p>
-            <div class="audience-visual" aria-hidden="true"><div class="audience-cloud"><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span></div><div class="audience-visual-caption"><span class="request-label">Your customer data</span><span class="rules-label">Matching your rules</span><span class="created-label"><svg class="icon"><use href="#check"/></svg>Audience ready</span></div></div>
+            <div class="audience-visual">
+              <div data-motion-fallback><div class="audience-cloud"><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span><span class="selected"><svg class="icon"><use href="#user"/></svg></span><span><svg class="icon"><use href="#user"/></svg></span></div><div class="audience-visual-caption"><span class="request-label">Your customer data</span><span class="rules-label">Matching your rules</span><span class="created-label"><svg class="icon"><use href="#check"/></svg>Audience ready</span></div></div>
+              <div data-motion-kind="audience"></div>
+            </div>
           </div>
           <div class="agent-console">
             <div class="console-header"><span class="console-name"><svg class="icon"><use href="#users"/></svg>Audience builder</span><small>Guided example · fictional data</small></div>
@@ -195,7 +189,7 @@
           </div>
         </div>
         <article class="sector retail" id="retail" role="tabpanel" aria-labelledby="tab-retail">
-          <div class="sector-image"><img loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/retail.svg" alt=""></div>
+          <div class="sector-image"><img data-motion-fallback loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/retail.svg" alt=""><div data-motion-kind="retail" data-motion-source="/mediarithmics-structure/assets/retail.svg"></div><p class="sr-only">Illustrative journey: an ad click and a store receipt are matched through the same loyalty account.</p></div>
           <div class="sector-copy"><p class="eyebrow"><span class="marker green"></span>Retail media</p><h3>Your shoppers.<br>Your media network.</h3><p>Connect advertisers with shoppers. Measure store sales.</p><a href="https://www.mediarithmics.io/vertical/retail" class="inline-link dark-link">Explore retail media <svg class="icon"><use href="#arrow"/></svg></a></div>
           <details class="trace-disclosure">
             <summary><span><svg class="icon"><use href="#pointer"/></svg>Explore the click-to-store example</span><svg class="icon disclosure-arrow"><use href="#down"/></svg></summary>
@@ -234,11 +228,11 @@
           </details>
         </article>
         <article class="sector broadcast" id="broadcast" role="tabpanel" aria-labelledby="tab-media" hidden>
-          <div class="sector-image"><img loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/broadcast.svg" alt=""></div>
+          <div class="sector-image"><img data-motion-fallback loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/broadcast.svg" alt=""><div data-motion-kind="art" data-motion-source="/mediarithmics-structure/assets/broadcast.svg"></div></div>
           <div class="sector-copy"><p class="eyebrow"><span class="marker coral"></span>TV &amp; media</p><h3>Bring your audience to advertisers.</h3><p>Connect advertisers with your viewers, across video and connected TV.</p><a href="https://www.mediarithmics.io/vertical/broadcast" class="inline-link dark-link">Explore TV &amp; media <svg class="icon"><use href="#arrow"/></svg></a></div>
         </article>
         <article class="sector brands" id="brands" role="tabpanel" aria-labelledby="tab-brands" hidden>
-          <div class="sector-image"><img loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/brands.svg" alt=""></div>
+          <div class="sector-image"><img data-motion-fallback loading="lazy" width="400" height="220" src="/mediarithmics-structure/assets/brands.svg" alt=""><div data-motion-kind="art" data-motion-source="/mediarithmics-structure/assets/brands.svg"></div></div>
           <div class="sector-copy"><p class="eyebrow"><span class="marker orange"></span>Consumer brands</p><h3>Make the next message more relevant.</h3><p>Build audiences from your own data. Personalise every campaign.</p><a href="https://www.mediarithmics.io/platform/marketing-personalisation" class="inline-link dark-link">Explore personalisation <svg class="icon"><use href="#arrow"/></svg></a></div>
         </article>
         <div class="why" id="why"><div><h3>Better together.</h3></div><a class="inline-link dark-link" href="https://www.mediarithmics.io/platform/data-collaboration">Explore data collaboration <svg class="icon"><use href="#up-right"/></svg></a></div>
@@ -281,7 +275,7 @@
       </fieldset>
       <button type="button" class="button light preview-headline">Preview headline <svg class="icon"><use href="#arrow"/></svg></button>
     </section>
-    <section><h3>Artwork and copy</h3><p>The first-screen animation is built with Remotion, with three selectable scenes, pause controls and reduced-motion support. The Audience Agent demo illustrates a plain-language request and the review of proposed audience rules. The retail demo uses fictional events and a shared loyalty account to illustrate one way to match a click with a purchase. A match records an observed journey. Measuring additional sales would require a comparison. The product team will review the wording and interface before the website launch.</p><p>All journeys and demo data are illustrative; they are not screenshots of the production product. An authorised, recent product capture is still needed. The film is a concept visual. Customer stories summarise existing public resources, with no new performance claims.</p></section>
+    <section><h3>Artwork and copy</h3><p>The Remotion illustrations run automatically while visible and loop. Pause controls apply to all animations. The Audience Agent walkthrough advances automatically, then pauses when a visitor interacts with its controls. Reduced-motion preferences are respected; hidden sections and background tabs stop playback. The Audience Agent demo illustrates a plain-language request and the review of proposed audience rules. The retail demo uses fictional events and a shared loyalty account to illustrate one way to match a click with a purchase. A match records an observed journey. Measuring additional sales would require a comparison. The product team will review the wording and interface before the website launch.</p><p>All journeys and demo data are illustrative; they are not screenshots of the production product. An authorised, recent product capture is still needed. The film is a concept visual. Customer stories summarise existing public resources, with no new performance claims.</p></section>
     <section><h3>Demo request</h3><p>The three-field form is a local prototype. It validates the input and previews the request, but sends and stores nothing. The production form, recipient and privacy wording need client approval. No calendar or response-time promise is implied.</p></section>
     <section><h3>Pages and languages</h3><p>Keep the platform, sector pages, customer stories, resources, contact and legal pages. Review duplicate sector pages, older events and redirects before migration. French and Spanish follow English copy approval.</p></section>
   </dialog>

@@ -96,12 +96,21 @@
           gsap.fromTo(pane, {opacity:.65, y:3}, {opacity:1, y:0, duration:.18, ease, overwrite:true, clearProps:'transform,opacity'});
         }
       });
+      demo.dispatchEvent(new CustomEvent('mics:audience-state', {detail:state}));
       if (moveFocus) focusDemoStep(demo.querySelector('.agent-pane:not([hidden]) h4'));
     }
-    select.addEventListener('change', applyBrief);
+    const manual = () => demo.dispatchEvent(new Event('mics:audience-manual'));
+    select.addEventListener('change', () => {manual(); applyBrief(); showPane('request', false);});
+    demo.addEventListener('mics:audience-tick', event => {
+      if (!['request','rules','created'].includes(event.detail)) return;
+      // Never hide a focused form control, even if an automatic tick arrives at a boundary.
+      if (demo.querySelector('.agent-console').contains(document.activeElement)) {manual(); return;}
+      applyBrief(); showPane(event.detail, false);
+    });
     demo.querySelectorAll('[data-agent-action]').forEach(button => {
       button.addEventListener('click', () => {
         applyBrief();
+        manual();
         showPane(button.dataset.agentAction, true);
       });
     });
