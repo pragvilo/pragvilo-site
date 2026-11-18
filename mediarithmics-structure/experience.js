@@ -40,113 +40,6 @@
   });
   window.matchMedia('(max-width:760px)').addEventListener('change', () => menu(false));
 
-  function setupArtwork() {
-    const figure = $('.hero-figure');
-    const artStage = $('.art-stage');
-    const live = $('.art-live');
-    const caption = $('#stage-caption');
-    const buttons = $$('.steps button');
-    const play = $('.art-play');
-    const art = window.MicsArtwork;
-    if (!art) {
-      $('.art-control').hidden = true;
-      return;
-    }
-    const stages = buttons.map((_, i) => art.makeStage(i));
-    const captions = [
-      'Connect the signals that belong to the same person.',
-      'Review the people and rules behind your audience.',
-      'Use that audience in a campaign you can measure.'
-    ];
-    const outcomes = [
-      ['Bring together', 'Website · CRM · Store', 'Recognise', 'One customer view'],
-      ['Describe', 'People to reach again', 'Review', 'An audience with clear rules'],
-      ['Activate', 'Your chosen audience', 'Measure', 'Your campaign outcomes']
-    ];
-    live.innerHTML = art.svg(0);
-    const paths = [...live.querySelectorAll('path')];
-    artStage.classList.add('ready');
-    let current = 0;
-    let playing = false;
-    let visible = false;
-    let focusing = false;
-    let timer = 0;
-
-    function updatePlay() {
-      play.hidden = motionPreference.matches;
-      play.setAttribute('aria-label', playing ? 'Pause illustration' : 'Play illustration');
-      icon(play, playing ? 'pause' : 'play');
-    }
-    function display(index) {
-      const target = stages[index];
-      if (canAnimate()) {
-        gsap.to(paths, {attr:{d:i => target[i].d}, duration:.22, ease, overwrite:'auto'});
-        gsap.fromTo(caption, {opacity:.25, y:2}, {opacity:1, y:0, duration:.18, ease, overwrite:true});
-      } else {
-        paths.forEach((path, i) => path.setAttribute('d', target[i].d));
-      }
-      current = index;
-      buttons.forEach((b, i) => b.setAttribute('aria-pressed', String(i === index)));
-      caption.textContent = captions[index];
-      const [inputLabel, input, outputLabel, output] = outcomes[index];
-      $('#story-input-label').textContent = inputLabel;
-      $('#story-input').textContent = input;
-      $('#story-output-label').textContent = outputLabel;
-      $('#story-output').textContent = output;
-      $('#story-outcome').dataset.stage = index;
-    }
-    function schedule() {
-      window.clearTimeout(timer);
-      if (!playing || !visible || focusing || document.hidden || document.querySelector('dialog[open]')) return;
-      timer = window.setTimeout(() => {
-        display(current + 1);
-        if (current === buttons.length - 1) playing = false;
-        updatePlay();
-        schedule();
-      }, 6200);
-    }
-    buttons.forEach((button, i) => button.addEventListener('click', () => {
-      playing = false;
-      display(i);
-      updatePlay();
-      schedule();
-    }));
-    play.addEventListener('click', () => {
-      playing = !playing;
-      if (playing && current === buttons.length - 1) display(0);
-      updatePlay();
-      // A deliberate play command should start even while the button retains focus.
-      focusing = false;
-      schedule();
-    });
-    figure.addEventListener('focusin', () => {focusing = true; schedule();});
-    figure.addEventListener('focusout', e => {
-      if (!figure.contains(e.relatedTarget)) {focusing = false; schedule();}
-    });
-    document.addEventListener('visibilitychange', schedule);
-    document.addEventListener('mics:dialog', schedule);
-    const observer = new IntersectionObserver(entries => {
-      visible = entries[0].isIntersecting;
-      schedule();
-    }, {threshold:.28});
-    observer.observe(figure);
-    motionPreference.addEventListener('change', () => {
-      if (motionPreference.matches) {
-        playing = false;
-        if (gsap) {
-          gsap.killTweensOf(paths);
-          gsap.killTweensOf(caption);
-          gsap.set(caption,{clearProps:'transform,opacity'});
-        }
-        display(current);
-      }
-      updatePlay();
-      schedule();
-    });
-    updatePlay();
-  }
-  setupArtwork();
-
   function focusDemoStep(heading) {
     heading.focus({preventScroll:true});
     const bounds = heading.getBoundingClientRect();
@@ -190,6 +83,7 @@
       summary.textContent = brief.summary;
     }
     function showPane(state, moveFocus) {
+      demo.dataset.step = state;
       panes.forEach((pane, index) => {
         const current = pane.dataset.agentPane === state;
         pane.hidden = !current;
