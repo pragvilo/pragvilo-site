@@ -50,50 +50,27 @@
 
   function setupAudienceDemo() {
     const demo = $('#audience-agent');
-    const select = $('#sample-brief');
-    const request = $('#agent-request');
-    const history = $('#agent-history');
-    const name = $('#agent-name');
-    const summary = $('#agent-summary');
-    const examples = {
-      viewers: {
-        request:'Find registered viewers who have not watched in six months and have opted in to marketing.',
-        group:'Registered viewers', historyLabel:'Viewing history',
-        history:'No viewing in the past six months',
-        summary:'Registered viewers with no viewing in six months and permission to receive marketing.'
-      },
-      shoppers: {request:request.textContent, group:'Loyalty members', historyLabel:'Purchase history', history:history.textContent, summary:summary.textContent},
-      winback: {
-        group:'Loyalty members', historyLabel:'Purchase history',
-        request:'Find loyalty members who have bought in store, have not returned in six months and have opted in to marketing.',
-        history:'A previous in-store purchase, with none in the past six months',
-        summary:'Loyalty members who last bought in store at least six months ago and have opted in to marketing.'
-      }
-    };
-    function applyBrief() {
-      const brief = examples[select.value];
-      request.textContent = brief.request;
-      history.textContent = brief.history;
-      $('#agent-group').textContent = brief.group;
-      $('#agent-history-label').textContent = brief.historyLabel;
-      name.textContent = select.selectedOptions[0].textContent;
-      summary.textContent = brief.summary;
+    const examples = [
+      {name:'Viewers to reconnect with',group:'Registered viewers',history:'No viewing in 6 months',summary:'Registered viewers with no viewing in six months and permission to receive marketing.'},
+      {name:'Your in-store shoppers',group:'Loyalty members',history:'An in-store purchase',summary:'Loyalty members with an in-store purchase and permission to receive marketing.'},
+      {name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
+    ];
+    function showExample(moment) {
+      if (!moment || !Number.isInteger(moment.index) || !examples[moment.index] || !['request','rules','created'].includes(moment.step)) return;
+      const brief=examples[moment.index];
+      demo.dataset.example=String(moment.index);
+      demo.dataset.step=moment.step;
+      demo.querySelectorAll('[data-agent-example]').forEach((item,index)=>item.classList.toggle('is-active',index===moment.index));
+      $('#agent-group').textContent=brief.group;
+      $('#agent-history').textContent=brief.history;
+      $('#agent-name').textContent=brief.name;
+      $('#agent-summary').textContent=brief.summary;
+      $('#agent-match-state').textContent=moment.step==='created'?'People matching your criteria':moment.step==='rules'?'Checking the suggested criteria':'Finding the people you described';
     }
-    function highlight(state) {
-      // Keep every stage in the document and readable throughout the loop.
-      demo.dataset.step = state;
-    }
-    select.addEventListener('change', () => {
-      applyBrief();
-      highlight('request');
-      demo.dispatchEvent(new Event('mics:audience-manual'));
-    });
-    demo.addEventListener('mics:audience-tick', event => {
-      if (['request','rules','created'].includes(event.detail)) highlight(event.detail);
-    });
-    applyBrief();
-    highlight('request');
-    demo.dataset.ready = '';
+    demo.addEventListener('mics:audience-tick',event=>showExample(event.detail));
+    const host=demo.querySelector('[data-motion-kind="audience"]');
+    showExample({index:Number(host?.dataset.example||0),step:host?.dataset.step||'created'});
+    demo.dataset.ready='';
   }
 
   function setupRetailTrace() {

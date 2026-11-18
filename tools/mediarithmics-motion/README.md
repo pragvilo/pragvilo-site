@@ -34,10 +34,18 @@ Labels are 18px; coloured stage names sit underneath. A full-colour overview
 closes the loop. Reduced motion opens on that complete state (frame 385).
 The static SVG fallback matches that final state.
 
-The Audience Agent timeline highlights request / rules / created every five seconds.
-All three stages remain visible. Selecting a brief updates the complete example.
-Input focus pauses the timeline; leaving the console resumes it. The 600 × 110
-profile band stays compact on mobile.
+The Audience Agent shows three natural-language requests at all times, with
+no dropdown or required choice. A You avatar accompanies them. Suggested
+criteria appear below the requests, before the people on mobile.
+AudienceWalkthrough is 600 × 360, 1080 frames at 30fps: three examples of
+12 seconds each. Request emphasis lasts two seconds, criteria emphasis two
+seconds, then five of twelve varied illustrated portraits regroup over one
+second. The final audience holds for almost seven seconds. `audienceTimeline.ts`
+keeps HTML copy and Remotion portraits on the same example and stage.
+A single header control pauses every animation; offscreen/background/dialog
+and keyboard-focus gates are preserved. Reduced motion starts at frame 270
+on the complete first example. The fallback SVG shows that same state. All
+people and data are explicitly fictional, with no invented result count.
 The retail sequence illustrates an observed match via a shared loyalty account,
 not a causal sales uplift. Existing deeper manual examples remain available.
 

@@ -615,3 +615,49 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 .journey-shell{min-height:0;aspect-ratio:720/440}
 .journey-fallback{padding:0}
 .auto-player--hero .motion-canvas{overflow:visible}
+
+/* A human request, transparent criteria and a visible group of people. */
+.agent-demo--human .agent-console{padding:0;border:0;background:transparent}
+.agent-scene{display:grid;grid-template-columns:1.03fr 1fr;gap:clamp(28px,5vw,76px);align-items:center}
+.agent-conversation,.agent-people{min-width:0}
+.agent-speaker{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.you-portrait{width:44px;height:44px;flex:none;border-radius:50%;overflow:hidden}
+.agent-speaker h3{font-size:17px;letter-spacing:-.02em;font-weight:600}
+.agent-examples{list-style:none;display:grid;gap:9px;padding:0;margin:0}
+.agent-example{padding:13px 18px;border:1px solid var(--edge);border-radius:12px;background:var(--paper);transition:background .2s var(--ease),border-color .2s var(--ease)}
+.agent-example.is-active{border-color:var(--violet);background:var(--white)}
+.example-sector{display:block;color:var(--ink-2);font-size:12px;margin-bottom:5px}
+.agent-example blockquote{margin:0;color:var(--ink-2);font-size:clamp(18px,1.6vw,23px);line-height:1.35;letter-spacing:-.025em}
+.agent-example.is-active blockquote{color:var(--navy)}
+.agent-example blockquote::before{content:'“'}.agent-example blockquote::after{content:'”'}
+.agent-example mark{background:transparent;color:inherit;border-radius:3px;transition:color .2s var(--ease),background .2s var(--ease)}
+.agent-demo--human[data-step=rules] .is-active mark,.agent-demo--human[data-step=created] .is-active mark{color:var(--violet);background:var(--paper-2)}
+.agent-criteria{margin-top:24px}
+.agent-criteria h3{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;letter-spacing:0}
+.agent-criteria .marker{width:7px;height:7px}
+.criteria-chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:12px 0 9px;min-height:72px;align-content:flex-start}
+.criteria-chips li{display:flex;align-items:center;gap:6px;font-size:14px;line-height:1.3;padding:8px 11px;border:1px solid var(--edge);border-radius:8px;background:var(--paper);transition:border-color .2s var(--ease),background .2s var(--ease)}
+.criteria-chips .icon{width:14px;height:14px;color:var(--link)}
+.agent-demo--human[data-step=rules] .criteria-chips li{border-color:var(--violet);background:var(--white)}
+.agent-criteria>p{font-size:13px;color:var(--ink-2)}
+.agent-people{padding:30px 22px 24px;border:1px solid var(--edge);border-radius:12px;background:var(--paper)}
+.audience-result-label{font-size:14px;color:var(--ink-2);margin-bottom:10px}
+.agent-people h3{font-size:clamp(26px,2.55vw,38px);line-height:1.12;letter-spacing:-.045em;min-height:2.24em;max-width:360px}
+.agent-demo--human .audience-visual{width:100%;max-width:none;margin:4px 0 14px;aspect-ratio:600/360}
+.agent-demo--human .audience-visual img{width:100%;height:auto}
+.agent-match-note{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--ink-2)}
+.agent-match-note .icon{width:17px;height:17px;color:var(--link)}
+.agent-demo--human .agent-footer{margin-top:25px}
+@media(max-width:760px){
+  .agent-scene{grid-template-columns:1fr;gap:25px}
+  .agent-speaker{margin-bottom:12px}.you-portrait{width:38px;height:38px}
+  .agent-example{padding:11px 14px}.agent-example blockquote{font-size:18px}
+  .agent-criteria{margin-top:20px}.criteria-chips{min-height:0}
+  .agent-people{padding:22px 16px}.agent-people h3{font-size:29px;min-height:0;max-width:310px}
+  .agent-demo--human .audience-visual{margin:12px 0 10px}
+  .agent-demo--human .agent-footer{margin-top:17px;gap:9px}
+}
+@media(prefers-reduced-motion:reduce){.agent-example,.agent-example mark,.criteria-chips li{transition:none}}
+
+.agent-people h3{text-wrap:balance}
+@media(min-width:1200px){.criteria-chips{min-height:40px}}
