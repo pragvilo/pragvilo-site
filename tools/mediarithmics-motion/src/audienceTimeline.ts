@@ -5,5 +5,5 @@ export const audienceColors = ['#FF5959','#00AD68','#F58D39'];
 export function audienceMoment(frame:number, fps=30) {
   const index=Math.floor(frame/(audienceSeconds*fps))%3;
   const local=frame%(audienceSeconds*fps);
-  return {index,local,step:local<.6*fps?'request':local<1.2*fps?'rules':'created'} as const;
+  return {index,local,writing:Math.min(1,local/(1.8*fps)),step:local<2*fps?'request':local<2.25*fps?'rules':'created'} as const;
 }

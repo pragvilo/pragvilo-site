@@ -620,14 +620,13 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 .agent-demo--human .agent-console{padding:0;border:0;background:transparent}
 .agent-scene{display:grid;grid-template-columns:1.03fr 1fr;gap:clamp(28px,5vw,76px);align-items:center}
 .agent-conversation,.agent-people{min-width:0}
-.agent-choose{font-size:16px;font-weight:600;margin-bottom:14px}.agent-choose>span{font-size:14px;font-weight:400;color:var(--ink-2);display:block;margin-top:3px}
 [data-sector=media]{--sector-color:var(--coral)}[data-sector=retail]{--sector-color:var(--green)}[data-sector=brands]{--sector-color:var(--orange)}
 .agent-examples{list-style:none;display:grid;gap:10px;padding:0;margin:0}
 .agent-example{display:block;width:100%;text-align:left;padding:14px 18px;border:1px solid var(--edge);border-radius:12px;background:var(--paper);transition:background .2s var(--ease),border-color .2s var(--ease)}
 .agent-example:hover{border-color:var(--sector-color);background:var(--white)}
 .agent-example:active{transform:scale(.99)}
 .agent-example.is-active{border-color:var(--sector-color);background:var(--white)}
-.persona-heading{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+.persona-heading{display:flex;align-items:center;gap:11px}
 .persona-portrait{width:42px;height:42px;flex:none;border-radius:50%;overflow:hidden}
 .example-sector{display:inline-block;color:var(--navy);background:var(--sector-color);font-size:12px;font-weight:650;line-height:1.4;padding:2px 7px;border-radius:4px;margin-bottom:3px}
 .persona-role{display:block;font-size:13px;color:var(--ink-2)}
@@ -676,3 +675,19 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 .sector-tabs button:hover{color:var(--ink);outline:1px solid var(--sector-color);outline-offset:-1px}.sector-tabs button[aria-selected=true]:hover{color:var(--navy)}
 @media(max-width:760px){.persona-portrait{width:36px;height:36px}.agent-example{padding:11px 14px}.agent-choose{margin-bottom:12px}.agent-people h3{min-height:2.24em}.audience-count strong{font-size:34px}}
 @media(prefers-reduced-motion:reduce){.agent-example:active{transform:none}}
+
+/* A request is written first; the proposed criteria and size follow together. */
+.agent-writing{margin-top:20px;padding:16px 18px;border:1px solid var(--sector-color);border-radius:12px;background:var(--white)}
+.writing-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:9px}.writing-label .marker{background:var(--sector-color);width:7px;height:7px}
+.typed-request{font-size:clamp(20px,1.8vw,26px);line-height:1.4;letter-spacing:-.025em;min-height:2.8em;color:var(--navy)}
+.typing-caret{color:var(--navy);font-weight:400}.agent-demo:not([data-step=request]) .typing-caret{visibility:hidden}
+.agent-demo--human .agent-criteria .marker{background:var(--sector-color);color:var(--sector-color)}
+.agent-demo--human .criteria-chips li,.agent-demo--human[data-step=rules] .criteria-chips li{border-color:var(--sector-color);background:color-mix(in srgb,var(--sector-color) 16%,var(--white));color:var(--navy)}
+.agent-demo--human .criteria-chips .icon{color:var(--navy)}
+.agent-criteria,.audience-count{transition:opacity .2s var(--ease)}
+.agent-demo[data-step=request] .agent-criteria,.agent-demo[data-step=request] .audience-count{visibility:hidden;opacity:0}
+.audience-count{flex-wrap:wrap;row-gap:4px}.audience-count strong{font-size:clamp(38px,4vw,56px);white-space:nowrap}.audience-count>span{font-size:15px}
+@media(max-width:760px){.agent-example{padding:10px 14px}.agent-writing{padding:14px;margin-top:16px}.typed-request{font-size:20px;min-height:4.2em}.agent-criteria{min-height:105px}.audience-count strong{font-size:40px}}
+@media(prefers-reduced-motion:reduce){.agent-criteria,.audience-count{transition:none}}
+
+.agent-demo[data-step=request] .agent-match-note .icon{visibility:hidden}

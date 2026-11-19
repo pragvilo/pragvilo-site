@@ -37,12 +37,17 @@ The static SVG fallback matches that final state.
 The Audience Agent shows three clickable prospect roles: a TV & media audience
 manager (coral), a retail media manager (green) and a brand CRM manager (orange).
 Each has its own illustrated persona and request. The same colors identify the
-solution tabs. Suggested criteria and an audience count accompany each request.
+solution tabs. The selected persona types one request in a shared writing area; only afterwards
+do color-matched criteria and an audience size appear together. The old helper
+copy and review sentence have been removed.
 AudienceWalkthrough is 600 × 360, 540 frames at 30fps: three six-second examples.
-Request and criteria emphasis last 0.6 seconds each; regrouping takes seven
-frames (233 ms), then the completed result holds. Groups contain 4, 7 and 3 of
-the 12 illustrative profiles, with different memberships and layouts.
-`audienceTimeline.ts` keeps the portraits and HTML states synchronized.
+Writing lasts 1.8 seconds, with the complete request held until second 2.
+Criteria and the estimated audience size then appear together; portraits regroup
+in seven frames (233 ms). The completed result holds until the next six-second
+example. Symbolic portrait groups contain 4, 7 and 3 of the 12 drawn profiles.
+Fictional audience sizes are 256 780, 482 350 and 138 420 people respectively.
+The drawn portraits are a symbolic representation, not a one-to-one headcount.
+`audienceTimeline.ts` keeps typing progress, portraits and HTML states synchronized.
 Clicking or keyboard-activating a request seeks to that example and replays it;
 while focus is within the console, it holds the completed selection. Offscreen,
 background, dialog, reduced-motion and the header pause gates remain effective.

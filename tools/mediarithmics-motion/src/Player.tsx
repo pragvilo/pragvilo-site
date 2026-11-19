@@ -50,12 +50,12 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
     const publishAudience = (frame:number) => {
       if (!demo) return;
       const moment=audienceMoment(frame);
-      const key=moment.index+':'+moment.step;
+      const key=moment.index+':'+moment.step+':'+Math.round(moment.writing*100);
       if(key===lastMoment) return;
       lastMoment=key;
       host.dataset.example=String(moment.index);
       host.dataset.step=moment.step;
-      demo.dispatchEvent(new CustomEvent('mics:audience-tick',{detail:{index:moment.index,step:moment.step}}));
+      demo.dispatchEvent(new CustomEvent('mics:audience-tick',{detail:{index:moment.index,step:moment.step,writing:moment.writing}}));
     };
     sync.current = () => {
       gate.current.documentVisible = !document.hidden;
@@ -92,8 +92,8 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
       if (!Number.isInteger(index) || index<0 || index>2) return;
       const start=index*audienceSeconds*30;
       const animate=gate.current.enabled && !preference.matches;
-      manualUntilFrame=animate?start+45:null;
-      const frame=animate?start:start+45;
+      manualUntilFrame=animate?start+90:null;
+      const frame=animate?start:start+90;
       p.seekTo(frame);
       publishAudience(frame);
       sync.current();
@@ -121,7 +121,7 @@ function AutoPlayer({kind, host, source}: {kind: Kind; host: HTMLElement; source
   if (failed) return null;
   return <div className={'auto-player auto-player--' + kind}>
     <div aria-hidden="true" className="motion-canvas" style={{aspectRatio:config.width + '/' + config.height}}>
-      <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' ? (enabled ? 0 : 385) : kind === 'audience' ? (enabled ? 0 : 45) : kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
+      <Player ref={ref} component={config.component} inputProps={{source}} durationInFrames={config.duration} compositionWidth={config.width} compositionHeight={config.height} fps={30} initialFrame={kind === 'hero' ? (enabled ? 0 : 385) : kind === 'audience' ? (enabled ? 0 : 90) : kind === 'identity' ? 30 : 0} controls={false} autoPlay={false} initiallyMuted loop moveToBeginningWhenEnded={false} clickToPlay={false} doubleClickToFullscreen={false} spaceKeyToPlayOrPause={false} numberOfSharedAudioTags={0} style={{width:'100%',height:'100%'}}/>
     </div>
 
 

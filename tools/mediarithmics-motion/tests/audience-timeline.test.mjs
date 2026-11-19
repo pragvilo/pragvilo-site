@@ -9,10 +9,18 @@ test('cycles to a different prospect every six seconds and loops after three', (
   assert.equal(audienceMoment(540).index, 0);
 });
 
-test('finishes building the audience within one and a half seconds', () => {
+test('finishes writing before proposing criteria and revealing the audience', () => {
   assert.equal(audienceMoment(0).step, 'request');
-  assert.equal(audienceMoment(20).step, 'rules');
-  assert.equal(audienceMoment(45).step, 'created');
+  assert.equal(audienceMoment(45).step, 'request');
+  assert.equal(audienceMoment(60).step, 'rules');
+  assert.equal(audienceMoment(68).step, 'created');
+});
+
+test('the request types progressively and is complete before criteria appear', () => {
+  assert.equal(audienceMoment(0).writing, 0);
+  assert.equal(audienceMoment(27).writing, .5);
+  assert.equal(audienceMoment(54).writing, 1);
+  assert.equal(audienceMoment(60).writing, 1);
 });
 
 test('each prospect selects a different sized group of valid unique profiles', () => {

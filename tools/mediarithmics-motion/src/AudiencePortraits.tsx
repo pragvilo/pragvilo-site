@@ -27,10 +27,10 @@ function Portrait({variant}:{variant:number}) {
   </g>;
 }
 
-export function AudienceIllustration({frame=45,fps=30}:{frame?:number;fps?:number}) {
+export function AudienceIllustration({frame=90,fps=30}:{frame?:number;fps?:number}) {
   const {index,local}=audienceMoment(frame,fps);
-  const selection=interpolate(local,[1.2*fps,1.2*fps+7],[0,1],clamp);
-  const reveal=interpolate(local,[.6*fps,.6*fps+6],[0,1],clamp);
+  const selection=interpolate(local,[2*fps,2*fps+7],[0,1],clamp);
+  const reveal=interpolate(local,[2*fps,2*fps+6],[0,1],clamp);
   const reset=interpolate(local,[(audienceSeconds-.25)*fps,audienceSeconds*fps-1],[1,0],clamp);
   const color=audienceColors[index];
   const t=selection*reset;

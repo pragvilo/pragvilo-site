@@ -19,7 +19,7 @@ try {
       import {writeFileSync} from 'node:fs';
       const sectors=['media','retail','brands'];
       sectors.forEach((sector,index)=>{
-        const markup=renderToStaticMarkup(<AudienceIllustration frame={index*180+45}/>);
+        const markup=renderToStaticMarkup(<AudienceIllustration frame={index*180+90}/>);
         const svg=markup.slice(markup.indexOf('<svg'),markup.lastIndexOf('</svg>')+6).replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ');
         writeFileSync(process.argv[2]+'/audience-'+sector+'.svg',svg);
       });`,resolveDir:process.cwd(),loader:'tsx'},

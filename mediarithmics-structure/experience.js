@@ -51,10 +51,12 @@
   function setupAudienceDemo() {
     const demo = $('#audience-agent');
     const examples = [
-      {count:4,sector:'media',name:'Viewers to reconnect with',group:'Registered viewers',history:'No viewing in 6 months',summary:'Registered viewers with no viewing in six months and permission to receive marketing.'},
-      {count:7,sector:'retail',name:'Your in-store shoppers',group:'Loyalty members',history:'An in-store purchase',summary:'Loyalty members with an in-store purchase and permission to receive marketing.'},
-      {count:3,sector:'brands',name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
+      {count:256780,role:'Audience manager',request:'Bring back viewers who haven’t watched in six months.',sector:'media',name:'Viewers to reconnect with',group:'Registered viewers',history:'No viewing in 6 months',summary:'Registered viewers with no viewing in six months and permission to receive marketing.'},
+      {count:482350,role:'Retail media manager',request:'Help me reach loyalty members who shop in store.',sector:'retail',name:'Your in-store shoppers',group:'Loyalty members',history:'An in-store purchase',summary:'Loyalty members with an in-store purchase and permission to receive marketing.'},
+      {count:138420,role:'CRM manager',request:'Bring back customers who haven’t shopped in six months.',sector:'brands',name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
     ];
+    let selectedByVisitor=null;
+    const formatAudience=count=>new Intl.NumberFormat('fr-FR').format(count).replace(/\u202f/g,' ');
     function showExample(moment) {
       if (!moment || !Number.isInteger(moment.index) || !examples[moment.index] || !['request','rules','created'].includes(moment.step)) return;
       const brief=examples[moment.index];
@@ -65,22 +67,32 @@
         item.classList.toggle('is-active',index===moment.index);
         item.setAttribute('aria-pressed',String(index===moment.index));
       });
-      $('#agent-count').textContent=String(brief.count);
+      $('#agent-count').textContent=formatAudience(brief.count);
+      $('#agent-writer').textContent=brief.role+' writes';
+      $('#agent-request-accessible').textContent=brief.request;
+      const writing=moment.step==='request'?(moment.writing??0):1;
+      $('#agent-request').textContent=brief.request.slice(0,Math.round(brief.request.length*writing));
+      demo.querySelector('.agent-criteria').setAttribute('aria-hidden',String(moment.step==='request'));
+      demo.querySelector('.audience-count').setAttribute('aria-hidden',String(moment.step==='request'));
+      if(moment.step==='created'&&selectedByVisitor===moment.index){
+        $('#agent-selection-status').textContent=brief.name+'. Suggested criteria: '+brief.group+', '+brief.history+', marketing consent. Illustrative audience: '+formatAudience(brief.count)+' people.';
+        selectedByVisitor=null;
+      }
       $('#agent-audience-sector').textContent=['TV & media','Retail','Brands'][moment.index];
       demo.querySelector('[data-audience-fallback]').src='/mediarithmics-structure/assets/audience-'+brief.sector+'.svg';
       $('#agent-group').textContent=brief.group;
       $('#agent-history').textContent=brief.history;
       $('#agent-name').textContent=brief.name;
       $('#agent-summary').textContent=brief.summary;
-      $('#agent-match-state').textContent=moment.step==='created'?'People matching your criteria':moment.step==='rules'?'Checking the suggested criteria':'Finding the people you described';
+      $('#agent-match-state').textContent=moment.step==='created'?'People matching your criteria':moment.step==='rules'?'Checking the suggested criteria':'Writing your request…';
     }
     demo.addEventListener('mics:audience-tick',event=>showExample(event.detail));
     demo.querySelectorAll('[data-agent-example]').forEach(button=>button.addEventListener('click',()=>{
       const index=Number(button.dataset.agentExample);
       // Works even if the animation bundle fails or reduced motion is enabled.
-      showExample({index,step:'created'});
+      selectedByVisitor=index;
+      if(!demo.querySelector('[data-motion-kind="audience"]')?.hasAttribute('data-ready')) showExample({index,step:'created'});
       demo.dispatchEvent(new CustomEvent('mics:audience-select',{detail:{index}}));
-      $('#agent-selection-status').textContent=['TV & media','Retail','Brands'][index]+': '+examples[index].name+'. '+examples[index].count+' of 12 illustrative profiles selected.';
     }));
     const host=demo.querySelector('[data-motion-kind="audience"]');
     showExample({index:Number(host?.dataset.example||0),step:host?.dataset.step||'created'});
