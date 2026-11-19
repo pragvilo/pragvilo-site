@@ -691,3 +691,41 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 @media(prefers-reduced-motion:reduce){.agent-criteria,.audience-count{transition:none}}
 
 .agent-demo[data-step=request] .agent-match-note .icon{visibility:hidden}
+
+/* The selected audience leads straight into its business use and its public story. */
+.solutions .sector {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+}
+.customer-proof {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--navy);
+}
+.customer-proof .case-cover { aspect-ratio: 720 / 400; height: auto; }
+.customer-proof-copy { padding: clamp(18px, 2.2vw, 32px); }
+.customer-proof-copy .eyebrow { color: var(--ink-2); }
+.customer-proof-copy h4 {
+  margin: 9px 0 12px;
+  font-size: clamp(21px, 2vw, 30px);
+  letter-spacing: -.035em;
+  line-height: 1.15;
+}
+.customer-proof .case-read { padding: 0; }
+.customer-proof:hover .case-read { text-decoration: underline; }
+.trust-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 72px); }
+.trust-copy h3 { font-size: clamp(20px, 2vw, 28px); line-height: 1.2; }
+.trust-copy p { margin-top: 9px; max-width: 52ch; color: var(--ink-2); }
+.trust-copy a + h3 { margin-top: 22px; }
+.footer-library { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 36px; padding-top: 28px; }
+.footer-library h2 { font-size: 18px; letter-spacing: -.015em; }
+.footer-library nav { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.footer-library a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; color: var(--muted); }
+.footer-library a:hover { color: var(--cyan); }
+@media (max-width: 760px) {
+  .solutions .sector, .trust-layout { grid-template-columns: minmax(0, 1fr); }
+  .footer-library, .footer-library nav { display: grid; }
+}

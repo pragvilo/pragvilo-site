@@ -171,48 +171,68 @@
   setupAudienceDemo();
   setupRetailTrace();
 
-  const tabs = $$('.sector-tabs [role="tab"]');
-  function activateTab(tab) {
-    tabs.forEach(item => {
-      const selected = item === tab;
-      item.setAttribute('aria-selected', String(selected));
-      item.tabIndex = selected ? 0 : -1;
-      const panel = document.getElementById(item.getAttribute('aria-controls'));
-      panel.hidden = !selected;
-      if (selected && canAnimate()) {
-        gsap.fromTo(panel.children, {opacity:.35, y:3}, {opacity:1, y:0, duration:.18, ease, overwrite:true});
-      }
-    });
+  const agent = $('#audience-agent');
+  const sectorLink = $('#use-case-link');
+  const sectorPaths = [
+    {panel: $('#broadcast'), label: 'TV & media', sector: 'media'},
+    {panel: $('#retail'), label: 'retail media', sector: 'retail'},
+    {panel: $('#brands'), label: 'consumer brands', sector: 'brands'}
+  ];
+  const stories = $('#audiences');
+  let pinnedPath = null;
+
+  function displayPath(path) {
+    sectorPaths.forEach(({panel}) => { panel.hidden = panel !== path.panel; });
   }
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => activateTab(tab));
-    tab.addEventListener('keydown', e => {
-      const positions = {Home:0, End:tabs.length - 1, ArrowLeft:(i - 1 + tabs.length) % tabs.length, ArrowRight:(i + 1) % tabs.length};
-      if (!(e.key in positions)) return;
-      e.preventDefault();
-      const next = tabs[positions[e.key]];
-      next.focus();
-      activateTab(next);
-    });
-  });
-  function revealSectorTarget(hash) {
-    const target = document.getElementById(hash.slice(1));
-    const panel = target?.closest('.sector[role="tabpanel"]');
-    if (panel) {
-      const tab = tabs.find(t => t.getAttribute('aria-controls') === panel.id);
-      if (panel.hidden) activateTab(tab);
-      const disclosure = target.closest('details');
-      if (disclosure) disclosure.open = true;
-      target.scrollIntoView({block:'start'});
+
+  function followExample(index) {
+    const path = sectorPaths[index];
+    if (!path) return;
+    const href = '#' + path.panel.id;
+    if (sectorLink.getAttribute('href') !== href) {
+      sectorLink.setAttribute('href', href);
+      sectorLink.querySelector('span').textContent = 'Explore the ' + path.label + ' use case';
     }
+    // Keep a story stable while the visitor reads it or uses the retail walkthrough.
+    if (!pinnedPath && path.panel.hidden && !stories.contains(document.activeElement) &&
+        stories.getBoundingClientRect().top >= window.innerHeight) displayPath(path);
   }
-  document.querySelectorAll('a[href="#click-to-store"]').forEach(link => {
-    link.addEventListener('click', event => {
-      if (!event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) revealSectorTarget(link.hash);
-    });
+
+  agent.addEventListener('mics:audience-tick', event => followExample(event.detail.index));
+  agent.addEventListener('mics:audience-select', event => {
+    pinnedPath = sectorPaths[event.detail.index];
+    if (!pinnedPath) return;
+    followExample(event.detail.index);
+    displayPath(pinnedPath);
   });
-  window.addEventListener('hashchange', () => revealSectorTarget(location.hash));
-  if (location.hash) revealSectorTarget(location.hash);
+  followExample(Number(agent.dataset.example));
+
+  function openSector(hash, focus) {
+    const target = document.getElementById(hash.slice(1));
+    const path = sectorPaths.find(({panel}) => panel.contains(target));
+    if (!path) return;
+    pinnedPath = path;
+    displayPath(path);
+    if (agent.dataset.sector !== path.sector) {
+      agent.querySelector('button[data-sector="' + path.sector + '"]').click();
+    }
+    const disclosure = target.closest('details');
+    if (disclosure) disclosure.open = true;
+    if (focus) path.panel.focus({preventScroll:true});
+    target.scrollIntoView({block:'start'});
+  }
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const target = document.getElementById(link.hash.slice(1));
+    if (!target?.closest('.sector')) return;
+    event.preventDefault();
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
+    openSector(link.hash, true);
+  });
+  window.addEventListener('hashchange', () => openSector(location.hash, true));
+  if (location.hash) openSector(location.hash, false);
 
   const notes = $('#review-dialog');
   const demoDialog = $('#demo-dialog');
