@@ -51,9 +51,9 @@
   function setupAudienceDemo() {
     const demo = $('#audience-agent');
     const examples = [
-      {count:256780,role:'Audience manager',request:'Bring back viewers who haven’t watched in six months.',sector:'media',name:'Viewers to reconnect with',group:'Registered viewers',history:'No viewing in 6 months',summary:'Registered viewers with no viewing in six months and permission to receive marketing.'},
-      {count:482350,role:'Retail media manager',request:'Help me reach loyalty members who shop in store.',sector:'retail',name:'Your in-store shoppers',group:'Loyalty members',history:'An in-store purchase',summary:'Loyalty members with an in-store purchase and permission to receive marketing.'},
-      {count:138420,role:'CRM manager',request:'Bring back customers who haven’t shopped in six months.',sector:'brands',name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
+      {count:250000,role:'Audience manager',request:'Bring back viewers who haven’t watched in six months.',sector:'media',name:'Viewers to reconnect with',group:'Registered viewers',history:'No viewing in 6 months',summary:'Registered viewers with no viewing in six months and permission to receive marketing.'},
+      {count:480000,role:'Retail media manager',request:'Help me reach loyalty members who shop in store.',sector:'retail',name:'Your in-store shoppers',group:'Loyalty members',history:'An in-store purchase',summary:'Loyalty members with an in-store purchase and permission to receive marketing.'},
+      {count:140000,role:'CRM manager',request:'Bring back customers who haven’t shopped in six months.',sector:'brands',name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
     ];
     let selectedByVisitor=null;
     const formatAudience=count=>new Intl.NumberFormat('fr-FR').format(count).replace(/\u202f/g,' ');

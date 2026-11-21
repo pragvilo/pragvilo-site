@@ -734,3 +734,5 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
   .solutions .sector, .trust-layout { grid-template-columns: minmax(0, 1fr); }
   .footer-library, .footer-library nav { display: grid; }
 }
+
+.review-decisions{margin:10px 0 0;padding-left:20px;display:grid;gap:8px}
