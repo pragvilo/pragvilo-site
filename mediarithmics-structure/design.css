@@ -75,6 +75,11 @@ h1.review-headline{font-size:clamp(44px,4.7vw,73px);text-wrap:balance}
 .logos{flex:1;display:flex;align-items:center;justify-content:space-between;gap:25px;list-style:none;padding:0;margin:0}
 .logos li{display:grid;place-items:center}
 .logos img{object-fit:contain;max-width:100%;filter:grayscale(1);mix-blend-mode:multiply}
+.proof-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,3vw,40px);list-style:none;margin:0;padding:20px 0 26px;border-top:1px solid rgba(10,20,60,.12)}
+.proof-facts li{display:grid;gap:4px;align-content:start}
+.proof-facts strong{font-size:17px;line-height:1.25;font-weight:650;color:var(--navy)}
+.proof-facts span{font-size:13px;line-height:1.4;color:var(--ink-2)}
+@media (max-width:760px){.proof-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px;padding:16px 0 22px}.proof-facts strong{font-size:15px}}
 .chapter{padding-block:var(--section)}
 .light-section{background:var(--paper);color:var(--navy)}
 .platform{background:var(--white)}
