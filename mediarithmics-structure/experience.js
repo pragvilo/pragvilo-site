@@ -183,6 +183,10 @@
 
   function displayPath(path) {
     sectorPaths.forEach(({panel}) => { panel.hidden = panel !== path.panel; });
+    document.querySelectorAll('.sector-switch a').forEach(link => {
+      if (link.hash === '#' + path.panel.id) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
   }
 
   function followExample(index) {
@@ -207,7 +211,7 @@
   });
   followExample(Number(agent.dataset.example));
 
-  function openSector(hash, focus) {
+  function openSector(hash, focus, stay) {
     const target = document.getElementById(hash.slice(1));
     const path = sectorPaths.find(({panel}) => panel.contains(target));
     if (!path) return;
@@ -219,7 +223,7 @@
     const disclosure = target.closest('details');
     if (disclosure) disclosure.open = true;
     if (focus) path.panel.focus({preventScroll:true});
-    target.scrollIntoView({block:'start'});
+    if (!stay) target.scrollIntoView({block:'start'});
   }
 
   document.addEventListener('click', event => {
@@ -229,10 +233,22 @@
     if (!target?.closest('.sector')) return;
     event.preventDefault();
     if (location.hash !== link.hash) history.pushState(null, '', link.hash);
-    openSector(link.hash, true);
+    const inSwitch = Boolean(link.closest('.sector-switch'));
+    openSector(link.hash, !inSwitch, inSwitch);
   });
   window.addEventListener('hashchange', () => openSector(location.hash, true));
   if (location.hash) openSector(location.hash, false);
+
+  // Phone only: keep the main action reachable once the hero button has scrolled away.
+  const mobileCta = $('[data-mobile-cta]');
+  if (mobileCta && 'IntersectionObserver' in window) {
+    const inView = new Set();
+    const watcher = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) inView.add(entry.target); else inView.delete(entry.target); });
+      mobileCta.hidden = inView.size > 0;
+    });
+    [$('.hero-actions'), $('#meeting'), $('footer')].forEach(el => { if (el) watcher.observe(el); });
+  }
 
   const notes = $('#review-dialog');
   const demoDialog = $('#demo-dialog');
@@ -268,6 +284,10 @@
     return valid;
   }
   $$('[data-demo-open]').forEach(button => button.addEventListener('click', () => {
+    // Pre-fill the topic with the use case the visitor chose, if they chose one.
+    const topicField = $('#demo-interest');
+    const topic = pinnedPath && {retail: 'Retail media', media: 'TV & media', brands: 'Data collaboration'}[pinnedPath.sector];
+    if (topicField && topic && !topicField.value) topicField.value = topic;
     openDialog(demoDialog);
     $('#demo-name').focus({preventScroll:true});
   }));
