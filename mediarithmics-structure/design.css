@@ -1285,3 +1285,18 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 }
 @media(prefers-reduced-motion:reduce){.proof-link,.lead .who{transition:none}}
 @media(max-width:760px){.proof-group[data-sector=media] .proof-logos{flex-wrap:nowrap;justify-content:space-between;gap:12px}.proof-group[data-sector=media] .proof-logos img{height:17px}.proof-group[data-sector=media] .proof-logos .channel{height:24px}.proof-group[data-sector=media] .proof-logos .francetv{height:15px}}
+
+/* Lighter Audience Agent: the four steps carry the story, so panels drop their labels, badges and frames. */
+#audience-agent .agent-examples{display:flex;flex-wrap:wrap;gap:8px}
+#audience-agent .agent-example{width:auto;min-height:44px;padding:0 16px;border-radius:999px;border-color:var(--edge-strong);background:transparent}
+#audience-agent .agent-example:not(.is-active){opacity:1}
+#audience-agent .agent-example.is-active{background:var(--sector-color);border-color:var(--sector-color);box-shadow:none;transform:none}
+@media(hover:hover) and (pointer:fine){#audience-agent .agent-example:not(.is-active):hover{border-color:var(--sector-color);transform:none}}
+#audience-agent .example-sector{background:none;padding:0;margin:0;font-size:14px;font-weight:600;color:var(--ink-2)}
+#audience-agent .is-active .example-sector{color:var(--navy)}
+#audience-agent .agent-writing::before,#audience-agent .agent-criteria::before,#audience-agent .agent-people::before{content:none}
+#audience-agent .bubble .criteria-chips{margin:0}
+#audience-agent .agent-people{padding:0;border:0;background:transparent}
+#audience-agent #agent-name{font-size:15px;font-weight:500;letter-spacing:0;line-height:1.4;color:var(--ink-2);text-align:center;margin:0 0 6px;transition:opacity .2s var(--ease)}
+#audience-agent:is([data-phase="1"],[data-phase="2"]) #agent-name{visibility:hidden;opacity:0}
+@media(prefers-reduced-motion:reduce){#audience-agent #agent-name{transition:none}}
