@@ -258,6 +258,23 @@
     notifyDialog();
   }
   $('#open-notes').addEventListener('click', () => openDialog(notes));
+  $$('[data-open-notes]').forEach(button => button.addEventListener('click', () => openDialog(notes)));
+
+  // Review notes laid over the page. One button hides or shows them all; the choice is remembered.
+  const notesToggle = $('[data-notes-toggle]');
+  if (notesToggle) {
+    const setNotes = (shown, remember) => {
+      document.documentElement.classList.toggle('notes-off', !shown);
+      notesToggle.setAttribute('aria-pressed', String(shown));
+      $('[data-notes-label]').textContent = shown ? 'Hide notes' : 'Show notes';
+      if (remember) { try { localStorage.setItem('review-notes', shown ? 'on' : 'off'); } catch (error) {} }
+    };
+    let stored = null;
+    try { stored = localStorage.getItem('review-notes'); } catch (error) {}
+    const asked = new URLSearchParams(location.search).get('notes');
+    setNotes(asked ? asked !== 'off' : stored !== 'off', false);
+    notesToggle.addEventListener('click', () => setNotes(document.documentElement.classList.contains('notes-off'), true));
+  }
   for (const dialog of [notes,demoDialog]) {
     dialog.addEventListener('close', notifyDialog);
     dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());

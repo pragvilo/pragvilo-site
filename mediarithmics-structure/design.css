@@ -770,3 +770,19 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 .meeting{padding-top:0}
 .meeting .signature{margin-bottom:clamp(52px,6.2vw,96px)}
 @media(max-width:760px){.meeting h2 br{display:none}}
+
+.hero,.proof,.platform,.solutions,.retail-trace,.trust,.meeting{position:relative}
+.review-note{position:absolute;top:18px;right:22px;z-index:5;width:280px;padding:14px 16px 15px;background:#FFE27A;color:#1B1A10;border-radius:3px;box-shadow:0 10px 26px rgba(8,12,34,.34);font-size:13.5px;line-height:1.42;letter-spacing:0;text-align:left;transform:rotate(-.6deg)}
+.proof .review-note,.solutions .review-note,.trust .review-note{transform:rotate(.5deg)}
+.review-note p{margin:0;color:inherit;font-size:inherit;line-height:inherit;max-width:none}
+.review-note p+p{margin-top:9px;padding-top:9px;border-top:1px solid rgba(27,26,16,.22)}
+.review-note b{display:block;font-size:11.5px;font-weight:700;margin-bottom:2px;opacity:.72}
+.note-link{margin-top:10px;padding:0;border:0;background:none;color:inherit;font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.notes-toggle{position:fixed;right:18px;bottom:18px;z-index:10;display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:10px 18px;border:2px solid #1B1A10;border-radius:999px;background:#FFE27A;color:#1B1A10;font:inherit;font-size:15px;font-weight:700;box-shadow:0 8px 22px rgba(8,12,34,.38);cursor:pointer}
+.notes-toggle::before{content:'';width:10px;height:10px;border-radius:50%;background:#1B1A10}
+.notes-toggle[aria-pressed="false"]{background:var(--navy);color:#FFE27A;border-color:#FFE27A}
+.notes-toggle[aria-pressed="false"]::before{background:none;border:2px solid #FFE27A}
+.notes-toggle:focus-visible,.note-link:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.notes-off .review-note{display:none}
+@media(max-width:760px){.review-note{position:relative;top:auto;right:auto;width:auto;margin:12px 5% 14px;transform:none}.proof .review-note,.solutions .review-note,.trust .review-note{transform:none}.notes-toggle{right:12px;bottom:calc(78px + env(safe-area-inset-bottom));min-height:44px;font-size:14px}}
+@media print{.review-note,.notes-toggle{display:none}}
