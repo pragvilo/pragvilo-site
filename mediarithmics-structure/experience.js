@@ -102,7 +102,9 @@
         countKey=phase;
         showCount(brief,settle);
       }
-      $('#agent-writer').textContent=brief.role+' writes';
+      $('#agent-writer').textContent=brief.role;
+      const speaker=$('#agent-speaker-photo'),photo='/mediarithmics-structure/assets/manager-'+brief.sector+'.webp';
+      if(speaker&&!speaker.src.endsWith(photo)) speaker.src=photo;
       $('#agent-request-accessible').textContent=brief.request;
       const writing=moment.step==='request'?(moment.writing??0):1;
       const typed=brief.request.slice(0,typedLength(moment.index,writing));
@@ -419,7 +421,7 @@
 
   // Blocks settle in as they are reached, a beat apart when several arrive together.
   if (!motionPreference.matches && 'IntersectionObserver' in window) {
-    const observed = $$('.diagram,.case,.proof-facts li,.trust-points li');
+    const observed = $$('.diagram,.case,.proof-facts li,.consent-faces,.trust-points li');
     observed.forEach(item => item.classList.add('will-reveal'));
     const reveal = new IntersectionObserver(entries => {
       entries.filter(entry => entry.isIntersecting).forEach((entry, order) => {

@@ -869,3 +869,91 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 .agent-demo:not([data-step=request])[data-example="0"] .face[data-m~="0"]::after,.agent-demo:not([data-step=request])[data-example="1"] .face[data-m~="1"]::after,.agent-demo:not([data-step=request])[data-example="2"] .face[data-m~="2"]::after{opacity:1;transform:none;transition:opacity .3s var(--ease-out) calc(var(--d) + .12s),transform .5s var(--ease-pop) calc(var(--d) + .12s)}
 .agent-demo:not([data-step=request])[data-example="0"] .face[data-m~="0"] i,.agent-demo:not([data-step=request])[data-example="1"] .face[data-m~="1"] i,.agent-demo:not([data-step=request])[data-example="2"] .face[data-m~="2"] i{opacity:1;transform:none;transition:opacity .2s var(--ease-out) calc(var(--d) + .28s),transform .4s var(--ease-pop) calc(var(--d) + .28s)}
 @media(max-width:760px){.face::after{inset:-4px;border-width:2px}.agent-demo--human .audience-visual{margin:14px 0}}
+
+/* People first. The first screen shows marketers saying who they want to reach. */
+.hero-figure.hero-voices{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;max-width:580px;animation:none}
+.voices{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.voice{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:end;max-width:90%;animation:arrive .7s var(--ease-out) both;animation-delay:calc(.35s + var(--n)*.4s)}
+.voice:nth-child(2){margin-left:10%}
+.voice img{display:block;width:64px;height:64px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px var(--sector-color)}
+.voice p{margin:0;padding:14px 18px 15px;border-radius:18px 18px 18px 4px;background:var(--white);color:var(--navy)}
+.voice b{display:block;margin-bottom:3px;font-size:13px;font-weight:600;color:#4A5876}
+.voice span{display:block;font-size:clamp(17px,1.45vw,21px);line-height:1.34;letter-spacing:-.02em}
+.voices-reach{display:flex;align-items:center;gap:16px;margin:8px 0 0 10%;animation:arrive .7s var(--ease-out) 1.6s both}
+.reach-faces{display:flex;flex:none;padding-left:10px}
+.reach-faces img{width:42px;height:42px;margin-left:-10px;border:2px solid #061E44;border-radius:50%;object-fit:cover;animation:settle .5s var(--ease-pop) both;animation-delay:calc(1.75s + var(--n)*.07s)}
+.voices-reach p{margin:0;color:var(--ink);font-size:16px;line-height:1.3}
+.voices-reach strong{display:block;font-weight:600}
+.voices-reach small{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+@media(max-width:760px){
+  .hero-figure.hero-voices{max-width:none;gap:12px}.voices{gap:12px}
+  .voice{max-width:96%;gap:10px}.voice:nth-child(2){margin-left:4%}
+  .voice img{width:48px;height:48px}.voice p{padding:11px 14px 12px}.voice span{font-size:16px}
+  .voices-reach{margin-left:4%;gap:12px}.reach-faces img{width:36px;height:36px}.voices-reach p{font-size:15px}
+}
+
+/* Audience example, left side: three people to choose from, then a conversation. */
+.agent-demo--human .agent-examples{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.agent-demo--human .agent-example{height:100%;padding:14px}
+.agent-demo--human .persona-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:12px 8px}
+.agent-demo--human .persona-heading>span:nth-child(2){grid-column:1/-1;grid-row:2}
+.agent-demo--human .persona-portrait{width:64px;height:64px;box-shadow:0 0 0 0 var(--sector-color);transition:box-shadow .3s var(--ease-out)}
+.persona-portrait img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(.85);opacity:.8;transition:filter .3s var(--ease-out),opacity .3s var(--ease-out)}
+.agent-example.is-active .persona-portrait{box-shadow:0 0 0 3px var(--sector-color)}
+.agent-example.is-active .persona-portrait img{filter:none;opacity:1}
+@media(hover:hover) and (pointer:fine){.agent-example:hover .persona-portrait img{filter:none;opacity:1}}
+.agent-demo--human .agent-writing,.agent-demo--human .agent-criteria{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start}
+.agent-demo--human .agent-writing{margin-top:24px;padding:0;border:0;background:none}
+.agent-demo--human .agent-criteria{margin-top:14px}
+.speaker{display:block;width:44px;height:44px;border-radius:50%;object-fit:cover}
+.speaker.agent-mark{border-radius:12px}
+.bubble{min-width:0;padding:13px 18px 15px;border:1px solid var(--sector-color);border-radius:4px 18px 18px 18px;background:var(--white)}
+.agent-criteria .bubble{border-color:var(--edge);background:var(--paper)}
+.bubble .writing-label{margin-bottom:4px;font-size:13px;color:var(--ink-2)}.bubble .writing-label .marker{display:none}
+.agent-demo--human .bubble h3{font-size:13px;font-weight:600;color:var(--ink-2)}
+.bubble .criteria-chips{min-height:0;margin:9px 0 0}
+.bubble .typed-request{min-height:2.8em}
+@media(max-width:760px){
+  .agent-demo--human .agent-examples{gap:7px}.agent-demo--human .agent-example{padding:10px}
+  .agent-demo--human .persona-heading{gap:9px 4px}.agent-demo--human .persona-portrait{width:46px;height:46px}
+  .agent-demo--human .persona-role{font-size:12px;line-height:1.25}.agent-demo--human .example-sector{font-size:11px}
+  .agent-demo--human .agent-writing,.agent-demo--human .agent-criteria{grid-template-columns:36px minmax(0,1fr);gap:9px}
+  .agent-demo--human .agent-writing{margin-top:16px}.agent-demo--human .agent-criteria{min-height:0;margin-top:10px}
+  .speaker{width:36px;height:36px}.bubble{padding:11px 14px 13px}.bubble .typed-request{min-height:4.2em}
+}
+
+/* The same people carry the rest of the page. */
+.persona-line img{width:38px;height:38px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--panel-color,var(--cyan))}
+.trace-shopper{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:14px}
+.trace-shopper img{width:56px;height:56px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--green)}
+.trace-who{display:inline-flex;align-items:center;gap:8px}
+.trace-who img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.trust-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:10px clamp(20px,4vw,60px)}
+.trust-head>.eyebrow{grid-column:1/-1}
+.consent-faces{display:flex;gap:10px;padding-bottom:6px}
+.consent-faces span{position:relative;width:52px;height:52px;border-radius:50%}
+.consent-faces img{display:block;width:100%;height:100%;border-radius:50%;object-fit:cover}
+.consent-faces .no img{filter:grayscale(1);opacity:.35}
+.consent-faces .yes{box-shadow:0 0 0 2px var(--green)}
+.consent-faces i{position:absolute;right:-5px;bottom:-4px;display:grid;place-items:center;width:20px;height:20px;border:2px solid var(--white);border-radius:50%;background:var(--green);color:var(--navy)}
+.consent-faces i .icon{width:11px;height:11px}
+.consent-faces.will-reveal span{opacity:0;transform:scale(.8)}
+.consent-faces span{transition:opacity .4s var(--ease-out),transform .5s var(--ease-pop)}
+.consent-faces span:nth-child(2){transition-delay:.07s}.consent-faces span:nth-child(3){transition-delay:.14s}.consent-faces span:nth-child(4){transition-delay:.21s}.consent-faces span:nth-child(5){transition-delay:.28s}.consent-faces span:nth-child(6){transition-delay:.35s}
+.consent-faces.will-reveal{opacity:1;transform:none}
+.consent-faces.will-reveal.is-revealed span{opacity:1;transform:none}
+.meeting-faces{display:flex;margin-bottom:18px;padding-left:10px}
+.meeting-faces img{width:52px;height:52px;margin-left:-10px;border:2px solid var(--navy);border-radius:50%;object-fit:cover}
+@media(max-width:760px){
+  .trust-head{grid-template-columns:minmax(0,1fr)}.consent-faces{gap:8px;padding:6px 0 0}.consent-faces span{width:42px;height:42px}
+  .trace-shopper img{width:44px;height:44px}.meeting-faces img{width:44px;height:44px}
+}
+@media print{.consent-faces.will-reveal span{opacity:1;transform:none}}
+
+/* Each use case opens on its person, at work in their own setting. */
+.sector-person{position:relative;margin:0 0 clamp(18px,2vw,28px);border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line-mid)}
+.sector-person img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.sector-person figcaption{position:absolute;left:12px;bottom:12px;padding:5px 10px;border-radius:999px;background:var(--panel-color);color:#061E44;font-size:13px;font-weight:600;line-height:1.3}
+.solutions .sector{align-items:start}
+.solutions .sector-copy{max-width:560px}
+@media(max-width:760px){.sector-person{margin-bottom:16px}.sector-person figcaption{left:9px;bottom:9px;font-size:12px}}

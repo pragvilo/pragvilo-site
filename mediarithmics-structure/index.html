@@ -10,10 +10,10 @@
   <meta name="description" content="mediarithmics helps retailers, TV &amp; media groups and consumer brands build campaign audiences from their own customer data. Hosted in France.">
   <link rel="icon" href="/mediarithmics-structure/assets/brand-icon.svg" type="image/svg+xml">
   <link rel="preload" href="/mediarithmics-structure/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/mediarithmics-structure/design.css?v=20261122-v7">
+  <link rel="stylesheet" href="/mediarithmics-structure/design.css?v=20261122-v10">
   <script defer src="/mediarithmics-structure/assets/gsap.min.js"></script>
   <script defer src="/mediarithmics-structure/assets/journey-player.js?v=20261119-writing"></script>
-  <script defer src="/mediarithmics-structure/experience.js?v=20261122-v7"></script>
+  <script defer src="/mediarithmics-structure/experience.js?v=20261122-v10"></script>
 </head>
 <body id="top">
   <a href="#main" class="skip">Skip to content</a>
@@ -65,12 +65,13 @@
             <a class="inline-link dark-link" href="#example">See an example <svg class="icon" aria-hidden="true"><use href="#down"/></svg></a>
           </div>
         </div>
-        <figure class="hero-figure" aria-label="An illustrative journey from customer data to a campaign">
-          <div class="journey-shell">
-            <div class="journey-fallback" data-motion-fallback><img src="/mediarithmics-structure/assets/journey-poster.svg" width="720" height="440" alt="Store, CRM and Video signals identify one person, who joins an audience activated through Email, Ads and Video."></div>
-            <div id="journey-player"></div>
-          </div>
-          <figcaption class="sr-only">Store, CRM and Video signals identify one person. That person joins an audience, which activates a campaign across Email, Ads and Video.</figcaption>
+        <figure class="hero-figure hero-voices" aria-label="Three marketers describe the audience they want to reach">
+          <ul class="voices">
+            <li class="voice" data-sector="media" style="--n:0"><img src="/mediarithmics-structure/assets/manager-media.webp" width="224" height="224" alt=""><p><b>Audience manager</b><span>“Bring back viewers who haven’t watched in six months.”</span></p></li>
+            <li class="voice" data-sector="retail" style="--n:1"><img src="/mediarithmics-structure/assets/manager-retail.webp" width="224" height="224" alt=""><p><b>Retail media manager</b><span>“Help me reach loyalty members who shop in store.”</span></p></li>
+            <li class="voice" data-sector="brands" style="--n:2"><img src="/mediarithmics-structure/assets/manager-brands.webp" width="224" height="224" alt=""><p><b>CRM manager</b><span>“Bring back customers who haven’t shopped in six months.”</span></p></li>
+          </ul>
+          <div class="voices-reach"><span class="reach-faces" aria-hidden="true"><img src="/mediarithmics-structure/assets/face-01.webp" width="176" height="176" alt="" style="--n:0"><img src="/mediarithmics-structure/assets/face-04.webp" width="176" height="176" alt="" style="--n:1"><img src="/mediarithmics-structure/assets/face-07.webp" width="176" height="176" alt="" style="--n:2"><img src="/mediarithmics-structure/assets/face-08.webp" width="176" height="176" alt="" style="--n:3"><img src="/mediarithmics-structure/assets/face-12.webp" width="176" height="176" alt="" style="--n:4"><img src="/mediarithmics-structure/assets/face-14.webp" width="176" height="176" alt="" style="--n:5"></span><p><strong>One request, one audience.</strong><small>Illustrative example with fictional people</small></p></div>
         </figure>
       </div>
       <div class="signature" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -111,15 +112,18 @@
             <div class="agent-scene">
               <div class="agent-conversation">
                 <ul class="agent-examples" aria-label="Choose a role">
-                  <li><button type="button" class="agent-example is-active" data-agent-example="0" data-sector="media" aria-pressed="true" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#EDF2F8"/><path d="M6 48c0-21 36-21 36 0" fill="#FF5959"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#FFFFFF" stroke="#061E44" stroke-width="1.5"/><path d="M13 18C9 0 39 0 35 19l-7-9-15 8" fill="#061E44"/><path d="M20 21h1m6 0h1m-7 6q3 3 6 0" fill="none" stroke="#061E44" stroke-width="1.5" stroke-linecap="round"/></svg></span><span><span class="example-sector">TV &amp; media</span><span class="persona-role">Audience manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
-                  <li><button type="button" class="agent-example" data-agent-example="1" data-sector="retail" aria-pressed="false" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#EDF2F8"/><path d="M10 31V17C10 0 39 0 38 20v11H10" fill="#061E44"/><path d="M6 48c0-21 36-21 36 0" fill="#00AD68"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#FFFFFF" stroke="#061E44" stroke-width="1.5"/><path d="M13 18Q11 0 28 6l7 13-10-8-12 7" fill="#061E44"/><path d="M20 21h1m6 0h1m-7 6q3 3 6 0" fill="none" stroke="#061E44" stroke-width="1.5" stroke-linecap="round"/></svg></span><span><span class="example-sector">Retail</span><span class="persona-role">Retail media manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
-                  <li><button type="button" class="agent-example" data-agent-example="2" data-sector="brands" aria-pressed="false" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#EDF2F8"/><path d="M6 48c0-21 36-21 36 0" fill="#F58D39"/><ellipse cx="24" cy="20" rx="11" ry="13" fill="#FFFFFF" stroke="#061E44" stroke-width="1.5"/><path d="M13 18Q8 2 21 5Q32-2 36 11v9l-9-10-14 8" fill="#061E44"/><path d="M20 21h1m6 0h1m-7 6q3 3 6 0" fill="none" stroke="#061E44" stroke-width="1.5" stroke-linecap="round"/><path d="M16 18h7v6h-7zm10 0h7v6h-7zm-3 3h3" fill="none" stroke="#061E44"/></svg></span><span><span class="example-sector">Brands</span><span class="persona-role">CRM manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
+                  <li><button type="button" class="agent-example is-active" data-agent-example="0" data-sector="media" aria-pressed="true" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><img src="/mediarithmics-structure/assets/manager-media.webp" width="224" height="224" alt="" loading="lazy" decoding="async"></span><span><span class="example-sector">TV &amp; media</span><span class="persona-role">Audience manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
+                  <li><button type="button" class="agent-example" data-agent-example="1" data-sector="retail" aria-pressed="false" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><img src="/mediarithmics-structure/assets/manager-retail.webp" width="224" height="224" alt="" loading="lazy" decoding="async"></span><span><span class="example-sector">Retail</span><span class="persona-role">Retail media manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
+                  <li><button type="button" class="agent-example" data-agent-example="2" data-sector="brands" aria-pressed="false" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><img src="/mediarithmics-structure/assets/manager-brands.webp" width="224" height="224" alt="" loading="lazy" decoding="async"></span><span><span class="example-sector">Brands</span><span class="persona-role">CRM manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
                 </ul>
                 <div class="agent-writing">
+                  <img class="speaker" id="agent-speaker-photo" src="/mediarithmics-structure/assets/manager-media.webp" width="224" height="224" alt="">
+                  <div class="bubble">
                   <p class="writing-label"><span class="marker"></span><span id="agent-writer">Audience manager writes</span></p>
                   <p class="typed-request"><span class="sr-only" id="agent-request-accessible">Bring back viewers who haven’t watched in six months.</span><span id="agent-request" aria-hidden="true">Bring back viewers who haven’t watched in six months.</span><span class="typing-caret" aria-hidden="true">|</span></p>
+                  </div>
                 </div>
-                <div class="agent-criteria" aria-labelledby="criteria-title"><h3 id="criteria-title"><span class="marker violet"></span>Suggested criteria</h3><ul class="criteria-chips"><li id="agent-group">Registered viewers</li><li id="agent-history">No viewing in 6 months</li><li><svg class="icon" aria-hidden="true"><use href="#check"/></svg>Marketing consent</li></ul></div>
+                <div class="agent-criteria" aria-labelledby="criteria-title"><img class="speaker agent-mark" src="/mediarithmics-structure/assets/brand-icon.svg" width="32" height="32" alt=""><div class="bubble"><h3 id="criteria-title">Audience Agent suggests</h3><ul class="criteria-chips"><li id="agent-group">Registered viewers</li><li id="agent-history">No viewing in 6 months</li><li><svg class="icon" aria-hidden="true"><use href="#check"/></svg>Marketing consent</li></ul></div></div>
               </div>
               <div class="agent-people" id="agent-people" aria-labelledby="agent-name">
                 <p class="audience-result-label">Your audience <span id="agent-audience-sector">TV &amp; media</span></p><h3 id="agent-name">Viewers to reconnect with</h3>
@@ -147,6 +151,7 @@
         </nav>
         <article class="sector" id="retail" aria-labelledby="retail-title" tabindex="-1" hidden>
           <div class="sector-copy">
+            <figure class="sector-person"><img src="/mediarithmics-structure/assets/scene-retail.webp" width="1120" height="630" alt="" loading="lazy" decoding="async"><figcaption>Fictional retail media manager</figcaption></figure>
             <p class="eyebrow"><span class="marker green"></span>Retail media</p>
             <h3 id="retail-title">Put your shoppers within reach of advertisers.</h3>
             <p>Build audiences from your loyalty data. Offer them to advertisers and see which campaign clicks can be linked to store purchases.</p>
@@ -166,17 +171,17 @@
       <aside class="review-note" aria-label="Review note"><p><b>Why</b> One worked example for retail, folded by default to keep the page short.</p><p><b>To decide</b> Keep it folded on the homepage, or move it to the retail page?</p></aside>
             <div class="trace-header">
               <div><p class="eyebrow"><span class="marker green"></span>Retail measurement · Illustrative demo</p><h4 id="trace-title">From an ad click to an in-store sale.</h4></div>
-              <p>Follow one shopper who has agreed to measurement. Their loyalty account can link an online click to a store receipt.</p>
+              <p class="trace-shopper"><img src="/mediarithmics-structure/assets/face-12.webp" width="176" height="176" alt="" loading="lazy" decoding="async">Follow one shopper who has agreed to measurement. Their loyalty account can link an online click to a store receipt.</p>
             </div>
             <p class="trace-progress enhanced-only" aria-live="polite" aria-atomic="true">Step <span id="trace-step-number">1</span> of 3 <span id="trace-step-name">· Ad click</span></p>
             <ol class="trace-events">
               <li class="trace-card" id="click-event">
-                <div class="trace-label"><span>01 · Online</span><svg class="icon"><use href="#pointer"/></svg></div>
+                <div class="trace-label"><span class="trace-who"><img src="/mediarithmics-structure/assets/face-12.webp" width="176" height="176" alt="" loading="lazy" decoding="async">01 · Online</span><svg class="icon"><use href="#pointer"/></svg></div>
                 <h5 tabindex="-1">Ad click</h5><p>The shopper clicks a campaign ad while signed in to their loyalty account.</p>
                 <button type="button" class="trace-action enhanced-only" id="record-click"><span>Click the example ad</span><svg class="icon"><use href="#arrow"/></svg></button>
               </li>
               <li class="trace-card" id="purchase-event">
-                <div class="trace-label"><span>02 · In store</span><svg class="icon"><use href="#receipt"/></svg></div>
+                <div class="trace-label"><span class="trace-who"><img src="/mediarithmics-structure/assets/face-12.webp" width="176" height="176" alt="" loading="lazy" decoding="async">02 · In store</span><svg class="icon"><use href="#receipt"/></svg></div>
                 <h5 tabindex="-1">Store receipt</h5><p>The shopper buys in store during the campaign’s measurement window.</p>
                 <noscript><p>At checkout, the shopper scans the loyalty card connected to the online account.</p></noscript>
                 <label class="checkout-choice enhanced-only" for="checkout-card">At checkout
@@ -199,6 +204,7 @@
         </article>
         <article class="sector" id="broadcast" aria-labelledby="broadcast-title" tabindex="-1">
           <div class="sector-copy">
+            <figure class="sector-person"><img src="/mediarithmics-structure/assets/scene-media.webp" width="1120" height="630" alt="" loading="lazy" decoding="async"><figcaption>Fictional audience manager</figcaption></figure>
             <p class="eyebrow"><span class="marker coral"></span>TV &amp; media</p>
             <h3 id="broadcast-title">Help advertisers reach the right viewers.</h3>
             <p>Use what viewers watch to build audiences for advertisers across TV and digital.</p>
@@ -215,6 +221,7 @@
         </article>
         <article class="sector" id="brands" aria-labelledby="brands-title" tabindex="-1" hidden>
           <div class="sector-copy">
+            <figure class="sector-person"><img src="/mediarithmics-structure/assets/scene-brands.webp" width="1120" height="630" alt="" loading="lazy" decoding="async"><figcaption>Fictional CRM manager</figcaption></figure>
             <p class="eyebrow"><span class="marker orange"></span>Consumer brands</p>
             <h3 id="brands-title">Find your customers across partner media.</h3>
             <p>Use your own customer data with a media partner to plan who to reach and where to run your next campaign.</p>
@@ -237,7 +244,7 @@
       <div class="wrap trust-layout">
         <div class="trust-head">
           <p class="eyebrow"><span class="marker cyan"></span>Europe &amp; trust</p>
-          <h2 id="trust-title">Who can use your data?</h2>
+          <h2 id="trust-title">Who can use your data?</h2><div class="consent-faces" aria-hidden="true"><span class="yes"><img src="/mediarithmics-structure/assets/face-03.webp" width="176" height="176" alt="" loading="lazy" decoding="async"><i><svg class="icon"><use href="#check"/></svg></i></span><span class="yes"><img src="/mediarithmics-structure/assets/face-09.webp" width="176" height="176" alt="" loading="lazy" decoding="async"><i><svg class="icon"><use href="#check"/></svg></i></span><span class="no"><img src="/mediarithmics-structure/assets/face-06.webp" width="176" height="176" alt="" loading="lazy" decoding="async"></span><span class="yes"><img src="/mediarithmics-structure/assets/face-14.webp" width="176" height="176" alt="" loading="lazy" decoding="async"><i><svg class="icon"><use href="#check"/></svg></i></span><span class="no"><img src="/mediarithmics-structure/assets/face-02.webp" width="176" height="176" alt="" loading="lazy" decoding="async"></span><span class="yes"><img src="/mediarithmics-structure/assets/face-13.webp" width="176" height="176" alt="" loading="lazy" decoding="async"><i><svg class="icon"><use href="#check"/></svg></i></span></div>
         </div>
         <ul class="trust-points">
           <li>
@@ -261,7 +268,7 @@
     <section class="meeting" id="meeting" aria-labelledby="meeting-title">
       <div class="signature" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <aside class="review-note" aria-label="Review note"><p><b>Why</b> One action for the whole page: talk to an expert. The form is a prototype and sends nothing.</p><p><b>To decide</b> Who receives the request, and what do we tell the visitor about what happens next?</p></aside>
-      <div class="wrap meeting-inner"><div><p class="eyebrow"><span class="marker cyan"></span>Talk to the team</p><h2 id="meeting-title">Which audience would <br>you like to reach?</h2></div><button class="button primary" type="button" data-demo-open aria-haspopup="dialog">Talk to an expert <svg class="icon"><use href="#arrow"/></svg></button></div>
+      <div class="wrap meeting-inner"><div><span class="meeting-faces" aria-hidden="true"><img src="/mediarithmics-structure/assets/manager-media.webp" width="224" height="224" alt="" loading="lazy" decoding="async"><img src="/mediarithmics-structure/assets/manager-retail.webp" width="224" height="224" alt="" loading="lazy" decoding="async"><img src="/mediarithmics-structure/assets/manager-brands.webp" width="224" height="224" alt="" loading="lazy" decoding="async"></span><p class="eyebrow"><span class="marker cyan"></span>Talk to the team</p><h2 id="meeting-title">Which audience would <br>you like to reach?</h2></div><button class="button primary" type="button" data-demo-open aria-haspopup="dialog">Talk to an expert <svg class="icon"><use href="#arrow"/></svg></button></div>
     </section>
   </main>
 
