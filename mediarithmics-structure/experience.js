@@ -55,7 +55,25 @@
       {count:480000,role:'Retail media manager',request:'Help me reach loyalty members who shop in store.',sector:'retail',name:'Your in-store shoppers',group:'Loyalty members',history:'An in-store purchase',summary:'Loyalty members with an in-store purchase and permission to receive marketing.'},
       {count:140000,role:'CRM manager',request:'Bring back customers who haven’t shopped in six months.',sector:'brands',name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
     ];
-    let selectedByVisitor=null;
+    // Each role sends its audience to the tools its team actually uses.
+    const channels=[[['freewheel','FreeWheel'],['the-trade-desk','The Trade Desk'],['google','Google']],[['criteo','Criteo'],['meta','Meta'],['google','Google']],[['braze','Braze'],['meta','Meta'],['tiktok','TikTok']]];
+    const notes={1:'Writing your request…',2:'Checking the suggested criteria',3:'People matching your criteria',4:'Ready to send to your campaigns'};
+    let selectedByVisitor=null,phaseKey=null,phaseTimers=[];
+    // The tick only reports request / result. The four visible steps are paced here so each one can be read.
+    function applyPhase(phase){
+      demo.dataset.phase=String(phase);
+      $('#agent-match-state').textContent=notes[phase];
+    }
+    function setPhase(moment,brief){
+      const key=moment.index+(moment.step==='request'?':ask':':answer');
+      if(key===phaseKey) return;
+      phaseKey=key;phaseTimers.forEach(clearTimeout);phaseTimers=[];
+      if(moment.step==='request'){applyPhase(1);return;}
+      const live=!motionPreference.matches&&demo.querySelector('[data-motion-kind="audience"]')?.hasAttribute('data-ready')&&!moment.instant;
+      if(!live){applyPhase(4);return;}
+      applyPhase(2);
+      phaseTimers.push(setTimeout(()=>{applyPhase(3);showCount(brief,true);},1100),setTimeout(()=>applyPhase(4),2500));
+    }
     // Nobody types at a constant speed: keys vary, words are separated by a beat, and there is one hesitation mid-sentence.
     const rhythms=examples.map((brief,n)=>{
       let seed=7+n*13,total=2;
@@ -130,14 +148,20 @@
       $('#agent-history').textContent=brief.history;
       $('#agent-name').textContent=brief.name;
       $('#agent-summary').textContent=brief.summary;
-      $('#agent-match-state').textContent=moment.step==='created'?'People matching your criteria':moment.step==='rules'?'Checking the suggested criteria':'Writing your request…';
+      const photoNode=$('#agent-result-photo');if(photoNode&&!photoNode.src.endsWith(photo)) photoNode.src=photo;
+      const list=$('#agent-channels');
+      if(list&&list.dataset.for!==brief.sector){
+        list.dataset.for=brief.sector;
+        list.querySelectorAll('li').forEach((li,i)=>{const [file,label]=channels[moment.index][i];li.querySelector('img').src='/mediarithmics-structure/assets/connectors/'+file+'.png';li.querySelector('span').textContent=label;});
+      }
+      setPhase(moment,brief);
     }
     demo.addEventListener('mics:audience-tick',event=>showExample(event.detail));
     demo.querySelectorAll('[data-agent-example]').forEach(button=>button.addEventListener('click',()=>{
       const index=Number(button.dataset.agentExample);
       // Works even if the animation bundle fails or reduced motion is enabled.
       selectedByVisitor=index;
-      if(!demo.querySelector('[data-motion-kind="audience"]')?.hasAttribute('data-ready')) showExample({index,step:'created'});
+      if(!demo.querySelector('[data-motion-kind="audience"]')?.hasAttribute('data-ready')) showExample({index,step:'created',instant:true});
       demo.dispatchEvent(new CustomEvent('mics:audience-select',{detail:{index}}));
     }));
     const host=demo.querySelector('[data-motion-kind="audience"]');

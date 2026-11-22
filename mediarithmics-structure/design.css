@@ -864,10 +864,10 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 .face i{position:absolute;right:-6%;bottom:-4%;display:grid;place-items:center;width:32%;aspect-ratio:1;border:2px solid var(--paper);border-radius:50%;background:var(--sector-color);color:var(--navy);opacity:0;transform:scale(.5);transition:opacity .15s var(--ease),transform .15s var(--ease)}
 .face i .icon{width:64%;height:64%}
 .agent-demo:not([data-step=request]) .face{opacity:.3;transform:scale(.82);transition:opacity .4s var(--ease-out) var(--d),transform .5s var(--ease-out) var(--d)}
-.agent-demo:not([data-step=request])[data-example="0"] .face[data-m~="0"],.agent-demo:not([data-step=request])[data-example="1"] .face[data-m~="1"],.agent-demo:not([data-step=request])[data-example="2"] .face[data-m~="2"]{opacity:1;transform:scale(1.03);transition:opacity .4s var(--ease-out) var(--d),transform .6s var(--ease-pop) var(--d)}
-.agent-demo:not([data-step=request])[data-example="0"] .face[data-m~="0"] img,.agent-demo:not([data-step=request])[data-example="1"] .face[data-m~="1"] img,.agent-demo:not([data-step=request])[data-example="2"] .face[data-m~="2"] img{filter:none;transition:filter .5s var(--ease-out) var(--d)}
-.agent-demo:not([data-step=request])[data-example="0"] .face[data-m~="0"]::after,.agent-demo:not([data-step=request])[data-example="1"] .face[data-m~="1"]::after,.agent-demo:not([data-step=request])[data-example="2"] .face[data-m~="2"]::after{opacity:1;transform:none;transition:opacity .3s var(--ease-out) calc(var(--d) + .12s),transform .5s var(--ease-pop) calc(var(--d) + .12s)}
-.agent-demo:not([data-step=request])[data-example="0"] .face[data-m~="0"] i,.agent-demo:not([data-step=request])[data-example="1"] .face[data-m~="1"] i,.agent-demo:not([data-step=request])[data-example="2"] .face[data-m~="2"] i{opacity:1;transform:none;transition:opacity .2s var(--ease-out) calc(var(--d) + .28s),transform .4s var(--ease-pop) calc(var(--d) + .28s)}
+.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="0"] .face[data-m~="0"],.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="1"] .face[data-m~="1"],.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="2"] .face[data-m~="2"]{opacity:1;transform:scale(1.03);transition:opacity .4s var(--ease-out) var(--d),transform .6s var(--ease-pop) var(--d)}
+.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="0"] .face[data-m~="0"] img,.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="1"] .face[data-m~="1"] img,.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="2"] .face[data-m~="2"] img{filter:none;transition:filter .5s var(--ease-out) var(--d)}
+.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="0"] .face[data-m~="0"]::after,.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="1"] .face[data-m~="1"]::after,.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="2"] .face[data-m~="2"]::after{opacity:1;transform:none;transition:opacity .3s var(--ease-out) calc(var(--d) + .12s),transform .5s var(--ease-pop) calc(var(--d) + .12s)}
+.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="0"] .face[data-m~="0"] i,.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="1"] .face[data-m~="1"] i,.agent-demo:is([data-phase="3"],[data-phase="4"])[data-example="2"] .face[data-m~="2"] i{opacity:1;transform:none;transition:opacity .2s var(--ease-out) calc(var(--d) + .28s),transform .4s var(--ease-pop) calc(var(--d) + .28s)}
 @media(max-width:760px){.face::after{inset:-4px;border-width:2px}.agent-demo--human .audience-visual{margin:14px 0}}
 
 /* People first. The first screen shows marketers saying who they want to reach. */
@@ -1146,3 +1146,66 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
   .notes-toggle [data-notes-label]{font-size:0}
   .notes-toggle [data-notes-label]::after{content:'Notes';font-size:12px}
 }
+
+/* Personas read apart: the chosen role colours the whole example, the others step back. */
+#audience-agent .agent-example:not(.is-active){opacity:.62}
+#audience-agent .agent-example:not(.is-active) .persona-portrait img{filter:grayscale(1)}
+#audience-agent .agent-example.is-active{opacity:1;background:color-mix(in srgb,var(--sector-color) 12%,var(--white));box-shadow:0 0 0 2px var(--sector-color),0 14px 26px -18px var(--sector-color);transform:translateY(-3px)}
+#audience-agent .agent-example{transition:opacity .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){#audience-agent .agent-example:not(.is-active):hover{opacity:1}}
+#audience-agent .agent-writing .bubble{background:color-mix(in srgb,var(--sector-color) 7%,var(--white));transition:background .4s var(--ease),border-color .4s var(--ease)}
+#audience-agent .agent-writing .speaker{box-shadow:0 0 0 3px var(--sector-color);transition:box-shadow .4s var(--ease)}
+#audience-agent .agent-people{background:color-mix(in srgb,var(--sector-color) 8%,var(--paper));border-width:2px;transition:background .4s var(--ease),border-color .4s var(--ease)}
+.result-owner{display:flex;align-items:center;gap:9px}
+.result-owner img{width:30px;height:30px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--sector-color)}
+
+/* The path: four numbered steps, each lit in turn, with the matching panel brought forward. */
+.agent-steps{position:relative;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 26px;padding:0;counter-reset:none}
+.agent-steps::before,.agent-steps::after{content:'';position:absolute;left:12.5%;top:15px;height:3px;border-radius:3px}
+.agent-steps::before{right:12.5%;background:var(--edge)}
+.agent-steps::after{width:0;background:var(--sector-color);transition:width .6s var(--ease-out),background .4s var(--ease)}
+#audience-agent[data-phase="2"] .agent-steps::after{width:25%}
+#audience-agent[data-phase="3"] .agent-steps::after{width:50%}
+#audience-agent[data-phase="4"] .agent-steps::after{width:75%}
+.agent-steps li{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:14px;line-height:1.25;color:var(--ink-2);transition:color .3s var(--ease)}
+.step-n{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:50%;border:2px solid var(--edge-strong);background:var(--white);font-size:14px;font-weight:650;color:var(--ink-2);transition:background .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease),transform .4s var(--ease-pop)}
+#audience-agent[data-phase="1"] .agent-steps [data-s="1"],#audience-agent[data-phase="2"] .agent-steps [data-s="2"],#audience-agent[data-phase="3"] .agent-steps [data-s="3"],#audience-agent[data-phase="4"] .agent-steps [data-s="4"]{color:var(--navy);font-weight:650}
+#audience-agent[data-phase="1"] .agent-steps [data-s="1"] .step-n,#audience-agent[data-phase="2"] .agent-steps [data-s="2"] .step-n,#audience-agent[data-phase="3"] .agent-steps [data-s="3"] .step-n,#audience-agent[data-phase="4"] .agent-steps [data-s="4"] .step-n{background:var(--sector-color);border-color:var(--sector-color);color:var(--navy);transform:scale(1.15);box-shadow:0 0 0 6px color-mix(in srgb,var(--sector-color) 22%,transparent)}
+#audience-agent:is([data-phase="2"],[data-phase="3"],[data-phase="4"]) .agent-steps [data-s="1"] .step-n,#audience-agent:is([data-phase="3"],[data-phase="4"]) .agent-steps [data-s="2"] .step-n,#audience-agent[data-phase="4"] .agent-steps [data-s="3"] .step-n{border-color:var(--sector-color);color:var(--navy);background:color-mix(in srgb,var(--sector-color) 22%,var(--white))}
+
+/* Each panel carries its step number; panels not reached yet stay quiet. */
+#audience-agent .agent-writing,#audience-agent .agent-criteria,#audience-agent .agent-people{position:relative}
+#audience-agent .agent-writing::before,#audience-agent .agent-criteria::before,#audience-agent .agent-people::before{position:absolute;z-index:2;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--sector-color);color:var(--navy);font-size:12px;font-weight:700;box-shadow:0 0 0 2px var(--white)}
+#audience-agent .agent-writing::before{content:'1';left:-6px;top:-6px}
+#audience-agent .agent-criteria::before{content:'2';left:-6px;top:-6px}
+#audience-agent .agent-people::before{content:'3';left:-11px;top:-11px;width:26px;height:26px;font-size:13px}
+#audience-agent .agent-criteria,#audience-agent .agent-people,#audience-agent .agent-writing{transition:opacity .35s var(--ease)}
+#audience-agent:is([data-phase="3"],[data-phase="4"]) .agent-writing,#audience-agent:is([data-phase="3"],[data-phase="4"]) .agent-criteria{opacity:.6}
+#audience-agent:is([data-phase="1"],[data-phase="2"]) .agent-people{opacity:.55}
+#audience-agent[data-phase="2"] .audience-count{visibility:hidden;opacity:0}
+#audience-agent[data-phase="2"] .agent-criteria .bubble{border-color:var(--sector-color);background:var(--white)}
+
+/* Step 4: the audience leaves for the tools this role uses. */
+.agent-send{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid color-mix(in srgb,var(--sector-color) 35%,var(--edge))}
+.agent-send .step-n{width:22px;height:22px;font-size:12px;border-width:0;background:var(--edge);color:var(--ink-2)}
+.agent-send-label{font-size:13px;color:var(--ink-2)}
+#agent-channels{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+#agent-channels li{display:flex;align-items:center;gap:6px;padding:4px 9px 4px 5px;border:1px solid var(--edge);border-radius:999px;background:var(--white);font-size:12px;font-weight:600;color:var(--navy);opacity:.35;transform:translateX(-6px);transition:opacity .3s var(--ease),transform .3s var(--ease),border-color .3s var(--ease)}
+#agent-channels img{width:18px;height:18px;border-radius:4px}
+#audience-agent[data-phase="4"] .agent-send .step-n{background:var(--sector-color);color:var(--navy)}
+#audience-agent[data-phase="4"] #agent-channels li{opacity:1;transform:none;border-color:var(--sector-color);transition:opacity .35s var(--ease-out) var(--c),transform .5s var(--ease-pop) var(--c),border-color .35s var(--ease) var(--c)}
+#agent-channels li:nth-child(1){--c:.1s}#agent-channels li:nth-child(2){--c:.35s}#agent-channels li:nth-child(3){--c:.6s}
+
+@media(max-width:760px){
+  .agent-steps{margin-bottom:16px;gap:4px}
+  .agent-steps li{font-size:11px;gap:6px}
+  .agent-steps::before,.agent-steps::after{top:12px}
+  .step-n{width:26px;height:26px;font-size:12px}
+  #audience-agent .agent-example.is-active{transform:none}
+  .agent-send{flex-wrap:wrap;gap:6px}
+  #agent-channels li{font-size:11px;padding:3px 7px 3px 4px}
+}
+@media(prefers-reduced-motion:reduce){
+  .agent-steps::after,.agent-steps li,.step-n,#agent-channels li,#audience-agent .agent-example{transition:none}
+}
+.agent-send{flex-wrap:wrap}.agent-send-label,#agent-channels li{white-space:nowrap}#agent-channels{flex-wrap:wrap;justify-content:center}
