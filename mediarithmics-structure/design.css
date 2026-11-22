@@ -957,3 +957,34 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 .solutions .sector{align-items:start}
 .solutions .sector-copy{max-width:560px}
 @media(max-width:760px){.sector-person{margin-bottom:16px}.sector-person figcaption{left:9px;bottom:9px;font-size:12px}}
+
+/* The three people are shown where they work: the setting says who they are before the words do. */
+.hero-figure.hero-voices{max-width:600px;gap:14px}
+.voices{gap:14px}
+.voice{grid-template-columns:minmax(0,48%) minmax(0,1fr);gap:0;align-items:end;max-width:none}
+.voice:nth-child(2){margin-left:0;grid-template-columns:minmax(0,1fr) minmax(0,48%)}
+.voice-scene{position:relative;margin:0;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 18px 40px rgba(2,10,28,.35)}
+.voice:nth-child(2) .voice-scene{order:2}
+.voice-scene img{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:0;box-shadow:none;object-fit:cover;object-position:18% 50%}
+.voice-scene::after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,rgba(3,14,36,.55));pointer-events:none}
+.voice-scene figcaption{position:absolute;z-index:1;left:10px;bottom:10px;padding:4px 10px;border-radius:999px;background:var(--sector-color);color:#061E44;font-size:12px;font-weight:600;line-height:1.3}
+.voice:nth-child(2) .voice-scene figcaption{left:auto;right:10px}
+.voice p{position:relative;z-index:1;margin:0 0 16px -26px;box-shadow:0 12px 30px rgba(2,10,28,.3)}
+.voice:nth-child(2) p{margin:0 -26px 16px 0;border-radius:18px 18px 4px 18px}
+.voice span{font-size:clamp(16px,1.3vw,19px)}
+.voices-reach{margin-left:0}
+@media(max-width:760px){
+  .voice,.voice:nth-child(2){grid-template-columns:minmax(0,1fr)}
+  .voice:nth-child(2) .voice-scene{order:0}
+  .voice-scene img{aspect-ratio:2.1/1;object-position:18% 30%}
+  .voice-scene figcaption,.voice:nth-child(2) .voice-scene figcaption{left:auto;right:9px;top:9px;bottom:auto}
+  .voice p{margin:-26px 0 0 14%}.voice:nth-child(2) p{margin:-26px 14% 0 0}
+}
+
+/* Audience example: each person to choose from is a small view of their workplace. */
+.agent-demo--human .persona-heading{align-items:center;gap:10px 8px}
+.agent-demo--human .persona-portrait{grid-column:1/-1;width:100%;height:auto;aspect-ratio:16/10;border-radius:10px}
+.agent-demo--human .persona-portrait img{object-position:18% 50%}
+.agent-demo--human .persona-heading>span:nth-child(2){grid-column:1;grid-row:2}
+.agent-demo--human .persona-select{grid-column:2;grid-row:2}
+@media(max-width:760px){.agent-demo--human .persona-portrait{width:100%;height:auto;aspect-ratio:4/3;border-radius:8px}.agent-demo--human .persona-portrait img{object-position:22% 40%}}
