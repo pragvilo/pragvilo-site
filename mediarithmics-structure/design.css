@@ -1015,3 +1015,40 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
   .agent-demo--human .audience-visual{max-width:360px;padding:8px 0}
   .agent-demo--human .persona-role{font-size:12px}
 }
+
+/* Use cases, compact: the person beside what they get, then the customer story as one quiet line below. */
+.solutions .sector{grid-template-columns:minmax(0,1fr);gap:clamp(20px,2.4vw,32px);padding:clamp(20px,2.6vw,40px)}
+.solutions .sector-copy{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1fr);grid-template-rows:1fr auto auto auto auto 1fr;column-gap:clamp(24px,4.5vw,64px);max-width:none}
+.solutions .sector-person{grid-column:1;grid-row:1/-1;margin:0}
+.solutions .sector-person img{aspect-ratio:3/2;object-position:18% 50%}
+.solutions .sector-copy>:not(.sector-person){grid-column:2;justify-self:start}
+.solutions .sector-copy>.eyebrow{grid-row:2}.solutions .sector-copy>h3{grid-row:3;max-width:17em}
+.solutions .sector-copy>p:not(.eyebrow){grid-row:4;max-width:46ch}.solutions .sector-copy>.inline-link{grid-row:5}
+.solutions .sector h3{font-size:clamp(26px,2.4vw,38px)}
+.solutions .customer-proof{display:grid;grid-template-columns:clamp(150px,19vw,250px) minmax(0,1fr);border-color:var(--line-mid)}
+.solutions .customer-proof .case-cover{aspect-ratio:auto;height:100%;min-height:118px}
+.solutions .customer-proof-copy{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 28px;padding:18px clamp(18px,2.2vw,30px)}
+.solutions .customer-proof-copy .eyebrow{grid-column:1;font-size:12px}
+.solutions .customer-proof-copy h4{grid-column:1;margin:0;font-size:clamp(18px,1.55vw,23px);line-height:1.2}
+.solutions .customer-proof .case-read{grid-column:2;grid-row:1/span 2;white-space:nowrap}
+.solutions .customer-proof .case-brand{top:14px;left:14px;max-height:26px;width:auto}
+@media(max-width:900px){
+  .solutions .customer-proof-copy{grid-template-columns:minmax(0,1fr)}
+  .solutions .customer-proof .case-read{grid-column:1;grid-row:auto;margin-top:6px}
+}
+@media(max-width:760px){
+  .solutions .sector{padding:16px;gap:18px}
+  .solutions .sector-copy{display:block}
+  .solutions .sector-person{margin-bottom:16px}
+  .solutions .sector-person img{aspect-ratio:2/1;object-position:18% 35%}
+  .solutions .customer-proof{grid-template-columns:96px minmax(0,1fr)}
+  .solutions .customer-proof-copy{padding:14px}
+  .solutions .customer-proof-copy h4{font-size:17px}
+}
+/* The story cover keeps the proportions its artwork was drawn for. */
+.solutions .customer-proof{grid-template-columns:212px minmax(0,1fr);align-items:center}
+.solutions .customer-proof .case-cover{aspect-ratio:720/400;height:auto;min-height:0}
+@media(max-width:760px){
+  .solutions .customer-proof{grid-template-columns:132px minmax(0,1fr)}
+  .solutions .customer-proof .case-brand{top:9px;left:9px;max-width:calc(100% - 18px);max-height:20px}
+}
