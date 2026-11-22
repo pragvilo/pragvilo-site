@@ -10,10 +10,10 @@
   <meta name="description" content="mediarithmics helps retailers, TV &amp; media groups and consumer brands build campaign audiences from their own customer data. Hosted in France.">
   <link rel="icon" href="/mediarithmics-structure/assets/brand-icon.svg" type="image/svg+xml">
   <link rel="preload" href="/mediarithmics-structure/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/mediarithmics-structure/design.css?v=20261122-v11">
+  <link rel="stylesheet" href="/mediarithmics-structure/design.css?v=20261122-v12">
   <script defer src="/mediarithmics-structure/assets/gsap.min.js"></script>
   <script defer src="/mediarithmics-structure/assets/journey-player.js?v=20261119-writing"></script>
-  <script defer src="/mediarithmics-structure/experience.js?v=20261122-v11"></script>
+  <script defer src="/mediarithmics-structure/experience.js?v=20261122-v12"></script>
 </head>
 <body id="top">
   <a href="#main" class="skip">Skip to content</a>
@@ -111,7 +111,8 @@
           <div class="agent-console">
             <div class="agent-scene">
               <div class="agent-conversation">
-                <ul class="agent-examples" aria-label="Choose a role">
+                <p class="agent-pick" id="agent-pick">Choose who’s asking</p>
+                <ul class="agent-examples" aria-labelledby="agent-pick">
                   <li><button type="button" class="agent-example is-active" data-agent-example="0" data-sector="media" aria-pressed="true" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><img src="/mediarithmics-structure/assets/scene-media.webp" width="1120" height="630" alt="" loading="lazy" decoding="async"></span><span><span class="example-sector">TV &amp; media</span><span class="persona-role">Audience manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
                   <li><button type="button" class="agent-example" data-agent-example="1" data-sector="retail" aria-pressed="false" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><img src="/mediarithmics-structure/assets/scene-retail.webp" width="1120" height="630" alt="" loading="lazy" decoding="async"></span><span><span class="example-sector">Retail</span><span class="persona-role">Retail media manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>
                   <li><button type="button" class="agent-example" data-agent-example="2" data-sector="brands" aria-pressed="false" aria-controls="agent-people"><span class="persona-heading"><span class="persona-portrait" aria-hidden="true"><img src="/mediarithmics-structure/assets/scene-brands.webp" width="1120" height="630" alt="" loading="lazy" decoding="async"></span><span><span class="example-sector">Brands</span><span class="persona-role">CRM manager</span></span><span class="persona-select" aria-hidden="true"><svg class="icon"><use href="#check"/></svg></span></span></button></li>

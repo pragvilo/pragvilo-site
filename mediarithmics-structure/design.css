@@ -988,3 +988,30 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 .agent-demo--human .persona-heading>span:nth-child(2){grid-column:1;grid-row:2}
 .agent-demo--human .persona-select{grid-column:2;grid-row:2}
 @media(max-width:760px){.agent-demo--human .persona-portrait{width:100%;height:auto;aspect-ratio:4/3;border-radius:8px}.agent-demo--human .persona-portrait img{object-position:22% 40%}}
+
+/* Audience example: one flow read left to right, two columns of the same height. */
+.agent-demo--human .agent-scene{align-items:stretch}
+.agent-demo--human .agent-conversation{display:flex;flex-direction:column}
+.agent-pick{margin:0 0 12px;font-size:15px;font-weight:600;color:var(--navy)}
+.agent-demo--human .agent-example{border-color:var(--edge);background:var(--white);transition:border-color .2s var(--ease),box-shadow .2s var(--ease),transform .18s var(--ease-out)}
+.agent-demo--human .agent-example.is-active{border-color:var(--sector-color);box-shadow:0 0 0 1px var(--sector-color)}
+.agent-demo--human .agent-example.is-active .persona-portrait{box-shadow:none}
+.agent-demo--human .persona-portrait img{filter:saturate(.4);opacity:.9}
+.agent-demo--human .agent-example.is-active .persona-portrait img{filter:none;opacity:1}
+.agent-demo--human .persona-role{font-size:14px;color:var(--navy)}
+@media(hover:hover) and (pointer:fine){
+  .agent-demo--human .agent-example:not(.is-active):hover{border-color:var(--edge-strong);transform:translateY(-2px)}
+  .agent-demo--human .agent-example:hover .persona-portrait img{filter:none;opacity:1}
+}
+.agent-demo--human .agent-example:active{transform:scale(.985)}
+.agent-demo--human .agent-writing{margin-top:22px}
+.agent-demo--human .agent-people{display:flex;flex-direction:column;padding:26px 28px 24px}
+.agent-demo--human .agent-people h3{min-height:0;max-width:none;margin:0}
+.agent-demo--human .audience-visual{width:100%;max-width:440px;margin:auto;padding:14px 0}
+.agent-demo--human .audience-count{margin:0 0 6px}
+@media(max-width:760px){
+  .agent-pick{margin-bottom:9px;font-size:14px}
+  .agent-demo--human .agent-people{padding:20px 16px}
+  .agent-demo--human .audience-visual{max-width:360px;padding:8px 0}
+  .agent-demo--human .persona-role{font-size:12px}
+}
