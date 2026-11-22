@@ -438,3 +438,21 @@
     observed.forEach(item => reveal.observe(item));
   }
 })();
+
+// Connectors: mirror the audience built above and run the lanes only while they are on screen.
+(() => {
+  const send = document.querySelector('[data-send]');
+  if (!send) return;
+  [['agent-name','[data-send-name]'],['agent-count','[data-send-count]']].forEach(([id, target]) => {
+    const from = document.getElementById(id), to = send.querySelector(target);
+    if (!from || !to) return;
+    const copy = () => { to.textContent = from.textContent; };
+    copy();
+    new MutationObserver(copy).observe(from, {childList:true, characterData:true, subtree:true});
+  });
+  if (!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) send.classList.add('is-live');
+    send.classList.toggle('is-paused', !entry.isIntersecting);
+  }), {threshold:.2}).observe(send);
+})();
