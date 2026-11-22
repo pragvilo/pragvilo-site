@@ -1106,3 +1106,43 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 @media(prefers-reduced-motion:reduce){.send.is-live .stream-row,.send.is-live .stream-set[aria-hidden] .chip{animation:none}.stream{margin-left:20px;-webkit-mask-image:none;mask-image:none}.stream-row,.stream-set{width:auto;flex-wrap:wrap;row-gap:10px}.stream-set[aria-hidden]{display:none}}
 @media(max-width:760px){.send-stage{grid-template-columns:1fr;gap:16px}.send-audience{display:grid;grid-template-columns:auto 1fr;gap:0 14px;align-items:center;box-shadow:none}.send-faces{grid-row:1/4;margin:0}.send-faces img{width:34px;height:34px}.stream{margin:0 -5vw;gap:8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 80%,transparent)}.chip{font-size:13px;margin-right:8px;padding:5px 12px 5px 5px}.chip img,.chip-mark{width:28px;height:28px}.send-lead{font-size:15px}}
 @media print{.send .stream-row,.send .chip{animation:none}}
+
+/* Phone pass: hero in one screen, request and audience readable together, lighter titles and fixed controls. */
+@media(max-width:760px){
+  .hero-figure.hero-voices,.voices{gap:8px}
+  .voice,.voice:nth-child(2){grid-template-columns:84px minmax(0,1fr);align-items:center}
+  .voice:nth-child(2) .voice-scene{order:0}
+  .voice-scene{border-radius:12px}
+  .voice-scene img{aspect-ratio:1/1;object-position:18% 30%}
+  .voice-scene::after,.voice-scene figcaption,.voice:nth-child(2) .voice-scene figcaption{display:none}
+  .voice p,.voice:nth-child(2) p{margin:0 0 0 -10px;padding:9px 13px 10px;border-radius:14px 14px 14px 4px}
+  .voice b{font-size:12px;margin-bottom:2px}
+  .voice span{font-size:15px;line-height:1.3}
+  .voices-reach{margin-top:6px}
+  .hero .lead{font-size:16px}
+  #agent-title,#trust-title,#meeting-title{font-size:29px;line-height:1.08}
+  #audience-agent #agent-name{font-size:22px;line-height:1.15}
+  .send-head h3{font-size:24px}
+  #audience-agent .agent-scene{gap:14px}
+  #audience-agent .agent-examples{gap:6px}
+  #audience-agent .agent-example{padding:8px 6px;min-height:52px}
+  #audience-agent .persona-portrait{display:none}
+  #audience-agent .typed-request{font-size:17px;line-height:1.35;min-height:46px}
+  #audience-agent .criteria-chips{min-height:0;gap:6px}
+  #audience-agent .criteria-chips li{font-size:13px;padding:6px 9px}
+  #audience-agent .agent-people{padding:14px}
+  #audience-agent .face{width:34px;height:34px}
+  #audience-agent .face-wall{gap:6px;padding:4px 0}
+  #audience-agent #agent-count{font-size:30px}
+  .solutions .customer-proof{grid-template-columns:112px minmax(0,1fr);align-items:center;gap:0 12px;padding:12px}
+  .solutions .customer-proof .case-cover{border-radius:6px;grid-column:1;grid-row:1}
+  .solutions .customer-proof-copy .eyebrow{grid-column:2;grid-row:1;margin:0}
+  .solutions .customer-proof-copy{display:contents}
+  .solutions .customer-proof-copy>:not(.eyebrow){grid-column:1/-1}
+  .solutions .customer-proof-copy h4{font-size:18px;margin-top:10px}
+  .mobile-cta{padding-top:7px;padding-bottom:calc(7px + env(safe-area-inset-bottom))}
+  .mobile-cta .button{min-height:44px;padding-block:9px}
+  .notes-toggle{top:13px;bottom:auto;left:auto;right:122px;min-height:36px;padding:6px 10px;gap:6px;box-shadow:none}
+  .notes-toggle [data-notes-label]{font-size:0}
+  .notes-toggle [data-notes-label]::after{content:'Notes';font-size:12px}
+}

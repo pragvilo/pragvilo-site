@@ -318,7 +318,9 @@
     let stored = null;
     try { stored = localStorage.getItem('review-notes'); } catch (error) {}
     const asked = new URLSearchParams(location.search).get('notes');
-    setNotes(asked ? asked !== 'off' : stored !== 'off', false);
+    // On a phone the notes start hidden: they would push every section down before it is read.
+    const phone = window.matchMedia('(max-width:760px)').matches;
+    setNotes(asked ? asked !== 'off' : stored ? stored !== 'off' : !phone, false);
     notesToggle.addEventListener('click', () => setNotes(document.documentElement.classList.contains('notes-off'), true));
   }
   for (const dialog of [notes,demoDialog]) {
