@@ -56,6 +56,35 @@
       {count:140000,role:'CRM manager',request:'Bring back customers who haven’t shopped in six months.',sector:'brands',name:'Customers to reconnect with',group:'Existing customers',history:'No purchase in 6 months',summary:'Customers with no purchase in six months and permission to receive marketing.'}
     ];
     let selectedByVisitor=null;
+    // Nobody types at a constant speed: keys vary, words are separated by a beat, and there is one hesitation mid-sentence.
+    const rhythms=examples.map((brief,n)=>{
+      let seed=7+n*13,total=2;
+      const random=()=>(seed=seed*16807%2147483647)/2147483647;
+      const letters=[...brief.request];
+      const spaces=letters.map((char,i)=>char===' '?i:-1).filter(i=>i>=0);
+      const pause=spaces.reduce((best,i)=>Math.abs(i-letters.length*.55)<Math.abs(best-letters.length*.55)?i:best,spaces[0]);
+      const stops=letters.map((char,i)=>{
+        let cost=.6+random()*.8;
+        if(letters[i-1]===' ') cost+=.5+random()*.9;
+        if(i-1===pause) cost+=4;
+        if(char==='’') cost+=.6;
+        return total+=cost;
+      });
+      return stops.map(stop=>stop/(total+4));
+    });
+    const typedLength=(index,progress)=>progress>=1?rhythms[index].length:rhythms[index].filter(stop=>stop<=progress).length;
+    let typingRest=0,countKey=null,countRun=0;
+    function showCount(brief,settle){
+      const node=$('#agent-count'),run=++countRun;
+      if(!settle){node.textContent=formatAudience(brief.count);return;}
+      const began=performance.now(),from=brief.count*.72;
+      (function frame(now){
+        if(run!==countRun) return;
+        const t=Math.min(1,(now-began)/900),eased=1-Math.pow(1-t,5);
+        node.textContent=formatAudience(t<1?Math.round((from+(brief.count-from)*eased)/1000)*1000:brief.count);
+        if(t<1) requestAnimationFrame(frame);
+      })(began);
+    }
     const formatAudience=count=>new Intl.NumberFormat('fr-FR').format(count).replace(/\u202f/g,' ');
     function showExample(moment) {
       if (!moment || !Number.isInteger(moment.index) || !examples[moment.index] || !['request','rules','created'].includes(moment.step)) return;
@@ -67,11 +96,26 @@
         item.classList.toggle('is-active',index===moment.index);
         item.setAttribute('aria-pressed',String(index===moment.index));
       });
-      $('#agent-count').textContent=formatAudience(brief.count);
+      const phase=moment.index+(moment.step==='request'?':writing':':result');
+      if(phase!==countKey){
+        const settle=countKey===moment.index+':writing'&&moment.step!=='request'&&!motionPreference.matches;
+        countKey=phase;
+        showCount(brief,settle);
+      }
       $('#agent-writer').textContent=brief.role+' writes';
       $('#agent-request-accessible').textContent=brief.request;
       const writing=moment.step==='request'?(moment.writing??0):1;
-      $('#agent-request').textContent=brief.request.slice(0,Math.round(brief.request.length*writing));
+      const typed=brief.request.slice(0,typedLength(moment.index,writing));
+      const requestLine=$('#agent-request');
+      if(requestLine.textContent!==typed){
+        requestLine.textContent=typed;
+        if(moment.step==='request'){
+          // The caret stays solid while keys are going down, and blinks when the writer stops.
+          demo.dataset.typing='';
+          clearTimeout(typingRest);
+          typingRest=setTimeout(()=>{delete demo.dataset.typing;},280);
+        }
+      }
       demo.querySelector('.agent-criteria').setAttribute('aria-hidden',String(moment.step==='request'));
       demo.querySelector('.audience-count').setAttribute('aria-hidden',String(moment.step==='request'));
       if(moment.step==='created'&&selectedByVisitor===moment.index){
@@ -373,16 +417,22 @@
     heading.focus({preventScroll:true});
   });
 
-  if (canAnimate()) {
-    gsap.from('.hero-copy > *', {opacity:.15, y:4, duration:.18, stagger:.018, ease, clearProps:'transform,opacity'});
-    const observed = $$('.diagram,.case-cover,.sector-image');
+  // Blocks settle in as they are reached, a beat apart when several arrive together.
+  if (!motionPreference.matches && 'IntersectionObserver' in window) {
+    const observed = $$('.diagram,.case,.proof-facts li,.trust-points li');
+    observed.forEach(item => item.classList.add('will-reveal'));
     const reveal = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        if (canAnimate()) gsap.from(entry.target, {opacity:.55, y:4, duration:.2, ease, clearProps:'transform,opacity'});
-        reveal.unobserve(entry.target);
-      }
-    }, {threshold:.18});
+      entries.filter(entry => entry.isIntersecting).forEach((entry, order) => {
+        const item = entry.target;
+        item.style.transitionDelay = order * 80 + 'ms';
+        item.classList.add('is-revealed');
+        setTimeout(() => {
+          item.classList.remove('will-reveal', 'is-revealed');
+          item.style.transitionDelay = '';
+        }, 1100 + order * 80);
+        reveal.unobserve(item);
+      });
+    }, {threshold:.15, rootMargin:'0px 0px -6% 0px'});
     observed.forEach(item => reveal.observe(item));
   }
 })();

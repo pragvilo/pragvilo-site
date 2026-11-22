@@ -786,3 +786,67 @@ summary:focus-visible,select:focus-visible,#demo-confirmation-title:focus-visibl
 .notes-off .review-note{display:none}
 @media(max-width:760px){.review-note{position:relative;top:auto;right:auto;width:auto;margin:12px 5% 14px;transform:none}.proof .review-note,.solutions .review-note,.trust .review-note{transform:none}.notes-toggle{right:12px;bottom:calc(78px + env(safe-area-inset-bottom));min-height:44px;font-size:14px}}
 @media print{.review-note,.notes-toggle{display:none}}
+
+/* Motion pass. Three curves: arrivals, movement on screen, a small overshoot for things that are placed by hand. */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);--ease-pop:cubic-bezier(.34,1.36,.64,1)}
+
+/* First screen: one arrival, in reading order. */
+@keyframes arrive{from{opacity:0;transform:translateY(14px);filter:blur(4px)}}
+@keyframes settle{from{opacity:0;transform:translateY(18px) scale(.985)}}
+.hero-copy>*{animation:arrive .7s var(--ease-out) both}
+.hero-copy>:nth-child(2){animation-delay:.07s}.hero-copy>:nth-child(3){animation-delay:.14s}.hero-copy>:nth-child(4){animation-delay:.21s}.hero-copy>:nth-child(5){animation-delay:.28s}.hero-copy>:nth-child(n+6){animation-delay:.35s}
+.hero-figure{animation:settle .9s var(--ease-out) .2s both}
+
+/* Anything pressed gives way a little, then comes back. */
+.button,.icon-button,.steps button,.sector-tabs button,.notes-toggle{transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease),transform .16s var(--ease-out)}
+.agent-example{transition:background .2s var(--ease),border-color .2s var(--ease),transform .18s var(--ease-out)}
+.button:active,.icon-button:active,.steps button:active,.sector-tabs button:active,.notes-toggle:active{transform:scale(.97)}
+.agent-example:active{transform:scale(.985)}
+
+/* Choosing a person: the tick is placed, the key words are highlighted as with a pen. */
+.persona-select{transition:background .2s var(--ease),border-color .2s var(--ease)}
+.persona-select .icon{opacity:0;transform:scale(.5);transition:opacity .15s var(--ease),transform .3s var(--ease-pop)}
+.is-active .persona-select .icon{opacity:1;transform:none}
+.agent-example mark{background-color:transparent;background-image:linear-gradient(color-mix(in srgb,var(--sector-color) 24%,var(--white)),color-mix(in srgb,var(--sector-color) 24%,var(--white)));background-repeat:no-repeat;background-size:0% 100%;transition:background-size .2s var(--ease)}
+.agent-demo--human[data-step=rules] .is-active mark,.agent-demo--human[data-step=created] .is-active mark{background-color:transparent;background-size:100% 100%;transition:background-size .55s var(--ease-out) .1s}
+
+/* Writing: a real caret, solid while typing, blinking at rest. */
+.typing-caret{display:inline-block;width:2px;height:1.08em;margin-left:2px;vertical-align:-.17em;border-radius:1px;background:var(--navy);color:transparent;overflow:hidden}
+@keyframes caret{50%{opacity:0}}
+.agent-demo:not([data-typing]) .typing-caret{animation:caret 1.06s steps(1) infinite}
+
+/* The answer comes one criterion at a time; it leaves at once when a new request starts. */
+.agent-demo--human .criteria-chips li{transition:opacity .3s var(--ease-out),transform .45s var(--ease-pop),border-color .2s var(--ease),background .2s var(--ease)}
+.agent-demo--human .criteria-chips li:nth-child(2){transition-delay:.1s}.agent-demo--human .criteria-chips li:nth-child(3){transition-delay:.2s}
+.agent-demo--human[data-step=request] .criteria-chips li{opacity:0;transform:translateY(7px) scale(.96);transition-duration:.01s;transition-delay:0s}
+.agent-match-note .icon{transition:transform .35s var(--ease-pop) .25s}
+.agent-demo[data-step=request] .agent-match-note .icon{transform:scale(.5);transition:none}
+
+/* A use case replaces another without a jump. */
+.solutions .sector{transition:opacity .45s var(--ease-out),transform .6s var(--ease-out)}
+@starting-style{.solutions .sector{opacity:0;transform:translateY(10px)}}
+@keyframes unfold{from{opacity:0;transform:translateY(-6px)}}
+.trace-disclosure[open]>:not(summary){animation:unfold .4s var(--ease-out)}
+
+/* Windows come up from where the hand is and leave faster than they came. */
+dialog{opacity:0;transform:translateY(14px) scale(.98);transition:opacity .16s var(--ease),transform .16s var(--ease),overlay .16s allow-discrete,display .16s allow-discrete}
+dialog[open]{opacity:1;transform:none;transition:opacity .22s var(--ease-out),transform .32s var(--ease-out),overlay .32s allow-discrete,display .32s allow-discrete}
+@starting-style{dialog[open]{opacity:0;transform:translateY(14px) scale(.98)}}
+dialog::backdrop{opacity:0;transition:opacity .16s var(--ease),overlay .16s allow-discrete,display .16s allow-discrete}
+dialog[open]::backdrop{opacity:1;transition:opacity .28s var(--ease-out),overlay .28s allow-discrete,display .28s allow-discrete}
+@starting-style{dialog[open]::backdrop{opacity:0}}
+
+/* Review notes are stuck on and peeled off by their top corner. */
+.review-note{transform-origin:100% 0;transition:opacity .2s var(--ease-out),transform .36s var(--ease-pop),display .2s allow-discrete}
+html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale(.92) translateY(-8px);transition:opacity .15s var(--ease),transform .15s var(--ease),display .15s allow-discrete}
+@starting-style{html:not(.notes-off) .review-note{opacity:0;transform:rotate(-4deg) scale(.92) translateY(-8px)}}
+
+/* Phone: the fixed action and the menu slide in from their edge. */
+.mobile-cta{transition:opacity .25s var(--ease-out),transform .4s var(--ease-out)}
+@starting-style{.mobile-cta{opacity:0;transform:translateY(100%)}}
+@media(max-width:760px){#navigation.is-open{transition:opacity .2s var(--ease-out),transform .26s var(--ease-out)}@starting-style{#navigation.is-open{opacity:0;transform:translateY(-6px)}}}
+
+/* Blocks reached while scrolling. */
+.will-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease-out),transform .8s var(--ease-out),border-color .18s var(--ease)}
+.will-reveal.is-revealed{opacity:1;transform:none}
+@media print{.will-reveal{opacity:1;transform:none}}
