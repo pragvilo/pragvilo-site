@@ -121,7 +121,7 @@
         showCount(brief,settle);
       }
       $('#agent-writer').textContent=brief.role;
-      const speaker=$('#agent-speaker-photo'),photo='/mediarithmics-structure/assets/manager-'+brief.sector+'.webp';
+      const speaker=$('#agent-speaker-photo'),photo='/mediarithmics-structure/assets/manager-'+brief.sector+'.svg';
       if(speaker&&!speaker.src.endsWith(photo)) speaker.src=photo;
       $('#agent-request-accessible').textContent=brief.request;
       const writing=moment.step==='request'?(moment.writing??0):1;
