@@ -122,3 +122,7 @@ html .voice b{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;line-he
 html .who-tag{margin:0;padding:0 7px;height:20px;align-items:center;font-size:12px;font-weight:600;line-height:1;white-space:nowrap}
 @media(max-width:760px){html .who-tag{display:inline-flex}}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* Audience Agent persona pills: text centred vertically, same height everywhere (iOS Safari stretched them with text stuck at the top) */
+html .agent-examples .agent-example{align-items:center;justify-content:center;text-align:center;min-height:44px}
+html .agent-examples li{display:flex}
+html .agent-examples .agent-example .example-sector{line-height:1.2}
