@@ -1,0 +1,60 @@
+/* Passe « finesse » 23/11/2026 (skill make-interfaces-feel-better), chargée après hightouch.css.
+   Retirer la ligne dans index.html = retour à la version précédente.
+   Idée : traits plus fins, ombres douces au lieu de bordures, typographie plus légère,
+   bandeau des chiffres en clair, connecteurs séparés de l'agent par un panneau teinté. */
+
+:root{--hair:rgba(6,30,68,.10);--hair-strong:rgba(6,30,68,.16);
+  --lift:0 1px 2px rgba(6,30,68,.04),0 4px 12px -4px rgba(6,30,68,.08);
+  --lift-hi:0 1px 2px rgba(6,30,68,.05),0 12px 32px -12px rgba(6,30,68,.18)}
+
+/* Typographie : plus légère, mieux coupée */
+html h2,html h3{text-wrap:balance}
+html p,html li{text-wrap:pretty}
+html h2{font-weight:450;letter-spacing:-.04em}
+html .eyebrow{font-size:12px;font-weight:500;letter-spacing:.07em;gap:8px}
+html .eyebrow .marker{width:6px;height:6px;border-radius:1.5px}
+html .button{font-weight:550;transition-property:background-color,color,border-color,scale;transition-duration:.18s}
+html .button:active{scale:.98}
+html .inline-link{font-weight:550}
+html .proof-facts strong,html .audience-count{font-variant-numeric:tabular-nums}
+
+/* Chiffres : bandeau clair à filets au lieu du bloc bleu nuit */
+html .proof .proof-facts{background:transparent;border-radius:0;margin-top:clamp(28px,3vw,44px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+html .proof .proof-facts li{border-left:1px solid var(--hair);padding:22px 24px 24px}
+html .proof .proof-facts small{color:var(--ink-2);text-transform:none;letter-spacing:0;font-weight:500;font-size:13px}
+html .proof .proof-facts strong{color:var(--navy);font-weight:450;letter-spacing:-.045em}
+html .proof .proof-facts li:nth-child(1) strong{color:var(--navy)}
+html .proof .proof-facts strong i{color:var(--edge-strong)}
+html .proof .proof-facts span{color:var(--ink-2)}
+html .proof .proof-facts span b{color:var(--navy)}
+@media(max-width:760px){html .proof .proof-facts li{padding:16px 12px}html .proof .proof-facts li:nth-child(odd){border-left:0}}
+
+/* Logos clients : cartes posées par une ombre, pas par un aplat */
+html .proof-group{background:#fff;box-shadow:0 0 0 1px var(--hair),var(--lift)}
+html .proof-group h3{font-weight:550}
+
+/* Audience Agent : traits fins */
+html .bubble{border-color:var(--hair-strong);box-shadow:var(--lift)}
+html .criteria-chips li,html .agent-progress li,html .agent-rules div{border-color:var(--hair)}
+html .agent-example.is-active .persona-portrait,html .voice img{box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--sector-color)}
+html .face::after{border-width:2px}
+html .agent-footer{padding-bottom:4px}
+
+/* Connecteurs : un panneau teinté à part, nettement séparé de l'agent */
+html .send{border-top:0;margin-top:clamp(56px,6vw,96px);padding:clamp(28px,3.6vw,56px);border-radius:28px;background:var(--paper)}
+html .send-audience{border:1px solid var(--hair);box-shadow:var(--lift-hi),14px 0 22px -6px var(--paper)}
+html .send-audience::before{content:'';position:absolute;left:16px;right:16px;top:-1px;height:2px;border-radius:0 0 2px 2px;background:var(--coral)}
+html .send-name{font-weight:600}
+html .chip{border-color:transparent;box-shadow:0 0 0 1px var(--hair),0 1px 2px rgba(6,30,68,.04);font-weight:500}
+@media(max-width:760px){html .send{margin-inline:-8px;padding:22px 16px;border-radius:20px}}
+
+/* Cas clients et confiance : filets fins */
+html .solutions .sector{border-color:rgba(255,255,255,.10);box-shadow:inset 0 2px 0 var(--panel-color)}
+html .sector-switch a{border-color:rgba(255,255,255,.14);font-weight:500}
+html .trust-points li{border-top:1px solid var(--hair-strong)}
+html .trust-points h3{font-weight:500}
+
+/* Photos : léger contour pour la profondeur */
+html .voice-scene img,html .sector img:not(.case-print){outline:1px solid rgba(6,30,68,.08);outline-offset:-1px}
+
+@media(prefers-reduced-motion:reduce){html .button:active{scale:1}}
