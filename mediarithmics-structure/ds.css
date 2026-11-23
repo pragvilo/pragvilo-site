@@ -44,3 +44,15 @@ html main>section.tone-navy{background:#061E44}
 html main>section.tone-deep{background:#093058}
 html main>section.tone-mist .proof-group{background:#FFFFFF}
 html main>section.tone-white .proof-group,html main>section.tone-white .aud-shot{background:#F7F9FC}
+
+/* 8 · Less white (Gilles, 23/11): hero uses the guide's one gradient, dark #08254D → #021035, light text on it */
+html .hero{background:linear-gradient(180deg,#08254D,#021035);color:var(--ink)}
+html .hero h1,html .hero h1 strong{color:#FFFFFF}
+html .hero-copy>.eyebrow,html .hero .lead,html .hero .voices-reach small{color:var(--muted)}
+html .hero .voices-reach strong,html .hero .dark-link{color:#FFFFFF}
+html .hero .dark-link:hover{color:var(--cyan)}
+html .hero .button.primary{background:#FFFFFF;color:var(--navy)}
+html .hero .button.primary:hover{background:var(--paper-2)}
+html .hero :focus-visible{outline-color:#FFFFFF}
+html .hero .voice-scene,html .hero .bubble{border-color:var(--line)}
+html .hero .reach-faces img{border-color:#021035}
