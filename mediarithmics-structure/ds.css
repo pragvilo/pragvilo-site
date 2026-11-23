@@ -33,3 +33,14 @@ html .aud-steps li{border:1px solid var(--line);border-radius:12px;padding:22px;
 
 /* 6 · Cyan text on light backgrounds uses the AA variant */
 html .light-section .inline-link.on-light,html .aud-faq summary::after,html .light-section .card-link::after{color:var(--ds-cyan-on-light)}
+
+/* 7 · Section surfaces from the token list, so each part of the page reads as its own band.
+   Light: --surface-base #F7F9FC (hero), --surface-deep #EDF2F8, --surface-raised #FFFFFF.
+   Dark: --surface-base #061E44, --surface-deep #093058. Assigned per section by class (tone-*). */
+html .hero{background:#F7F9FC}
+html main>section.tone-white{background:#FFFFFF}
+html main>section.tone-mist{background:#EDF2F8}
+html main>section.tone-navy{background:#061E44}
+html main>section.tone-deep{background:#093058}
+html main>section.tone-mist .proof-group{background:#FFFFFF}
+html main>section.tone-white .proof-group,html main>section.tone-white .aud-shot{background:#F7F9FC}
