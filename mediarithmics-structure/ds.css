@@ -110,3 +110,8 @@ html dialog[open]{transition:opacity .2s var(--ease),transform .25s var(--ease),
 html .review-note{transition:opacity .15s var(--ease),transform .2s var(--ease),display .15s allow-discrete}
 html .mobile-cta{transition:opacity .2s var(--ease),transform .25s var(--ease)}
 html .trace-disclosure[open]>:not(summary){animation-duration:.2s}
+
+/* 12 · Mobile check (24/11): no text under the guide's 12px micro size, tap areas of at least 44px */
+html .step-t,html .form-field label small{font-size:12px}
+html .wordmark{display:inline-block;padding-block:9px;margin-block:-9px}
+html .eyebrow a{display:inline-block;padding-block:13px;margin-block:-13px}
