@@ -28,3 +28,13 @@
 .aud-story .sector{margin-top:0}
 .fictional{display:inline-block;margin-top:14px;font-size:12.5px;color:#4a5f80;background:#eef2f8;border-radius:999px;padding:4px 10px}
 @media(max-width:860px){.aud-cards,.aud-steps{grid-template-columns:1fr}}
+/* Product pages */
+.aud-shot{min-height:300px;display:grid;place-items:center;text-align:center;background:rgba(255,255,255,.6)}
+.aud-cards--five{grid-template-columns:repeat(6,minmax(0,1fr))}.aud-cards--five li{grid-column:span 2}.aud-cards--five li:nth-child(n+4){grid-column:span 3}@media(max-width:860px){.aud-cards--five{grid-template-columns:1fr}.aud-cards--five li,.aud-cards--five li:nth-child(n+4){grid-column:auto}}
+.card-link{color:inherit;text-decoration:none}
+.card-link::after{content:" →";color:var(--c,var(--cyan))}
+.aud-cards li:has(.card-link){position:relative}
+.aud-cards .card-link::before{content:"";position:absolute;inset:0;border-radius:12px}
+.aud-cards li:has(.card-link):hover{border-color:var(--c,var(--cyan))}
+.aud-related{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid #dbe3ee}
+.aud-related .eyebrow{width:100%;margin:0}
