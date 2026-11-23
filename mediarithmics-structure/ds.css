@@ -89,3 +89,24 @@ html .trust-points h3::before{content:'';flex:none;width:9px;height:9px;backgrou
 /* Stat strip */
 html .proof .proof-facts strong{font-weight:700;letter-spacing:-.02em;color:#00A1DF}
 html .proof .proof-facts strong i{color:var(--muted)}
+
+/* 11 · Motion polish (Emil Kowalski review, 24/11), within the guide: 150–250 ms, curve cubic-bezier(.2,0,.2,1), no bounce, no scale on press */
+:root{--ease-pop:cubic-bezier(.2,0,.2,1);--ease-out:cubic-bezier(.2,0,.2,1)}
+/* Press: darker fill, no shrink */
+html .button:active,html .icon-button:active,html .steps button:active,html .sector-tabs button:active,html .notes-toggle:active,html .agent-example:active,html .agent-demo--human .agent-example:active{transform:none;scale:1}
+html .button{transition-property:background-color,color,border-color}
+html .button.primary:active{background:#021035;color:#fff}
+html .hero .button.primary:active,html .meeting .button.primary:active,html .solutions .button.primary:active{background:#D2DCE8;color:var(--navy)}
+/* Scroll reveal: a quick fade, no slide, so content is never caught half-visible */
+html .will-reveal{transform:none;transition:opacity .2s var(--ease),border-color .18s var(--ease)}
+html .solutions .sector{transition:opacity .2s var(--ease),transform .2s var(--ease)}
+/* Hero entrance: one short sequence, finished in under a second */
+html .hero-figure{animation-duration:.25s;animation-delay:.05s}
+html .voice{animation-duration:.25s;animation-delay:calc(.1s + var(--n)*.12s)}
+html .voices-reach{animation-duration:.25s;animation-delay:.5s}
+html .reach-faces img{animation-duration:.2s;animation-delay:calc(.55s + var(--n)*.04s)}
+/* Overlays: open in 200–250 ms, close faster */
+html dialog[open]{transition:opacity .2s var(--ease),transform .25s var(--ease),overlay .25s allow-discrete,display .25s allow-discrete}
+html .review-note{transition:opacity .15s var(--ease),transform .2s var(--ease),display .15s allow-discrete}
+html .mobile-cta{transition:opacity .2s var(--ease),transform .25s var(--ease)}
+html .trace-disclosure[open]>:not(summary){animation-duration:.2s}
