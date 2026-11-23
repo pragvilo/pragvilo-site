@@ -171,6 +171,7 @@
 
   function setupRetailTrace() {
     const trace = $('#click-to-store');
+    if (!trace) return; // click-to-store example not on this page
     const clickButton = $('#record-click');
     const purchaseButton = $('#record-purchase');
     const checkout = $('#checkout-card');
