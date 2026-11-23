@@ -62,3 +62,30 @@ html main>section.proof{padding-block:clamp(48px,5vw,80px)}
 html main>section.meeting{padding-block:clamp(64px,7vw,112px);margin-bottom:0}
 html footer{margin:0;border-radius:0}
 html main>section.solutions,html main>section.meeting{margin-inline:0;border-radius:0}
+
+/* 10 · Brand identity (23/11): use the mediarithmics guide's own voice instead of the generic thin-headline SaaS look.
+   Type: DM Sans 700 titles, tracking -1.5 % (h1) / -1 % (h2); hero keeps regular link words + bold meaning words.
+   Marks: 9px square card markers (no rounding), 11px brand dots, 10px four-colour bar under the hero and at the foot of every page.
+   Stat strip: key figures in h1 weight, cyan on navy. */
+html h1{letter-spacing:-.02em;line-height:1.05}
+html h1 strong{font-weight:700}
+html main h2:not(.sr-only){font-weight:700;letter-spacing:-.015em;line-height:1.08}
+html .proof-wrap>h2{font-weight:500;letter-spacing:0}
+html main h3{font-weight:700;letter-spacing:-.005em}
+html .eyebrow{font-size:13px;font-weight:500;letter-spacing:.08em}
+html .eyebrow .marker{width:9px;height:9px;border-radius:0}
+html .who-tag,html .proof-group h3,html .meeting-who span{border-radius:4px}
+
+/* Four-colour bar: flat segments in the fixed order cyan, coral, green, orange */
+html .hero .signature{display:grid;height:10px}
+html footer{position:relative;padding-bottom:10px}
+html footer::after{content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,#00A1DF 0 25%,#FF5959 25% 50%,#00AD68 50% 75%,#F58D39 75% 100%)}
+
+/* Card titles carry the 9px meaning marker */
+html .trust-points h3{display:flex;align-items:baseline;gap:10px}
+html .trust-points h3::before{content:'';flex:none;width:9px;height:9px;background:#0077A8;transform:translateY(-2px)}
+
+/* Stat strip */
+html .proof .proof-facts strong{font-weight:700;letter-spacing:-.02em;color:#00A1DF}
+html .proof .proof-facts strong i{color:var(--muted)}
