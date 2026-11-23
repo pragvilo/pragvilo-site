@@ -56,3 +56,8 @@ html .hero .button.primary:hover{background:var(--paper-2)}
 html .hero :focus-visible{outline-color:#FFFFFF}
 html .hero .voice-scene,html .hero .bubble{border-color:var(--line)}
 html .hero .reach-faces img{border-color:#021035}
+
+/* 9 · Even spacing between bands (23/11): logo band breathes, meeting band symmetric and joined to the footer (no white strip) */
+html main>section.proof{padding-block:clamp(48px,5vw,80px)}
+html main>section.meeting{padding-block:clamp(64px,7vw,112px);margin-bottom:0}
+html footer{margin:0;border-radius:0}
