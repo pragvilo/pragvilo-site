@@ -2,7 +2,7 @@
    Rules applied: no shadow or glow, only one gradient (hero, vertical #08254D → #021035),
    colours from the token list only, cards 12px / 1px subtle border, pills 999px only for pills,
    buttons 8px (buttons are not defined by the guide: proposal to validate), no one-sided accent borders,
-   four-colour bar under the hero, no photos. The yellow review notes are outside the design and keep their look. */
+   four-colour bar under the hero. Photos of people are kept at Gilles's request. The yellow review notes are outside the design and keep their look. */
 :root{--ds-border-light:#D2DCE8;--ds-border-strong-light:#B6C4D6;--ds-surface-light:#F7F9FC;--ds-text2-light:#4D5F80;--ds-cyan-on-light:#0077A8}
 
 /* 1 · No shadows anywhere (review notes and their toggle excepted) */
@@ -20,7 +20,6 @@ html .voice-scene::after{content:none}
 html .proof-group,html .voice-scene,html .send-audience,html .bubble{border:1px solid var(--ds-border-light);border-radius:12px}
 html .chip{border:1px solid var(--ds-border-light)}
 html .solutions .sector{border:1px solid var(--line)}
-html .voice-scene img,html .sector-person img,html .aud-figure img{object-fit:contain;background:#EDF2F8}
 html .aud-figure img{border:1px solid var(--ds-border-light);border-radius:12px}
 html .agent-example.is-active .persona-portrait,html .voice img{outline:2px solid var(--sector-color,var(--cyan));outline-offset:2px}
 
