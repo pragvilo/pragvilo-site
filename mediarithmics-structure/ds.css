@@ -115,3 +115,10 @@ html .trace-disclosure[open]>:not(summary){animation-duration:.2s}
 html .step-t,html .form-field label small{font-size:12px}
 html .wordmark{display:inline-block;padding-block:9px;margin-block:-9px}
 html .eyebrow a{display:inline-block;padding-block:13px;margin-block:-13px}
+
+/* 13 · Fixes (24/11): no arrow glued to card titles; sector tags in the hero voices render the same in iOS Safari */
+html .card-link::after{content:none}
+html .voice b{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;line-height:1.3}
+html .who-tag{margin:0;padding:0 7px;height:20px;align-items:center;font-size:12px;font-weight:600;line-height:1;white-space:nowrap}
+@media(max-width:760px){html .who-tag{display:inline-flex}}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
