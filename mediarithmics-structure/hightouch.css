@@ -71,6 +71,21 @@ html .solutions .sector-switch a{border-radius:999px}
 /* Bandeau des notes Pragvilo : pilule */
 html .notes-toggle{border-radius:999px}
 
+/* Revue du 23/11 : correctifs */
+/* Pied de page : panneau bleu nuit arrondi, comme les autres sections sombres */
+html footer{background:var(--navy);color:var(--ink);margin:0 var(--ht-gutter) var(--ht-gutter);border-radius:var(--ht-radius);overflow:hidden}
+html .meeting{margin-bottom:10px}
+/* Titre du hero lisible dès l'affichage, sans fondu */
+html .hero-copy>*{animation:none}
+/* Focus clavier : bleu nuit sur fond clair, orange gardé sur fond sombre */
+html .header :focus-visible,html .hero :focus-visible,html .proof :focus-visible,html .light-section :focus-visible{outline-color:var(--navy)}
+/* Une seule forme d'action principale : bleu nuit sur fond clair, blanc sur panneau sombre */
+html .meeting .button.primary,html .solutions .button.primary{background:#fff;color:var(--navy)}
+html .meeting .button.primary:hover,html .solutions .button.primary:hover{background:var(--paper-2)}
+/* Petits textes trop pâles */
+html .voice b{color:var(--ink-2)}
+html .chip-mark{color:var(--navy)}
+
 @media(max-width:760px){
   :root{--ht-radius:20px}
   html .hero::before{inset:-8% -30% 20%;filter:blur(28px)}
