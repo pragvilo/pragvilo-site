@@ -1309,3 +1309,5 @@ html.notes-off .review-note{display:none;opacity:0;transform:rotate(-4deg) scale
 .note-answer-status{display:block;min-height:16px;margin-top:4px;font-size:11.5px;opacity:.75}
 .note-answer-status[data-state=error]{opacity:1;font-weight:700;color:#8A1C00}
 @media (min-width:768px){.note-answer textarea{font-size:13.5px}}
+.proof-logos .showroom,.proof-logos .autoscout,.proof-logos .havas,.proof-logos .orange{height:32px}.proof-logos .webedia{height:20px}.proof-logos .cdiscount{height:17px}.proof-logos .autoscout{height:36px}
+@media(max-width:760px){.proof-logos .showroom,.proof-logos .autoscout,.proof-logos .havas,.proof-logos .orange{height:26px}.proof-logos .webedia{height:16px}.proof-logos .cdiscount{height:14px}.proof-logos .autoscout{height:30px}.proof-group[data-sector=media] .proof-logos{flex-wrap:wrap}}
