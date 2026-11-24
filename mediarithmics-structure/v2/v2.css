@@ -254,19 +254,24 @@ footer nav a:hover{color:var(--white)}
   *,*::before,*::after{transition:none!important;animation:none!important}
 }
 
-/* Visuals (24/11): flat vector only, per the guide (no texture, no pattern, no photo). Backgrounds only: hero uses the one allowed gradient, testimonies are flat, closing has flat squares in the four accents on navy. Product art keeps the generated images */
-.hero{background:linear-gradient(180deg,#08254D,#021035);color:var(--white)}
+/* Visuals (24/11): flat vector only, per the guide (no texture, no pattern, no photo). Backgrounds only: flat dots redrawn from the former textures (hero wave in cyan, light rising dots behind the testimonies, dark grid with the four signature colours in the closing), tone on tone, no relief. Hero keeps the one allowed gradient. Product art keeps the generated images */
+.hero{background:url(/mediarithmics-structure/assets/gen/dots-hero.svg) center 24px/auto 420px no-repeat,linear-gradient(180deg,#08254D,#021035);color:var(--white)}
 .hero h1 span{color:#8ED9F6}
 .hero .lead{max-width:44em;color:#D5DFEF;text-wrap:balance}
 .hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
 /* 24/11: card one step above the hero on the guide's surface scale (raised + subtle border), no glass, no shadow */
 .hero-stage .console{margin-top:0;background:var(--raised);border:1px solid var(--line-dark)}
-.closing{background:var(--navy) url(/mediarithmics-structure/assets/gen/art-closing.svg) right max(24px,calc(50vw - 620px)) center/auto min(62%,372px) no-repeat}
+.closing{background:var(--navy) url(/mediarithmics-structure/assets/gen/dots-dark.svg) right center/auto 100% no-repeat}
+.testimonies{background:var(--surface) url(/mediarithmics-structure/assets/gen/dots-light.svg) right top/auto 400px no-repeat}
 @media(max-width:900px){
   .hero-stage{padding-block:32px}
 }
-@media(max-width:1000px){
-  .closing{background-image:none}
+@media(max-width:1100px){
+  .hero{background:linear-gradient(180deg,#08254D,#021035)}
+}
+@media(max-width:900px){
+  .testimonies{background-size:auto 240px}
+  .closing{background-position:left 55% center}
 }
 
 /* Header in translucent navy, so it sits on the dark hero without a break */
