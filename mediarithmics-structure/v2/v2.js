@@ -212,6 +212,17 @@
 
     /* The panel on top keeps the strong border; a panel more than half covered steps back to the deep surface */
     const tab = parseFloat(getComputedStyle(stack).getPropertyValue('--tab')) || 56;
+    /* Height differences with the last panel, so the four are released on the same line whatever their copy length */
+    const level = () => {
+      const last = panels[panels.length - 1].offsetHeight;
+      panels.forEach((p, k) => {
+        p.style.setProperty('--dh', `${last - p.offsetHeight}px`);
+        if (k) p.style.setProperty('--dh-prev', `${last - panels[k - 1].offsetHeight}px`);
+      });
+    };
+    level();
+    addEventListener('resize', level);
+    addEventListener('load', level);
     let queued = false;
     const mark = () => {
       queued = false;

@@ -457,10 +457,15 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 @media(prefers-reduced-motion:reduce){.notes-on .postit{animation:none}}
 @media(max-width:560px){.postit{right:12px;top:12px;font-size:13px}.notes-btn{right:12px;bottom:12px}}
 
-/* Products: the first three panels stack; the fourth follows in normal flow and never covers the third. */
-.stack-hold,.stack-tail{display:grid;gap:16px}
-.stack-tail .panel{position:static;scroll-margin-top:100px}
-@media(min-width:901px) and (min-height:720px){.stack{padding-bottom:0}}
+/* Products: the four panels stack, then leave together as one block.
+   A sticky panel is released when the end of the list reaches its margin box. Each panel gets a bottom margin that puts all four margin boxes
+   on the same line once stacked, so none slides over the tabs above it. The next panel's negative top margin gives the space back to the flow.
+   --dh is the height difference with the last panel, set by the script; --hold is how long the full stack stays before leaving. */
+@media(min-width:901px) and (min-height:720px){
+  .stack{display:flex;flex-direction:column;padding-bottom:0}
+  .panel{--dh:0px;--dh-prev:0px;--hold:48px;margin-bottom:calc((3 - var(--i))*var(--tab) + var(--dh) + var(--hold))}
+  .panel+.panel{margin-top:calc((4 - var(--i))*var(--tab)*-1 - var(--dh-prev) - var(--hold))}
+}
 
 /* Testimonies: the whole card opens the case study. The link stays the only focusable element. */
 .quote{position:relative}
