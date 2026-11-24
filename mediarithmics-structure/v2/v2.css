@@ -189,6 +189,16 @@ h1 span{display:block}
 .wall li.big{grid-column:span 2;grid-row:span 2;border:1px solid var(--line);border-radius:16px;background:var(--white)}
 .wall li.big img{width:48px;height:48px}
 .wall li.more{opacity:.7}
+/* Names: under the logo on large tiles, as a small label on hover for the others */
+.wall li{position:relative}
+.wall li>span{position:absolute;left:50%;top:calc(100% + 4px);z-index:3;padding:4px 8px;border-radius:6px;background:var(--white);color:var(--navy);box-shadow:0 4px 14px rgba(2,16,53,.25);font-size:12px;line-height:1.2;white-space:nowrap;opacity:0;transform:translate(-50%,4px);pointer-events:none;transition:opacity .15s,transform .15s}
+.wall li:hover>span{opacity:1;transform:translate(-50%,0)}
+.wall li.big{align-content:center;gap:8px}
+.wall li.big>span,.wall li.plus>span{position:static;padding:0 6px;background:none;color:var(--text);font-size:12px;font-weight:600;text-align:center;white-space:normal;opacity:1;transform:none}
+.wall li.big img{width:40px;height:40px}
+.wall li.plus{grid-column:span 2;grid-row:span 2;align-content:center;gap:4px;border:1px dashed var(--line);border-radius:16px;background:transparent}
+.wall li.plus b{font-size:28px;line-height:1;color:var(--cyan)}
+.wall li.plus>span{font-weight:500;opacity:.75}
 /* Entrance, once, when the wall is seen (classes set by v2.js): large tiles first, then the rest floods in */
 .wall.is-waiting li{opacity:0;transform:translateY(8px) scale(.96)}
 .wall.is-waiting.is-in li{opacity:1;transform:none;transition:opacity .3s var(--ease-out),transform .3s var(--ease-out);transition-delay:calc(var(--d)*1ms)}
@@ -684,3 +694,93 @@ body.menu-open .notes-btn,body.menu-open .postit{display:none}
 .wall li.big img{width:64px;height:64px}
 .wall img[alt="Criteo"],.wall img[alt="LinkedIn"]{width:30px;height:30px}
 .wall img[alt="Beeswax"],.wall img[alt="Salesforce Marketing Cloud"],.wall img[alt="TikTok"],.wall img[alt="Batch"],.wall img[alt="Braze"]{width:24px;height:24px}
+/* 10 Témoignages modernisés (24/11) : relief doux, couleur signature par carte, citation plus lisible, auteur nom + fonction. L'animation d'éventail (li, is-piled) n'est pas touchée */
+.quote-list>li:nth-child(1){--accent:var(--cyan)}
+.quote-list>li:nth-child(2){--accent:var(--coral)}
+.quote-list>li:nth-child(3){--accent:var(--green)}
+.quote{border-color:color-mix(in srgb,var(--line) 70%,transparent);box-shadow:0 1px 2px rgba(6,30,68,.04),0 12px 32px -12px rgba(6,30,68,.14);transition:transform .28s var(--ease-out),border-color .28s var(--ease-out),box-shadow .28s var(--ease-out)}
+.quote::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--accent);z-index:1}
+.quote-art{background:color-mix(in srgb,var(--accent) 7%,var(--white));border-bottom:1px solid color-mix(in srgb,var(--accent) 14%,var(--line))}
+.quote blockquote{position:relative;font-size:clamp(18px,1.45vw,20px);line-height:1.5;letter-spacing:-.008em;text-wrap:pretty}
+.quote blockquote::before,.quote-list>li:nth-child(n) blockquote::before{display:block;height:.5em;margin-bottom:14px;font:700 72px/1 Georgia,"Times New Roman",serif;color:var(--accent)}
+.quote figcaption{align-self:stretch;gap:16px;padding-top:20px;border-top:1px solid var(--line)}
+.quote-who{display:grid;gap:2px;line-height:1.35}
+.quote-who b{font-size:16px;font-weight:600;color:var(--text)}
+.quote-who span{font-size:14px;color:var(--text-2)}
+.quote .text-link{display:inline-flex;align-items:center;gap:8px;font-size:15px;text-decoration:none}
+.quote .text-link::before{content:"→";order:2;transition:transform .2s var(--ease-out)}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:hover .quote{box-shadow:0 2px 4px rgba(6,30,68,.05),0 24px 48px -16px rgba(6,30,68,.22);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}}
+@media(hover:hover){.quote:hover .text-link{color:var(--navy)}.quote:hover .text-link::before{transform:translateX(4px)}}
+@media(prefers-reduced-motion:reduce){.quote .text-link::before{transition:none}}
+/* 11 Témoignages, 2e passe (24/11) : une illustration plate et sans texte par carte (données réunies, écran TV, audiences en couches), une personnalité par carte (claire, sombre, menthe). L'animation d'éventail n'est pas touchée */
+.quote-list>li:nth-child(1){--ill-b:var(--navy);--ill-c:var(--orange)}
+.quote-list>li:nth-child(2){--ill-b:var(--orange);--ill-c:var(--cyan)}
+.quote-list>li:nth-child(3){--ill-b:var(--cyan);--ill-c:var(--navy)}
+.quote-art{display:flex;align-items:center;justify-content:space-between;gap:16px;height:clamp(112px,9.5vw,132px);padding:0 var(--qpr) 0 var(--qp)}
+.quote-art img{flex:none}
+.quote-ill{flex:none;width:auto;height:76%;max-width:48%;transition:transform .5s var(--ease-out)}
+.quote-ill .ill-a{fill:var(--accent)}
+.quote-ill .ill-b{fill:var(--ill-b)}
+.quote-ill .ill-c{fill:var(--ill-c)}
+.quote-ill .ill-soft{fill:color-mix(in srgb,var(--accent) 22%,var(--white))}
+.quote-ill .ill-screen{fill:var(--white)}
+.quote-ill .ill-line{stroke:var(--accent)}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:hover .quote-ill{transform:translateY(-4px) rotate(-2deg)}}
+/* Carte du milieu sombre */
+.quote-list>li:nth-child(2) .quote{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.quote-list>li:nth-child(2) .quote-art{background:var(--raised);border-bottom-color:var(--line-dark)}
+.quote-list>li:nth-child(2) .quote-art img{background:var(--white);padding:6px 8px;border-radius:6px;box-sizing:content-box}
+.quote-list>li:nth-child(2) .quote-ill .ill-soft{fill:var(--line-dark)}
+.quote-list>li:nth-child(2) .quote-ill .ill-screen{fill:var(--deep)}
+.quote-list>li:nth-child(2) figcaption{border-top-color:var(--on-dark-line)}
+.quote-list>li:nth-child(2) .quote-who b{color:var(--white)}
+.quote-list>li:nth-child(2) .quote-who span{color:var(--on-dark-2)}
+.quote-list>li:nth-child(2) .text-link{color:var(--cyan)}
+@media(hover:hover){.quote-list>li:nth-child(2) .quote:hover .text-link{color:var(--white)}}
+/* Carte de droite menthe */
+.quote-list>li:nth-child(3) .quote{background:color-mix(in srgb,var(--green) 5%,var(--white))}
+.quote-list>li:nth-child(3) .quote-art{background:color-mix(in srgb,var(--green) 12%,var(--white))}
+@media(max-width:900px){.quote-art{height:112px}}
+@media(prefers-reduced-motion:reduce){.quote-ill{transition:none}}
+/* 12 Illustrations des témoignages, 2e dessin : plus de détails, profondeur à plat (couche d'ombre unie), toujours sans texte */
+.quote-ill{height:82%;max-width:56%}
+.quote-ill .ill-card{fill:var(--white);stroke:color-mix(in srgb,var(--accent) 25%,var(--line));stroke-width:1}
+.quote-ill .ill-ring{stroke:color-mix(in srgb,var(--accent) 18%,var(--white))}
+.quote-ill .ill-ring-a{stroke:var(--accent)}
+.quote-ill .ill-ring-c{stroke:var(--ill-c)}
+.quote-ill .ill-dot{fill:color-mix(in srgb,var(--ill-b) 45%,var(--navy))}
+.quote-ill .ill-cut{stroke:var(--raised)}
+.quote-ill .ill-shade{fill:color-mix(in srgb,var(--accent) 35%,var(--navy))}
+.quote-ill .ill-line{stroke:var(--accent)}
+/* 13 Illustrations simplifiées (25/11) : une seule idée par carte, deux ou trois formes */
+.quote-ill{height:66%;max-width:40%}
+.quote-list>li:nth-child(2) .quote-ill .ill-soft{fill:var(--line-dark)}
+/* 14 Témoignages alignés sur le guide (25/11) : pas d'ombre, DM Sans partout, arrondi 8px à l'intérieur, illustrations au trait comme les visuels produit (tuile teintée, trait fin, marqueur carré) et qui montrent le client : magasin (Fnac Darty), téléviseur (TF1), clap (Channel 4) */
+.quote,.quote-list:not(.is-piled)>li:hover .quote{box-shadow:none}
+.quote blockquote::before,.quote-list>li:nth-child(n) blockquote::before{font:600 56px/1 "DM Sans",system-ui,sans-serif;height:.6em}
+.quote-list>li:nth-child(2) .quote-art img{border-radius:8px}
+.quote-list>li:nth-child(1){--ink:var(--cyan-text)}
+.quote-list>li:nth-child(2){--ink:var(--coral)}
+.quote-list>li:nth-child(3){--ink:#00824D}
+.quote-ill{height:78%;max-width:40%}
+.quote-ill .ill-tile{fill:var(--white);stroke:color-mix(in srgb,var(--accent) 30%,var(--line))}
+.quote-ill .ill-ink{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.quote-ill .ill-fill{fill:color-mix(in srgb,var(--accent) 14%,var(--white))}
+.quote-ill .ill-solid{fill:var(--ink)}
+.quote-ill .ill-sq{fill:var(--accent)}
+.quote-list>li:nth-child(2) .quote-ill .ill-tile{fill:var(--navy);stroke:var(--line-dark)}
+.quote-list>li:nth-child(2) .quote-ill .ill-fill{fill:var(--raised)}
+/* 15 Témoignages, couleurs du guide (25/11) : plus aucune teinte calculée (color-mix). Chaque carte prend les trois valeurs que le guide utilise déjà dans les visuels produit pour sa couleur : fond clair, filet, encre foncée */
+.quote-list>li:nth-child(1){--tint:#EAF6FC;--tint-line:#C8E2EF;--ink:#0077A8}
+.quote-list>li:nth-child(2){--tint:#FFF0ED;--tint-line:#FFD8D1;--ink:#BD4848}
+.quote-list>li:nth-child(3){--tint:#EDF8F2;--tint-line:#C9E0D4;--ink:#00824D}
+.quote{border-color:var(--line)}
+.quote-art{background:var(--tint);border-bottom:1px solid var(--tint-line)}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:hover .quote{border-color:var(--tint-line)}}
+.quote-list>li:nth-child(3) .quote{background:var(--white)}
+.quote-list>li:nth-child(2) .quote{background:var(--navy);border-color:var(--line-dark)}
+.quote-list>li:nth-child(2) .quote-art{background:var(--raised);border-bottom-color:var(--line-dark)}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:nth-child(2):hover .quote{border-color:var(--line-dark)}}
+/* 16 Illustrations générées (ElevenLabs, Recraft vecteur, 25/11) puis recolorées sur la palette du guide, fond retiré : magasin, téléviseur, clap et téléphone */
+.quote-art img.quote-ill{width:auto;height:74%;max-width:42%;object-fit:contain;padding:0;background:none;border-radius:0}
+.quote-list>li:nth-child(n) .quote-art img.quote-ill{padding:0;background:none;border-radius:0;height:74%}
