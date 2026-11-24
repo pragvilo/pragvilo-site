@@ -570,3 +570,52 @@ h1{max-width:21em;font-size:clamp(34px,3.8vw,52px)}
   .notes-btn,.postit,.flow{display:none}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+/* Passe téléphone (24/11, soir) : le mobile rejoint l'ordinateur, sans changer la structure. */
+.header-demo{display:none}
+@media(max-width:1120px){
+  /* 5 Le bouton démo reste visible dans l'en-tête, comme sur ordinateur */
+  .header-inner{gap:10px}
+  .header .header-demo{display:inline-flex;margin-left:auto;min-height:40px;padding:0 14px;font-size:14px}
+  .menu-toggle{margin-left:0;min-height:40px;padding:0 14px}
+}
+@media(max-width:900px){
+  /* 3 Connecteurs : pas de trait animé, il longe le bord des tuiles */
+  .flow{display:none}
+  /* 6 Produits : la phrase d'abord, l'image en bandeau, puis le bouton */
+  .panel-body{gap:20px}
+  .panel-text{display:contents}
+  .panel-text p{order:1}
+  .panel-art{order:2}
+  .panel-text .button{order:3;justify-self:start}
+  .panel-art img{aspect-ratio:5/2}
+  /* 8 Pas de points décoratifs derrière les titres */
+  .testimonies,.closing{background-image:none}
+  /* 9 Pied de page : le logo seul sur sa ligne */
+  .footer-grid>.wordmark{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .wordmark img{width:120px}
+  .header .header-demo,.menu-toggle{padding:0 12px}
+  /* 1 Onglets de la console : trois colonnes égales, rien de coupé */
+  .console-bar{padding:10px}
+  .scenarios{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;overflow:visible}
+  .scenarios button{justify-content:center;gap:6px;min-height:44px;padding:4px 6px;font-size:13px;line-height:1.15;white-space:normal;text-align:left}
+  .scenarios button::before{width:8px;height:8px}
+  /* 2 Console plus courte : les critères en pastilles, moins d'air */
+  .console-body{gap:20px;padding:20px}
+  .criteria{display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px;min-height:70px;margin-top:12px}
+  .criteria li,.criteria li:first-child{gap:8px;padding:6px 10px;border:1px solid var(--on-dark-line);border-radius:6px;font-size:13px}
+  .criteria li::before{width:7px;height:7px}
+  .result{gap:20px}
+  /* 4 Logos clients : trois visibles à la fois */
+  .logos .marquee img[alt]{max-height:24px;max-width:100px}
+  .logos .marquee img[alt="Channel 4"],.logos .marquee img[alt="Orange"],.logos .marquee img[alt="showroomprive.com"],.logos .marquee img[alt="AutoScout24"],.logos .marquee img[alt="Havas"],.logos .marquee img[alt="Valiuz"]{max-height:32px}
+  .logos .marquee li{height:40px}
+  .marquee.is-live li{margin-right:36px}
+  /* 7 Mur de connecteurs : tuiles plus petites, une seule rangée vide */
+  .wall{grid-template-columns:repeat(8,1fr);gap:6px;-webkit-mask-image:linear-gradient(#000 calc(100% - 56px),transparent);mask-image:linear-gradient(#000 calc(100% - 56px),transparent)}
+  .wall img{width:20px;height:20px}
+  .wall li.big img{width:36px;height:36px}
+  .wall li.more:nth-last-child(n+9){display:none}
+}
