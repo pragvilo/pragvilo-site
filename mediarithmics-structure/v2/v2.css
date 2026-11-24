@@ -679,3 +679,7 @@ body.menu-open .notes-btn,body.menu-open .postit{display:none}
 .beam .trail{stroke:var(--accent);stroke-width:2}
 .beam .spark{stroke:#fff;stroke-width:4;filter:drop-shadow(0 0 6px var(--accent))}
 @media (prefers-reduced-motion:reduce){.grid-dots svg{transition:none}.beam{display:none}}
+/* Connecteurs (24/11) : chaque icône remplit toute sa tuile, coins arrondis repris de la tuile */
+.wall li{overflow:hidden}
+.wall li:not(.more){padding:0;border:0;background:none}
+.wall img,.wall li.big img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
