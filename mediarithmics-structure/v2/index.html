@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="referrer" content="no-referrer">
-  <meta name="theme-color" content="#08254D">
+  <meta name="theme-color" content="#FFFFFF">
   <title>mediarithmics · Homepage, version 2</title>
   <meta name="description" content="Review mockup, version 2 of the mediarithmics homepage. Indicative design, placeholder copy where marked.">
   <link rel="icon" href="/mediarithmics-structure/assets/brand-icon.svg" type="image/svg+xml">
   <link rel="preload" href="/mediarithmics-structure/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/mediarithmics-structure/v2/v2.css?v=20261124-5">
-  <script defer src="/mediarithmics-structure/v2/v2.js?v=20261124-5"></script>
+  <link rel="stylesheet" href="/mediarithmics-structure/v2/v2.css?v=20261124-7">
+  <script defer src="/mediarithmics-structure/v2/v2.js?v=20261124-6"></script>
 </head>
 <body id="top">
   <a href="#main" class="skip">Skip to content</a>
@@ -64,44 +64,60 @@
 
   <main id="main">
     <section class="hero" aria-labelledby="headline">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <p class="kicker"><i class="sq cyan"></i>The European agentic marketing platform</p>
-          <h1 id="headline"><span>Master your customer identities.</span> <span>Let AI agents run your marketing.</span></h1>
+      <div class="wrap">
+        <h1 id="headline"><span>Master your customer identities.</span> <span>Let AI agents run your marketing.</span></h1>
+        <div class="hero-sub">
           <p class="lead">Describe who you want to reach. The platform builds the audience from your own customer data and sends it to your campaigns. Your data stays in France.</p>
           <div class="actions">
-            <a class="button on-dark" href="/mediarithmics-structure/contact/">Book a demo</a>
+            <a class="button primary" href="/mediarithmics-structure/contact/">Book a demo</a>
             <a class="text-link" href="#products">See the platform</a>
           </div>
         </div>
-
-        <figure class="audience" data-audience aria-label="Illustrative example: a marketer asks for an audience and the platform builds it">
-          <div class="audience-ask">
-            <p class="audience-who">Audience manager, TV &amp; media</p>
-            <p class="audience-request"><span data-request>Bring back viewers who haven’t watched in six months.</span><span class="caret" aria-hidden="true"></span></p>
-          </div>
-          <ul class="criteria" data-criteria>
-            <li>Registered viewers</li>
-            <li>No viewing in 6 months</li>
-            <li>Marketing consent</li>
-          </ul>
-          <div class="grid-dots" data-dots aria-hidden="true"></div>
-          <div class="audience-result">
-            <p class="count"><strong data-count>250 000</strong> profiles</p>
-            <ul class="send-to" aria-label="Sent to">
-              <li><img src="/mediarithmics-structure/assets/connectors/freewheel.png" width="30" height="30" alt="FreeWheel"></li>
-              <li><img src="/mediarithmics-structure/assets/connectors/the-trade-desk.png" width="30" height="30" alt="The Trade Desk"></li>
-              <li><img src="/mediarithmics-structure/assets/connectors/google.png" width="30" height="30" alt="Google"></li>
-            </ul>
-          </div>
-          <figcaption>Illustrative example, fictional audience size. No individual is identified.</figcaption>
-        </figure>
       </div>
-      <div class="bar" aria-hidden="true"></div>
+
+      <div class="hero-stage">
+       <div class="wrap">
+        <figure class="console" data-audience aria-label="Illustrative example: a marketer asks for an audience and the platform builds it">
+          <div class="console-bar">
+            <div class="scenarios" role="group" aria-label="Choose an example" data-scenarios>
+              <button type="button" aria-pressed="true">TV &amp; media</button>
+              <button type="button" aria-pressed="false">Retail</button>
+              <button type="button" aria-pressed="false">Consumer brands</button>
+            </div>
+            <span class="console-note">Illustrative example</span>
+          </div>
+          <div class="console-body" aria-live="polite">
+            <div class="ask">
+              <p class="ask-who" data-who>Audience manager, TV &amp; media</p>
+              <p class="ask-request"><span data-request>Bring back viewers who haven’t watched in six months.</span><span class="caret" aria-hidden="true"></span></p>
+              <ul class="criteria" data-criteria>
+                <li>Registered viewers</li>
+                <li>No viewing in 6 months</li>
+                <li>Marketing consent</li>
+              </ul>
+            </div>
+            <div class="result">
+              <div class="grid-dots" data-dots aria-hidden="true"></div>
+              <div class="result-foot">
+                <p class="count"><strong data-count>250 000</strong> profiles in this audience</p>
+                <div class="send"><span>Sent to</span>
+                  <ul class="send-to" data-send>
+                    <li><img src="/mediarithmics-structure/assets/connectors/freewheel.png" width="24" height="24" alt="FreeWheel"></li>
+                    <li><img src="/mediarithmics-structure/assets/connectors/the-trade-desk.png" width="24" height="24" alt="The Trade Desk"></li>
+                    <li><img src="/mediarithmics-structure/assets/connectors/google.png" width="24" height="24" alt="Google"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Illustrative examples, fictional audience sizes. No individual is identified.</figcaption>
+        </figure>
+       </div>
+      </div>
     </section>
 
     <section class="logos" aria-labelledby="logos-title">
-      <div class="wrap">
+      <div class="wrap logos-inner">
         <h2 id="logos-title">Teams using mediarithmics</h2>
         <ul>
           <li><img src="/mediarithmics-structure/assets/tf1.webp" alt="TF1" width="70" height="26"></li>
@@ -121,13 +137,13 @@
     </section>
 
     <section class="products" id="products" aria-labelledby="products-title">
-      <div class="wrap">
-        <h2 id="products-title">One platform, four products</h2>
+      <div class="wrap split">
+        <div class="split-head"><h2 id="products-title">One platform, four products</h2></div>
         <ul class="rows">
-          <li><i class="sq cyan"></i><h3>Agentic marketing platform</h3><p>Ask for an audience in plain words. AI agents suggest the criteria, build it and send it to your campaigns.</p><a class="text-link on-light" href="/mediarithmics-structure/platform/">Explore the platform</a></li>
-          <li><i class="sq coral"></i><h3>Data collaboration</h3><p>Compare audiences with a partner in a data clean room, then plan a campaign together.</p><a class="text-link on-light" href="/mediarithmics-structure/platform/data-collaboration/">Explore data collaboration</a></li>
-          <li><i class="sq green"></i><h3>CRM</h3><p><span class="placeholder">Placeholder. Two lines from mediarithmics on what this product does and for whom.</span></p><a class="text-link on-light" href="#products">Explore CRM</a></li>
-          <li><i class="sq orange"></i><h3>Measurement</h3><p><span class="placeholder">Placeholder. Two lines from mediarithmics on what this product does and for whom.</span></p><a class="text-link on-light" href="#products">Explore measurement</a></li>
+          <li><img class="row-art" src="/mediarithmics-structure/assets/gen/product-platform.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"><i class="sq cyan"></i><h3>Agentic marketing platform</h3><p>Ask for an audience in plain words. AI agents suggest the criteria, build it and send it to your campaigns.</p><a class="text-link" href="/mediarithmics-structure/platform/">Explore the platform</a></li>
+          <li><img class="row-art" src="/mediarithmics-structure/assets/gen/product-collaboration.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"><i class="sq coral"></i><h3>Data collaboration</h3><p>Compare audiences with a partner in a data clean room, then plan a campaign together.</p><a class="text-link" href="/mediarithmics-structure/platform/data-collaboration/">Explore data collaboration</a></li>
+          <li><img class="row-art" src="/mediarithmics-structure/assets/gen/product-crm.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"><i class="sq green"></i><h3>CRM</h3><p><span class="placeholder">Placeholder. Two lines from mediarithmics on what this product does and for whom.</span></p><a class="text-link" href="#products">Explore CRM</a></li>
+          <li><img class="row-art" src="/mediarithmics-structure/assets/gen/product-measurement.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async"><i class="sq orange"></i><h3>Measurement</h3><p><span class="placeholder">Placeholder. Two lines from mediarithmics on what this product does and for whom.</span></p><a class="text-link" href="#products">Explore measurement</a></li>
         </ul>
       </div>
     </section>
@@ -136,25 +152,27 @@
       <div class="wrap">
         <h2 id="stories-title">What customers built</h2>
         <ul class="story-list">
-          <li><a href="https://www.mediarithmics.io/study-case/fnac-darty"><img src="/mediarithmics-structure/assets/fnac-darty.webp" alt="Fnac Darty" width="124" height="24"><p>How Fnac Darty built RetailLink using 36 million customer records.</p><span>Read the case study</span></a></li>
-          <li><a href="https://www.mediarithmics.io/study-case/tf1"><img src="/mediarithmics-structure/assets/tf1.webp" alt="TF1" width="70" height="26"><p>How TF1 used viewing data for targeted video ads without cookies.</p><span>Read the case study</span></a></li>
-          <li><a href="https://www.mediarithmics.io/study-case/channel-4"><img src="/mediarithmics-structure/assets/channel4.webp" alt="Channel 4" width="25" height="35"><p>How Channel 4 built the data foundation for Brandm4tch.</p><span>Read the case study</span></a></li>
+          <li><a href="https://www.mediarithmics.io/study-case/fnac-darty" style="--cover:url(/mediarithmics-structure/assets/gen/story-retail.jpg)"><img src="/mediarithmics-structure/assets/fnac-darty.webp" alt="Fnac Darty" width="124" height="24"><p>How Fnac Darty built RetailLink using 36 million customer records.</p><span>Read the case study</span></a></li>
+          <li><a href="https://www.mediarithmics.io/study-case/tf1" style="--cover:url(/mediarithmics-structure/assets/gen/story-tv.jpg)"><img src="/mediarithmics-structure/assets/tf1.webp" alt="TF1" width="70" height="26"><p>How TF1 used viewing data for targeted video ads without cookies.</p><span>Read the case study</span></a></li>
+          <li><a href="https://www.mediarithmics.io/study-case/channel-4" style="--cover:url(/mediarithmics-structure/assets/gen/story-broadcast.jpg)"><img src="/mediarithmics-structure/assets/channel4.webp" alt="Channel 4" width="25" height="35"><p>How Channel 4 built the data foundation for Brandm4tch.</p><span>Read the case study</span></a></li>
         </ul>
-        <p class="placeholder on-navy">Placeholder. Customer quotes go here once mediarithmics supplies approved testimonials.</p>
+        <p class="placeholder">Placeholder. Customer quotes go here once mediarithmics supplies approved testimonials.</p>
       </div>
     </section>
 
     <section class="connectors" id="connectors" aria-labelledby="connectors-title">
-      <div class="wrap connectors-head">
-        <h2 id="connectors-title">Send your audience where your campaigns run</h2>
-        <p>Ad platforms, social networks, ad servers and email. New connectors are built on request.</p>
-        <a class="text-link on-light" href="https://docs.mediarithmics.io/connectors">See all connectors</a>
+      <div class="wrap split">
+        <div class="split-head">
+          <h2 id="connectors-title">Send your audience where your campaigns run</h2>
+          <p>Ad platforms, social networks, ad servers and email. New connectors are built on request.</p>
+          <a class="text-link" href="https://docs.mediarithmics.io/connectors">See all connectors</a>
+        </div>
+        <ul class="wall" data-wall aria-label="Connectors"></ul>
       </div>
-      <div class="marquee" data-marquee aria-hidden="true"></div>
     </section>
 
     <section class="closing" aria-labelledby="closing-title">
-      <div class="wrap closing-inner">
+      <div class="wrap">
         <h2 id="closing-title">Which audience would you like to reach?</h2>
         <a class="button on-dark" href="/mediarithmics-structure/contact/">Book a demo</a>
       </div>
@@ -168,7 +186,7 @@
       <nav aria-label="Company"><p>Company</p><a href="https://www.mediarithmics.io/contact">Contact</a><a href="https://www.mediarithmics.io/legal/legals">Legal</a><a href="https://www.mediarithmics.io/legal/data-policy">Data policy</a></nav>
       <div class="footer-trust"><p>Trust</p><span>Hosted in France</span><span>ISO 27001 certified</span><span>EY Top 250 French software publishers</span></div>
     </div>
-    <div class="wrap footer-note"><span>Indicative mockup, version 2. Placeholder copy where marked.</span><a href="/mediarithmics-structure/">See version 1</a></div>
+    <div class="wrap footer-note"><span>Indicative mockup, version 2. Placeholder copy where marked. Background and illustration images are AI-generated.</span><a href="/mediarithmics-structure/">See version 1</a></div>
   </footer>
 </body>
 </html>
