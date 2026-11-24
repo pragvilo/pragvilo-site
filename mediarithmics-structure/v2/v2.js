@@ -256,3 +256,12 @@
     seen.observe(pile);
   }
 })();
+
+// Notes de revue : « Show notes » affiche les post-it en surimpression, un second clic les cache.
+(function(){
+  var b=document.querySelector('[data-notes-btn]');if(!b)return;
+  b.addEventListener('click',function(){
+    var on=document.body.classList.toggle('notes-on');
+    b.setAttribute('aria-pressed',on);b.textContent=on?'Hide notes':'Show notes';
+  });
+})();
