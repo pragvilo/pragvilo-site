@@ -506,3 +506,7 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 .wall li.big{transition:border-color .2s var(--ease)}
 .wall li.big.is-lit{border-color:var(--cyan)}
 .flow.is-done{opacity:0}
+
+/* Connectors: small and empty tiles on the deeper light surface with a 1px border, so the wall reads as "many more" down to the fade. */
+.wall li:not(.big){border:1px solid #D2DCE8;background:#EDF2F8}
+.wall:not(.is-waiting) li.more,.wall.is-waiting.is-in li.more{opacity:1}
