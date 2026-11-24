@@ -11,8 +11,8 @@
   <meta name="description" content="Review mockup, version 2 of the mediarithmics homepage. Indicative design, placeholder copy where marked.">
   <link rel="icon" href="/mediarithmics-structure/assets/brand-icon.svg" type="image/svg+xml">
   <link rel="preload" href="/mediarithmics-structure/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/mediarithmics-structure/v2/v2.css?v=20261124-64">
-  <script defer src="/mediarithmics-structure/v2/v2.js?v=20261124-49"></script>
+  <link rel="stylesheet" href="/mediarithmics-structure/v2/v2.css?v=20261124-66">
+  <script defer src="/mediarithmics-structure/v2/v2.js?v=20261124-51"></script>
 </head>
 <body id="top">
   <a href="#main" class="skip">Skip to content</a>
@@ -164,9 +164,10 @@
     <section class="products" id="products" aria-labelledby="products-title">
       <div class="wrap">
         <h2 id="products-title">One platform, four products</h2>
-        <ul class="stack" data-stack>
+        <div class="stack" data-stack>
+        <ul class="stack-hold">
           <li class="panel" style="--i:0;--accent:var(--cyan)">
-            <h3 class="panel-tab"><button type="button"><i class="sq cyan"></i><b>Agentic Marketing Platform</b><span>1 / 4</span></button></h3>
+            <h3 class="panel-tab"><button type="button"><i class="sq cyan"></i><b>Agentic Marketing Platform</b></button></h3>
             <div class="panel-body">
               <div class="panel-text">
                 <p>Ask for an audience in plain words. AI agents suggest the criteria, build it and send it to your campaigns.</p>
@@ -176,7 +177,7 @@
             </div>
           </li>
           <li class="panel" style="--i:1;--accent:var(--coral)">
-            <h3 class="panel-tab"><button type="button"><i class="sq coral"></i><b>Data Collaboration</b><span>2 / 4</span></button></h3>
+            <h3 class="panel-tab"><button type="button"><i class="sq coral"></i><b>Data Collaboration</b></button></h3>
             <div class="panel-body">
               <div class="panel-text">
                 <p>Compare audiences with a partner in a data clean room, then plan a campaign together.</p>
@@ -186,7 +187,7 @@
             </div>
           </li>
           <li class="panel" style="--i:2;--accent:var(--green)">
-            <h3 class="panel-tab"><button type="button"><i class="sq green"></i><b>CRM Onboarding</b><small>Connect ID</small><span>3 / 4</span></button></h3>
+            <h3 class="panel-tab"><button type="button"><i class="sq green"></i><b>CRM Onboarding</b><small>Connect ID</small></button></h3>
             <div class="panel-body">
               <div class="panel-text">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
@@ -195,8 +196,10 @@
               <div class="panel-art"><img src="/mediarithmics-structure/assets/gen/product-crm.jpg" alt="" width="1280" height="720" decoding="async"></div>
             </div>
           </li>
+        </ul>
+        <ul class="stack-tail">
           <li class="panel" style="--i:3;--accent:var(--orange)">
-            <h3 class="panel-tab"><button type="button"><i class="sq orange"></i><b>Measurement</b><small>Cockpit</small><span>4 / 4</span></button></h3>
+            <h3 class="panel-tab"><button type="button"><i class="sq orange"></i><b>Measurement</b><small>Cockpit</small></button></h3>
             <div class="panel-body">
               <div class="panel-text">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
@@ -206,6 +209,7 @@
             </div>
           </li>
         </ul>
+        </div>
       </div>
       <aside class="postit" aria-label="Note 3: Four products"><span class="postit-num">Note 3 · Four products</span><p><b>What we did</b> One sentence per product. The four panels stack as the page scrolls, so the whole offer fits in one place.</p><p><b>Why</b> The visitor sees the benefit first and the product name second.</p><p><b>What we need</b> Two lines each for Connect ID and Cockpit (lorem ipsum for now). Real product screens to replace the AI-generated illustrations.</p></aside>
     </section>
@@ -248,6 +252,7 @@
         <div class="split-head">
           <h2 id="connectors-title">Send your audience where your campaigns run</h2>
           <p>Ad platforms, social networks, ad servers and email. New connectors are built on request.</p>
+          <div class="flow-source" data-flow-source><i class="sq cyan"></i>Your audience</div>
           <a class="text-link" href="https://docs.mediarithmics.io/connectors">See all connectors</a>
         </div>
         <ul class="wall" data-wall aria-label="Connectors"></ul>

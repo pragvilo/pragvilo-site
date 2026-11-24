@@ -202,7 +202,7 @@
   /* Products: a tab scrolls the page to the point where its panel sits on top of the stack */
   const stack = document.querySelector('[data-stack]');
   if (stack) {
-    const panels = [...stack.children];
+    const panels = [...stack.querySelectorAll('.panel')];
     panels.forEach((panel, k) => panel.querySelector('.panel-tab button').addEventListener('click', () => {
       if (getComputedStyle(panel).position !== 'sticky') return panel.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
       const gap = parseFloat(getComputedStyle(stack).rowGap) || 0;
@@ -264,6 +264,61 @@
   const extra = (cols - (slots % cols)) % cols + cols * 2;
   const moreStart = smallStart + small.length * 18;
   wall.insertAdjacentHTML('beforeend', Array.from({ length: extra }, (_, m) => `<li class="more" aria-hidden="true" style="--d:${moreStart + m * 8}"></li>`).join(''));
+  /* Flow, once, after the cascade: a line leaves "Your audience" for each large tile, a dot rides it, the tile lights up on arrival and the line fades.
+     Geometry is read when it starts, so it follows the layout: sideways on desktop, downwards when the wall sits under the text. */
+  const flow = () => {
+    const source = document.querySelector('[data-flow-source]');
+    const frame = wall.closest('.split');
+    const targets = [...wall.querySelectorAll('li.big')];
+    if (!source || !frame || !targets.length) return;
+    const ns = 'http://www.w3.org/2000/svg';
+    const box = frame.getBoundingClientRect();
+    const from = source.getBoundingClientRect();
+    const side = wall.getBoundingClientRect().left >= from.right;
+    const x0 = (side ? from.right : from.left + from.width / 2) - box.left;
+    const y0 = (side ? from.top + from.height / 2 : from.bottom) - box.top;
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('class', 'flow');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+    frame.append(svg);
+    source.classList.add('is-on');
+    const ease = (t) => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+    const run = 620;
+    let left = targets.length;
+    targets.forEach((li, k) => {
+      const to = li.getBoundingClientRect();
+      const x1 = (side ? to.left : to.left + to.width / 2) - box.left;
+      const y1 = (side ? to.top + to.height / 2 : to.top) - box.top;
+      const bend = side ? `C${x0 + (x1 - x0) * .5} ${y0} ${x0 + (x1 - x0) * .5} ${y1} ${x1} ${y1}` : `C${x0} ${y0 + (y1 - y0) * .5} ${x1} ${y0 + (y1 - y0) * .5} ${x1} ${y1}`;
+      const path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', `M${x0} ${y0}${bend}`);
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('r', 3);
+      svg.append(path, dot);
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      dot.style.opacity = 0;
+      const start = performance.now() + k * 110;
+      const step = (now) => {
+        const t = Math.min(1, Math.max(0, (now - start) / run));
+        const e = ease(t);
+        const p = path.getPointAtLength(len * e);
+        path.style.strokeDashoffset = len * (1 - e);
+        dot.setAttribute('cx', p.x);
+        dot.setAttribute('cy', p.y);
+        dot.style.opacity = t > 0 ? 1 : 0;
+        if (t < 1) return requestAnimationFrame(step);
+        li.classList.add('is-lit');
+        path.classList.add('is-done');
+        dot.classList.add('is-done');
+        if (!--left) setTimeout(() => svg.remove(), 500);
+      };
+      requestAnimationFrame(step);
+    });
+  };
+
   /* Cascade, once, when the wall comes into view. Skipped with reduced motion: the wall is simply there. */
   if (!calm && 'IntersectionObserver' in window) {
     wall.classList.add('is-waiting');
@@ -271,6 +326,7 @@
       if (!entries[0].isIntersecting) return;
       seen.disconnect();
       wall.classList.add('is-in');
+      setTimeout(flow, 900);
     }, { threshold: 0.2 });
     seen.observe(wall);
   }

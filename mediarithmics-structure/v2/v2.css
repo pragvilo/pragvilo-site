@@ -456,3 +456,46 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 .notes-btn[aria-pressed=true]{background:var(--navy);color:var(--white)}
 @media(prefers-reduced-motion:reduce){.notes-on .postit{animation:none}}
 @media(max-width:560px){.postit{right:12px;top:12px;font-size:13px}.notes-btn{right:12px;bottom:12px}}
+
+/* Products: the first three panels stack; the fourth follows in normal flow and never covers the third. */
+.stack-hold,.stack-tail{display:grid;gap:16px}
+.stack-tail .panel{position:static;scroll-margin-top:100px}
+@media(min-width:901px) and (min-height:720px){.stack{padding-bottom:0}}
+
+/* Testimonies: the whole card opens the case study. The link stays the only focusable element. */
+.quote{position:relative}
+.quote figcaption a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+@media(hover:hover){.quote:hover figcaption a{text-decoration-thickness:2px}}
+
+/* Products: navy section from the design system's dark mode, cards in its light mode (white, 1px border, 12px radius, no shadow), so the cards read clearly against the section.
+   The 9px square is the only colour marker. A covered panel steps back to the deep light surface. */
+.products{background:#061E44;color:#EAF1FA}
+.products h2{color:#EAF1FA}
+.panel{--p-raised:#FFFFFF;--p-deep:#EDF2F8;--p-alt:#061E44;--p-line:#D2DCE8;--p-text:#061E44;--p-text-2:#4D5F80;color:var(--p-text);border-color:var(--p-line);border-radius:12px;background:var(--p-raised);transition:background-color .2s var(--ease),border-color .2s var(--ease)}
+.panel-tab{background:none}
+.panel-tab::before{content:none}
+.panel-tab button{height:var(--tab);color:inherit}
+.panel-tab .sq{width:9px;height:9px}
+.panel-tab b{color:var(--p-text);transition:color .2s var(--ease)}
+.panel-tab small{color:var(--p-text-2)}
+.panel-body{border-top-color:var(--p-line)}
+.panel-text p{color:var(--p-text)}
+.panel-art{border-radius:8px;background:var(--p-alt)}
+.panel.is-covered{background:var(--p-deep)}
+.panel.is-covered .panel-tab b{color:var(--p-text-2)}
+@media(min-width:901px){.panel-body{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+/* The sentence is read first: the image follows with a short fade, within the 200ms / 4px motion rule. */
+.stack.is-revealing .panel-art img{opacity:0;transform:translateY(4px);transition:opacity .2s var(--ease),transform .2s var(--ease)}
+.stack.is-revealing .panel-art.is-in img{opacity:1;transform:none}
+
+/* Connectors: "Your audience" is the source of a one-off flow towards the large tiles. Lines are temporary; only the lit border stays. */
+.flow-source{display:flex;align-items:center;gap:8px;width:fit-content;min-height:32px;margin-top:24px;padding:0 14px;border:1px solid var(--line-strong);border-radius:999px;background:var(--white);font-size:14px;font-weight:600;transition:border-color .2s var(--ease)}
+.flow-source .sq{width:9px;height:9px}
+.flow-source.is-on{border-color:var(--cyan)}
+.connectors .split{position:relative}
+.flow{position:absolute;inset:0;z-index:2;width:100%;height:100%;overflow:visible;pointer-events:none}
+.flow path{fill:none;stroke:var(--cyan);stroke-width:1.5;opacity:.7;transition:opacity .4s var(--ease)}
+.flow circle{fill:var(--cyan);transition:opacity .2s var(--ease)}
+.flow .is-done{opacity:0!important}
+.wall li.big{transition:border-color .2s var(--ease)}
+.wall li.big.is-lit{border-color:var(--cyan)}
