@@ -190,8 +190,7 @@ h1 span{display:block}
 .wall.is-waiting.is-in li.more{opacity:.7}
 
 /* We're proud of */
-.proud{padding-block:0 var(--pad)}
-.proud h2{font-size:clamp(24px,2.6vw,34px)}
+.proud{padding-block:var(--pad);background:#EDF2F8}
 .badges{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:clamp(24px,3vw,40px)}
 .badges li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:190px;padding:24px 16px;border:1px solid var(--line);border-radius:16px;text-align:center;font-size:15px;font-weight:500;color:var(--text-2)}
 .badges img{width:auto;height:84px;object-fit:contain}
@@ -298,7 +297,10 @@ footer nav a:hover{color:var(--white)}
 .logos .marquee{margin-top:clamp(20px,2.4vw,32px)}
 .logos .marquee img{filter:none;opacity:.78;max-height:28px}
 .logos .marquee li{height:36px}
-.products{padding-top:clamp(56px,6vw,96px)}
+.products{padding-block:clamp(56px,6vw,96px) clamp(48px,5vw,72px)}
+.testimonies{background-color:#E6EDF5;background-blend-mode:multiply}
+footer{background:var(--deep)}
+.footer-grid{border-top:0}
 
 /* Customer logos as doors (24/11): a logo with a published case study is a link. On hover it comes forward, the others
    step back and a short label names the story. No blur: the logos stay readable. Touch and keyboard get the text link. */
