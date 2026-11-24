@@ -1,6 +1,6 @@
 /* mediarithmics homepage, version 2.3 (24/11, new sitemap). Standalone sheet, follows the mediarithmics guide:
    DM Sans, navy + four accent colours, no shadows, square markers, four-colour bar (footer only).
-   Layout idea: white page, large left-aligned type, centred hero with the intro video, then customers, product grid, testimonies, connectors, certifications. */
+   Layout idea: white page, large left-aligned type, centred hero with the audience console, then customers, product grid, testimonies, connectors, certifications. */
 @font-face{font-family:"DM Sans";src:url(/mediarithmics-structure/assets/dm-sans.woff2) format("woff2");font-weight:100 1000;font-display:swap}
 :root{
   --navy:#061E44;--deep:#021035;
@@ -71,7 +71,7 @@ button[aria-expanded=true]+.sub.sub-two{display:grid}
 @media(min-width:1121px){.menu>li:nth-last-child(-n+3) .sub{left:auto;right:0}.menu>li:nth-last-child(-n+3) .sub:not(.sub-narrow){left:0;right:auto}}
 .menu-toggle{display:none;margin-left:auto;min-height:42px;padding:0 16px;border:1px solid var(--line-strong);border-radius:8px;background:none;font-weight:600;color:var(--navy);cursor:pointer}
 
-/* Hero: title, one phrase, one button, then the intro video */
+/* Hero: title, one phrase, one button, then the audience console */
 .hero{padding-top:clamp(48px,7vw,104px)}
 .hero-text{display:grid;justify-items:center;text-align:center}
 h1{max-width:15em;font-size:clamp(36px,5vw,68px);font-weight:600;letter-spacing:-.04em;line-height:1.02;text-wrap:balance}
@@ -79,9 +79,37 @@ h1 span{display:block}
 .lead{max-width:36em;margin-top:clamp(20px,2.4vw,32px);font-size:clamp(17px,1.5vw,20px);line-height:1.5;color:var(--text-2);text-wrap:pretty}
 .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 24px;margin-top:clamp(24px,2.8vw,36px)}
 .hero-note{margin-top:20px}
-.video{margin:0;border-radius:20px;overflow:hidden;background:rgba(4,20,50,.74);border:1px solid rgba(255,255,255,.14);box-shadow:0 32px 80px rgba(1,8,28,.45)}
-.video video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--deep)}
-.video figcaption{padding:12px 20px;font-size:13px;color:var(--on-dark-2)}
+
+/* Console: the one visual of the page. Profiles are squares, never faces. */
+.console{--accent:var(--cyan);margin:clamp(40px,5vw,72px) 0 0;background:var(--navy);border-radius:20px;color:var(--white);overflow:hidden}
+.console-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px;border-bottom:1px solid var(--on-dark-line)}
+.scenarios{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.scenarios::-webkit-scrollbar{display:none}
+.scenarios button{white-space:nowrap;min-height:40px;padding:0 14px;border:0;border-radius:8px;background:none;font-size:15px;font-weight:500;color:var(--on-dark-2);cursor:pointer;transition:background-color .15s var(--ease),color .15s var(--ease)}
+.scenarios button:hover{color:var(--white)}
+.scenarios button[aria-pressed=true]{background:rgba(255,255,255,.12);color:var(--white)}
+.console-note{flex:none;padding-right:10px;font-size:13px;color:var(--on-dark-2)}
+.console-body{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);padding:clamp(24px,3.6vw,48px)}
+.ask-who{font-size:14px;font-weight:500;color:var(--on-dark-2)}
+.ask-request{margin-top:10px;min-height:3.75em;font-size:clamp(21px,2.1vw,28px);font-weight:600;line-height:1.25;letter-spacing:-.02em}
+.caret{display:inline-block;width:2px;height:1em;margin-left:3px;background:var(--accent);vertical-align:-.12em;opacity:0}
+.is-typing .caret{opacity:1}
+.criteria{margin-top:20px}
+.criteria li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--on-dark-line);font-size:16px;transition:opacity .25s var(--ease)}
+.criteria li::before{content:"";flex:none;width:9px;height:9px;background:var(--accent)}
+.result{display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.grid-dots{display:grid;grid-template-columns:repeat(30,1fr);gap:5px}
+.grid-dots i{aspect-ratio:1;background:rgba(255,255,255,.09);transition:background-color .3s var(--ease)}
+.grid-dots i.in{background:var(--accent)}
+.result-foot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;transition:opacity .25s var(--ease)}
+.count{font-size:15px;color:var(--on-dark-2)}
+.count strong{display:block;font-size:clamp(36px,4vw,54px);font-weight:600;letter-spacing:-.035em;line-height:1;color:var(--white);font-variant-numeric:tabular-nums}
+.send{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--on-dark-2)}
+.send-to{display:flex;gap:6px}
+.send-to li{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:var(--white)}
+.send-to img{width:24px;height:24px;object-fit:contain}
+.console figcaption{padding:12px clamp(24px,3.6vw,48px);border-top:1px solid var(--on-dark-line);font-size:13px;color:var(--on-dark-2)}
+.is-pending .criteria li,.is-pending .result-foot{opacity:0}
 
 /* Customers: one line of logos that scrolls slowly. Static and wrapped without JS or with reduced motion. */
 .logos{padding-block:clamp(48px,6vw,88px) 0;text-align:center}
@@ -174,6 +202,8 @@ footer nav a:hover{color:var(--white)}
 }
 @media(max-width:900px){
   .split{grid-template-columns:1fr}
+  .console-body{grid-template-columns:1fr}
+  .ask-request{min-height:2.5em}
   .quote-list{grid-template-columns:1fr}
   .badges{grid-template-columns:repeat(3,minmax(0,1fr))}
   .split-head{position:static}
@@ -185,7 +215,11 @@ footer nav a:hover{color:var(--white)}
   #navigation{padding-inline:20px}
   h1{letter-spacing:-.03em;line-height:1.04}
   .actions,.actions .button,.closing .button{width:100%}
-  .video{border-radius:14px}
+  .console{border-radius:16px}
+  .console-note{display:none}
+  .ask-request{min-height:3.75em}
+  .grid-dots{grid-template-columns:repeat(18,1fr);gap:4px}
+  .grid-dots i:nth-child(n+145){display:none}
   .card-grid{grid-template-columns:1fr}
   .badges{grid-template-columns:repeat(2,minmax(0,1fr))}
   .wall{grid-template-columns:repeat(6,1fr);gap:8px}
@@ -203,6 +237,7 @@ footer nav a:hover{color:var(--white)}
 .hero .actions .button.primary{background:var(--white);color:var(--navy)}
 .hero .actions .button.primary:hover{background:var(--mist)}
 .hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
+.hero-stage .console{margin-top:0;background:rgba(4,20,50,.74);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.14);box-shadow:0 32px 80px rgba(1,8,28,.45)}
 .closing{background:var(--navy) url(/mediarithmics-structure/assets/gen/texture-dark.jpg) right center/cover no-repeat}
 @media(max-width:900px){
   .hero-stage{padding-block:32px}

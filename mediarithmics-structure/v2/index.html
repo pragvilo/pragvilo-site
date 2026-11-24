@@ -11,8 +11,8 @@
   <meta name="description" content="Review mockup, version 2 of the mediarithmics homepage. Indicative design, placeholder copy where marked.">
   <link rel="icon" href="/mediarithmics-structure/assets/brand-icon.svg" type="image/svg+xml">
   <link rel="preload" href="/mediarithmics-structure/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/mediarithmics-structure/v2/v2.css?v=20261124-20">
-  <script defer src="/mediarithmics-structure/v2/v2.js?v=20261124-20"></script>
+  <link rel="stylesheet" href="/mediarithmics-structure/v2/v2.css?v=20261124-21">
+  <script defer src="/mediarithmics-structure/v2/v2.js?v=20261124-21"></script>
 </head>
 <body id="top">
   <a href="#main" class="skip">Skip to content</a>
@@ -100,14 +100,43 @@
         <p class="hero-note"><span class="placeholder">Temporary title. Subtitle proposed by Pragvilo, to replace with the one-phrase summary from mediarithmics.</span></p>
       </div>
 
-      <div class="hero-stage" id="video">
+      <div class="hero-stage">
         <div class="wrap">
-          <figure class="video">
-            <video controls playsinline preload="none" poster="/mediarithmics-structure/sources-profil.webp" aria-label="Intro video">
-              <source src="/mediarithmics-structure/sources-profil.mp4" type="video/mp4">
-            </video>
-            <figcaption>Intro video. Stand-in clip from version 1, to replace with the final mediarithmics video.</figcaption>
-          </figure>
+        <figure class="console" data-audience aria-label="Illustrative example: a marketer asks for an audience and the platform builds it">
+          <div class="console-bar">
+            <div class="scenarios" role="group" aria-label="Choose an example" data-scenarios>
+              <button type="button" aria-pressed="true">TV &amp; media</button>
+              <button type="button" aria-pressed="false">Retail</button>
+              <button type="button" aria-pressed="false">Consumer brands</button>
+            </div>
+            <span class="console-note">Illustrative example</span>
+          </div>
+          <div class="console-body" aria-live="polite">
+            <div class="ask">
+              <p class="ask-who" data-who>Audience manager, TV &amp; media</p>
+              <p class="ask-request"><span data-request>Bring back viewers who haven’t watched in six months.</span><span class="caret" aria-hidden="true"></span></p>
+              <ul class="criteria" data-criteria>
+                <li>Registered viewers</li>
+                <li>No viewing in 6 months</li>
+                <li>Marketing consent</li>
+              </ul>
+            </div>
+            <div class="result">
+              <div class="grid-dots" data-dots aria-hidden="true"></div>
+              <div class="result-foot">
+                <p class="count"><strong data-count>250 000</strong> profiles in this audience</p>
+                <div class="send"><span>Sent to</span>
+                  <ul class="send-to" data-send>
+                    <li><img src="/mediarithmics-structure/assets/connectors/freewheel.png" width="24" height="24" alt="FreeWheel"></li>
+                    <li><img src="/mediarithmics-structure/assets/connectors/the-trade-desk.png" width="24" height="24" alt="The Trade Desk"></li>
+                    <li><img src="/mediarithmics-structure/assets/connectors/google.png" width="24" height="24" alt="Google"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Illustrative examples, fictional audience sizes. No individual is identified.</figcaption>
+        </figure>
         </div>
       </div>
     </section>
