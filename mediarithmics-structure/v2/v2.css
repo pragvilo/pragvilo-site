@@ -199,3 +199,38 @@ footer nav a:hover{color:var(--white)}
   .marquee-row{animation:none;flex-wrap:wrap;width:auto;justify-content:center}
   .marquee-row [data-copy]{display:none}
 }
+
+/* v2.1 (24/11): fewer boxes. No cards, no alternating bands: white page after the hero, thin rules, one dark close. */
+.audience{padding:0;background:none;border-radius:0;color:var(--white)}
+.audience-who,.count,.audience figcaption{color:var(--on-dark-2)}
+.criteria li{background:none;border-color:rgba(255,255,255,.3);color:var(--white)}
+.grid-dots i{background:rgba(255,255,255,.1)}
+.grid-dots i.in{background:var(--cyan)}
+.audience-result{border-top-color:rgba(255,255,255,.18)}
+.count strong{color:var(--white)}
+.send-to li{border:0;background:var(--white)}
+.logos{border-bottom:0;padding-bottom:0}
+.rows{margin-top:32px;border-top:1px solid var(--line)}
+.rows li{display:grid;grid-template-columns:12px minmax(0,300px) minmax(0,1fr) 210px;gap:8px 28px;align-items:start;padding:28px 0;border-bottom:1px solid var(--line)}
+.rows .sq{width:12px;height:12px;margin-top:9px}
+.rows h3{font-size:24px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.rows p{color:var(--text-2)}
+.rows .placeholder{display:inline-block}
+.rows .text-link{padding-block:2px;white-space:nowrap;justify-self:end}
+.stories{padding-top:0;background:none;color:var(--text)}
+.story-list{gap:0;margin-top:32px}
+.story-list a{padding:4px 32px 4px 0;border-radius:0;background:none}
+.story-list li+li a{padding-left:32px;border-left:1px solid var(--line)}
+.story-list a:hover{background:none}
+.story-list a:hover span{color:var(--navy)}
+.connectors{padding-top:0;background:none}
+.closing{background:var(--navy)}
+footer{padding-top:0}
+.footer-grid{padding-top:48px;border-top:1px solid rgba(255,255,255,.14)}
+@media(max-width:860px){
+  .rows li{grid-template-columns:12px minmax(0,1fr);gap:6px 16px}
+  .rows p,.rows .text-link{grid-column:2}
+  .rows .text-link{justify-self:start;padding-block:10px}
+  .story-list a,.story-list li+li a{padding:0;border-left:0}
+  .story-list li+li{margin-top:28px;padding-top:28px;border-top:1px solid var(--line)}
+}
