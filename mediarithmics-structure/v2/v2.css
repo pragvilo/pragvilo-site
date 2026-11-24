@@ -278,6 +278,6 @@ footer nav a:hover{color:var(--white)}
 .logos::after{content:"";position:absolute;inset:auto 0 0;height:clamp(72px,7vw,112px);background:linear-gradient(180deg,rgba(255,255,255,0),var(--white));pointer-events:none}
 .logos h2{color:#D5DFEF;font-size:clamp(15px,1.2vw,17px);font-weight:500;letter-spacing:.04em}
 .logos .marquee{margin-top:clamp(20px,2.4vw,32px)}
-.logos .marquee img{filter:grayscale(1) brightness(0) invert(1);opacity:.62;max-height:26px}
+.logos .marquee img{filter:grayscale(1) invert(1) contrast(1.15);mix-blend-mode:screen;opacity:.7;max-height:26px}
 .logos .marquee li{height:36px}
 .products{padding-top:clamp(24px,3vw,48px)}
