@@ -19,11 +19,45 @@
     closeSubs();
     if (open) open.focus();
   });
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? 'Close' : 'Menu';
+  /* Desktop: open on hover too, with a short grace delay so the pointer can reach the panel */
+  const wide = matchMedia('(min-width:1121px) and (hover:hover)');
+  let hoverTimer, hoverAt = 0;
+  document.querySelectorAll('.has-sub').forEach((li) => {
+    const b = li.querySelector(':scope > button');
+    li.addEventListener('mouseenter', () => {
+      if (!wide.matches) return;
+      clearTimeout(hoverTimer);
+      const anyOpen = subs.some((x) => x.getAttribute('aria-expanded') === 'true');
+      hoverTimer = setTimeout(() => { closeSubs(b); b.setAttribute('aria-expanded', 'true'); hoverAt = Date.now(); }, anyOpen ? 0 : 90);
+    });
+    li.addEventListener('mouseleave', () => {
+      if (!wide.matches) return;
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(() => b.setAttribute('aria-expanded', 'false'), 220);
+    });
+    /* Close when keyboard focus leaves the item */
+    li.addEventListener('focusout', (e) => { if (wide.matches && !li.contains(e.relatedTarget)) b.setAttribute('aria-expanded', 'false'); });
   });
+  /* A click right after a hover-open keeps the panel open instead of closing it */
+  subs.forEach((b) => b.addEventListener('click', (e) => {
+    if (wide.matches && Date.now() - hoverAt < 450) { e.stopImmediatePropagation(); b.setAttribute('aria-expanded', 'true'); }
+  }, true));
+
+  /* Phone and tablet: full-height panel, page locked behind it */
+  const label = toggle.querySelector('.menu-label');
+  const setMenu = (open) => {
+    if (open) document.documentElement.style.setProperty('--header-h', document.querySelector('.header').offsetHeight + 'px');
+    nav.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (label) label.textContent = open ? 'Close' : 'Menu';
+    if (!open) closeSubs();
+  };
+  toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  nav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); toggle.focus(); } });
+  matchMedia('(min-width:1121px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
 
   /* Header: hairline once the page has moved */
   const header = document.querySelector('.header');
