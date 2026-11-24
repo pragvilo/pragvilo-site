@@ -207,7 +207,15 @@ footer nav a:hover{color:var(--white)}
 }
 
 /* Generated visuals: hero stage, product art, story covers, textures */
-.hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:clamp(40px,7vw,112px);background:var(--navy) url(/mediarithmics-structure/assets/gen/hero.jpg) center/cover no-repeat}
+/* Hero in colour (24/11): the blue visual now carries the whole top of the page, headline included */
+.hero{background:linear-gradient(180deg,rgba(2,16,53,.78) 0%,rgba(2,16,53,.34) 58%,rgba(2,16,53,0) 100%),var(--navy) url(/mediarithmics-structure/assets/gen/hero.jpg) center/cover no-repeat;color:var(--white)}
+.hero h1 span+span{color:#8ED9F6}
+.hero .lead{color:#D5DFEF}
+.hero .actions .button.primary{background:var(--white);color:var(--navy)}
+.hero .actions .button.primary:hover{background:var(--mist)}
+.hero .actions .text-link{color:var(--white)}
+.hero .actions .text-link:hover{color:#8ED9F6}
+.hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
 .hero-stage .console{margin-top:0;background:rgba(4,20,50,.74);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.14);box-shadow:0 32px 80px rgba(1,8,28,.45)}
 .rows li{grid-template-columns:12px minmax(0,1fr) clamp(200px,24vw,320px)}
 .rows .text-link{grid-column:2;grid-row:auto;justify-self:start;margin-top:8px}
