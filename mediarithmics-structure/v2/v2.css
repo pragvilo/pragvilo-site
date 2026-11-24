@@ -517,3 +517,56 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
   .closing .wrap{display:grid;grid-template-columns:auto 1fr;align-items:end}
   .closing .button{justify-self:center;margin-top:0}
 }
+
+/* Passe design (24/11, soir) : finitions sur l'existant, structure inchangée.
+   1 Premier écran : titre sur deux lignes et marges resserrées, la console tient entière sur un portable. */
+h1{max-width:21em;font-size:clamp(34px,3.8vw,52px)}
+.hero{padding-top:clamp(32px,4vw,56px)}
+.lead{margin-top:clamp(16px,1.8vw,24px)}
+.actions{margin-top:clamp(20px,2.2vw,28px)}
+.hero-stage{margin-top:clamp(24px,3vw,40px)}
+/* 4 Un seul arrondi : 12px pour les cartes, 8px à l'intérieur (charte) */
+.console,.quote,.sub,.wall li.big,#ma-trust-section .mt-certification{border-radius:12px}
+.ask-request,.send-to li,.wall li,#ma-trust-section .mt-logo .mt-round{border-radius:8px}
+/* 5 En-tête : filet seul au défilement, ni ombre ni flou (fond opaque) */
+.header{-webkit-backdrop-filter:none;backdrop-filter:none}
+.header.is-scrolled{box-shadow:none}
+/* 7 Appel final : à la taille des titres de section, bouton juste après la question */
+.closing h2{font-size:clamp(30px,3.6vw,48px)}
+.closing .button{min-height:56px;padding:0 28px;font-size:17px}
+@media(min-width:901px){
+  .closing .wrap{grid-template-columns:auto auto;justify-content:start;align-items:center;gap:20px 48px}
+  .closing .button{justify-self:start}
+}
+/* 8 Témoignages : le logo du client sur la bande teintée, plus d'objet généré */
+.quote-art{display:grid;place-items:center;height:clamp(96px,8vw,116px)}
+.quote-art img{width:auto;height:30px;max-width:60%;object-fit:contain;mix-blend-mode:normal}
+.quote-list>li:nth-child(2) .quote-art img{height:38px}
+.quote-list>li:nth-child(3) .quote-art img{height:50px}
+@media(max-width:900px){.quote-art{height:96px}}
+/* 9 Logos clients : hauteur réglée par forme (mots longs plus bas, sigles carrés plus hauts), moins de vide dessous */
+.logos{padding-bottom:clamp(16px,2vw,28px)}
+.logos .marquee img[alt="TF1"],.logos .marquee img[alt="CANAL+"]{max-height:30px}
+.logos .marquee img[alt="Channel 4"],.logos .marquee img[alt="Orange"],.logos .marquee img[alt="showroomprive.com"],.logos .marquee img[alt="AutoScout24"],.logos .marquee img[alt="Havas"],.logos .marquee img[alt="Valiuz"]{max-height:46px}
+/* 10 EY Top 250 : un chiffre, pas un logo redessiné */
+#ma-trust-section .mt-ey{padding-bottom:0;background:none}
+/* 11 Requête : deux lignes sur ordinateur, sans vide sous le texte */
+@media(min-width:901px){.ask-request{min-height:calc(2.5em + 34px)}}
+/* 12 Retour au clic, sous-menus qui arrivent en 150 ms */
+.button{transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease),transform .12s var(--ease-out)}
+.button:active{transform:scale(.97)}
+@media(min-width:1121px){
+  .sub{opacity:0;transform:translateY(-4px);transition:opacity .15s var(--ease),transform .15s var(--ease),display .15s allow-discrete}
+  button[aria-expanded=true]+.sub{opacity:1;transform:none}
+  @starting-style{button[aria-expanded=true]+.sub{opacity:0;transform:translateY(-4px)}}
+}
+/* 3 Impression et export PDF : tout est visible sans attendre le défilement */
+@media print{
+  .header,.panel{position:static}
+  .panel,.panel+.panel{margin-block:0 16px}
+  .stack.is-revealing .panel-art img,.wall.is-waiting li,.criteria li{opacity:1;transform:none}
+  .quote-list>li,.quote-list.is-piled>li{transform:none}
+  .wall{-webkit-mask-image:none;mask-image:none}
+  .notes-btn,.postit,.flow{display:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
