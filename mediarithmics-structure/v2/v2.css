@@ -271,3 +271,13 @@ footer nav a:hover{color:var(--white)}
   .sub span,.sub-title{color:var(--on-dark-2)}
   .sub a:hover{background:rgba(255,255,255,.08)}
 }
+
+/* Hero to logos (24/11): the customer logos close the dark hero, then the page fades to white */
+.hero-stage{padding-bottom:clamp(32px,4vw,56px)}
+.logos{position:relative;background:var(--deep);color:var(--white);padding-block:clamp(16px,2vw,24px) clamp(104px,10vw,152px)}
+.logos::after{content:"";position:absolute;inset:auto 0 0;height:clamp(72px,7vw,112px);background:linear-gradient(180deg,rgba(255,255,255,0),var(--white));pointer-events:none}
+.logos h2{color:#D5DFEF;font-size:clamp(15px,1.2vw,17px);font-weight:500;letter-spacing:.04em}
+.logos .marquee{margin-top:clamp(20px,2.4vw,32px)}
+.logos .marquee img{filter:grayscale(1) brightness(0) invert(1);opacity:.62;max-height:26px}
+.logos .marquee li{height:36px}
+.products{padding-top:clamp(24px,3vw,48px)}
