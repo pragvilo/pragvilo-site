@@ -665,3 +665,17 @@ body.menu-open .notes-btn,body.menu-open .postit{display:none}
 .connectors .flow-source.is-on{border-color:var(--cyan)}
 .connectors .wall li.big{border-color:var(--line-dark)}
 .connectors .wall li:not(.big){border-color:transparent}
+
+/* Hero audience (24/11, piste D validated by Gilles): small people instead of squares. They light up where they stand, gather into one group only at the end, each in a place of their own, then a light carries them to the destinations. */
+.console{position:relative}
+.grid-dots{display:block;position:relative;height:clamp(200px,19vw,250px)}
+.grid-dots svg{position:absolute;left:0;top:0;fill:rgba(159,179,205,.3);transition:fill .35s var(--ease-out),opacity .4s var(--ease-out),transform 1.1s var(--ease-out)}
+.grid-dots svg.in{fill:var(--accent)}
+.grid-dots svg.gone{opacity:0}
+.grid-dots.is-sent svg.in{animation:person-sent .9s var(--ease-out) both}
+@keyframes person-sent{35%{filter:brightness(1.6) drop-shadow(0 0 4px var(--accent))}}
+.beam{position:absolute;inset:0;z-index:2;width:100%;height:100%;overflow:visible;pointer-events:none}
+.beam path{fill:none;stroke-linecap:round;opacity:0}
+.beam .trail{stroke:var(--accent);stroke-width:2}
+.beam .spark{stroke:#fff;stroke-width:4;filter:drop-shadow(0 0 6px var(--accent))}
+@media (prefers-reduced-motion:reduce){.grid-dots svg{transition:none}.beam{display:none}}

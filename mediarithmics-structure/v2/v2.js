@@ -73,7 +73,7 @@
     marquee.classList.add('is-live');
   }
 
-  /* Audience example: anonymous profiles as squares. Three illustrative requests, one per industry. */
+  /* Audience example: anonymous profiles as small people. Three illustrative requests, one per industry. */
   const base = '/mediarithmics-structure/assets/connectors/';
   const scenarios = [
     { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', marks: ['viewers', 'haven’t watched in six months'], criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
@@ -88,8 +88,81 @@
   const countEl = panel.querySelector('[data-count]');
   const sendEl = panel.querySelector('[data-send]');
   const tabs = [...panel.querySelectorAll('[data-scenarios] button')];
+  /* A crowd seen from above: each person has a home on a loose grid and a size of their own.
+     The criteria only light people up where they stand; they gather into one group at the end, each in a place of their own, never on top of each other. */
+  const SVG = 'http://www.w3.org/2000/svg';
+  const PERSON = '<circle cx="5" cy="3.2" r="2.5"/><path d="M.6 13c0-4.1 1.9-6.3 4.4-6.3S9.4 8.9 9.4 13z"/>';
   const cells = [];
-  for (let i = 0; i < 270; i++) { const c = document.createElement('i'); dots.appendChild(c); cells.push(c); }
+  const looks = [];
+  let lookSeed = 3;
+  const rnd = () => (lookSeed = (lookSeed * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 168; i++) {
+    const c = document.createElementNS(SVG, 'svg');
+    const size = 11 + rnd() * 6;
+    c.setAttribute('viewBox', '0 0 10 13');
+    c.innerHTML = PERSON;
+    c.style.width = `${size}px`;
+    c.style.height = `${size * 1.3}px`;
+    dots.appendChild(c);
+    cells.push(c);
+    looks.push({ w: size, h: size * 1.3, u: (rnd() - 0.5) * 0.35, v: (rnd() - 0.5) * 0.3 });
+  }
+  /* Places for the group: staggered rows around the centre, nearest first, the group half again as wide as it is tall. */
+  const WIDE = 1.5;
+  const far = (x, y) => Math.hypot(x / WIDE, y);
+  const turn = (x, y) => Math.atan2(y, x / WIDE);
+  const places = [];
+  for (let j = -7; j <= 7; j++) for (let k = -16; k <= 16; k++) places.push({ x: k * 21 + (j & 1 ? 10.5 : 0), y: j * 26 });
+  places.sort((a, b) => far(a.x, a.y) - far(b.x, b.y));
+  const crowd = (draw, keep, gathered) => {
+    const W = dots.clientWidth;
+    const H = dots.clientHeight;
+    const cols = W < 520 ? 12 : 24;
+    const rows = W < 520 ? 6 : 7;
+    const n = cols * rows;
+    const cx = W / 2;
+    const cy = H / 2;
+    const at = cells.map((c, i) => ({ x: ((i % cols) + 0.5 + looks[i].u) / cols * W, y: (Math.floor(i / cols) + 0.5 + looks[i].v) / rows * H }));
+    const group = gathered ? cells.map((c, i) => i).filter((i) => i < n && draw[i] < keep) : [];
+    const used = places.slice(0, group.length);
+    const reach = used.reduce((m, p) => Math.max(m, far(p.x, p.y)), 0);
+    /* Places are handed out by angle, so everyone takes the short way in. */
+    group.sort((a, b) => turn(at[a].x - cx, at[a].y - cy) - turn(at[b].x - cx, at[b].y - cy));
+    used.sort((a, b) => turn(a.x, a.y) - turn(b.x, b.y));
+    group.forEach((i, k) => { at[i] = { x: cx + used[k].x, y: cy + used[k].y }; });
+    cells.forEach((c, i) => {
+      c.style.display = i < n ? '' : 'none';
+      c.style.transform = `translate(${at[i].x - looks[i].w / 2}px,${at[i].y - looks[i].h / 2}px)`;
+      c.dataset.x = Math.round(at[i].x);
+      /* Those left behind inside the group's area step out of sight, so nobody overlaps. */
+      c.classList.toggle('gone', gathered && !(draw[i] < keep) && far(at[i].x - cx, at[i].y - cy) < reach + 22);
+    });
+  };
+  /* The light that carries the audience to its destinations. */
+  const beam = document.createElementNS(SVG, 'svg');
+  beam.setAttribute('class', 'beam');
+  beam.setAttribute('aria-hidden', 'true');
+  beam.innerHTML = '<path class="trail"/><path class="spark"/>';
+  panel.appendChild(beam);
+  const [trail, spark] = beam.children;
+  const dim = () => [trail, spark].forEach((p) => p.getAnimations().forEach((a) => a.cancel()));
+  const travel = (fromX) => {
+    const f = panel.getBoundingClientRect();
+    const d = dots.getBoundingClientRect();
+    const t = sendEl.getBoundingClientRect();
+    const sx = d.left - f.left + fromX + 12;
+    const sy = d.top - f.top + d.height / 2;
+    const ex = t.left - f.left + t.width / 2;
+    const ey = t.top - f.top - 4;
+    const path = `M${sx} ${sy} C${sx + (ex - sx) * 0.9} ${sy} ${ex} ${sy + (ey - sy) * 0.3} ${ex} ${ey}`;
+    trail.setAttribute('d', path);
+    spark.setAttribute('d', path);
+    const L = trail.getTotalLength();
+    trail.style.strokeDasharray = L;
+    spark.style.strokeDasharray = `18 ${L}`;
+    trail.animate([{ strokeDashoffset: L, opacity: 0.8 }, { strokeDashoffset: 0, opacity: 0.8, offset: 0.7 }, { strokeDashoffset: 0, opacity: 0 }], { duration: 1200, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'forwards' });
+    spark.animate([{ strokeDashoffset: 18, opacity: 1 }, { strokeDashoffset: -L, opacity: 1, offset: 0.95 }, { strokeDashoffset: -L, opacity: 0 }], { duration: 750, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+  };
   const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   /* One fixed draw per square and per scenario: the lower the draw, the longer the profile stays in. */
   const draws = (index) => {
@@ -112,6 +185,13 @@
     if (go) next = setTimeout(() => show((current + 1) % scenarios.length, true), 4500);
   };
 
+  let lastWidth = 0;
+  addEventListener('resize', () => {
+    if (dots.clientWidth === lastWidth) return;
+    lastWidth = dots.clientWidth;
+    const gathered = dots.classList.contains('is-grouped');
+    crowd(draws(current), gathered ? scenarios[current].count / 1e6 : 0, gathered);
+  });
   const show = (index, animate) => {
     const s = scenarios[index];
     const id = ++run;
@@ -138,25 +218,27 @@
     const done = () => { settled = true; plan(); };
     /* The request with the words each segment comes from wrapped in a mark, lit or not. */
     const marked = (lit) => s.marks.reduce((html, m, k) => html.replace(m, `<mark data-k="${k}"${lit ? ' class="on"' : ''}>${m}</mark>`), s.ask);
-    const cols = getComputedStyle(dots).gridTemplateColumns.split(' ').length;
-    /* The squares that remain glide into one solid block, filled column by column from the left. */
+    const cols = dots.clientWidth < 520 ? 12 : 24;
+    /* The people who remain gather into one group, each in a place of their own. */
     const group = () => {
-      const seen = cells.filter((c) => c.offsetWidth).length;
-      const rows = Math.ceil(seen / cols);
-      const kept = [];
-      for (let i = 0; i < seen; i++) if (draw[i] < levels[2]) kept.push(i);
-      kept.sort((a, b) => (a % cols) - (b % cols) || a - b);
+      cells.forEach((c, i) => { c.style.transitionDelay = `${Math.round(draw[i] * 200)}ms`; });
       dots.classList.add('is-grouped');
-      kept.forEach((i, j) => {
-        cells[i].style.transitionDelay = `${Math.round(((i % cols) / cols) * 250)}ms`;
-        cells[i].style.setProperty('--dx', Math.floor(j / rows) - (i % cols));
-        cells[i].style.setProperty('--sc', Math.floor(j / rows));
-        cells[i].style.setProperty('--dy', (j % rows) - Math.floor(i / cols));
-      });
+      crowd(draw, levels[2], true);
     };
     const ungroup = () => {
+      dim();
       dots.classList.remove('is-grouped', 'is-sent');
-      cells.forEach((c) => { c.style.removeProperty('--dx'); c.style.removeProperty('--dy'); c.style.removeProperty('--sc'); });
+      crowd(draw, 0, false);
+    };
+    /* A wave of light crosses the group from left to right, then leaves it for the destinations. */
+    const sent = () => {
+      const kept = cells.filter((c) => c.style.display !== 'none' && c.classList.contains('in'));
+      const xs = kept.map((c) => +c.dataset.x);
+      const x0 = Math.min(...xs);
+      const x1 = Math.max(...xs);
+      kept.forEach((c) => { c.style.animationDelay = `${Math.round(((c.dataset.x - x0) / (x1 - x0 || 1)) * 450)}ms`; });
+      dots.classList.add('is-sent');
+      at(450, () => travel(x1));
     };
     if (!animate) {
       panel.classList.remove('is-pending', 'is-typing', 'is-building');
@@ -208,9 +290,9 @@
       at(1750, () => pass(1));
       at(3270, () => pass(2));
       at(4350, group);
-      at(5300, () => dots.classList.add('is-sent'));
-      at(5600, () => panel.classList.remove('is-building'));
-      at(6200, done);
+      at(5500, sent);
+      at(6400, () => panel.classList.remove('is-building'));
+      at(7000, done);
     }, 22);
   };
 
