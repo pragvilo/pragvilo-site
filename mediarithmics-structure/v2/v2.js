@@ -1,4 +1,4 @@
-/* mediarithmics homepage, version 2: menu, audience example (plays once), connector rows. */
+/* mediarithmics homepage, version 2: menu, customer logo carousel, connector wall. */
 (() => {
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -31,111 +31,15 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* Audience example: anonymous profiles as squares. Three illustrative requests, one per industry. */
+  /* Customers: the logo line is doubled and scrolls. Left static with reduced motion. */
+  const marquee = document.querySelector('[data-marquee]');
+  if (marquee && !calm) {
+    const list = marquee.querySelector('ul');
+    [...list.children].forEach((li) => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); list.appendChild(c); });
+    marquee.classList.add('is-live');
+  }
+
   const base = '/mediarithmics-structure/assets/connectors/';
-  const scenarios = [
-    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, share: 0.34, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
-    { who: 'CRM manager, retail', ask: 'Find loyalty members who bought a TV more than five years ago.', criteria: ['Loyalty members', 'TV bought over 5 years ago', 'Marketing consent'], count: 410000, share: 0.22, accent: 'var(--coral)', send: [['meta', 'Meta'], ['criteo', 'Criteo'], ['brevo', 'Brevo']] },
-    { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 96000, share: 0.12, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
-  ];
-  const panel = document.querySelector('[data-audience]');
-  const dots = panel.querySelector('[data-dots]');
-  const whoEl = panel.querySelector('[data-who]');
-  const requestEl = panel.querySelector('[data-request]');
-  const criteriaEl = panel.querySelector('[data-criteria]');
-  const countEl = panel.querySelector('[data-count]');
-  const sendEl = panel.querySelector('[data-send]');
-  const tabs = [...panel.querySelectorAll('[data-scenarios] button')];
-  const cells = [];
-  for (let i = 0; i < 270; i++) { const c = document.createElement('i'); dots.appendChild(c); cells.push(c); }
-  const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  const pick = (index) => {
-    let seed = 7 + index * 131;
-    const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    return cells.filter(() => rand() < scenarios[index].share);
-  };
-  let run = 0;
-
-  const show = (index, animate) => {
-    const s = scenarios[index];
-    const id = ++run;
-    const live = () => id === run;
-    const matched = pick(index);
-    tabs.forEach((t, k) => t.setAttribute('aria-pressed', String(k === index)));
-    panel.style.setProperty('--accent', s.accent);
-    whoEl.textContent = s.who;
-    criteriaEl.innerHTML = s.criteria.map((c) => `<li>${c}</li>`).join('');
-    sendEl.innerHTML = s.send.map(([file, name]) => `<li><img src="${base}${file}.png" width="24" height="24" alt="${name}"></li>`).join('');
-    cells.forEach((c) => c.classList.remove('in'));
-    const finish = () => {
-      if (!live()) return;
-      panel.classList.remove('is-pending', 'is-typing');
-      requestEl.textContent = s.ask;
-      matched.forEach((c) => c.classList.add('in'));
-      countEl.textContent = fmt(s.count);
-    };
-    if (!animate) return finish();
-    setTimeout(finish, 5000);
-    panel.classList.add('is-pending', 'is-typing');
-    requestEl.textContent = '';
-    countEl.textContent = '0';
-    let i = 0;
-    const type = setInterval(() => {
-      if (!live()) return clearInterval(type);
-      requestEl.textContent = s.ask.slice(0, ++i);
-      if (i < s.ask.length) return;
-      clearInterval(type);
-      setTimeout(() => {
-        if (!live()) return;
-        panel.classList.remove('is-pending', 'is-typing');
-        const step = Math.min(14, 900 / matched.length);
-        matched.forEach((c, k) => setTimeout(() => { if (live()) c.classList.add('in'); }, k * step));
-        const start = performance.now();
-        const dur = matched.length * step + 250;
-        const tick = (now) => {
-          if (!live()) return;
-          const p = Math.min(1, (now - start) / dur);
-          countEl.textContent = fmt(s.count * p);
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }, 300);
-    }, 22);
-  };
-
-  tabs.forEach((t, k) => t.addEventListener('click', () => show(k, !calm)));
-  show(0, false);
-  if (!calm && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      show(0, true);
-    }, { threshold: 0.4 });
-    io.observe(panel);
-  }
-
-  /* Products: pointing at, focusing or clicking a name shows that product on the stage */
-  const lineup = document.querySelector('[data-products]');
-  if (lineup) {
-    const entries = [...lineup.children];
-    const pick = (li) => {
-      if (li.classList.contains('is-on')) return;
-      entries.forEach((el) => {
-        const on = el === li;
-        el.classList.toggle('is-on', on);
-        el.querySelector('button').setAttribute('aria-expanded', on);
-      });
-    };
-    const fine = matchMedia('(hover: hover) and (pointer: fine)');
-    entries.forEach((li) => {
-      const button = li.querySelector('button');
-      button.addEventListener('click', () => pick(li));
-      button.addEventListener('focus', () => pick(li));
-      button.addEventListener('pointerenter', () => { if (fine.matches) pick(li); });
-    });
-    lineup.parentElement.classList.add('is-live');
-  }
-
   /* Connectors: a static wall of logos */
   const connectors = [['meta', 'Meta'], ['google', 'Google'], ['braze', 'Braze'], ['the-trade-desk', 'The Trade Desk'], ['freewheel', 'FreeWheel'], ['tiktok', 'TikTok'], ['criteo', 'Criteo'], ['ab-tasty', 'AB Tasty'], ['adform', 'Adform'], ['snapchat', 'Snapchat'], ['microsoft-advertising', 'Microsoft Advertising'], ['brevo', 'Brevo'], ['equativ', 'Equativ'], ['pinterest', 'Pinterest'], ['yahoo', 'Yahoo'], ['kameleoon', 'Kameleoon'], ['teads', 'Teads'], ['linkedin', 'LinkedIn'], ['salesforce', 'Salesforce Marketing Cloud'], ['amazon-ads', 'Amazon Ads'], ['magnite', 'Magnite'], ['emarsys', 'Emarsys'], ['x', 'X'], ['active-agent', 'Active Agent'], ['lotame', 'Lotame'], ['index-exchange', 'Index Exchange'], ['airship', 'Airship'], ['xandr', 'Xandr'], ['batch', 'Batch'], ['adswizz', 'AdsWizz'], ['xtremepush', 'Xtremepush'], ['adot', 'Adot'], ['beeswax', 'Beeswax']];
   const wall = document.querySelector('[data-wall]');
