@@ -3,7 +3,7 @@
    Layout idea: white page, large left-aligned type, centred hero with the audience console, then customers, product grid, testimonies, connectors, certifications. */
 @font-face{font-family:"DM Sans";src:url(/mediarithmics-structure/assets/dm-sans.woff2) format("woff2");font-weight:100 1000;font-display:swap}
 :root{
-  --navy:#061E44;--deep:#021035;
+  --navy:#061E44;--deep:#021035;--raised:#0A2450;--line-dark:#1C4378;
   --cyan:#00A1DF;--cyan-text:#0077A8;--coral:#FF5959;--green:#00AD68;--orange:#F58D39;
   --white:#FFFFFF;--surface:#F5F8FC;--mist:#EAF0F7;--line:#D9E2EC;--line-strong:#B6C4D6;
   --text:#061E44;--text-2:#4D5F80;--on-dark-2:#B4C2D9;--on-dark-line:rgba(255,255,255,.14);
@@ -257,11 +257,12 @@ footer nav a:hover{color:var(--white)}
 
 /* Generated visuals: hero stage, product art, story covers, textures */
 /* Hero in colour (24/11): the blue visual now carries the whole top of the page, headline included */
-.hero{background:linear-gradient(180deg,rgba(2,16,53,.84) 0%,rgba(2,16,53,.5) 36%,rgba(2,16,53,.86) 62%,rgba(2,16,53,.96) 100%),var(--navy) url(/mediarithmics-structure/assets/gen/hero.jpg) center/cover no-repeat;color:var(--white)}
+.hero{background:linear-gradient(180deg,rgba(2,16,53,.84) 0%,rgba(2,16,53,.5) 36%,var(--deep) 46%,var(--deep) 100%),var(--navy) url(/mediarithmics-structure/assets/gen/hero.jpg) center/cover no-repeat;color:var(--white)}
 .hero h1 span{color:#8ED9F6}
 .hero .lead{max-width:44em;color:#D5DFEF;text-wrap:balance}
 .hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
-.hero-stage .console{margin-top:0;background:rgba(13,34,74,.86);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.28);box-shadow:0 32px 80px rgba(1,8,28,.45)}
+/* 24/11: card one step above the hero on the guide's surface scale (raised + subtle border), no glass, no shadow */
+.hero-stage .console{margin-top:0;background:var(--raised);border:1px solid var(--line-dark)}
 .closing{background:var(--navy) url(/mediarithmics-structure/assets/gen/texture-dark.jpg) right center/cover no-repeat}
 @media(max-width:900px){
   .hero-stage{padding-block:32px}
