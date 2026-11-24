@@ -5,8 +5,8 @@
 :root{
   --navy:#061E44;--deep:#021035;--raised:#0A2450;--line-dark:#1C4378;
   --cyan:#00A1DF;--cyan-text:#0077A8;--coral:#FF5959;--green:#00AD68;--orange:#F58D39;
-  --white:#FFFFFF;--surface:#F5F8FC;--mist:#EAF0F7;--line:#D9E2EC;--line-strong:#B6C4D6;
-  --text:#061E44;--text-2:#4D5F80;--on-dark-2:#B4C2D9;--on-dark-line:rgba(255,255,255,.14);
+  --white:#FFFFFF;--surface:#F7F9FC;--mist:#EDF2F8;--line:#D2DCE8;--line-strong:#B6C4D6;
+  --text:#061E44;--text-2:#4D5F80;--on-dark-2:#9FB3CD;--on-dark-line:rgba(255,255,255,.14);
   --ease:cubic-bezier(.2,0,.2,1);
   --ease-out:cubic-bezier(.23,1,.32,1);
   --pad:clamp(72px,9vw,136px);
@@ -33,7 +33,7 @@ h2{font-size:clamp(30px,3.6vw,48px);font-weight:600;letter-spacing:-.028em;line-
 /* Buttons and links */
 .button{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:8px;border:1px solid transparent;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease)}
 .button.primary{background:var(--cyan);color:var(--navy)}
-.button.primary:hover{background:#33B6E8}
+.button.primary:hover{background:#EAF1FA}
 .button.ghost{color:var(--navy);border-color:var(--line-strong)}
 .button.ghost:hover{border-color:var(--navy)}
 .button.on-dark{background:var(--white);color:var(--navy)}
@@ -89,7 +89,7 @@ h1 span{display:block}
 .scenarios button:hover{color:var(--white)}
 .scenarios button[aria-pressed=true]{background:rgba(255,255,255,.12);color:var(--white)}
 .console-body{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);padding:clamp(24px,3.6vw,48px)}
-.ask-who{font-size:15px;font-weight:500;color:#CBD6E8}
+.ask-who{font-size:15px;font-weight:500;color:var(--on-dark-2)}
 .ask-request{margin-top:10px;min-height:3.75em;font-size:clamp(21px,2.1vw,28px);font-weight:600;line-height:1.25;letter-spacing:-.02em}
 .caret{display:inline-block;width:2px;height:1em;margin-left:3px;background:var(--accent);vertical-align:-.12em;opacity:0}
 .is-typing .caret{opacity:1}
@@ -250,8 +250,8 @@ footer nav a:hover{color:var(--white)}
 
 /* Visuals (24/11): flat vector only, per the guide (no texture, no pattern, no photo). Backgrounds only: flat dots redrawn from the former textures (hero: squares in the four signature colours in both top corners, chosen by Gilles 24/11; light rising dots behind the testimonies, dark grid with the four signature colours in the closing), tone on tone, no relief. Hero keeps the one allowed gradient. Product art keeps the generated images */
 .hero{background:url(/mediarithmics-structure/assets/gen/deco-dark-tl.svg) left top/auto 352px no-repeat,url(/mediarithmics-structure/assets/gen/deco-dark-tr.svg) right top/auto 352px no-repeat,linear-gradient(180deg,#08254D,#021035);color:var(--white)}
-.hero h1 span{color:#8ED9F6}
-.hero .lead{max-width:44em;color:#D5DFEF;text-wrap:balance}
+.hero h1 span{color:var(--cyan)}
+.hero .lead{max-width:44em;color:#EAF1FA;text-wrap:balance}
 .hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
 /* 24/11: card one step above the hero on the guide's surface scale (raised + subtle border), no glass, no shadow */
 .hero-stage .console{margin-top:0;background:var(--raised);border:1px solid var(--line-dark)}
@@ -289,14 +289,13 @@ footer nav a:hover{color:var(--white)}
    edge between the dark hero and a mist band, so the change of colour happens behind it, not as a hard line. */
 .hero-stage{padding-bottom:0;margin-bottom:calc(-1 * var(--overlap));position:relative;z-index:1}
 .hero{--overlap:clamp(120px,14vw,220px)}
-.hero-stage .console{background:#0B2149;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
-.logos{--overlap:clamp(120px,14vw,220px);background:#EDF2F8;padding-block:calc(var(--overlap) + clamp(40px,5vw,72px)) clamp(48px,5vw,80px)}
-.logos h2{color:var(--text-2,#4A5A70);font-size:clamp(15px,1.2vw,17px);font-weight:500;letter-spacing:.04em}
+.hero-stage .console{background:var(--raised);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.logos{--overlap:clamp(120px,14vw,220px);background:var(--mist);padding-block:calc(var(--overlap) + clamp(40px,5vw,72px)) clamp(48px,5vw,80px)}
+.logos h2{color:var(--text-2);font-size:clamp(15px,1.2vw,17px);font-weight:500;letter-spacing:.04em}
 .logos .marquee{margin-top:clamp(20px,2.4vw,32px)}
 .logos .marquee img{filter:none;opacity:.78;max-height:28px}
 .logos .marquee li{height:36px}
 .products{padding-block:clamp(56px,6vw,96px) clamp(48px,5vw,72px)}
-.testimonies{background-color:#E6EDF5}
 footer{background:var(--deep)}
 .footer-grid{border-top:0}
 
@@ -325,9 +324,7 @@ footer{background:var(--deep)}
 .quote-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:right center}
 @media(max-width:900px){.quote-list>li+li{margin-left:0}.quote-list>li:not(:last-child) .quote{--qpr:var(--qp)}.quote-art{height:160px}}
 /* Testimony visuals tinted with the card's signature colour (24/11): the pale render is multiplied over a light tint, so the band reads as colour on the grey section instead of grey on grey. */
-.quote-art{background:#CDEBFA;border-bottom:0}
-.quote-list>li:nth-child(2) .quote-art{background:#FFDCDC}
-.quote-list>li:nth-child(3) .quote-art{background:#CDEFDF}
+.quote-art{background:var(--mist);border-bottom:0}
 .quote-art img{mix-blend-mode:multiply}
 
 /* Console higher on the page (24/11): less air above it, so the count and the send line stay on a laptop screen. */
@@ -343,13 +340,13 @@ footer{background:var(--deep)}
 
 /* Certifications and memberships. Component scoped to #ma-trust-section, loaded after the general styles.
    ISO 27001 leads in a white card (cyan top accent), four references sit beside it in a 2 x 2 grid with thin dividers. */
-#ma-trust-section{padding-block:var(--pad);background:#EDF2F8}
+#ma-trust-section{padding-block:var(--pad);background:var(--mist)}
 #ma-trust-section .mt-proofs{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.6fr);gap:clamp(24px,4vw,56px);margin-top:clamp(28px,3.4vw,48px)}
 #ma-trust-section .mt-certification{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;align-content:space-between;gap:clamp(24px,3vw,40px) 20px;padding:clamp(24px,2.6vw,36px);border:1px solid var(--line);border-radius:16px;background:var(--white)}
 #ma-trust-section .mt-certification::before{content:"";position:absolute;inset:-1px 28px auto;height:4px;background:var(--cyan)}
 #ma-trust-section .mt-certification img{width:clamp(84px,8.4vw,116px)}
 #ma-trust-section .mt-certification h3{font-size:clamp(30px,3vw,42px);font-weight:600;letter-spacing:-.03em;line-height:1.04}
-#ma-trust-section .mt-certified{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:4px 9px;border-radius:6px;background:#E3F5EC;color:#0B6B4C;font-size:14px;font-weight:600;line-height:1.3}
+#ma-trust-section .mt-certified{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:4px 9px;border-radius:6px;background:var(--mist);color:var(--text);font-size:14px;font-weight:600;line-height:1.3}
 #ma-trust-section .mt-note{grid-column:1/-1;padding-top:18px;border-top:1px solid var(--line);color:var(--text-2);font-size:16px}
 #ma-trust-section .mt-references{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
 #ma-trust-section .mt-references li{display:flex;flex-direction:column;align-items:center;min-width:0;padding:clamp(20px,2.4vw,32px) 16px;text-align:center}
@@ -360,7 +357,7 @@ footer{background:var(--deep)}
 #ma-trust-section .mt-logo .mt-round{height:64px;border-radius:14px;mix-blend-mode:normal}
 #ma-trust-section .mt-references h3{font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
 #ma-trust-section .mt-references p{margin-top:2px;color:var(--text-2);font-size:15px;line-height:1.4}
-#ma-trust-section .mt-ey{display:inline-flex;align-items:baseline;gap:7px;padding-bottom:9px;font-size:17px;font-weight:600;line-height:1;background:linear-gradient(#FFCF35 0 0) left bottom/30px 4px no-repeat}
+#ma-trust-section .mt-ey{display:inline-flex;align-items:baseline;gap:7px;padding-bottom:9px;font-size:17px;font-weight:600;line-height:1;background:linear-gradient(var(--orange) 0 0) left bottom/30px 4px no-repeat}
 #ma-trust-section .mt-ey b{font-size:42px;font-weight:600;letter-spacing:-.04em}
 @media(max-width:650px){
   #ma-trust-section .mt-proofs{grid-template-columns:minmax(0,1fr)}
@@ -382,7 +379,7 @@ footer{background:var(--deep)}
 /* Examples: three clear tabs, each with its colour */
 .console-bar{padding:12px}
 .scenarios{gap:8px}
-.scenarios button{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px;font-size:16px;font-weight:600;color:#CBD6E8;background:rgba(255,255,255,.05)}
+.scenarios button{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px;font-size:16px;font-weight:600;color:#EAF1FA;background:rgba(255,255,255,.05)}
 .scenarios button::before{content:"";flex:none;width:11px;height:11px;background:var(--c)}
 .scenarios button[aria-pressed=true]{background:var(--c);color:var(--navy)}
 .scenarios button[aria-pressed=true]::before{background:var(--navy)}
@@ -476,7 +473,7 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
    The 9px square is the only colour marker. A covered panel steps back to the deep light surface. */
 .products{background:#061E44;color:#EAF1FA}
 .products h2{color:#EAF1FA}
-.panel{--p-raised:#FFFFFF;--p-deep:#EDF2F8;--p-alt:#061E44;--p-line:#D2DCE8;--p-text:#061E44;--p-text-2:#4D5F80;color:var(--p-text);border-color:var(--p-line);border-radius:12px;background:var(--p-raised);transition:background-color .2s var(--ease),border-color .2s var(--ease)}
+.panel{--p-raised:#FFFFFF;--p-deep:var(--mist);--p-alt:var(--navy);--p-line:var(--line);--p-text:var(--text);--p-text-2:var(--text-2);color:var(--p-text);border-color:var(--p-line);border-radius:12px;background:var(--p-raised);transition:background-color .2s var(--ease),border-color .2s var(--ease)}
 .panel-tab{background:none}
 .panel-tab::before{content:none}
 .panel-tab button{height:var(--tab);color:inherit}
@@ -508,7 +505,7 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 .flow.is-done{opacity:0}
 
 /* Connectors: small and empty tiles on the deeper light surface with a 1px border, so the wall reads as "many more" down to the fade. */
-.wall li:not(.big){border:1px solid #D2DCE8;background:#EDF2F8}
+.wall li:not(.big){border:1px solid var(--line);background:var(--mist)}
 .wall:not(.is-waiting) li.more,.wall.is-waiting.is-in li.more{opacity:1}
 
 /* 24/11: once sent, the audience leaves the grid (fades out to the right) */
@@ -660,3 +657,11 @@ h1{max-width:21em;font-size:clamp(34px,3.8vw,52px)}
 @keyframes menu-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#navigation.open,button[aria-expanded=true]+.sub{animation:none}}
 body.menu-open .notes-btn,body.menu-open .postit{display:none}
+
+/* 24/11 soir : connecteurs sur fond nuit, pour alterner clair / sombre entre témoignages et certifications. Tuiles de logos gardées claires pour la lisibilité. */
+.connectors{background:var(--navy);color:#EAF1FA}
+.connectors .split-head p{color:var(--on-dark-2)}
+.connectors .flow-source{background:var(--raised);border-color:var(--line-dark);color:#EAF1FA}
+.connectors .flow-source.is-on{border-color:var(--cyan)}
+.connectors .wall li.big{border-color:var(--line-dark)}
+.connectors .wall li:not(.big){border-color:transparent}
