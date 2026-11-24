@@ -373,13 +373,9 @@ footer{background:var(--deep)}
 
 /* Console, three beats made explicit (24/11): 1 a request you write, 2 the segments it becomes, 3 the audience.
    The step labels light up one after the other; the request sits in a field so it reads as something you type. */
-.step{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#CBD6E8;transition:opacity .3s var(--ease-out)}
-.step b{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--navy);font-size:13px;font-weight:700}
-[data-stage="1"] .step-2,[data-stage="1"] .step-3,[data-stage="2"] .step-3{opacity:.35}
-.ask-request{margin-top:14px;padding:16px 18px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);font-size:clamp(19px,1.8vw,24px);transition:border-color .3s var(--ease-out)}
+.ask-request{margin-top:0;padding:16px 18px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);font-size:clamp(19px,1.8vw,24px);transition:border-color .3s var(--ease-out)}
 .is-typing .ask-request{border-color:var(--accent)}
-.step-2{margin-top:28px}
-.criteria{margin-top:10px}
+.criteria{margin-top:18px}
 .criteria li:first-child{border-top:0}
 .result{justify-content:flex-start}
 .result-foot{margin-top:auto}
@@ -394,3 +390,6 @@ footer{background:var(--deep)}
 .scenarios button{overflow:hidden}
 .ask-request{box-sizing:border-box;min-height:calc(3.75em + 34px)}
 .scenarios button[aria-pressed=true]:hover{color:var(--navy)}
+/* The words of the request light up one group at a time; each group becomes the segment that appears below it */
+.ask-request mark{background-color:transparent;color:inherit;border-radius:4px;box-shadow:0 0 0 3px transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-color .35s var(--ease-out),box-shadow .35s var(--ease-out)}
+.ask-request mark.on{background-color:color-mix(in srgb,var(--accent) 34%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 34%,transparent)}

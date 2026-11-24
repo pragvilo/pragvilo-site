@@ -42,9 +42,9 @@
   /* Audience example: anonymous profiles as squares. Three illustrative requests, one per industry. */
   const base = '/mediarithmics-structure/assets/connectors/';
   const scenarios = [
-    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
-    { who: 'CRM manager, retail', ask: 'Find loyalty members who bought a TV more than five years ago.', criteria: ['Loyalty members', 'TV bought over 5 years ago', 'Marketing consent'], count: 410000, accent: 'var(--coral)', send: [['meta', 'Meta'], ['criteo', 'Criteo'], ['brevo', 'Brevo']] },
-    { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 96000, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
+    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', marks: ['viewers', 'haven’t watched in six months'], criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
+    { who: 'CRM manager, retail', ask: 'Find loyalty members who bought a TV more than five years ago.', marks: ['loyalty members', 'bought a TV more than five years ago'], criteria: ['Loyalty members', 'TV bought over 5 years ago', 'Marketing consent'], count: 410000, accent: 'var(--coral)', send: [['meta', 'Meta'], ['criteo', 'Criteo'], ['brevo', 'Brevo']] },
+    { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', marks: ['at a partner retailer', 'bought our brand'], criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 180000, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
   ];
   const panel = document.querySelector('[data-audience]');
   const body = panel.querySelector('[data-body]');
@@ -102,6 +102,8 @@
       c.classList.toggle('in', draw[i] < level);
     });
     const done = () => { settled = true; plan(); };
+    /* The request with the words each segment comes from wrapped in a mark, lit or not. */
+    const marked = (lit) => s.marks.reduce((html, m, k) => html.replace(m, `<mark data-k="${k}"${lit ? ' class="on"' : ''}>${m}</mark>`), s.ask);
     const cols = getComputedStyle(dots).gridTemplateColumns.split(' ').length;
     /* The squares that remain glide into one solid block, filled column by column from the left. */
     const group = () => {
@@ -123,9 +125,8 @@
       cells.forEach((c) => { c.style.removeProperty('--dx'); c.style.removeProperty('--dy'); c.style.removeProperty('--sc'); });
     };
     if (!animate) {
-      panel.dataset.stage = '3';
       panel.classList.remove('is-pending', 'is-typing', 'is-building');
-      requestEl.textContent = s.ask;
+      requestEl.innerHTML = marked(true);
       ungroup();
       paint(levels[2], () => 0);
       group();
@@ -147,12 +148,17 @@
     };
     paint(0, () => 0);
     at(400, ungroup);
-    panel.dataset.stage = '1';
     panel.classList.add('is-pending', 'is-typing', 'is-building');
     requestEl.textContent = '';
     shown = 0;
     countEl.textContent = '0';
+    /* A pass: the words light up first, then their segment appears and the grid narrows. */
     const pass = (k) => {
+      const mark = requestEl.querySelector(`[data-k="${k}"]`);
+      if (mark) mark.classList.add('on');
+      at(mark ? 320 : 0, () => narrow(k));
+    };
+    const narrow = (k) => {
       criteriaEl.children[k].classList.add('on');
       /* First pass sweeps in from the left; the next two let squares drop out in no order. */
       paint(levels[k], k === 0 ? (i) => ((i % cols) / cols) * 450 + draw[i] * 120 : (i) => ((draw[i] * 977) % 1) * 260);
@@ -164,13 +170,13 @@
       requestEl.textContent = s.ask.slice(0, ++i);
       if (i < s.ask.length) return;
       clearInterval(type);
-      at(350, () => { panel.dataset.stage = '2'; panel.classList.remove('is-pending', 'is-typing'); pass(0); });
-      at(1550, () => pass(1));
-      at(2750, () => pass(2));
-      at(3750, () => { panel.dataset.stage = '3'; group(); });
-      at(4700, () => dots.classList.add('is-sent'));
-      at(5000, () => panel.classList.remove('is-building'));
-      at(5600, done);
+      at(450, () => { requestEl.innerHTML = marked(false); panel.classList.remove('is-pending', 'is-typing'); requestEl.offsetWidth; pass(0); });
+      at(1750, () => pass(1));
+      at(3270, () => pass(2));
+      at(4350, group);
+      at(5300, () => dots.classList.add('is-sent'));
+      at(5600, () => panel.classList.remove('is-building'));
+      at(6200, done);
     }, 22);
   };
 
