@@ -322,3 +322,11 @@ footer{background:var(--deep)}
   .logos .marquee ul .logo-link:hover img{opacity:1}
   .logo-link:hover span{opacity:1;transform:translate(-50%,0)}
 }
+
+/* Testimony cards (24/11): a light generated visual on top of each card, one signature colour per customer
+   (cyan, coral, green), one matte object per sector (shopping bag, studio camera, TV set) on the pale surface. */
+.quote{--qp:clamp(24px,2.6vw,36px);--qpr:var(--qp);overflow:hidden}
+.quote-list>li:not(:last-child) .quote{--qpr:calc(var(--qp) + var(--lap))}
+.quote-art{align-self:stretch;height:clamp(150px,13vw,200px);margin:calc(var(--qp)*-1) calc(var(--qpr)*-1) 28px calc(var(--qp)*-1);background:var(--mist);border-bottom:1px solid var(--line)}
+.quote-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:right center}
+@media(max-width:900px){.quote-list>li+li{margin-left:0}.quote-list>li:not(:last-child) .quote{--qpr:var(--qp)}.quote-art{height:160px}}
