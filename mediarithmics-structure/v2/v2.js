@@ -49,7 +49,6 @@
   const panel = document.querySelector('[data-audience]');
   const body = panel.querySelector('[data-body]');
   const dots = panel.querySelector('[data-dots]');
-  const whoEl = panel.querySelector('[data-who]');
   const requestEl = panel.querySelector('[data-request]');
   const criteriaEl = panel.querySelector('[data-criteria]');
   const countEl = panel.querySelector('[data-count]');
@@ -66,7 +65,7 @@
   let run = 0;
   let current = 0;
   let shown = 0;
-  /* The three examples play in turn until the visitor picks one. Paused off screen and under the pointer. */
+  /* The three examples play in turn until the visitor picks one. Paused off screen and while the keyboard focus is inside. */
   let auto = !calm;
   let settled = false;
   let visible = false;
@@ -96,7 +95,6 @@
     panel.classList.remove('is-counting');
     tabs.forEach((t, k) => t.setAttribute('aria-pressed', String(k === index)));
     panel.style.setProperty('--accent', s.accent);
-    whoEl.textContent = s.who;
     criteriaEl.innerHTML = s.criteria.map((c) => `<li${animate ? '' : ' class="on"'}>${c}</li>`).join('');
     sendEl.innerHTML = s.send.map(([file, name], k) => `<li style="--k:${k}"><img src="${base}${file}.png" width="24" height="24" alt="${name}"></li>`).join('');
     const paint = (level, delay) => cells.forEach((c, i) => {
@@ -125,6 +123,7 @@
       cells.forEach((c) => { c.style.removeProperty('--dx'); c.style.removeProperty('--dy'); c.style.removeProperty('--sc'); });
     };
     if (!animate) {
+      panel.dataset.stage = '3';
       panel.classList.remove('is-pending', 'is-typing', 'is-building');
       requestEl.textContent = s.ask;
       ungroup();
@@ -148,6 +147,7 @@
     };
     paint(0, () => 0);
     at(400, ungroup);
+    panel.dataset.stage = '1';
     panel.classList.add('is-pending', 'is-typing', 'is-building');
     requestEl.textContent = '';
     shown = 0;
@@ -164,10 +164,10 @@
       requestEl.textContent = s.ask.slice(0, ++i);
       if (i < s.ask.length) return;
       clearInterval(type);
-      at(350, () => { panel.classList.remove('is-pending', 'is-typing'); pass(0); });
+      at(350, () => { panel.dataset.stage = '2'; panel.classList.remove('is-pending', 'is-typing'); pass(0); });
       at(1550, () => pass(1));
       at(2750, () => pass(2));
-      at(3750, group);
+      at(3750, () => { panel.dataset.stage = '3'; group(); });
       at(4700, () => dots.classList.add('is-sent'));
       at(5000, () => panel.classList.remove('is-building'));
       at(5600, done);
@@ -180,8 +180,6 @@
     show(k, !calm);
   }));
   const hold = (on) => { held = on; plan(); };
-  panel.addEventListener('pointerenter', () => hold(true));
-  panel.addEventListener('pointerleave', () => hold(false));
   panel.addEventListener('focusin', () => hold(true));
   panel.addEventListener('focusout', () => hold(false));
   document.addEventListener('visibilitychange', plan);
@@ -192,7 +190,7 @@
       visible = entries[0].isIntersecting;
       if (visible && !started) { started = true; return show(0, true); }
       plan();
-    }, { threshold: Math.min(0.75, (innerHeight * 0.8) / panel.offsetHeight) }).observe(panel);
+    }, { threshold: Math.min(0.5, (innerHeight * 0.6) / panel.offsetHeight) }).observe(panel);
   }
 
   /* Products: a tab scrolls the page to the point where its panel sits on top of the stack */

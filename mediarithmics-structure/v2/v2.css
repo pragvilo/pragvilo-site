@@ -370,3 +370,27 @@ footer{background:var(--deep)}
   #ma-trust-section .mt-references h3{font-size:16px}
   #ma-trust-section .mt-references p{font-size:14px}
 }
+
+/* Console, three beats made explicit (24/11): 1 a request you write, 2 the segments it becomes, 3 the audience.
+   The step labels light up one after the other; the request sits in a field so it reads as something you type. */
+.step{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#CBD6E8;transition:opacity .3s var(--ease-out)}
+.step b{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--navy);font-size:13px;font-weight:700}
+[data-stage="1"] .step-2,[data-stage="1"] .step-3,[data-stage="2"] .step-3{opacity:.35}
+.ask-request{margin-top:14px;padding:16px 18px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(255,255,255,.06);font-size:clamp(19px,1.8vw,24px);transition:border-color .3s var(--ease-out)}
+.is-typing .ask-request{border-color:var(--accent)}
+.step-2{margin-top:28px}
+.criteria{margin-top:10px}
+.criteria li:first-child{border-top:0}
+.result{justify-content:flex-start}
+.result-foot{margin-top:auto}
+/* Examples: three clear tabs, each with its colour */
+.console-bar{padding:12px}
+.scenarios{gap:8px}
+.scenarios button{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px;font-size:16px;font-weight:600;color:#CBD6E8;background:rgba(255,255,255,.05)}
+.scenarios button::before{content:"";flex:none;width:11px;height:11px;background:var(--c)}
+.scenarios button[aria-pressed=true]{background:var(--c);color:var(--navy)}
+.scenarios button[aria-pressed=true]::before{background:var(--navy)}
+.scenarios button::after{left:0;right:0;bottom:0;height:3px;background:var(--navy);opacity:.45}
+.scenarios button{overflow:hidden}
+.ask-request{box-sizing:border-box;min-height:calc(3.75em + 34px)}
+.scenarios button[aria-pressed=true]:hover{color:var(--navy)}
