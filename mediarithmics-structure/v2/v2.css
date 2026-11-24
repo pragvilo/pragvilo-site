@@ -254,8 +254,8 @@ footer nav a:hover{color:var(--white)}
   *,*::before,*::after{transition:none!important;animation:none!important}
 }
 
-/* Visuals (24/11): flat vector only, per the guide (no texture, no pattern, no photo). Backgrounds only: flat dots redrawn from the former textures (hero wave in cyan, light rising dots behind the testimonies, dark grid with the four signature colours in the closing), tone on tone, no relief. Hero keeps the one allowed gradient. Product art keeps the generated images */
-.hero{background:url(/mediarithmics-structure/assets/gen/dots-hero.svg) center 24px/auto 420px no-repeat,linear-gradient(180deg,#08254D,#021035);color:var(--white)}
+/* Visuals (24/11): flat vector only, per the guide (no texture, no pattern, no photo). Backgrounds only: flat dots redrawn from the former textures (hero: squares in the four signature colours in both top corners, chosen by Gilles 24/11; light rising dots behind the testimonies, dark grid with the four signature colours in the closing), tone on tone, no relief. Hero keeps the one allowed gradient. Product art keeps the generated images */
+.hero{background:url(/mediarithmics-structure/assets/gen/deco-dark-tl.svg) left top/auto 352px no-repeat,url(/mediarithmics-structure/assets/gen/deco-dark-tr.svg) right top/auto 352px no-repeat,linear-gradient(180deg,#08254D,#021035);color:var(--white)}
 .hero h1 span{color:#8ED9F6}
 .hero .lead{max-width:44em;color:#D5DFEF;text-wrap:balance}
 .hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
