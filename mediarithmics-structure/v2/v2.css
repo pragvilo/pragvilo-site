@@ -784,3 +784,13 @@ body.menu-open .notes-btn,body.menu-open .postit{display:none}
 /* 16 Illustrations générées (ElevenLabs, Recraft vecteur, 25/11) puis recolorées sur la palette du guide, fond retiré : magasin, téléviseur, clap et téléphone */
 .quote-art img.quote-ill{width:auto;height:74%;max-width:42%;object-fit:contain;padding:0;background:none;border-radius:0}
 .quote-list>li:nth-child(n) .quote-art img.quote-ill{padding:0;background:none;border-radius:0;height:74%}
+/* 17 Carte TF1 claire comme les deux autres (25/11) : même fond blanc, bande corail du guide, logo sans pastille */
+.quote-list>li:nth-child(2) .quote{background:var(--white);border-color:var(--line);color:var(--text)}
+.quote-list>li:nth-child(2) .quote-art{background:var(--tint);border-bottom-color:var(--tint-line)}
+.quote-list>li:nth-child(2) .quote-art img:not(.quote-ill){background:none;padding:0;border-radius:0}
+.quote-list>li:nth-child(2) figcaption{border-top-color:var(--line)}
+.quote-list>li:nth-child(2) .quote-who b{color:var(--text)}
+.quote-list>li:nth-child(2) .quote-who span{color:var(--text-2)}
+.quote-list>li:nth-child(2) .text-link{color:var(--cyan-text)}
+@media(hover:hover){.quote-list>li:nth-child(2) .quote:hover .text-link{color:var(--navy)}}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:nth-child(2):hover .quote{border-color:var(--tint-line)}}
