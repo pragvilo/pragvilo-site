@@ -335,8 +335,8 @@ footer{background:var(--deep)}
 .hero-stage{margin-top:clamp(28px,3.5vw,48px)}
 .console-body{padding:clamp(24px,3vw,40px)}
 /* Send: one pass of light across the block, left to right, just before the destinations appear */
-@keyframes sent{40%{filter:brightness(1.55)}}
-.grid-dots.is-sent i.in::after{animation:sent .5s var(--ease-out) both;animation-delay:calc(var(--sc,0)*28ms)}
+@keyframes sent{30%{filter:brightness(1.55);opacity:1;transform:translate(calc(var(--dx,0)*(100% + var(--gap))),calc(var(--dy,0)*(100% + var(--gap))))}100%{filter:brightness(1.55);opacity:0;transform:translate(calc(var(--dx,0)*(100% + var(--gap)) + 80%),calc(var(--dy,0)*(100% + var(--gap)))) scale(.4)}}
+.grid-dots.is-sent i.in::after{animation:sent .7s var(--ease-out) both;animation-delay:calc(var(--sc,0)*28ms)}
 /* Auto-play: a thin line fills under the current example while it waits for the next one */
 .scenarios button::after{content:"";position:absolute;left:14px;right:14px;bottom:5px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left}
 .is-counting .scenarios button[aria-pressed=true]::after{transform:scaleX(1);transition:transform 4.5s linear}
@@ -510,3 +510,10 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 /* Connectors: small and empty tiles on the deeper light surface with a 1px border, so the wall reads as "many more" down to the fade. */
 .wall li:not(.big){border:1px solid #D2DCE8;background:#EDF2F8}
 .wall:not(.is-waiting) li.more,.wall.is-waiting.is-in li.more{opacity:1}
+
+/* 24/11: once sent, the audience leaves the grid (fades out to the right) */
+/* 24/11: closing button sits midway between the end of the question and the right edge */
+@media (min-width:901px){
+  .closing .wrap{display:grid;grid-template-columns:auto 1fr;align-items:end}
+  .closing .button{justify-self:center;margin-top:0}
+}
