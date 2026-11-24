@@ -684,3 +684,21 @@ body.menu-open .notes-btn,body.menu-open .postit{display:none}
 .wall li.big img{width:64px;height:64px}
 .wall img[alt="Criteo"],.wall img[alt="LinkedIn"]{width:30px;height:30px}
 .wall img[alt="Beeswax"],.wall img[alt="Salesforce Marketing Cloud"],.wall img[alt="TikTok"],.wall img[alt="Batch"],.wall img[alt="Braze"]{width:24px;height:24px}
+/* 10 Témoignages modernisés (24/11) : relief doux, couleur signature par carte, citation plus lisible, auteur nom + fonction. L'animation d'éventail (li, is-piled) n'est pas touchée */
+.quote-list>li:nth-child(1){--accent:var(--cyan)}
+.quote-list>li:nth-child(2){--accent:var(--coral)}
+.quote-list>li:nth-child(3){--accent:var(--green)}
+.quote{border-color:color-mix(in srgb,var(--line) 70%,transparent);box-shadow:0 1px 2px rgba(6,30,68,.04),0 12px 32px -12px rgba(6,30,68,.14);transition:transform .28s var(--ease-out),border-color .28s var(--ease-out),box-shadow .28s var(--ease-out)}
+.quote::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--accent);z-index:1}
+.quote-art{background:color-mix(in srgb,var(--accent) 7%,var(--white));border-bottom:1px solid color-mix(in srgb,var(--accent) 14%,var(--line))}
+.quote blockquote{position:relative;font-size:clamp(18px,1.45vw,20px);line-height:1.5;letter-spacing:-.008em;text-wrap:pretty}
+.quote blockquote::before,.quote-list>li:nth-child(n) blockquote::before{display:block;height:.5em;margin-bottom:14px;font:700 72px/1 Georgia,"Times New Roman",serif;color:var(--accent)}
+.quote figcaption{align-self:stretch;gap:16px;padding-top:20px;border-top:1px solid var(--line)}
+.quote-who{display:grid;gap:2px;line-height:1.35}
+.quote-who b{font-size:16px;font-weight:600;color:var(--text)}
+.quote-who span{font-size:14px;color:var(--text-2)}
+.quote .text-link{display:inline-flex;align-items:center;gap:8px;font-size:15px;text-decoration:none}
+.quote .text-link::before{content:"→";order:2;transition:transform .2s var(--ease-out)}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:hover .quote{box-shadow:0 2px 4px rgba(6,30,68,.05),0 24px 48px -16px rgba(6,30,68,.22);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}}
+@media(hover:hover){.quote:hover .text-link{color:var(--navy)}.quote:hover .text-link::before{transform:translateX(4px)}}
+@media(prefers-reduced-motion:reduce){.quote .text-link::before{transition:none}}
