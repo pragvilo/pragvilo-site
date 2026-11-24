@@ -456,3 +456,18 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 .notes-btn[aria-pressed=true]{background:var(--navy);color:var(--white)}
 @media(prefers-reduced-motion:reduce){.notes-on .postit{animation:none}}
 @media(max-width:560px){.postit{right:12px;top:12px;font-size:13px}.notes-btn{right:12px;bottom:12px}}
+/* Commentaires dans les post-it */
+.pc{margin-top:12px;padding-top:10px;border-top:1px dashed rgba(43,36,16,.35)}
+.pc-title{margin-bottom:6px}
+.pc-list{display:grid;gap:8px;max-height:200px;overflow:auto;margin:0 0 10px;padding:0;list-style:none}
+.pc-item{padding:8px 10px;background:rgba(255,255,255,.55);border-radius:4px}
+.pc-meta{display:block;font-size:12px;font-weight:600;opacity:.7}
+.pc-body{margin:2px 0 0!important;white-space:pre-wrap;overflow-wrap:anywhere}
+.pc-acts{display:flex;gap:10px;margin-top:4px}
+.pc-acts button{padding:0;border:0;background:none;font:inherit;font-size:12px;font-weight:600;text-decoration:underline;color:inherit;cursor:pointer}
+.pc-form{display:grid;gap:6px}
+.pc-form input,.pc-form textarea,.pc-edit{width:100%;padding:7px 9px;border:1px solid rgba(43,36,16,.3);border-radius:4px;background:rgba(255,255,255,.8);font:inherit;font-size:13px;color:inherit;resize:vertical}
+.pc-send{justify-self:start;min-height:32px;padding:0 14px;border:0;border-radius:6px;background:#2B2410;color:#FFE680;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.pc-send:disabled{opacity:.5}
+.pc-msg{font-size:12px;color:#9A2A00}
+.postit{max-height:none}

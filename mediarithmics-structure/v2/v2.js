@@ -265,3 +265,74 @@
     b.setAttribute('aria-pressed',on);b.textContent=on?'Hide notes':'Show notes';
   });
 })();
+
+// Commentaires partagés dans les post-it (24/11) : chaque relecteur signe de son nom, voit les commentaires de tous
+// (Supabase, table maquette_commentaires), et peut modifier ou supprimer les siens (jeton gardé dans ce navigateur).
+(function(){
+  var notes=document.querySelectorAll('.postit');if(!notes.length)return;
+  var API='https://ojvlhvsgazatlulliqda.supabase.co/rest/v1/',KEY='sb_publishable_S9PWWIrzmvkcfCtAejsUAQ_ZzXo519N',PAGE='mediarithmics-v2';
+  var H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
+  var store=window.localStorage,tok=store.getItem('mics-review-token');
+  function uuid(){return crypto.randomUUID?crypto.randomUUID():'10000000-1000-4000-8000-100000000000'.replace(/[018]/g,function(c){return(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16)})}
+  if(!tok){tok=uuid();store.setItem('mics-review-token',tok)}
+  var mine=JSON.parse(store.getItem('mics-review-mine')||'[]');
+  function saveMine(){store.setItem('mics-review-mine',JSON.stringify(mine))}
+  var boxes={};
+  function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
+  function when(d){d=new Date(d);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
+  notes.forEach(function(n,i){
+    var key='note-'+(i+1),box=el('div','pc');
+    box.appendChild(el('b','pc-title','Comments'));
+    var list=el('ul','pc-list');box.appendChild(list);
+    var form=el('form','pc-form');
+    var name=el('input','pc-name');name.type='text';name.placeholder='Your name';name.maxLength=60;name.required=true;name.value=store.getItem('mics-review-name')||'';name.setAttribute('aria-label','Your name');
+    var txt=el('textarea','pc-text');txt.placeholder='Add a comment';txt.rows=2;txt.maxLength=2000;txt.required=true;txt.setAttribute('aria-label','Comment on '+n.getAttribute('aria-label'));
+    var send=el('button','pc-send','Add');send.type='submit';
+    var msg=el('span','pc-msg');
+    form.append(name,txt,send,msg);box.appendChild(form);n.appendChild(box);
+    boxes[key]={list:list,count:0};
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();var a=name.value.trim(),t=txt.value.trim();if(!a||!t)return;
+      store.setItem('mics-review-name',a);document.querySelectorAll('.pc-name').forEach(function(x){if(!x.value)x.value=a});
+      send.disabled=true;msg.textContent='';var id=uuid();
+      fetch(API+'maquette_commentaires',{method:'POST',headers:Object.assign({Prefer:'return=minimal'},H),body:JSON.stringify({id:id,page:PAGE,note:key,auteur:a,texte:t,jeton:tok})})
+        .then(function(r){if(!r.ok)throw r;mine.push(id);saveMine();txt.value='';return load()})
+        .catch(function(){msg.textContent='Not saved, try again.'})
+        .then(function(){send.disabled=false});
+    });
+  });
+  function rpc(fn,body){return fetch(API+'rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(body)}).then(function(r){if(!r.ok)throw r;return r.json()})}
+  function render(rows){
+    var by={};rows.forEach(function(r){(by[r.note]=by[r.note]||[]).push(r)});
+    Object.keys(boxes).forEach(function(k){
+      var b=boxes[k],items=by[k]||[];if(b.list.querySelector('.pc-edit'))return; // ne pas écraser une modification en cours
+      b.list.textContent='';
+      items.forEach(function(r){
+        var li=el('li','pc-item'),meta=el('span','pc-meta',r.auteur+' · '+when(r.cree_le)+(r.modifie_le?' · edited':''));
+        var body=el('p','pc-body',r.texte);li.append(meta,body);
+        if(mine.indexOf(r.id)>-1){
+          var acts=el('span','pc-acts'),ed=el('button',null,'Edit'),del=el('button',null,'Delete');ed.type=del.type='button';
+          acts.append(ed,del);li.appendChild(acts);
+          ed.addEventListener('click',function(){
+            var area=el('textarea','pc-edit');area.value=r.texte;area.rows=3;area.maxLength=2000;
+            var ok=el('button',null,'Save'),no=el('button',null,'Cancel');ok.type=no.type='button';
+            body.replaceWith(area);acts.textContent='';acts.append(ok,no);area.focus();
+            no.addEventListener('click',load);
+            ok.addEventListener('click',function(){var v=area.value.trim();if(!v)return;rpc('modifier_commentaire',{p_id:r.id,p_jeton:tok,p_texte:v}).then(function(done){if(!done)alert('Only the author can edit this comment.');area.classList.remove('pc-edit');load()})});
+          });
+          del.addEventListener('click',function(){if(!confirm('Delete this comment?'))return;rpc('supprimer_commentaire',{p_id:r.id,p_jeton:tok}).then(function(done){if(!done)alert('Only the author can delete this comment.');load()})});
+        }
+        b.list.appendChild(li);
+      });
+      b.list.hidden=!items.length;
+    });
+  }
+  function load(){
+    return fetch(API+'maquette_commentaires?select=id,note,auteur,texte,cree_le,modifie_le&page=eq.'+PAGE+'&order=cree_le.asc',{headers:H})
+      .then(function(r){return r.ok?r.json():[]}).then(render).catch(function(){});
+  }
+  var timer;
+  function watch(){clearInterval(timer);if(document.body.classList.contains('notes-on')){load();timer=setInterval(load,15000)}}
+  var btn=document.querySelector('[data-notes-btn]');if(btn)btn.addEventListener('click',function(){setTimeout(watch,0)});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)watch()});
+})();
