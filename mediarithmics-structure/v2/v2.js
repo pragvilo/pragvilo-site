@@ -47,6 +47,7 @@
     { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 96000, share: 0.12, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
   ];
   const panel = document.querySelector('[data-audience]');
+  const body = panel.querySelector('[data-body]');
   const dots = panel.querySelector('[data-dots]');
   const whoEl = panel.querySelector('[data-who]');
   const requestEl = panel.querySelector('[data-request]');
@@ -57,69 +58,112 @@
   const cells = [];
   for (let i = 0; i < 270; i++) { const c = document.createElement('i'); dots.appendChild(c); cells.push(c); }
   const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  const pick = (index) => {
+  /* One fixed draw per square and per scenario: the lower the draw, the longer the profile stays in. */
+  const draws = (index) => {
     let seed = 7 + index * 131;
-    const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    return cells.filter(() => rand() < scenarios[index].share);
+    return cells.map(() => (seed = (seed * 16807) % 2147483647) / 2147483647);
   };
   let run = 0;
+  let current = 0;
+  let shown = 0;
+  /* The three examples play in turn until the visitor picks one. Paused off screen and under the pointer. */
+  let auto = !calm;
+  let settled = false;
+  let visible = false;
+  let held = false;
+  let next = 0;
+  const plan = () => {
+    clearTimeout(next);
+    if (auto && settled && visible && !held && !document.hidden) next = setTimeout(() => show((current + 1) % scenarios.length, true), 4500);
+  };
 
   const show = (index, animate) => {
     const s = scenarios[index];
     const id = ++run;
     const live = () => id === run;
-    const matched = pick(index);
+    const at = (ms, fn) => setTimeout(() => { if (live()) fn(); }, ms);
+    const draw = draws(index);
+    /* The audience narrows in three passes, one per criterion, down to the final share. */
+    const levels = [s.share + 0.38, s.share + 0.16, s.share];
+    const sizes = levels.map((l, k) => (k === 2 ? s.count : Math.round((s.count * l) / s.share / 1000) * 1000));
+    current = index;
+    settled = false;
+    clearTimeout(next);
     tabs.forEach((t, k) => t.setAttribute('aria-pressed', String(k === index)));
     panel.style.setProperty('--accent', s.accent);
     whoEl.textContent = s.who;
-    criteriaEl.innerHTML = s.criteria.map((c) => `<li>${c}</li>`).join('');
-    sendEl.innerHTML = s.send.map(([file, name]) => `<li><img src="${base}${file}.png" width="24" height="24" alt="${name}"></li>`).join('');
-    cells.forEach((c) => c.classList.remove('in'));
-    const finish = () => {
-      if (!live()) return;
-      panel.classList.remove('is-pending', 'is-typing');
+    criteriaEl.innerHTML = s.criteria.map((c) => `<li${animate ? '' : ' class="on"'}>${c}</li>`).join('');
+    sendEl.innerHTML = s.send.map(([file, name], k) => `<li style="--k:${k}"><img src="${base}${file}.png" width="24" height="24" alt="${name}"></li>`).join('');
+    const paint = (level, delay) => cells.forEach((c, i) => {
+      c.style.transitionDelay = `${Math.round(delay(i))}ms`;
+      c.classList.toggle('in', draw[i] < level);
+    });
+    const done = () => { settled = true; plan(); };
+    if (!animate) {
+      panel.classList.remove('is-pending', 'is-typing', 'is-building');
       requestEl.textContent = s.ask;
-      matched.forEach((c) => c.classList.add('in'));
-      countEl.textContent = fmt(s.count);
+      paint(levels[2], () => 0);
+      shown = s.count;
+      countEl.textContent = fmt(shown);
+      return done();
+    }
+    const countTo = (target, dur) => {
+      const from = shown;
+      const start = performance.now();
+      const tick = (now) => {
+        if (!live()) return;
+        const p = Math.min(1, (now - start) / dur);
+        shown = from + (target - from) * (1 - (1 - p) ** 3);
+        countEl.textContent = fmt(shown);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     };
-    if (!animate) return finish();
-    setTimeout(finish, 5000);
-    panel.classList.add('is-pending', 'is-typing');
+    paint(0, () => 0);
+    panel.classList.add('is-pending', 'is-typing', 'is-building');
     requestEl.textContent = '';
+    shown = 0;
     countEl.textContent = '0';
+    const cols = getComputedStyle(dots).gridTemplateColumns.split(' ').length;
+    const pass = (k) => {
+      criteriaEl.children[k].classList.add('on');
+      /* First pass sweeps in from the left; the next two let squares drop out in no order. */
+      paint(levels[k], k === 0 ? (i) => ((i % cols) / cols) * 450 + draw[i] * 120 : (i) => ((draw[i] * 977) % 1) * 260);
+      countTo(sizes[k], 600);
+    };
     let i = 0;
     const type = setInterval(() => {
       if (!live()) return clearInterval(type);
       requestEl.textContent = s.ask.slice(0, ++i);
       if (i < s.ask.length) return;
       clearInterval(type);
-      setTimeout(() => {
-        if (!live()) return;
-        panel.classList.remove('is-pending', 'is-typing');
-        const step = Math.min(14, 900 / matched.length);
-        matched.forEach((c, k) => setTimeout(() => { if (live()) c.classList.add('in'); }, k * step));
-        const start = performance.now();
-        const dur = matched.length * step + 250;
-        const tick = (now) => {
-          if (!live()) return;
-          const p = Math.min(1, (now - start) / dur);
-          countEl.textContent = fmt(s.count * p);
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }, 300);
+      at(350, () => { panel.classList.remove('is-pending', 'is-typing'); pass(0); });
+      at(1250, () => pass(1));
+      at(2050, () => pass(2));
+      at(2850, () => panel.classList.remove('is-building'));
+      at(3400, done);
     }, 22);
   };
 
-  tabs.forEach((t, k) => t.addEventListener('click', () => show(k, !calm)));
+  tabs.forEach((t, k) => t.addEventListener('click', () => {
+    auto = false;
+    body.setAttribute('aria-live', 'polite');
+    show(k, !calm);
+  }));
+  const hold = (on) => { held = on; plan(); };
+  panel.addEventListener('pointerenter', () => hold(true));
+  panel.addEventListener('pointerleave', () => hold(false));
+  panel.addEventListener('focusin', () => hold(true));
+  panel.addEventListener('focusout', () => hold(false));
+  document.addEventListener('visibilitychange', plan);
   show(0, false);
   if (!calm && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      show(0, true);
-    }, { threshold: 0.4 });
-    io.observe(panel);
+    let started = false;
+    new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && !started) { started = true; return show(0, true); }
+      plan();
+    }, { threshold: 0.4 }).observe(panel);
   }
 
   /* Products: a tab scrolls the page to the point where its panel sits on top of the stack */

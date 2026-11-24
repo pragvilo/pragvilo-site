@@ -88,28 +88,31 @@ h1 span{display:block}
 .scenarios button{white-space:nowrap;min-height:40px;padding:0 14px;border:0;border-radius:8px;background:none;font-size:15px;font-weight:500;color:var(--on-dark-2);cursor:pointer;transition:background-color .15s var(--ease),color .15s var(--ease)}
 .scenarios button:hover{color:var(--white)}
 .scenarios button[aria-pressed=true]{background:rgba(255,255,255,.12);color:var(--white)}
-.console-note{flex:none;padding-right:10px;font-size:14px;color:#CBD6E8}
 .console-body{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);padding:clamp(24px,3.6vw,48px)}
 .ask-who{font-size:15px;font-weight:500;color:#CBD6E8}
 .ask-request{margin-top:10px;min-height:3.75em;font-size:clamp(21px,2.1vw,28px);font-weight:600;line-height:1.25;letter-spacing:-.02em}
 .caret{display:inline-block;width:2px;height:1em;margin-left:3px;background:var(--accent);vertical-align:-.12em;opacity:0}
 .is-typing .caret{opacity:1}
 .criteria{margin-top:20px}
-.criteria li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--on-dark-line);font-size:16px;transition:opacity .25s var(--ease)}
+/* Each criterion arrives on its own, and the grid narrows with it */
+.criteria li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--on-dark-line);font-size:16px;opacity:0;transform:translateY(6px);transition:opacity .3s var(--ease-out),transform .3s var(--ease-out)}
+.criteria li.on{opacity:1;transform:none}
 .criteria li::before{content:"";flex:none;width:9px;height:9px;background:var(--accent)}
 .result{display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .grid-dots{display:grid;grid-template-columns:repeat(30,1fr);gap:5px}
-.grid-dots i{aspect-ratio:1;background:rgba(255,255,255,.09);transition:background-color .3s var(--ease)}
-.grid-dots i.in{background:var(--accent)}
-.result-foot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px;transition:opacity .25s var(--ease)}
+.grid-dots i{position:relative;aspect-ratio:1;background:rgba(255,255,255,.09)}
+.grid-dots i::after{content:"";position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .35s var(--ease-out);transition-delay:inherit}
+.grid-dots i.in::after{opacity:1}
+.result-foot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px}
+.count,.send>span{transition:opacity .3s var(--ease-out)}
 .count{font-size:15px;color:var(--on-dark-2)}
 .count strong{display:block;font-size:clamp(36px,4vw,54px);font-weight:600;letter-spacing:-.035em;line-height:1;color:var(--white);font-variant-numeric:tabular-nums}
 .send{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--on-dark-2)}
 .send-to{display:flex;gap:6px}
-.send-to li{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:var(--white)}
+.send-to li{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:var(--white);transition:opacity .3s var(--ease-out),transform .3s var(--ease-out);transition-delay:calc(var(--k,0)*80ms)}
 .send-to img{width:24px;height:24px;object-fit:contain}
-.console figcaption{padding:12px clamp(24px,3.6vw,48px);border-top:1px solid var(--on-dark-line);font-size:13px;color:var(--on-dark-2)}
-.is-pending .criteria li,.is-pending .result-foot{opacity:0}
+.is-pending .count,.is-building .send>span{opacity:0}
+.is-building .send-to li{opacity:0;transform:translateY(6px);transition-delay:0s}
 
 /* Customers: one line of logos that scrolls slowly. Static and wrapped without JS or with reduced motion. */
 .logos{padding-block:clamp(48px,6vw,88px) 0;text-align:center}
@@ -242,7 +245,6 @@ footer nav a:hover{color:var(--white)}
   h1{letter-spacing:-.03em;line-height:1.04}
   .actions,.actions .button,.closing .button{width:100%}
   .console{border-radius:16px}
-  .console-note{display:none}
   .ask-request{min-height:3.75em}
   .grid-dots{grid-template-columns:repeat(18,1fr);gap:4px}
   .grid-dots i:nth-child(n+145){display:none}
