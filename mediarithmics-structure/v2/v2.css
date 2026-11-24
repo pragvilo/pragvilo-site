@@ -99,10 +99,13 @@ h1 span{display:block}
 .criteria li.on{opacity:1;transform:none}
 .criteria li::before{content:"";flex:none;width:9px;height:9px;background:var(--accent)}
 .result{display:flex;flex-direction:column;justify-content:space-between;gap:24px}
-.grid-dots{display:grid;grid-template-columns:repeat(30,1fr);gap:5px}
+.grid-dots{--gap:5px;display:grid;grid-template-columns:repeat(30,1fr);gap:var(--gap)}
 .grid-dots i{position:relative;aspect-ratio:1;background:rgba(255,255,255,.09)}
-.grid-dots i::after{content:"";position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .35s var(--ease-out);transition-delay:inherit}
+.grid-dots i::after{content:"";position:absolute;inset:0;background:var(--accent);opacity:0;transform:translate(calc(var(--dx,0)*(100% + var(--gap))),calc(var(--dy,0)*(100% + var(--gap))));transition:opacity .35s var(--ease-out);transition-delay:inherit}
+.grid-dots i.in{z-index:1}
 .grid-dots i.in::after{opacity:1}
+/* Last beat: the squares that remain glide into one solid block */
+.grid-dots.is-grouped i::after{transition:opacity .35s var(--ease-out),transform .7s cubic-bezier(.77,0,.175,1);transition-delay:inherit}
 .result-foot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 24px}
 .count,.send>span{transition:opacity .3s var(--ease-out)}
 .count{font-size:15px;color:var(--on-dark-2)}
@@ -246,7 +249,7 @@ footer nav a:hover{color:var(--white)}
   .actions,.actions .button,.closing .button{width:100%}
   .console{border-radius:16px}
   .ask-request{min-height:3.75em}
-  .grid-dots{grid-template-columns:repeat(18,1fr);gap:4px}
+  .grid-dots{--gap:4px;grid-template-columns:repeat(18,1fr)}
   .grid-dots i:nth-child(n+145){display:none}
   .badges{grid-template-columns:repeat(2,minmax(0,1fr))}
   .wall{grid-template-columns:repeat(6,1fr);gap:8px}

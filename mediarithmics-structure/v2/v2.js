@@ -99,10 +99,31 @@
       c.classList.toggle('in', draw[i] < level);
     });
     const done = () => { settled = true; plan(); };
+    const cols = getComputedStyle(dots).gridTemplateColumns.split(' ').length;
+    /* The squares that remain glide into one solid block, filled column by column from the left. */
+    const group = () => {
+      const seen = cells.filter((c) => c.offsetWidth).length;
+      const rows = Math.ceil(seen / cols);
+      const kept = [];
+      for (let i = 0; i < seen; i++) if (draw[i] < levels[2]) kept.push(i);
+      kept.sort((a, b) => (a % cols) - (b % cols) || a - b);
+      dots.classList.add('is-grouped');
+      kept.forEach((i, j) => {
+        cells[i].style.transitionDelay = `${Math.round(((i % cols) / cols) * 250)}ms`;
+        cells[i].style.setProperty('--dx', Math.floor(j / rows) - (i % cols));
+        cells[i].style.setProperty('--dy', (j % rows) - Math.floor(i / cols));
+      });
+    };
+    const ungroup = () => {
+      dots.classList.remove('is-grouped');
+      cells.forEach((c) => { c.style.removeProperty('--dx'); c.style.removeProperty('--dy'); });
+    };
     if (!animate) {
       panel.classList.remove('is-pending', 'is-typing', 'is-building');
       requestEl.textContent = s.ask;
+      ungroup();
       paint(levels[2], () => 0);
+      group();
       shown = s.count;
       countEl.textContent = fmt(shown);
       return done();
@@ -120,11 +141,11 @@
       requestAnimationFrame(tick);
     };
     paint(0, () => 0);
+    at(400, ungroup);
     panel.classList.add('is-pending', 'is-typing', 'is-building');
     requestEl.textContent = '';
     shown = 0;
     countEl.textContent = '0';
-    const cols = getComputedStyle(dots).gridTemplateColumns.split(' ').length;
     const pass = (k) => {
       criteriaEl.children[k].classList.add('on');
       /* First pass sweeps in from the left; the next two let squares drop out in no order. */
@@ -138,10 +159,11 @@
       if (i < s.ask.length) return;
       clearInterval(type);
       at(350, () => { panel.classList.remove('is-pending', 'is-typing'); pass(0); });
-      at(1250, () => pass(1));
-      at(2050, () => pass(2));
-      at(2850, () => panel.classList.remove('is-building'));
-      at(3400, done);
+      at(1550, () => pass(1));
+      at(2750, () => pass(2));
+      at(3750, group);
+      at(4800, () => panel.classList.remove('is-building'));
+      at(5400, done);
     }, 22);
   };
 
