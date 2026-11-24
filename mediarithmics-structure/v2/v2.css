@@ -32,8 +32,8 @@ h2{font-size:clamp(30px,3.6vw,48px);font-weight:600;letter-spacing:-.028em;line-
 
 /* Buttons and links */
 .button{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:8px;border:1px solid transparent;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease)}
-.button.primary{background:var(--navy);color:var(--white)}
-.button.primary:hover{background:#0C3270}
+.button.primary{background:var(--cyan);color:var(--navy)}
+.button.primary:hover{background:#33B6E8}
 .button.ghost{color:var(--navy);border-color:var(--line-strong)}
 .button.ghost:hover{border-color:var(--navy)}
 .button.on-dark{background:var(--white);color:var(--navy)}
@@ -88,9 +88,9 @@ h1 span{display:block}
 .scenarios button{white-space:nowrap;min-height:40px;padding:0 14px;border:0;border-radius:8px;background:none;font-size:15px;font-weight:500;color:var(--on-dark-2);cursor:pointer;transition:background-color .15s var(--ease),color .15s var(--ease)}
 .scenarios button:hover{color:var(--white)}
 .scenarios button[aria-pressed=true]{background:rgba(255,255,255,.12);color:var(--white)}
-.console-note{flex:none;padding-right:10px;font-size:13px;color:var(--on-dark-2)}
+.console-note{flex:none;padding-right:10px;font-size:14px;color:#CBD6E8}
 .console-body{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);padding:clamp(24px,3.6vw,48px)}
-.ask-who{font-size:14px;font-weight:500;color:var(--on-dark-2)}
+.ask-who{font-size:15px;font-weight:500;color:#CBD6E8}
 .ask-request{margin-top:10px;min-height:3.75em;font-size:clamp(21px,2.1vw,28px);font-weight:600;line-height:1.25;letter-spacing:-.02em}
 .caret{display:inline-block;width:2px;height:1em;margin-left:3px;background:var(--accent);vertical-align:-.12em;opacity:0}
 .is-typing .caret{opacity:1}
@@ -235,17 +235,32 @@ footer nav a:hover{color:var(--white)}
 
 /* Generated visuals: hero stage, product art, story covers, textures */
 /* Hero in colour (24/11): the blue visual now carries the whole top of the page, headline included */
-.hero{background:linear-gradient(180deg,rgba(2,16,53,.78) 0%,rgba(2,16,53,.34) 58%,rgba(2,16,53,0) 100%),var(--navy) url(/mediarithmics-structure/assets/gen/hero.jpg) center/cover no-repeat;color:var(--white)}
+.hero{background:linear-gradient(180deg,rgba(2,16,53,.84) 0%,rgba(2,16,53,.5) 36%,rgba(2,16,53,.86) 62%,rgba(2,16,53,.96) 100%),var(--navy) url(/mediarithmics-structure/assets/gen/hero.jpg) center/cover no-repeat;color:var(--white)}
 .hero h1 span{color:#8ED9F6}
-.hero .lead{color:#D5DFEF}
-.hero .actions .button.primary{background:var(--white);color:var(--navy)}
-.hero .actions .button.primary:hover{background:var(--mist)}
+.hero .lead{max-width:44em;color:#D5DFEF;text-wrap:balance}
 .hero-stage{margin-top:clamp(40px,5vw,72px);padding-block:0 clamp(40px,7vw,112px)}
-.hero-stage .console{margin-top:0;background:rgba(4,20,50,.74);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.14);box-shadow:0 32px 80px rgba(1,8,28,.45)}
+.hero-stage .console{margin-top:0;background:rgba(13,34,74,.86);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.28);box-shadow:0 32px 80px rgba(1,8,28,.45)}
 .closing{background:var(--navy) url(/mediarithmics-structure/assets/gen/texture-dark.jpg) right center/cover no-repeat}
 @media(max-width:900px){
   .hero-stage{padding-block:32px}
 }
 @media(max-width:560px){
   .closing{background-position:70% center}
+}
+
+/* Header in translucent navy, so it sits on the dark hero without a break */
+.header{background:rgba(6,30,68,.95);border-bottom-color:rgba(255,255,255,.1)}
+.header.is-scrolled{border-bottom-color:rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(1,8,28,.28)}
+.menu>li>a,.menu>li>button,.menu-toggle{color:var(--white)}
+.menu>li>a:hover,.menu>li>button:hover,.menu>li>button[aria-expanded=true]{background:rgba(255,255,255,.12)}
+.menu-toggle{border-color:rgba(255,255,255,.4)}
+.header .button.ghost{color:var(--white);border-color:rgba(255,255,255,.4)}
+.header .button.ghost:hover{border-color:var(--white)}
+.header :focus-visible{outline-color:var(--white)}
+@media(max-width:1120px){
+  #navigation{background:var(--navy);border-bottom-color:rgba(255,255,255,.14)}
+  .sub,.sub.sub-two{background:none}
+  .sub b{color:var(--white)}
+  .sub span,.sub-title{color:var(--on-dark-2)}
+  .sub a:hover{background:rgba(255,255,255,.08)}
 }
