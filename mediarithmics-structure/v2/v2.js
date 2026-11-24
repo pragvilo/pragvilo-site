@@ -35,7 +35,7 @@
   const marquee = document.querySelector('[data-marquee]');
   if (marquee && !calm) {
     const list = marquee.querySelector('ul');
-    [...list.children].forEach((li) => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); list.appendChild(c); });
+    [...list.children].forEach((li) => { const c = li.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelectorAll('a').forEach((a) => { a.tabIndex = -1; }); list.appendChild(c); });
     marquee.classList.add('is-live');
   }
 

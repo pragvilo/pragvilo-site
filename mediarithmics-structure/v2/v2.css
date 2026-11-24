@@ -283,3 +283,20 @@ footer nav a:hover{color:var(--white)}
 .logos .marquee img{filter:none;opacity:.78;max-height:28px}
 .logos .marquee li{height:36px}
 .products{padding-top:clamp(56px,6vw,96px)}
+
+/* Customer logos as doors (24/11): a logo with a published case study is a link. On hover it comes forward, the others
+   step back and a short label names the story. No blur: the logos stay readable. Touch and keyboard get the text link. */
+.logos-more{margin:10px 0 0;font-size:15px}
+.logos .marquee ul{padding-bottom:34px}
+.logos .marquee li{position:relative}
+.logos .marquee img{transition:opacity .18s var(--ease)}
+.logo-link{display:grid;place-items:center;height:100%;color:var(--text);text-decoration:none;border-radius:6px}
+.logo-link img{opacity:.95}
+.logo-link span{position:absolute;top:100%;left:50%;margin-top:8px;white-space:nowrap;font-size:13px;font-weight:600;letter-spacing:.01em;opacity:0;transform:translate(-50%,-4px);transition:opacity .18s var(--ease),transform .18s var(--ease);pointer-events:none}
+.logo-link span i{font-style:normal}
+.logo-link:focus-visible span{opacity:1;transform:translate(-50%,0)}
+@media(hover:hover){
+  .logos .marquee ul:has(.logo-link:hover) img{opacity:.32}
+  .logos .marquee ul .logo-link:hover img{opacity:1}
+  .logo-link:hover span{opacity:1;transform:translate(-50%,0)}
+}
