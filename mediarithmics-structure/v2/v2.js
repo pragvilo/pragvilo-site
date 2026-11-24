@@ -166,4 +166,16 @@
     }, { threshold: 0.2 });
     seen.observe(wall);
   }
+
+  /* Testimonials: the cards start as a pile on the first one and fan out once the section is in view */
+  const pile = document.querySelector('.quote-list');
+  if (pile && !calm && 'IntersectionObserver' in window) {
+    pile.classList.add('is-piled');
+    const seen = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      pile.classList.remove('is-piled');
+      seen.disconnect();
+    }, { threshold: 0.45 });
+    seen.observe(pile);
+  }
 })();

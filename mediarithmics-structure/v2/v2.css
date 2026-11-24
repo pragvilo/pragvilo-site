@@ -155,13 +155,23 @@ h1 span{display:block}
 .split-head .text-link{display:inline-block;margin-top:20px}
 
 /* Testimonies */
-.testimonies{padding-block:var(--pad);background:var(--surface) url(/mediarithmics-structure/assets/gen/texture-light.jpg) right bottom/cover no-repeat}
-.quote-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(32px,4vw,56px)}
-.quote{display:flex;flex-direction:column;align-items:flex-start;height:100%;margin:0;padding:clamp(24px,2.6vw,36px);border:1px solid var(--line);border-radius:16px;background:var(--white)}
+.testimonies{padding-block:var(--pad);overflow:hidden;background:var(--surface) url(/mediarithmics-structure/assets/gen/texture-light.jpg) right bottom/cover no-repeat}
+/* Cascade: each card overlaps the previous one and sits a step lower. They start as a pile on the first card and fan out when the section scrolls into view. */
+.quote-list{--lap:44px;--step:30px;display:flex;align-items:flex-start;margin-top:clamp(32px,4vw,56px);padding-bottom:calc(var(--step)*2)}
+.quote-list>li{--i:0;position:relative;z-index:calc(var(--i) + 1);flex:1 1 0;min-width:0;display:flex;transform:translateY(calc(var(--step)*var(--i)));transition:transform .9s var(--ease-out) calc(var(--i)*90ms)}
+.quote-list>li:nth-child(2){--i:1}
+.quote-list>li:nth-child(3){--i:2}
+.quote-list>li+li{margin-left:calc(var(--lap)*-1)}
+.quote-list.is-piled>li{transform:translate(calc((var(--lap) - 100%)*var(--i)),calc(10px*var(--i)));transition:none}
+.quote{display:flex;flex-direction:column;align-items:flex-start;width:100%;min-height:clamp(380px,32vw,440px);margin:0;padding:clamp(24px,2.6vw,36px);border:1px solid var(--line);border-radius:20px;background:var(--white)}
+.quote-list>li:not(:last-child) .quote{padding-right:calc(clamp(24px,2.6vw,36px) + var(--lap))}
 .quote>img{height:28px;width:auto;object-fit:contain}
 .quote blockquote{margin:28px 0;font-size:20px;line-height:1.4}
 .quote blockquote::before{content:"“";display:block;height:.7em;margin-bottom:6px;font-size:56px;font-weight:600;line-height:1;color:var(--cyan)}
+.quote-list>li:nth-child(2) blockquote::before{color:var(--coral)}
+.quote-list>li:nth-child(3) blockquote::before{color:var(--green)}
 .quote figcaption{display:grid;gap:14px;justify-items:start;margin-top:auto;font-size:15px}
+@media(prefers-reduced-motion:reduce){.quote-list>li{transition:none}}
 
 /* Connectors */
 .connectors{padding-block:var(--pad)}
@@ -216,7 +226,10 @@ footer nav a:hover{color:var(--white)}
   .panel-art img{aspect-ratio:16/10;height:auto;min-height:0}
   .console-body{grid-template-columns:1fr}
   .ask-request{min-height:2.5em}
-  .quote-list{grid-template-columns:1fr}
+  .quote-list{flex-direction:column;align-items:stretch;gap:16px;padding-bottom:0}
+  .quote-list>li,.quote-list.is-piled>li{transform:none;margin-left:0}
+  .quote{min-height:0}
+  .quote-list>li:not(:last-child) .quote{padding-right:clamp(24px,2.6vw,36px)}
   .badges{grid-template-columns:repeat(3,minmax(0,1fr))}
   .split-head{position:static}
   .footer-grid{grid-template-columns:1fr 1fr}
