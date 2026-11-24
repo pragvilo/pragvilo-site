@@ -330,3 +330,8 @@ footer{background:var(--deep)}
 .quote-art{align-self:stretch;height:clamp(150px,13vw,200px);margin:calc(var(--qp)*-1) calc(var(--qpr)*-1) 28px calc(var(--qp)*-1);background:var(--mist);border-bottom:1px solid var(--line)}
 .quote-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:right center}
 @media(max-width:900px){.quote-list>li+li{margin-left:0}.quote-list>li:not(:last-child) .quote{--qpr:var(--qp)}.quote-art{height:160px}}
+/* Testimony visuals tinted with the card's signature colour (24/11): the pale render is multiplied over a light tint, so the band reads as colour on the grey section instead of grey on grey. */
+.quote-art{background:#CDEBFA;border-bottom:0}
+.quote-list>li:nth-child(2) .quote-art{background:#FFDCDC}
+.quote-list>li:nth-child(3) .quote-art{background:#CDEFDF}
+.quote-art img{mix-blend-mode:multiply}
