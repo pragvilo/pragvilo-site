@@ -165,13 +165,15 @@ h1 span{display:block}
 .quote-list.is-piled>li{transform:translate(calc((var(--lap) - 100%)*var(--i)),calc(10px*var(--i)));transition:none}
 .quote{display:flex;flex-direction:column;align-items:flex-start;width:100%;min-height:clamp(380px,32vw,440px);margin:0;padding:clamp(24px,2.6vw,36px);border:1px solid var(--line);border-radius:20px;background:var(--white)}
 .quote-list>li:not(:last-child) .quote{padding-right:calc(clamp(24px,2.6vw,36px) + var(--lap))}
+.quote{transition:transform .28s var(--ease-out),border-color .28s var(--ease-out)}
+@media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:hover .quote{transform:translateY(-12px);border-color:var(--line-strong)}}
 .quote>img{height:28px;width:auto;object-fit:contain}
 .quote blockquote{margin:28px 0;font-size:20px;line-height:1.4}
 .quote blockquote::before{content:"“";display:block;height:.7em;margin-bottom:6px;font-size:56px;font-weight:600;line-height:1;color:var(--cyan)}
 .quote-list>li:nth-child(2) blockquote::before{color:var(--coral)}
 .quote-list>li:nth-child(3) blockquote::before{color:var(--green)}
 .quote figcaption{display:grid;gap:14px;justify-items:start;margin-top:auto;font-size:15px}
-@media(prefers-reduced-motion:reduce){.quote-list>li{transition:none}}
+@media(prefers-reduced-motion:reduce){.quote-list>li,.quote{transition:none}}
 
 /* Connectors */
 .connectors{padding-block:var(--pad)}
