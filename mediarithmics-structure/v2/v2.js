@@ -42,9 +42,9 @@
   /* Audience example: anonymous profiles as squares. Three illustrative requests, one per industry. */
   const base = '/mediarithmics-structure/assets/connectors/';
   const scenarios = [
-    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, share: 0.34, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
-    { who: 'CRM manager, retail', ask: 'Find loyalty members who bought a TV more than five years ago.', criteria: ['Loyalty members', 'TV bought over 5 years ago', 'Marketing consent'], count: 410000, share: 0.22, accent: 'var(--coral)', send: [['meta', 'Meta'], ['criteo', 'Criteo'], ['brevo', 'Brevo']] },
-    { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 96000, share: 0.12, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
+    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
+    { who: 'CRM manager, retail', ask: 'Find loyalty members who bought a TV more than five years ago.', criteria: ['Loyalty members', 'TV bought over 5 years ago', 'Marketing consent'], count: 410000, accent: 'var(--coral)', send: [['meta', 'Meta'], ['criteo', 'Criteo'], ['brevo', 'Brevo']] },
+    { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 96000, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
   ];
   const panel = document.querySelector('[data-audience]');
   const body = panel.querySelector('[data-body]');
@@ -74,7 +74,9 @@
   let next = 0;
   const plan = () => {
     clearTimeout(next);
-    if (auto && settled && visible && !held && !document.hidden) next = setTimeout(() => show((current + 1) % scenarios.length, true), 4500);
+    const go = auto && settled && visible && !held && !document.hidden;
+    panel.classList.toggle('is-counting', go);
+    if (go) next = setTimeout(() => show((current + 1) % scenarios.length, true), 4500);
   };
 
   const show = (index, animate) => {
@@ -84,11 +86,14 @@
     const at = (ms, fn) => setTimeout(() => { if (live()) fn(); }, ms);
     const draw = draws(index);
     /* The audience narrows in three passes, one per criterion, down to the final share. */
-    const levels = [s.share + 0.38, s.share + 0.16, s.share];
-    const sizes = levels.map((l, k) => (k === 2 ? s.count : Math.round((s.count * l) / s.share / 1000) * 1000));
+    /* The whole grid stands for one million profiles, so the three blocks compare with each other. */
+    const share = s.count / 1e6;
+    const levels = [share + 0.38, share + 0.16, share];
+    const sizes = levels.map((l) => Math.round(l * 1e6));
     current = index;
     settled = false;
     clearTimeout(next);
+    panel.classList.remove('is-counting');
     tabs.forEach((t, k) => t.setAttribute('aria-pressed', String(k === index)));
     panel.style.setProperty('--accent', s.accent);
     whoEl.textContent = s.who;
@@ -111,12 +116,13 @@
       kept.forEach((i, j) => {
         cells[i].style.transitionDelay = `${Math.round(((i % cols) / cols) * 250)}ms`;
         cells[i].style.setProperty('--dx', Math.floor(j / rows) - (i % cols));
+        cells[i].style.setProperty('--sc', Math.floor(j / rows));
         cells[i].style.setProperty('--dy', (j % rows) - Math.floor(i / cols));
       });
     };
     const ungroup = () => {
-      dots.classList.remove('is-grouped');
-      cells.forEach((c) => { c.style.removeProperty('--dx'); c.style.removeProperty('--dy'); });
+      dots.classList.remove('is-grouped', 'is-sent');
+      cells.forEach((c) => { c.style.removeProperty('--dx'); c.style.removeProperty('--dy'); c.style.removeProperty('--sc'); });
     };
     if (!animate) {
       panel.classList.remove('is-pending', 'is-typing', 'is-building');
@@ -162,8 +168,9 @@
       at(1550, () => pass(1));
       at(2750, () => pass(2));
       at(3750, group);
-      at(4800, () => panel.classList.remove('is-building'));
-      at(5400, done);
+      at(4700, () => dots.classList.add('is-sent'));
+      at(5000, () => panel.classList.remove('is-building'));
+      at(5600, done);
     }, 22);
   };
 
@@ -185,7 +192,7 @@
       visible = entries[0].isIntersecting;
       if (visible && !started) { started = true; return show(0, true); }
       plan();
-    }, { threshold: 0.4 }).observe(panel);
+    }, { threshold: Math.min(0.75, (innerHeight * 0.8) / panel.offsetHeight) }).observe(panel);
   }
 
   /* Products: a tab scrolls the page to the point where its panel sits on top of the stack */
