@@ -275,19 +275,59 @@
   const extra = (cols - (slots % cols)) % cols + cols * 2;
   const moreStart = smallStart + small.length * 18;
   wall.insertAdjacentHTML('beforeend', Array.from({ length: extra }, (_, m) => `<li class="more" aria-hidden="true" style="--d:${moreStart + m * 8}"></li>`).join(''));
-  /* Flow, once, after the cascade: a line leaves "Your audience" for each large tile, a dot rides it, the tile lights up on arrival and the line fades.
-     Geometry is read when it starts, so it follows the layout: sideways on desktop, downwards when the wall sits under the text. */
+  /* Flow, once, after the cascade: a line leaves "Your audience" for each large tile, a dot rides it, the tile lights up on arrival.
+     Lines only travel in the gaps between tiles, never over a logo: the route is searched on the grid of gutters, where a large tile blocks the gutters it spans.
+     Geometry is read when it starts, so it follows the layout: from the side on desktop, from above when the wall sits under the text. */
   const flow = () => {
     const source = document.querySelector('[data-flow-source]');
     const frame = wall.closest('.split');
     const targets = [...wall.querySelectorAll('li.big')];
-    if (!source || !frame || !targets.length) return;
+    const unit = wall.querySelector('li:not(.big)');
+    if (!source || !frame || !targets.length || !unit) return;
     const ns = 'http://www.w3.org/2000/svg';
     const box = frame.getBoundingClientRect();
+    const area = wall.getBoundingClientRect();
     const from = source.getBoundingClientRect();
-    const side = wall.getBoundingClientRect().left >= from.right;
-    const x0 = (side ? from.right : from.left + from.width / 2) - box.left;
-    const y0 = (side ? from.top + from.height / 2 : from.bottom) - box.top;
+    const gap = parseFloat(getComputedStyle(wall).columnGap) || 8;
+    const pitch = unit.getBoundingClientRect().width + gap;
+    const nx = Math.round((area.width + gap) / pitch);
+    const ny = Math.round((area.height + gap) / pitch);
+    const gx = (c) => area.left - gap / 2 + c * pitch;
+    const gy = (r) => area.top - gap / 2 + r * pitch;
+    const tiles = [...wall.children].map((li) => li.getBoundingClientRect());
+    const free = (x, y) => !tiles.some((t) => x > t.left + 1 && x < t.right - 1 && y > t.top + 1 && y < t.bottom - 1);
+    const side = area.left >= from.right;
+    const clamp = (v, max) => Math.min(max, Math.max(0, v));
+    const sx = side ? from.right : from.left + from.width / 2;
+    const sy = side ? from.top + from.height / 2 : from.bottom;
+    const c0 = side ? 0 : clamp(Math.round((sx - gx(0)) / pitch), nx);
+    const r0 = side ? clamp(Math.round((sy - gy(0)) / pitch), ny) : 0;
+    const lead = side ? [[sx, sy], [gx(0), sy]] : [[sx, sy], [sx, gy(0)]];
+    /* Shortest route along free gutters from the entry point to the edge of a tile */
+    const route = (t) => {
+      const key = (c, r) => r * (nx + 1) + c;
+      const prev = new Map([[key(c0, r0), null]]);
+      const queue = [[c0, r0]];
+      const done = (c, r) => gx(c) > t.left - gap && gx(c) < t.right + gap && gy(r) > t.top - gap && gy(r) < t.bottom + gap;
+      while (queue.length) {
+        const [c, r] = queue.shift();
+        if (done(c, r)) {
+          const pts = [];
+          for (let at = [c, r]; at; at = prev.get(key(at[0], at[1]))) pts.unshift([gx(at[0]), gy(at[1])]);
+          const [lx, ly] = pts[pts.length - 1];
+          pts.push([Math.min(t.right, Math.max(t.left, lx)), Math.min(t.bottom, Math.max(t.top, ly))]);
+          return [...lead, ...pts];
+        }
+        [[1, 0], [0, 1], [0, -1], [-1, 0]].forEach(([dc, dr]) => {
+          const c2 = c + dc, r2 = r + dr;
+          if (c2 < 0 || r2 < 0 || c2 > nx || r2 > ny || prev.has(key(c2, r2))) return;
+          if (!free((gx(c) + gx(c2)) / 2, (gy(r) + gy(r2)) / 2)) return;
+          prev.set(key(c2, r2), [c, r]);
+          queue.push([c2, r2]);
+        });
+      }
+      return null;
+    };
     const svg = document.createElementNS(ns, 'svg');
     svg.setAttribute('class', 'flow');
     svg.setAttribute('aria-hidden', 'true');
@@ -295,15 +335,15 @@
     frame.append(svg);
     source.classList.add('is-on');
     const ease = (t) => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-    const run = 620;
-    let left = targets.length;
-    targets.forEach((li, k) => {
-      const to = li.getBoundingClientRect();
-      const x1 = (side ? to.left : to.left + to.width / 2) - box.left;
-      const y1 = (side ? to.top + to.height / 2 : to.top) - box.top;
-      const bend = side ? `C${x0 + (x1 - x0) * .5} ${y0} ${x0 + (x1 - x0) * .5} ${y1} ${x1} ${y1}` : `C${x0} ${y0 + (y1 - y0) * .5} ${x1} ${y0 + (y1 - y0) * .5} ${x1} ${y1}`;
+    const run = 1500;
+    const lag = 320;
+    let left = 0;
+    targets.forEach((li) => {
+      const pts = route(li.getBoundingClientRect());
+      if (!pts) return li.classList.add('is-lit');
+      const k = left++;
       const path = document.createElementNS(ns, 'path');
-      path.setAttribute('d', `M${x0} ${y0}${bend}`);
+      path.setAttribute('d', pts.map(([x, y], n) => `${n ? 'L' : 'M'}${(x - box.left).toFixed(1)} ${(y - box.top).toFixed(1)}`).join(''));
       const dot = document.createElementNS(ns, 'circle');
       dot.setAttribute('r', 3);
       svg.append(path, dot);
@@ -311,7 +351,7 @@
       path.style.strokeDasharray = len;
       path.style.strokeDashoffset = len;
       dot.style.opacity = 0;
-      const start = performance.now() + k * 110;
+      const start = performance.now() + k * lag;
       const step = (now) => {
         const t = Math.min(1, Math.max(0, (now - start) / run));
         const e = ease(t);
@@ -322,9 +362,9 @@
         dot.style.opacity = t > 0 ? 1 : 0;
         if (t < 1) return requestAnimationFrame(step);
         li.classList.add('is-lit');
-        path.classList.add('is-done');
         dot.classList.add('is-done');
-        if (!--left) setTimeout(() => svg.remove(), 500);
+        /* The network stays readable for a moment after the last arrival, then fades as a whole */
+        if (!--left) setTimeout(() => { svg.classList.add('is-done'); setTimeout(() => svg.remove(), 700); }, 1200);
       };
       requestAnimationFrame(step);
     });
