@@ -116,5 +116,16 @@
 
   /* Connectors: a static wall of logos */
   const connectors = [['meta', 'Meta'], ['google', 'Google'], ['braze', 'Braze'], ['the-trade-desk', 'The Trade Desk'], ['freewheel', 'FreeWheel'], ['tiktok', 'TikTok'], ['criteo', 'Criteo'], ['ab-tasty', 'AB Tasty'], ['adform', 'Adform'], ['snapchat', 'Snapchat'], ['microsoft-advertising', 'Microsoft Advertising'], ['brevo', 'Brevo'], ['equativ', 'Equativ'], ['pinterest', 'Pinterest'], ['yahoo', 'Yahoo'], ['kameleoon', 'Kameleoon'], ['teads', 'Teads'], ['linkedin', 'LinkedIn'], ['salesforce', 'Salesforce Marketing Cloud'], ['amazon-ads', 'Amazon Ads'], ['magnite', 'Magnite'], ['emarsys', 'Emarsys'], ['x', 'X'], ['active-agent', 'Active Agent'], ['lotame', 'Lotame'], ['index-exchange', 'Index Exchange'], ['airship', 'Airship'], ['xandr', 'Xandr'], ['batch', 'Batch'], ['adswizz', 'AdsWizz'], ['xtremepush', 'Xtremepush'], ['adot', 'Adot'], ['beeswax', 'Beeswax']];
-  document.querySelector('[data-wall]').innerHTML = connectors.map(([file, name]) => `<li title="${name}"><img src="${base}${file}.png" width="32" height="32" alt="${name}" loading="lazy" decoding="async"></li>`).join('');
+  const wall = document.querySelector('[data-wall]');
+  wall.innerHTML = connectors.map(([file, name], i) => `<li title="${name}" style="--i:${i}"><img src="${base}${file}.png" width="32" height="32" alt="${name}" decoding="async"></li>`).join('');
+  /* Cascade, once, when the wall comes into view. Skipped with reduced motion: the wall is simply there. */
+  if (!calm && 'IntersectionObserver' in window) {
+    wall.classList.add('is-waiting');
+    const seen = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      seen.disconnect();
+      wall.classList.add('is-in');
+    }, { threshold: 0.25 });
+    seen.observe(wall);
+  }
 })();

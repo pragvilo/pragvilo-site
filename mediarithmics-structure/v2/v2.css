@@ -8,6 +8,7 @@
   --white:#FFFFFF;--surface:#F5F8FC;--mist:#EAF0F7;--line:#D9E2EC;--line-strong:#B6C4D6;
   --text:#061E44;--text-2:#4D5F80;--on-dark-2:#B4C2D9;--on-dark-line:rgba(255,255,255,.14);
   --ease:cubic-bezier(.2,0,.2,1);
+  --ease-out:cubic-bezier(.23,1,.32,1);
   --pad:clamp(72px,9vw,136px);
   --cols:minmax(0,.72fr) minmax(0,1.6fr);
   --gap:clamp(32px,6vw,88px);
@@ -147,6 +148,9 @@ h1 span{display:block}
 .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:10px}
 .wall li{display:grid;place-items:center;aspect-ratio:1;border-radius:14px;background:var(--surface)}
 .wall img{width:32px;height:32px;object-fit:contain}
+/* Connector wall: tiles arrive in a cascade the first time the wall is seen (classes set by v2.js) */
+.wall.is-waiting li{opacity:0;transform:translateY(8px) scale(.96)}
+.wall.is-waiting.is-in li{opacity:1;transform:none;transition:opacity .3s var(--ease-out),transform .3s var(--ease-out);transition-delay:calc(var(--i)*30ms)}
 
 /* Closing and footer: one dark block */
 .closing{padding-block:clamp(72px,9vw,136px);background:var(--navy);color:var(--white)}
