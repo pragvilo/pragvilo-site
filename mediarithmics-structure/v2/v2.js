@@ -114,6 +114,28 @@
     io.observe(panel);
   }
 
+  /* Products: pointing at, focusing or clicking a name shows that product on the stage */
+  const lineup = document.querySelector('[data-products]');
+  if (lineup) {
+    const entries = [...lineup.children];
+    const pick = (li) => {
+      if (li.classList.contains('is-on')) return;
+      entries.forEach((el) => {
+        const on = el === li;
+        el.classList.toggle('is-on', on);
+        el.querySelector('button').setAttribute('aria-expanded', on);
+      });
+    };
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    entries.forEach((li) => {
+      const button = li.querySelector('button');
+      button.addEventListener('click', () => pick(li));
+      button.addEventListener('focus', () => pick(li));
+      button.addEventListener('pointerenter', () => { if (fine.matches) pick(li); });
+    });
+    lineup.parentElement.classList.add('is-live');
+  }
+
   /* Connectors: a static wall of logos */
   const connectors = [['meta', 'Meta'], ['google', 'Google'], ['braze', 'Braze'], ['the-trade-desk', 'The Trade Desk'], ['freewheel', 'FreeWheel'], ['tiktok', 'TikTok'], ['criteo', 'Criteo'], ['ab-tasty', 'AB Tasty'], ['adform', 'Adform'], ['snapchat', 'Snapchat'], ['microsoft-advertising', 'Microsoft Advertising'], ['brevo', 'Brevo'], ['equativ', 'Equativ'], ['pinterest', 'Pinterest'], ['yahoo', 'Yahoo'], ['kameleoon', 'Kameleoon'], ['teads', 'Teads'], ['linkedin', 'LinkedIn'], ['salesforce', 'Salesforce Marketing Cloud'], ['amazon-ads', 'Amazon Ads'], ['magnite', 'Magnite'], ['emarsys', 'Emarsys'], ['x', 'X'], ['active-agent', 'Active Agent'], ['lotame', 'Lotame'], ['index-exchange', 'Index Exchange'], ['airship', 'Airship'], ['xandr', 'Xandr'], ['batch', 'Batch'], ['adswizz', 'AdsWizz'], ['xtremepush', 'Xtremepush'], ['adot', 'Adot'], ['beeswax', 'Beeswax']];
   const wall = document.querySelector('[data-wall]');
