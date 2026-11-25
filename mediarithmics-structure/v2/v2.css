@@ -804,3 +804,40 @@ body.menu-open .notes-btn,body.menu-open .postit{display:none}
 .quote::before{content:none}
 .quote-list>li:nth-child(n) .quote-art{background:var(--surface);border-bottom:1px solid var(--line)}
 @media(hover:hover) and (min-width:901px){.quote-list:not(.is-piled)>li:nth-child(n):hover .quote{border-color:var(--line-strong)}}
+
+/* Passe mobile (25/11) : page plus courte sur téléphone, notes discrètes, zones tactiles de 44 px. */
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+.button,.text-link,.scenarios button,.panel-tab button,.menu-toggle,.notes-btn,footer nav a{touch-action:manipulation}
+.button,.scenarios button,.panel-tab button,.menu-toggle,.notes-btn{-webkit-user-select:none;user-select:none}
+.button:active{transform:scale(.97)}
+/* Écrans tactiles : les survols ne restent pas collés après un appui */
+@media(hover:none){
+  .button.primary:hover{background:var(--cyan)}
+  .button.ghost:hover{border-color:var(--line-strong)}
+  .button.on-dark:hover{background:var(--white)}
+  .text-link:hover{color:var(--cyan-text)}
+  .scenarios button:not([aria-pressed=true]):hover{color:var(--on-dark-2)}
+  footer nav a:hover{color:inherit}
+}
+@media(max-width:560px){
+  /* Haut de page : la foule de la console moins haute, les logos clients remontent */
+  .grid-dots{height:132px}
+  /* Produits : les quatre cartes en carrousel horizontal, la suivante dépasse pour inviter à glisser */
+  .stack{display:flex;gap:12px;margin-inline:calc(var(--wrap-pad,20px)*-1);padding:0 var(--wrap-pad,20px) 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--wrap-pad,20px);overscroll-behavior-x:contain;scrollbar-width:none}
+  .stack::-webkit-scrollbar{display:none}
+  .stack>.panel,.stack>.panel+.panel{flex:0 0 86%;margin:0;position:static;scroll-snap-align:start;display:flex;flex-direction:column}
+  .stack .panel-body{flex:1;align-content:start}
+  .panel-text p{font-size:21px}
+  /* Témoignages : même carrousel */
+  .quote-list{flex-direction:row;align-items:stretch;gap:12px;margin-inline:calc(var(--wrap-pad,20px)*-1);padding:0 var(--wrap-pad,20px) 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--wrap-pad,20px);overscroll-behavior-x:contain;scrollbar-width:none}
+  .quote-list::-webkit-scrollbar{display:none}
+  .quote-list>li{flex:0 0 86%;scroll-snap-align:start}
+  .quote blockquote{font-size:17px}
+  /* Liens « Read the case study » et pied de page : 44 px de haut au doigt */
+  .quote .text-link{min-height:44px}
+  footer nav a{display:flex;align-items:center;min-height:44px;padding-block:0}
+  /* Bouton des notes : une pastille courte qui cache moins de texte */
+  .notes-btn{min-height:40px;padding:0 14px;font-size:0;opacity:.92}
+  .notes-btn::after{content:"Notes";font-size:13px}
+  .notes-btn[aria-pressed=true]::after{content:"Hide"}
+}
