@@ -505,6 +505,8 @@ main>section:nth-of-type(even) .postit{transform:rotate(-1.4deg);background:#FFD
 .flow-source .sq{width:9px;height:9px}
 .flow-source.is-on{border-color:var(--cyan)}
 .connectors .split{position:relative}
+/* The flow line is drawn from the pill once: a sticky head would move the pill away from where the line starts. */
+.connectors .split-head{position:static}
 .flow{position:absolute;inset:0;z-index:2;width:100%;height:100%;overflow:visible;pointer-events:none}
 .flow{transition:opacity .6s var(--ease)}
 .flow path{fill:none;stroke:var(--cyan);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
