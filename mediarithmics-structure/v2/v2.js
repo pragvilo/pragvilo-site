@@ -76,8 +76,8 @@
   /* Audience example: anonymous profiles as small people. Three illustrative requests, one per industry. */
   const base = '/mediarithmics-structure/assets/connectors/';
   const scenarios = [
-    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', marks: ['viewers', 'haven’t watched in six months'], criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
     { who: 'CRM manager, retail', ask: 'Find loyalty members who bought a TV more than five years ago.', marks: ['loyalty members', 'bought a TV more than five years ago'], criteria: ['Loyalty members', 'TV bought over 5 years ago', 'Marketing consent'], count: 410000, accent: 'var(--coral)', send: [['meta', 'Meta'], ['criteo', 'Criteo'], ['brevo', 'Brevo']] },
+    { who: 'Audience manager, TV & media', ask: 'Bring back viewers who haven’t watched in six months.', marks: ['viewers', 'haven’t watched in six months'], criteria: ['Registered viewers', 'No viewing in 6 months', 'Marketing consent'], count: 250000, accent: 'var(--cyan)', send: [['freewheel', 'FreeWheel'], ['the-trade-desk', 'The Trade Desk'], ['google', 'Google']] },
     { who: 'Media manager, consumer brand', ask: 'Reach shoppers who bought our brand at a partner retailer.', marks: ['at a partner retailer', 'bought our brand'], criteria: ['Partner retailer’s shoppers', 'Bought the brand in 12 months', 'Marketing consent'], count: 180000, accent: 'var(--green)', send: [['amazon-ads', 'Amazon Ads'], ['the-trade-desk', 'The Trade Desk'], ['tiktok', 'TikTok']] },
   ];
   const panel = document.querySelector('[data-audience]');
